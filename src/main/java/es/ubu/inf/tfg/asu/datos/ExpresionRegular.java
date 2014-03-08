@@ -286,39 +286,20 @@ public class ExpresionRegular {
 
 		return string.toString();
 	}
-	
-	public String normalString() {
-		StringBuilder string = new StringBuilder();
 
-		switch (this.tipo) {
-		case VACIO:
-			string.append('E');
-			break;
-		case SIMBOLO:
-			string.append(this.simbolo);
-			break;
-		case UNION:
-			string.append('(');
-			string.append(this.hijoIzquierdo.normalString());
-			string.append('|');
-			string.append(this.hijoDerecho.normalString());
-			string.append(')');
-			break;
-		case CONCAT:
-			string.append('(');
-			string.append(this.hijoIzquierdo.normalString());
-			string.append('.');
-			string.append(this.hijoDerecho.normalString());
-			string.append(')');
-			break;
-		case CIERRE:
-			string.append(this.hijoIzquierdo.normalString());
-			string.append('*');
-			break;
-		default:
-			break;
-		}
+	@Override
+	public boolean equals(Object o) {
+		if (o == null)
+			return false;
+		if (o == this)
+			return true;
+		if (!(o instanceof ExpresionRegular))
+			return false;
 
-		return string.toString();
+		// Consideramos dos expresiones iguales si las escribimos igual.
+		if (!(o.toString().equals(toString())))
+			return false;
+
+		return true;
 	}
 }
