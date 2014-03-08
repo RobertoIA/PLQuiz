@@ -6,10 +6,12 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import es.ubu.inf.tfg.asu.datos.ExpresionRegular;
+import es.ubu.inf.tfg.asu.datos.MapaEstados;
 import es.ubu.inf.tfg.asu.datos.MapaPosiciones;
 import es.ubu.inf.tfg.asu.datos.Nodo;
 import es.ubu.inf.tfg.asu.parser.ExpresionRegularParser;
 import es.ubu.inf.tfg.asu.parser.ParseException;
+import es.ubu.inf.tfg.asu.parser.TokenMgrError;
 
 public class AhoSethiUllman {
 
@@ -17,8 +19,9 @@ public class AhoSethiUllman {
 	private ExpresionRegular expresion;
 	private Nodo solucion;
 	private MapaPosiciones<Character> estados;
+	private MapaEstados transiciones;
 
-	public AhoSethiUllman(String problema) {
+	public AhoSethiUllman(String problema) throws UnsupportedOperationException {
 		if (problema.charAt(problema.length() - 1) != '\n')
 			problema += '\n';
 
@@ -29,26 +32,52 @@ public class AhoSethiUllman {
 
 		try {
 			this.expresion = parser.expresion();
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (ParseException | TokenMgrError e) {
+			throw new UnsupportedOperationException("Expresión no válida.");
 		}
 
 		this.solucion = new Nodo(this.expresion);
-		
-		
+
 		// calculo estados
 		this.estados = new MapaPosiciones<>();
-		this.estados.add('A', primeraPos());
+		this.transiciones = new MapaEstados();
 
+		this.estados.add('A', primeraPos());
 		char estadoActual = 'A';
+
+		// Mientras queden estados por rellenar
 		while (estados.keys().contains(estadoActual)) {
+			// Para cada símbolo no final
 			for (char simbolo : simbolos()) {
-				if (simbolo != '$')
-					mueve(estadoActual, simbolo);
+				if (simbolo != '$') {
+					// Calculamos y almacenamos la transición
+					char destino = transicion(estadoActual, simbolo);
+					this.transiciones.add(estadoActual, simbolo, destino);
+				}
 			}
+			// Pasamos al siguiente estado, alfabeticamente
 			estadoActual++;
 		}
+	}
+
+	private char transicion(char estado, char simbolo) {
+		Set<Integer> posiciones = new TreeSet<>();
+
+		for (int pos : posiciones(simbolo)) {
+			if (this.estados.get(estado).contains(pos))
+				posiciones.addAll(siguientePos(pos));
+		}
+
+		// Comprobar si existe el estado o crear uno nuevo.
+		for (char est : estados()) {
+			if (estado(est).equals(posiciones)) {
+				return est;
+			}
+		}
+
+		char est = (char) (this.estados.size() + 'A');
+		this.estados.add(est, posiciones);
+		return est;
 	}
 
 	public String problema() {
@@ -66,7 +95,7 @@ public class AhoSethiUllman {
 	public Set<Character> simbolos() {
 		return this.solucion.simbolos().keys();
 	}
-	
+
 	public Set<Integer> posiciones(char simbolo) {
 		return this.solucion.simbolos().get(simbolo);
 	}
@@ -78,40 +107,22 @@ public class AhoSethiUllman {
 	public Set<Integer> siguientePos(int n) {
 		return this.solucion.siguientePos().get(n);
 	}
-	
+
 	public Set<Character> estados() {
 		return this.estados.keys();
 	}
-	
+
 	public Set<Integer> estado(char key) {
 		return this.estados.get(key);
 	}
-	
+
 	public char mueve(char estado, char simbolo) {
-		Set<Integer> posiciones = new TreeSet<>();
-
-		for (int pos : posiciones(simbolo)) {
-			if (this.estados.get(estado).contains(pos))
-				posiciones.addAll(siguientePos(pos));
-		}
-
-		// TODO comprobar si existe el estado o crear uno nuevo.
-		for (char est : estados()) {
-			if (estado(est).equals(posiciones)) {
-				return est;
-			}
-		}
-		char e = (char) (this.estados.size() + 'A');
-		this.estados.add(e, posiciones);
-		return e;
+		return this.transiciones.get(estado, simbolo);
 	}
 
 	public boolean esFinal(char estado) {
-		// TODO revisar. Vamos a tener más de un $ alguna vez?
-		Set<Integer> posicionesFinales = posiciones('$');
-		for(int posicion : posicionesFinales)
-			if(this.estados.get(estado).contains(posicion))
-				return true;
-		return false;
+		// Solo hay una posición final por expresión.
+		int posicionfinal = posiciones('$').iterator().next();
+		return this.estados.get(estado).contains(posicionfinal);
 	}
 }
