@@ -108,7 +108,6 @@ public class ExpresionRegularParser implements ExpresionRegularParserConstants {
 
   /** Generated Token Manager. */
   public ExpresionRegularParserTokenManager token_source;
-  SimpleCharStream jj_input_stream;
   /** Current token. */
   public Token token;
   /** Next token. */
@@ -124,14 +123,9 @@ public class ExpresionRegularParser implements ExpresionRegularParserConstants {
       jj_la1_0 = new int[] {0x6e0,0x6e0,0x280,0x680,0x10,};
    }
 
-  /** Constructor with InputStream. */
-  public ExpresionRegularParser(java.io.InputStream stream) {
-     this(stream, null);
-  }
-  /** Constructor with InputStream and supplied encoding */
-  public ExpresionRegularParser(java.io.InputStream stream, String encoding) {
-    try { jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
-    token_source = new ExpresionRegularParserTokenManager(jj_input_stream);
+  /** Constructor with user supplied CharStream. */
+  public ExpresionRegularParser(CharStream stream) {
+    token_source = new ExpresionRegularParserTokenManager(stream);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
@@ -139,33 +133,8 @@ public class ExpresionRegularParser implements ExpresionRegularParserConstants {
   }
 
   /** Reinitialise. */
-  public void ReInit(java.io.InputStream stream) {
-     ReInit(stream, null);
-  }
-  /** Reinitialise. */
-  public void ReInit(java.io.InputStream stream, String encoding) {
-    try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
-    token_source.ReInit(jj_input_stream);
-    token = new Token();
-    jj_ntk = -1;
-    jj_gen = 0;
-    for (int i = 0; i < 5; i++) jj_la1[i] = -1;
-  }
-
-  /** Constructor. */
-  public ExpresionRegularParser(java.io.Reader stream) {
-    jj_input_stream = new SimpleCharStream(stream, 1, 1);
-    token_source = new ExpresionRegularParserTokenManager(jj_input_stream);
-    token = new Token();
-    jj_ntk = -1;
-    jj_gen = 0;
-    for (int i = 0; i < 5; i++) jj_la1[i] = -1;
-  }
-
-  /** Reinitialise. */
-  public void ReInit(java.io.Reader stream) {
-    jj_input_stream.ReInit(stream, 1, 1);
-    token_source.ReInit(jj_input_stream);
+  public void ReInit(CharStream stream) {
+    token_source.ReInit(stream);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;

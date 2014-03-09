@@ -37,12 +37,12 @@ public interface ExpresionRegularParserConstants {
     "\"\\r\"",
     "\"\\t\"",
     "\"*\"",
-    "\".\"",
+    "<CONCAT>",
     "\"|\"",
     "\"(\"",
     "\")\"",
     "<SYMBOL>",
-    "\"E\"",
+    "<EPSILON>",
     "\"\\n\"",
   };
 

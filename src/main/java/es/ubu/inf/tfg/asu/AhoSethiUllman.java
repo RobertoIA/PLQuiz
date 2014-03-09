@@ -1,6 +1,5 @@
 package es.ubu.inf.tfg.asu;
 
-import java.io.Reader;
 import java.io.StringReader;
 import java.util.Set;
 import java.util.TreeSet;
@@ -9,7 +8,9 @@ import es.ubu.inf.tfg.asu.datos.ExpresionRegular;
 import es.ubu.inf.tfg.asu.datos.MapaEstados;
 import es.ubu.inf.tfg.asu.datos.MapaPosiciones;
 import es.ubu.inf.tfg.asu.datos.Nodo;
+import es.ubu.inf.tfg.asu.parser.CharStream;
 import es.ubu.inf.tfg.asu.parser.ExpresionRegularParser;
+import es.ubu.inf.tfg.asu.parser.JavaCharStream;
 import es.ubu.inf.tfg.asu.parser.ParseException;
 import es.ubu.inf.tfg.asu.parser.TokenMgrError;
 
@@ -27,7 +28,7 @@ public class AhoSethiUllman {
 
 		this.problema = problema.substring(0, problema.length() - 1);
 
-		Reader input = new StringReader(problema);
+		CharStream input = new JavaCharStream(new StringReader(problema));
 		ExpresionRegularParser parser = new ExpresionRegularParser(input);
 
 		try {
