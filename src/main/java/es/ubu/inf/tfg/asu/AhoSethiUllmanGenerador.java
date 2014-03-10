@@ -15,8 +15,8 @@ import es.ubu.inf.tfg.asu.parser.ParseException;
 import es.ubu.inf.tfg.asu.parser.TokenMgrError;
 
 public class AhoSethiUllmanGenerador {
-	
-	private static final int MAX_ITERACIONES = 100;
+
+	private static final int MAX_ITERACIONES = 10;
 
 	private static final AhoSethiUllmanGenerador instance = new AhoSethiUllmanGenerador();
 	private static final Random random = new Random(new Date().getTime());
@@ -59,7 +59,7 @@ public class AhoSethiUllmanGenerador {
 	public AhoSethiUllman nuevo(int nSimbolos, int nEstados, boolean usaVacio) {
 		this.usaVacio = usaVacio;
 
-		AhoSethiUllman candidato, actual;
+		AhoSethiUllman candidato = null, actual = null;
 		ExpresionRegular expresion;
 		int iteraciones = 0;
 		int profundidad = 4;
@@ -77,15 +77,20 @@ public class AhoSethiUllmanGenerador {
 
 			expresion = subArbol(profundidad, null);
 			System.err.println("Genera: " + expresion);
-			
-			if(candidato == null)
+
+			if (candidato == null)
 				candidato = new AhoSethiUllman(expresion);
 			else {
 				actual = new AhoSethiUllman(expresion);
-				if(evalua(actual) < evalua(candidato))
+				if (evalua(actual, nEstados) < evalua(candidato, nEstados))
 					candidato = actual;
 			}
-		} while (evalua(candidato) != 0 && iteraciones < MAX_ITERACIONES);
+			
+			profundidad += evalua(candidato, nEstados);
+			System.err.println("PROFUNDIDAD " + profundidad);
+			iteraciones++;
+		} while (evalua(candidato, nEstados) != 0
+				&& iteraciones < MAX_ITERACIONES);
 
 		return candidato;
 	}
@@ -117,7 +122,7 @@ public class AhoSethiUllmanGenerador {
 		case VACIO: // Vacío solo actua como marcador.
 		case SIMBOLO:
 			char simbolo = simbolo();
-			if (simbolo == 'E' && operadores.contains(Operador.VACIO)) {
+			if (simbolo == 'E' && operadores.contains(Operador.VACIO)) { // si no hay Operador.VACIO puede meter E
 				System.err.println("GENERA VACIO");
 				return ExpresionRegular.nodoVacio();
 			}
@@ -158,6 +163,31 @@ public class AhoSethiUllmanGenerador {
 		} else {
 			index = random.nextInt(this.simbolosRepetidos.size());
 			return this.simbolosRepetidos.get(index);
+		}
+	}
+
+	private int evalua(AhoSethiUllman problema, int nEstados) {
+		return problema.estados().size() - nEstados;
+	}
+	
+
+	// TODO temp
+	public static void main(String[] args) {
+		AhoSethiUllmanGenerador asug = AhoSethiUllmanGenerador.getInstance();
+		AhoSethiUllman asu = asug.nuevo(1, 6, true);
+		System.out.println(asu.problema());
+		System.out.println(asu.expresionAumentada());
+		System.out.println(asu.estados().size());
+
+		CharStream input = new JavaCharStream(new StringReader(
+				asu.expresionAumentada() + '\n'));
+		ExpresionRegularParser parser = new ExpresionRegularParser(input);
+
+		try {
+			parser.expresion();
+		} catch (ParseException | TokenMgrError e) {
+			e.printStackTrace();
+			throw new UnsupportedOperationException("Expresión no válida.");
 		}
 	}
 }
