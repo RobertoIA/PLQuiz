@@ -16,26 +16,82 @@ import es.ubu.inf.tfg.asu.parser.TokenMgrError;
 
 public class AhoSethiUllmanGenerador {
 
-	private static final int MAX_ITERACIONES = 10;
+	private static final int MAX_ITERACIONES = 25;
 
 	private static final AhoSethiUllmanGenerador instance = new AhoSethiUllmanGenerador();
 	private static final Random random = new Random(new Date().getTime());
 
 	private boolean usaVacio;
-	private List<Character> simbolos;
-	private List<Character> simbolosRepetidos;
-	private int posicion;
 
 	private static enum Operador {
 		SIMBOLO, VACIO, CIERRE, CONCAT, UNION;
 
-		static final EnumSet<Operador> COMPLETO = EnumSet.range(CIERRE, UNION);
-		static final EnumSet<Operador> PARCIAL = EnumSet.of(CONCAT, UNION);
-		static final EnumSet<Operador> FINAL_COMPLETO = EnumSet.of(SIMBOLO,
+		private static final EnumSet<Operador> COMPLETO = EnumSet.range(CIERRE, UNION);
+		private static final EnumSet<Operador> PARCIAL = EnumSet.of(CONCAT, UNION);
+		private static final EnumSet<Operador> FINAL_COMPLETO = EnumSet.of(SIMBOLO,
 				VACIO);
-		static final EnumSet<Operador> FINAL_PARCIAL = EnumSet.of(SIMBOLO);
+		private static final EnumSet<Operador> FINAL_PARCIAL = EnumSet.of(SIMBOLO);
 
-		static Operador random(EnumSet<Operador> operadores) {
+		private static List<Character> simbolos;
+		private static List<Character> simbolosRepetidos;
+		private static int posicion;
+
+		private static void inicializa(int nSimbolos, boolean usaVacio) {
+			simbolos = new ArrayList<>();
+			for (int i = 0; i < nSimbolos; i++)
+				simbolos.add((char) ('a' + i));
+			if (usaVacio)
+				simbolos.add('E');
+			simbolosRepetidos = new ArrayList<>(simbolos);
+
+			posicion = 0;
+		}
+
+		private static char simbolo() {
+			int index;
+
+			if (simbolos.size() > 0) {
+				index = random.nextInt(simbolos.size());
+				char simbolo = simbolos.get(index);
+				simbolos.remove(index);
+				return simbolo;
+			} else {
+				index = random.nextInt(simbolosRepetidos.size());
+				return simbolosRepetidos.get(index);
+			}
+		}
+
+		private static char simboloNoVacio() {
+			int index;
+
+			if (simbolosRepetidos.contains('E')) {
+				List<Character> simbolosParcial;
+				if (simbolos.size() > 1) {
+					simbolosParcial = new ArrayList<>(simbolos);
+					simbolosParcial.remove(simbolosParcial.indexOf('E'));
+					index = random.nextInt(simbolosParcial.size());
+					char simbolo = simbolosParcial.get(index);
+					simbolos.remove(index);
+					return simbolo;
+				} else {
+					simbolosParcial = new ArrayList<>(simbolosRepetidos);
+					simbolosParcial.remove(simbolosParcial.indexOf('E'));
+					index = random.nextInt(simbolosParcial.size());
+					return simbolosParcial.get(index);
+				}
+			} else
+				return simbolo();
+		}
+
+		private static int posicion() {
+			return posicion++;
+		}
+		
+		private static int simbolos() {
+			return simbolosRepetidos.size();
+		}
+
+		private static Operador random(EnumSet<Operador> operadores) {
 			int index = random.nextInt(operadores.size());
 			return (Operador) operadores.toArray()[index];
 		}
@@ -66,32 +122,23 @@ public class AhoSethiUllmanGenerador {
 
 		do {
 			// Inicializa variables
-			this.simbolos = new ArrayList<>();
-			for (int i = 0; i < nSimbolos; i++)
-				this.simbolos.add((char) ('a' + i));
-			if (usaVacio)
-				this.simbolos.add('E');
-			this.simbolosRepetidos = new ArrayList<>(this.simbolos);
+			Operador.inicializa(nSimbolos, usaVacio);
 
-			this.posicion = 0;
-
+			// Genera expresión
 			expresion = subArbol(profundidad, null);
-			System.err.println("Genera: " + expresion);
 
-			if (candidato == null)
+			// Evalua candidato
+			if (candidato == null) {
 				candidato = new AhoSethiUllman(expresion);
-			else {
+			} else {
 				actual = new AhoSethiUllman(expresion);
 				if (evalua(actual, nEstados) < evalua(candidato, nEstados))
 					candidato = actual;
 			}
-			
-			profundidad += evalua(candidato, nEstados);
-			System.err.println("PROFUNDIDAD " + profundidad);
+
 			iteraciones++;
 		} while (evalua(candidato, nEstados) != 0
 				&& iteraciones < MAX_ITERACIONES);
-
 		return candidato;
 	}
 
@@ -101,82 +148,62 @@ public class AhoSethiUllmanGenerador {
 		ExpresionRegular hijoIzquierdo;
 		ExpresionRegular hijoDerecho;
 
+		// Raiz del árbol, aumenta la expresión.
 		if (operadores == null) {
-			System.err.println("Aumenta expresión");
 			hijoIzquierdo = subArbol(profundidad - 1, Operador.COMPLETO);
-			hijoDerecho = ExpresionRegular.nodoAumentado(posicion);
+			hijoDerecho = ExpresionRegular.nodoAumentado(Operador.posicion());
 			return ExpresionRegular.nodoConcat(hijoDerecho, hijoIzquierdo);
 		}
 
+		// Hoja del árbol.
 		if (profundidad <= 0) {
-			if (operadores.equals(Operador.COMPLETO) && this.usaVacio) {
-				System.err.println("Utilizará símbolos y vacíos");
+			if (operadores.equals(Operador.COMPLETO) && this.usaVacio)
 				operadores = Operador.FINAL_COMPLETO;
-			} else {
+			else
 				operadores = Operador.FINAL_PARCIAL;
-				System.err.println("Utilizará solo símbolos");
-			}
 		}
 
+		// Nodo operador.
 		switch (Operador.random(operadores)) {
 		case VACIO: // Vacío solo actua como marcador.
 		case SIMBOLO:
-			char simbolo = simbolo();
-			if (simbolo == 'E' && operadores.contains(Operador.VACIO)) { // si no hay Operador.VACIO puede meter E
-				System.err.println("GENERA VACIO");
+			char simbolo;
+			if (operadores.equals(Operador.FINAL_COMPLETO))
+				simbolo = Operador.simbolo();
+			else
+				simbolo = Operador.simboloNoVacio();
+
+			if (simbolo == 'E')
 				return ExpresionRegular.nodoVacio();
-			}
-			System.err.println("nodo símbolo: " + (this.posicion + 1) + " "
-					+ simbolo);
-			return ExpresionRegular.nodoSimbolo(this.posicion++, simbolo);
+			return ExpresionRegular.nodoSimbolo(Operador.posicion(), simbolo);
 		case CIERRE:
-			System.err.println("nodo cierre");
 			hijoIzquierdo = subArbol(profundidad - 1, Operador.PARCIAL);
 			return ExpresionRegular.nodoCierre(hijoIzquierdo);
 		case CONCAT:
-			System.err.println("nodo concat");
 			hijoIzquierdo = subArbol(profundidad - 1, Operador.COMPLETO);
 			hijoDerecho = subArbol(profundidad - 1, Operador.COMPLETO);
 			return ExpresionRegular.nodoConcat(hijoDerecho, hijoIzquierdo);
 		case UNION:
-			System.err.println("nodo union");
 			hijoIzquierdo = subArbol(profundidad - 1, Operador.COMPLETO);
 			hijoDerecho = subArbol(profundidad - 1, Operador.COMPLETO);
 			return ExpresionRegular.nodoUnion(hijoDerecho, hijoIzquierdo);
 		default:
-			System.err.println("DEFAULT");
 			return null;
-		}
-
-	}
-
-	// utiliza todos los símbolos una vez (orden al azar) antes de empezar a
-	// repetir.
-	private char simbolo() {
-		int index;
-
-		if (this.simbolos.size() > 0) {
-			index = random.nextInt(this.simbolos.size());
-			char simbolo = this.simbolos.get(index);
-			this.simbolos.remove(index);
-			return simbolo;
-		} else {
-			index = random.nextInt(this.simbolosRepetidos.size());
-			return this.simbolosRepetidos.get(index);
 		}
 	}
 
 	private int evalua(AhoSethiUllman problema, int nEstados) {
-		return problema.estados().size() - nEstados;
+		int diferenciaEstados = Math.abs(problema.estados().size() - nEstados);
+		int diferenciaSimbolos = Math.abs(problema.simbolos().size() - Operador.simbolos());
+		
+		return diferenciaEstados + diferenciaSimbolos;
 	}
 	
-
 	// TODO temp
 	public static void main(String[] args) {
 		AhoSethiUllmanGenerador asug = AhoSethiUllmanGenerador.getInstance();
-		AhoSethiUllman asu = asug.nuevo(1, 6, true);
+		AhoSethiUllman asu = asug.nuevo(2, 6, true);
 		System.out.println(asu.problema());
-		System.out.println(asu.expresionAumentada());
 		System.out.println(asu.estados().size());
 
 		CharStream input = new JavaCharStream(new StringReader(
