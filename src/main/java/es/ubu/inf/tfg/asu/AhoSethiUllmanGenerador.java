@@ -1,6 +1,5 @@
 package es.ubu.inf.tfg.asu;
 
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.EnumSet;
@@ -8,12 +7,23 @@ import java.util.List;
 import java.util.Random;
 
 import es.ubu.inf.tfg.asu.datos.ExpresionRegular;
-import es.ubu.inf.tfg.asu.parser.CharStream;
-import es.ubu.inf.tfg.asu.parser.ExpresionRegularParser;
-import es.ubu.inf.tfg.asu.parser.JavaCharStream;
-import es.ubu.inf.tfg.asu.parser.ParseException;
-import es.ubu.inf.tfg.asu.parser.TokenMgrError;
 
+/**
+ * AhoSethiUllmanGenerador implementa una clase encargada de generar problemas
+ * de tipo AhoSethiUllman con los parámetros especificados, siguiendo un
+ * algoritmo de búsqueda aleatoria, con generación de árboles basada en el
+ * algoritmo GROW.
+ * <p>
+ * El generador implementa el patrón de diseño singleton, representando un
+ * proveedor de problemas que recibe peticiones y devuelve los resultados de la
+ * búsqueda.
+ * <p>
+ * El generador no garantiza que los resultados se adapten perfectamente a los
+ * parámetros de entrada.
+ * 
+ * @author Roberto Izquierdo Amo
+ * 
+ */
 public class AhoSethiUllmanGenerador {
 
 	private static final int MAX_ITERACIONES = 25;
@@ -21,21 +31,43 @@ public class AhoSethiUllmanGenerador {
 	private static final AhoSethiUllmanGenerador instance = new AhoSethiUllmanGenerador();
 	private static final Random random = new Random(new Date().getTime());
 
-	private boolean usaVacio;
-
+	/**
+	 * Operador implementa un tipo enumerado que contiene los tipos de
+	 * operadores que utilizará el árbol, los conjuntos de operadores que se
+	 * utilizan en cada circunstancia, y una serie de operaciones relacionadas.
+	 * <p>
+	 * Se utiliza también para almacenar el estado del árbol en un momento
+	 * determinado.
+	 * 
+	 * @author Roberto Izquierdo Amo
+	 * 
+	 */
 	private static enum Operador {
 		SIMBOLO, VACIO, CIERRE, CONCAT, UNION;
 
-		private static final EnumSet<Operador> COMPLETO = EnumSet.range(CIERRE, UNION);
-		private static final EnumSet<Operador> PARCIAL = EnumSet.of(CONCAT, UNION);
-		private static final EnumSet<Operador> FINAL_COMPLETO = EnumSet.of(SIMBOLO,
-				VACIO);
-		private static final EnumSet<Operador> FINAL_PARCIAL = EnumSet.of(SIMBOLO);
+		private static final EnumSet<Operador> COMPLETO = EnumSet.range(CIERRE,
+				UNION);
+		private static final EnumSet<Operador> PARCIAL = EnumSet.of(CONCAT,
+				UNION);
+		private static final EnumSet<Operador> FINAL_COMPLETO = EnumSet.of(
+				SIMBOLO, VACIO);
+		private static final EnumSet<Operador> FINAL_PARCIAL = EnumSet
+				.of(SIMBOLO);
 
 		private static List<Character> simbolos;
 		private static List<Character> simbolosRepetidos;
 		private static int posicion;
 
+		/**
+		 * Inicializa los valores del enumerado para empezar a trabajar en un
+		 * nuevo árbol.
+		 * 
+		 * @param nSimbolos
+		 *            Número de símbolos a generar.
+		 * @param usaVacio
+		 *            <code>true</code> si la expresión contendrá nodos vacíos,
+		 *            <code>false</code> de lo contrario.
+		 */
 		private static void inicializa(int nSimbolos, boolean usaVacio) {
 			simbolos = new ArrayList<>();
 			for (int i = 0; i < nSimbolos; i++)
@@ -47,6 +79,13 @@ public class AhoSethiUllmanGenerador {
 			posicion = 0;
 		}
 
+		/**
+		 * Genera un símbolo cualquiera de aquellos que puede incluir el árbol.
+		 * Puede contener el símbolo vacío. Prioritiza símbolos que aún no hayan
+		 * aparecido.
+		 * 
+		 * @return Un símbolo cualquiera o el símbolo vacío.
+		 */
 		private static char simbolo() {
 			int index;
 
@@ -61,6 +100,13 @@ public class AhoSethiUllmanGenerador {
 			}
 		}
 
+		/**
+		 * Genera un símbolo cualquiera de aquellos que puede incluir el árbol,
+		 * excluyendo el símbolo vacío. Prioritiza símbolos que aún no hayan
+		 * aparecido.
+		 * 
+		 * @return Un símbolo cualquiera.
+		 */
 		private static char simboloNoVacio() {
 			int index;
 
@@ -83,17 +129,45 @@ public class AhoSethiUllmanGenerador {
 				return simbolo();
 		}
 
+		/**
+		 * Devuelve la siguiente posición a añadir en el árbol.
+		 * 
+		 * @return Siguiente posición.
+		 */
 		private static int posicion() {
 			return posicion++;
 		}
-		
+
+		/**
+		 * Devuelve la cantidad de símbolos distintos que debe contener el
+		 * árbol.
+		 * 
+		 * @return Cantidad de símbolos en el árbol.
+		 */
 		private static int simbolos() {
 			return simbolosRepetidos.size();
 		}
 
+		/**
+		 * Devuelve un operador aleatorio de entre un conjunto de operadores.
+		 * 
+		 * @param operadores
+		 *            Conjunto de operadores entre los que elegir.
+		 * @return Operador cualquiera del conjunto.
+		 */
 		private static Operador random(EnumSet<Operador> operadores) {
 			int index = random.nextInt(operadores.size());
 			return (Operador) operadores.toArray()[index];
+		}
+
+		/**
+		 * Comprueba si el árbol contendrá nodos vacíos.
+		 * 
+		 * @return<code>true</code> si la expresión contendrá nodos vacíos,
+		 *                          <code>false</code> de lo contrario.
+		 */
+		private static boolean usaVacio() {
+			return simbolosRepetidos.contains('E');
 		}
 	}
 
@@ -112,9 +186,21 @@ public class AhoSethiUllmanGenerador {
 		return instance;
 	}
 
+	/**
+	 * Genera un nuevo problema de tipo AhoSethiUllman. Intentará acercarse lo
+	 * más posible al número de símbolos y de estados especificado.
+	 * 
+	 * @param nSimbolos
+	 *            Número de símbolos que se quiere que el problema utilice.
+	 * @param nEstados
+	 *            Número de estados que se quiere que contenga la tabla de
+	 *            transición del problema.
+	 * @param usaVacio
+	 *            Si queremos que el problema genere nodos vacíos. Su aparición
+	 *            no se garantiza.
+	 * @return Un nuevo problema de tipo AhoSethiUllman.
+	 */
 	public AhoSethiUllman nuevo(int nSimbolos, int nEstados, boolean usaVacio) {
-		this.usaVacio = usaVacio;
-
 		AhoSethiUllman candidato = null, actual = null;
 		ExpresionRegular expresion;
 		int iteraciones = 0;
@@ -142,6 +228,17 @@ public class AhoSethiUllmanGenerador {
 		return candidato;
 	}
 
+	/**
+	 * Genera un sub-árbol de expresion regular con la profundidad dada y
+	 * utilizando un conjunto de operadores concreto. Se llama a si mismo de
+	 * manera recursiva para completar la construcción.
+	 * 
+	 * @param profundidad
+	 *            Profundidad del árbol pedido.
+	 * @param operadores
+	 *            Operadores a utilizar.
+	 * @return Expresión regular generada.
+	 */
 	private ExpresionRegular subArbol(int profundidad,
 			EnumSet<Operador> operadores) {
 
@@ -157,7 +254,7 @@ public class AhoSethiUllmanGenerador {
 
 		// Hoja del árbol.
 		if (profundidad <= 0) {
-			if (operadores.equals(Operador.COMPLETO) && this.usaVacio)
+			if (operadores.equals(Operador.COMPLETO) && Operador.usaVacio())
 				operadores = Operador.FINAL_COMPLETO;
 			else
 				operadores = Operador.FINAL_PARCIAL;
@@ -192,29 +289,25 @@ public class AhoSethiUllmanGenerador {
 		}
 	}
 
+	/**
+	 * Evalua un problema en función a como se adapta a los parámetros pedidos.
+	 * Tiene en cuenta tanto que el número de estados sea el pedido, como que
+	 * use todos los símbolos.
+	 * <p>
+	 * Cuanto más cerca este del número, más cerca esta el problema de la
+	 * solución.
+	 * 
+	 * @param problema
+	 *            Problema a evaluar.
+	 * @param nEstados
+	 *            Número de estados en el problema pedido.
+	 * @return Función de evaluación del problema.
+	 */
 	private int evalua(AhoSethiUllman problema, int nEstados) {
 		int diferenciaEstados = Math.abs(problema.estados().size() - nEstados);
-		int diferenciaSimbolos = Math.abs(problema.simbolos().size() - Operador.simbolos());
-		
+		int diferenciaSimbolos = Math.abs(problema.simbolos().size()
+				- Operador.simbolos());
+
 		return diferenciaEstados + diferenciaSimbolos;
-	}
-	
-	// TODO temp
-	public static void main(String[] args) {
-		AhoSethiUllmanGenerador asug = AhoSethiUllmanGenerador.getInstance();
-		AhoSethiUllman asu = asug.nuevo(2, 6, true);
-		System.out.println(asu.problema());
-		System.out.println(asu.estados().size());
-
-		CharStream input = new JavaCharStream(new StringReader(
-				asu.expresionAumentada() + '\n'));
-		ExpresionRegularParser parser = new ExpresionRegularParser(input);
-
-		try {
-			parser.expresion();
-		} catch (ParseException | TokenMgrError e) {
-			e.printStackTrace();
-			throw new UnsupportedOperationException("Expresión no válida.");
-		}
 	}
 }
