@@ -26,7 +26,9 @@ import es.ubu.inf.tfg.asu.datos.ExpresionRegular;
  */
 public class AhoSethiUllmanGenerador {
 
-	private static final int MAX_ITERACIONES = 25;
+	private static final int MAX_ITERACIONES = Integer.MAX_VALUE;
+	private static final int MAX_PROFUNDIDAD = 6;
+	private static final int MIN_PROFUNDIDAD = 2;
 
 	private static final AhoSethiUllmanGenerador instance = new AhoSethiUllmanGenerador();
 	private static final Random random = new Random(new Date().getTime());
@@ -114,7 +116,8 @@ public class AhoSethiUllmanGenerador {
 				List<Character> simbolosParcial;
 				if (simbolos.size() > 1) {
 					simbolosParcial = new ArrayList<>(simbolos);
-					simbolosParcial.remove(simbolosParcial.indexOf('E'));
+					if (simbolosParcial.contains('E'))
+						simbolosParcial.remove(simbolosParcial.indexOf('E'));
 					index = random.nextInt(simbolosParcial.size());
 					char simbolo = simbolosParcial.get(index);
 					simbolos.remove(index);
@@ -188,7 +191,9 @@ public class AhoSethiUllmanGenerador {
 
 	/**
 	 * Genera un nuevo problema de tipo AhoSethiUllman. Intentará acercarse lo
-	 * más posible al número de símbolos y de estados especificado.
+	 * más posible al número de símbolos y de estados especificado. El algoritmo
+	 * es capaz de variar la profundidad a la que busca en función de los
+	 * resultados que vaya obteniendo, entre ciertos márgenes.
 	 * 
 	 * @param nSimbolos
 	 *            Número de símbolos que se quiere que el problema utilice.
@@ -203,8 +208,9 @@ public class AhoSethiUllmanGenerador {
 	public AhoSethiUllman nuevo(int nSimbolos, int nEstados, boolean usaVacio) {
 		AhoSethiUllman candidato = null, actual = null;
 		ExpresionRegular expresion;
+
 		int iteraciones = 0;
-		int profundidad = 4;
+		int profundidad = MIN_PROFUNDIDAD;
 
 		do {
 			// Inicializa variables
@@ -214,17 +220,27 @@ public class AhoSethiUllmanGenerador {
 			expresion = subArbol(profundidad, null);
 
 			// Evalua candidato
-			if (candidato == null) {
-				candidato = new AhoSethiUllman(expresion);
-			} else {
-				actual = new AhoSethiUllman(expresion);
-				if (evalua(actual, nEstados) < evalua(candidato, nEstados))
-					candidato = actual;
-			}
+			actual = new AhoSethiUllman(expresion);
+			if (candidato == null
+					|| evalua(actual, nEstados) < evalua(candidato, nEstados))
+				candidato = actual;
+
+			// Modifica la profundidad
+			int dif = nEstados - actual.estados().size();
+			if (dif > 1)
+				profundidad++;
+			else if (dif < 1)
+				profundidad--;
+
+			if (profundidad < MIN_PROFUNDIDAD)
+				profundidad = MIN_PROFUNDIDAD;
+			else if (profundidad > MAX_PROFUNDIDAD)
+				profundidad = MAX_PROFUNDIDAD;
 
 			iteraciones++;
 		} while (evalua(candidato, nEstados) != 0
 				&& iteraciones < MAX_ITERACIONES);
+
 		return candidato;
 	}
 
@@ -305,9 +321,14 @@ public class AhoSethiUllmanGenerador {
 	 */
 	private int evalua(AhoSethiUllman problema, int nEstados) {
 		int diferenciaEstados = Math.abs(problema.estados().size() - nEstados);
-		int diferenciaSimbolos = Math.abs(problema.simbolos().size()
-				- Operador.simbolos());
+		int diferenciaSimbolos;
 
+		if (Operador.usaVacio())
+			diferenciaSimbolos = Math.abs(problema.simbolos().size()
+					- Operador.simbolos());
+		else
+			diferenciaSimbolos = Math.abs(problema.simbolos().size()
+					- Operador.simbolos() - 1);
 		return diferenciaEstados + diferenciaSimbolos;
 	}
 }
