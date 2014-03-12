@@ -6,29 +6,32 @@ import java.util.List;
 import es.ubu.inf.tfg.asu.AhoSethiUllman;
 
 public class DocumentoHTML implements Documento {
-	private String inicio;
-	private List<Object> problemas;
-	private String fin;
+	private List<String> problemas;
 
-	private static String cabecera = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><style>td, th {border: 1px solid black; padding:5px;} table {border-collapse: collapse;}</style></head><body>";
-	private static String enunciado = "Aplicar el algoritmo de Aho-Sethi-Ullman para obtener el AFD capaz de reconocer el lenguaje definido por la expresión regular ";
-	private static String cabeceraStePos = "<tr><th>n</th><th>stePos(n)</th></tr>";
+	private static final String cabecera = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><style>td, th {border: 1px solid black; padding:5px;} table {border-collapse: collapse;}</style></head><body>";
+	private static final String cierre = "</html></body>";
+	private static final String enunciadoASU = "Aplicar el algoritmo de Aho-Sethi-Ullman para obtener el AFD capaz de reconocer el lenguaje definido por la expresión regular ";
+	private static final String cabeceraStePos = "<tr><th>n</th><th>stePos(n)</th></tr>";
 
 	public DocumentoHTML() {
-		this.inicio = cabecera;
-		this.fin = "</html></body>";
 		this.problemas = new ArrayList<>();
 	}
 
 	@Override
 	public void añadirProblema(AhoSethiUllman problema) {
+		this.problemas.add(AhoSethiUllmanToHTML(problema));
+	}
+
+	@Override
+	public void eliminarProblema(AhoSethiUllman problema) {
+		this.problemas.remove(AhoSethiUllmanToHTML(problema));
+	}
+	
+	private String AhoSethiUllmanToHTML(AhoSethiUllman problema) {
 		StringBuilder html = new StringBuilder();
 
 		// enunciado
-		html.append("<p><b>");
-		html.append(this.problemas.size() + 1);
-		html.append(".- ");
-		html.append(enunciado);
+		html.append(enunciadoASU);
 		html.append(problema.problema());
 		html.append("</b></p>");
 
@@ -84,7 +87,7 @@ public class DocumentoHTML implements Documento {
 		}
 		*/
 
-		// tabla de transiciones
+		// Función de transición
 		html.append("<p><table border=\"1\"><tr><th></th>");
 		for (char simbolo : problema.simbolos())
 			if (simbolo != '$')
@@ -107,23 +110,21 @@ public class DocumentoHTML implements Documento {
 			html.append("</td></tr>");
 		}
 		html.append("</table></p>");
-
-		this.problemas.add(html);
-	}
-
-	@Override
-	public void eliminarProblema(AhoSethiUllman asu) {
-
+		
+		return html.toString();
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder documento = new StringBuilder();
 
-		documento.append(this.inicio);
-		for (Object problema : this.problemas)
+		documento.append(cabecera);
+		int n = 1;
+		for (Object problema : this.problemas) {
+			documento.append("<p><b>" + (n++) + ".- ");
 			documento.append(problema);
-		documento.append(this.fin);
+		}
+		documento.append(cierre);
 
 		return documento.toString();
 	}
