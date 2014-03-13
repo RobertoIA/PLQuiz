@@ -86,7 +86,9 @@ public class AhoSethiUllman {
 
 	/**
 	 * Resuelve un problema de construcción de AFD a partir de una expresión
-	 * regular en forma de String utilizando el algoritmo de Aho-Sethi-Ullman.
+	 * regular en forma ExpresionRegular utilizando el algoritmo de
+	 * Aho-Sethi-Ullman. Se considera que la expresión recibida ya ha sido
+	 * aumentada.
 	 * 
 	 * @param expresion
 	 *            ExpresionRegular conteniendo la expresión regular a resolver.
