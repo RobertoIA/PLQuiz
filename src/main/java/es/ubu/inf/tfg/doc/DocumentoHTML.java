@@ -8,8 +8,8 @@ import es.ubu.inf.tfg.asu.AhoSethiUllman;
 public class DocumentoHTML implements Documento {
 	private List<String> problemas;
 
-	private static final String cabecera = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><style>td, th {border: 1px solid black; padding:5px;} table {border-collapse: collapse;}</style></head><body>";
-	private static final String cierre = "</html></body>";
+	private static final String cabecera = "<html><head><meta content=\"text/html; charset=utf-8\"><style>td, th {border: 1px solid black; padding:5px;} table {border-collapse: collapse;}</style></head><body>";
+	private static final String cierre = "</body></html>";
 	private static final String enunciadoASU = "Aplicar el algoritmo de Aho-Sethi-Ullman para obtener el AFD capaz de reconocer el lenguaje definido por la expresión regular ";
 	private static final String cabeceraStePos = "<tr><th>n</th><th>stePos(n)</th></tr>";
 
