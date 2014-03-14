@@ -27,10 +27,10 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import es.ubu.inf.tfg.asu.AhoSethiUllman;
-import es.ubu.inf.tfg.asu.AhoSethiUllmanGenerador;
 import es.ubu.inf.tfg.doc.Documento;
 import es.ubu.inf.tfg.doc.DocumentoHTML;
+import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
+import es.ubu.inf.tfg.regex.asu.AhoSethiUllmanGenerador;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package es.ubu.inf.tfg.asu;
+package es.ubu.inf.tfg.regex.asu;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -6,7 +6,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
 
-import es.ubu.inf.tfg.asu.datos.ExpresionRegular;
+import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
 
 /**
  * AhoSethiUllmanGenerador implementa una clase encargada de generar problemas

@@ -1,6 +1,7 @@
-package es.ubu.inf.tfg.asu;
+package es.ubu.inf.tfg.regex.asu;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.Random;

@@ -1,4 +1,4 @@
-package es.ubu.inf.tfg.asu.parser;
+package es.ubu.inf.tfg.regex.parser;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,7 +6,7 @@ import java.io.StringReader;
 
 import org.junit.Test;
 
-import es.ubu.inf.tfg.asu.datos.ExpresionRegular;
+import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
 
 public class ExpresionRegularParserTest {
 

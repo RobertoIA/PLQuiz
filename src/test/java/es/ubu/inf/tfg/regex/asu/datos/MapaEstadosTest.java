@@ -1,6 +1,6 @@
-package es.ubu.inf.tfg.asu.datos;
+package es.ubu.inf.tfg.regex.asu.datos;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Set;
 import java.util.TreeSet;

@@ -1,7 +1,9 @@
-package es.ubu.inf.tfg.asu.datos;
+package es.ubu.inf.tfg.regex.asu.datos;
 
 import java.util.Set;
 import java.util.TreeSet;
+
+import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
 
 /**
  * Nodo implementa la información calculada sobre un nodo ExpresionRegular. El

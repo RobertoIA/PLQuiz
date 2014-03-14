@@ -1,6 +1,6 @@
 package es.ubu.inf.tfg.doc;
 
-import es.ubu.inf.tfg.asu.AhoSethiUllman;
+import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 
 public interface Documento {
 	public void añadirProblema(AhoSethiUllman problema);

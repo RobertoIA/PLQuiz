@@ -3,7 +3,7 @@ package es.ubu.inf.tfg.doc;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.ubu.inf.tfg.asu.AhoSethiUllman;
+import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 
 public class DocumentoMoodle implements Documento {
 	private List<String> problemas;

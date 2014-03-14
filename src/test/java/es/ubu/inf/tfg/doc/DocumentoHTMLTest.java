@@ -1,12 +1,12 @@
 package es.ubu.inf.tfg.doc;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import es.ubu.inf.tfg.asu.AhoSethiUllman;
+import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 
 public class DocumentoHTMLTest {
 

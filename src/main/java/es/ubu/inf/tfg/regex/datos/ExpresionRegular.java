@@ -1,4 +1,4 @@
-package es.ubu.inf.tfg.asu.datos;
+package es.ubu.inf.tfg.regex.datos;
 
 /**
  * ExpresionRegular implementa un nodo de una expresión regular en forma de

@@ -1,18 +1,18 @@
-package es.ubu.inf.tfg.asu;
+package es.ubu.inf.tfg.regex.asu;
 
 import java.io.StringReader;
 import java.util.Set;
 import java.util.TreeSet;
 
-import es.ubu.inf.tfg.asu.datos.ExpresionRegular;
-import es.ubu.inf.tfg.asu.datos.MapaEstados;
-import es.ubu.inf.tfg.asu.datos.MapaPosiciones;
-import es.ubu.inf.tfg.asu.datos.Nodo;
-import es.ubu.inf.tfg.asu.parser.CharStream;
-import es.ubu.inf.tfg.asu.parser.ExpresionRegularParser;
-import es.ubu.inf.tfg.asu.parser.JavaCharStream;
-import es.ubu.inf.tfg.asu.parser.ParseException;
-import es.ubu.inf.tfg.asu.parser.TokenMgrError;
+import es.ubu.inf.tfg.regex.asu.datos.MapaEstados;
+import es.ubu.inf.tfg.regex.asu.datos.MapaPosiciones;
+import es.ubu.inf.tfg.regex.asu.datos.Nodo;
+import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
+import es.ubu.inf.tfg.regex.parser.CharStream;
+import es.ubu.inf.tfg.regex.parser.ExpresionRegularParser;
+import es.ubu.inf.tfg.regex.parser.JavaCharStream;
+import es.ubu.inf.tfg.regex.parser.ParseException;
+import es.ubu.inf.tfg.regex.parser.TokenMgrError;
 
 /**
  * AhoSethiUllman implementa la solución a un problema de construcción de un AFD
