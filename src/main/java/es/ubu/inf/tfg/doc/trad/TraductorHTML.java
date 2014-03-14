@@ -4,13 +4,27 @@ import java.util.List;
 
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 
+/**
+ * Implementa un traductor HTML.
+ * 
+ * @author Roberto Izquierdo Amo
+ * 
+ */
 public class TraductorHTML implements Traductor {
-	
+
 	private static final String cabecera = "<html><head><meta content=\"text/html; charset=utf-8\"><style>td, th {border: 1px solid black; padding:5px;} table {border-collapse: collapse;}</style></head><body>";
 	private static final String cierre = "</body></html>";
 	private static final String enunciadoASU = "Aplicar el algoritmo de Aho-Sethi-Ullman para obtener el AFD capaz de reconocer el lenguaje definido por la expresión regular ";
 	private static final String cabeceraStePos = "<tr><th>n</th><th>stePos(n)</th></tr>";
 
+	/**
+	 * Genera un documento HTML a partir de una lista de problemas ya
+	 * traducidos.
+	 * 
+	 * @param problemas
+	 *            Lista de problemas traducidos.
+	 * @return Documento HTML completo.
+	 */
 	@Override
 	public String documento(List<String> problemas) {
 		StringBuilder documento = new StringBuilder();
@@ -26,6 +40,13 @@ public class TraductorHTML implements Traductor {
 		return documento.toString();
 	}
 
+	/**
+	 * Traduce un problema de tipo AhoSethiUllman a formato HTML.
+	 * 
+	 * @param problema
+	 *            Problema AhoSethiUllman.
+	 * @return Problema traducido a HTML.
+	 */
 	@Override
 	public String traduce(AhoSethiUllman problema) {
 		StringBuilder html = new StringBuilder();
@@ -64,28 +85,15 @@ public class TraductorHTML implements Traductor {
 
 		// transiciones
 		/*
-		for (char estado : problema.estados()) {
-			for (char simbolo : problema.simbolos()) {
-				if (simbolo != '$') {
-					html.append("<p>mueve(");
-					html.append(estado);
-					html.append(", ");
-					html.append(simbolo);
-					html.append(") = {");
-					char estadoSiguiente = problema.mueve(estado, simbolo);
-					String prefijo = "";
-					for (int pos : problema.estado(estadoSiguiente)) {
-						html.append(prefijo);
-						prefijo = ", ";
-						html.append(pos);
-					}
-					html.append("} = ");
-					html.append(estadoSiguiente);
-					html.append("</p>");
-				}
-			}
-		}
-		*/
+		 * for (char estado : problema.estados()) { for (char simbolo :
+		 * problema.simbolos()) { if (simbolo != '$') {
+		 * html.append("<p>mueve("); html.append(estado); html.append(", ");
+		 * html.append(simbolo); html.append(") = {"); char estadoSiguiente =
+		 * problema.mueve(estado, simbolo); String prefijo = ""; for (int pos :
+		 * problema.estado(estadoSiguiente)) { html.append(prefijo); prefijo =
+		 * ", "; html.append(pos); } html.append("} = ");
+		 * html.append(estadoSiguiente); html.append("</p>"); } } }
+		 */
 
 		// Función de transición
 		html.append("<p><table border=\"1\"><tr><th></th>");
@@ -110,7 +118,7 @@ public class TraductorHTML implements Traductor {
 			html.append("</td></tr>");
 		}
 		html.append("</table></p>");
-		
+
 		return html.toString();
 	}
 

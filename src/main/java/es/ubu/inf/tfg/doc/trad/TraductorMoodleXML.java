@@ -4,11 +4,25 @@ import java.util.List;
 
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 
+/**
+ * Implementa un traductor al formato propietario Moodle XML.
+ * 
+ * @author Roberto Izquierdo Amo
+ * 
+ */
 public class TraductorMoodleXML implements Traductor {
 	private static final String cabecera = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><quiz>";
 	private static final String cierre = "</quiz>";
 	private static final String enunciadoASU = "Aplicar el algoritmo de Aho-Sethi-Ullman para obtener el AFD capaz de reconocer el lenguaje definido por la expresión regular ";
 
+	/**
+	 * Genera un documento en formato Moodle XML a partir de una lista de
+	 * problemas ya traducidos.
+	 * 
+	 * @param problemas
+	 *            Lista de problemas traducidos.
+	 * @return Documento Moodle XML completo.
+	 */
 	@Override
 	public String documento(List<String> problemas) {
 		StringBuilder documento = new StringBuilder();
@@ -29,6 +43,13 @@ public class TraductorMoodleXML implements Traductor {
 		return documento.toString();
 	}
 
+	/**
+	 * Traduce un problema de tipo AhoSethiUllman a formato Moodle XML.
+	 * 
+	 * @param problema
+	 *            Problema AhoSethiUllman.
+	 * @return Problema traducido a Moodle XML.
+	 */
 	@Override
 	public String traduce(AhoSethiUllman problema) {
 		StringBuilder xml = new StringBuilder();
