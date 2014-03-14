@@ -28,7 +28,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import es.ubu.inf.tfg.doc.Documento;
-import es.ubu.inf.tfg.doc.DocumentoHTML;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllmanGenerador;
 
@@ -92,7 +91,7 @@ public class Main {
 		this.simSliders = new ArrayList<>();
 		this.estSliders = new ArrayList<>();
 
-		this.preview = new DocumentoHTML();
+		this.preview = Documento.DocumentoHTML();
 	}
 
 	/**

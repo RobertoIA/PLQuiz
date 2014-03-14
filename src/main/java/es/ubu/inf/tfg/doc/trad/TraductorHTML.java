@@ -1,33 +1,33 @@
-package es.ubu.inf.tfg.doc;
+package es.ubu.inf.tfg.doc.trad;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 
-public class DocumentoHTML implements Documento {
-	private List<String> problemas;
-
+public class TraductorHTML implements Traductor {
+	
 	private static final String cabecera = "<html><head><meta content=\"text/html; charset=utf-8\"><style>td, th {border: 1px solid black; padding:5px;} table {border-collapse: collapse;}</style></head><body>";
 	private static final String cierre = "</body></html>";
 	private static final String enunciadoASU = "Aplicar el algoritmo de Aho-Sethi-Ullman para obtener el AFD capaz de reconocer el lenguaje definido por la expresión regular ";
 	private static final String cabeceraStePos = "<tr><th>n</th><th>stePos(n)</th></tr>";
 
-	public DocumentoHTML() {
-		this.problemas = new ArrayList<>();
+	@Override
+	public String documento(List<String> problemas) {
+		StringBuilder documento = new StringBuilder();
+
+		documento.append(cabecera);
+		int n = 1;
+		for (Object problema : problemas) {
+			documento.append("<p><b>" + (n++) + ".- ");
+			documento.append(problema);
+		}
+		documento.append(cierre);
+
+		return documento.toString();
 	}
 
 	@Override
-	public void añadirProblema(AhoSethiUllman problema) {
-		this.problemas.add(AhoSethiUllmanToHTML(problema));
-	}
-
-	@Override
-	public void eliminarProblema(AhoSethiUllman problema) {
-		this.problemas.remove(AhoSethiUllmanToHTML(problema));
-	}
-	
-	private String AhoSethiUllmanToHTML(AhoSethiUllman problema) {
+	public String traduce(AhoSethiUllman problema) {
 		StringBuilder html = new StringBuilder();
 
 		// enunciado
@@ -114,18 +114,4 @@ public class DocumentoHTML implements Documento {
 		return html.toString();
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder documento = new StringBuilder();
-
-		documento.append(cabecera);
-		int n = 1;
-		for (Object problema : this.problemas) {
-			documento.append("<p><b>" + (n++) + ".- ");
-			documento.append(problema);
-		}
-		documento.append(cierre);
-
-		return documento.toString();
-	}
 }
