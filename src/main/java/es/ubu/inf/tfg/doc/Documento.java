@@ -33,6 +33,12 @@ public class Documento {
 		this.problemas.remove(this.traductor.traduce(problema));
 	}
 
+	public void sustituirProblema(AhoSethiUllman anterior, AhoSethiUllman nuevo) {
+		int index = this.problemas.indexOf(this.traductor.traduce(anterior));
+		if (index >= 0)
+			this.problemas.set(index, this.traductor.traduce(nuevo));
+	}
+
 	public String toString() {
 		return this.traductor.documento(this.problemas);
 	}

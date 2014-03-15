@@ -1,10 +1,12 @@
 package es.ubu.inf.tfg.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -18,9 +20,6 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import es.ubu.inf.tfg.doc.Documento;
-import java.awt.Component;
-import javax.swing.Box;
-import java.awt.FlowLayout;
 
 public class Main {
 
@@ -83,7 +82,6 @@ public class Main {
 				BoxLayout.Y_AXIS));
 
 		this.añadirPanel = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) this.añadirPanel.getLayout();
 		this.controlPanel.add(this.añadirPanel, BorderLayout.SOUTH);
 
 		this.añadirButton = new JButton("+");

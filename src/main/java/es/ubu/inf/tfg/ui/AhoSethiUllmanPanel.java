@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
@@ -57,9 +59,10 @@ public class AhoSethiUllmanPanel extends JPanel {
 		this.vistaPrevia = vistaPrevia;
 		this.vistaPreviaText = vistaPreviaPanel;
 
-		setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
-				"Aho Sethi Ullman", TitledBorder.LEADING, TitledBorder.TOP,
-				null, null));
+		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 5),
+				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
+						"Aho-Sethi-Ullman", TitledBorder.LEADING,
+						TitledBorder.TOP, null, null)));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		this.expresionPanel = new JPanel();
@@ -151,6 +154,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 
 			AhoSethiUllman problema = generador.nuevo(nSimbolos, nEstados,
 					usaVacio);
+
 			problemaActual = problema;
 			expresionText.setText(problema.problema());
 		}
@@ -178,9 +182,9 @@ public class AhoSethiUllmanPanel extends JPanel {
 					vistaPrevia.eliminarProblema(problemaActual);
 					vistaPrevia.añadirProblema(problemaActual);
 				} else {
-					if (problemaActual != null)
-						vistaPrevia.eliminarProblema(problemaActual);
 					AhoSethiUllman problema = new AhoSethiUllman(expresion);
+					if (problemaActual != null)
+						vistaPrevia.sustituirProblema(problemaActual, problema);
 					problemaActual = problema;
 					vistaPrevia.añadirProblema(problema);
 				}
