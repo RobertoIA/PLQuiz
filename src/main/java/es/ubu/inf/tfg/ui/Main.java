@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -95,7 +96,7 @@ public class Main {
 		this.menuExportarHTMLButton = new JMenuItem("Exportar como HTML");
 		this.menuExportarHTMLButton
 				.addActionListener(new MenuExportarButtonActionListener());
-		
+
 		this.menuNuevo = new JMenuItem("Nuevo");
 		this.menuNuevo.addActionListener(new MenuNuevoActionListener());
 		this.menuArchivo.add(this.menuNuevo);
@@ -170,7 +171,7 @@ public class Main {
 	private class MenuExportarButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			JMenuItem source = (JMenuItem) event.getSource();
-			
+
 			if (source == menuExportarHTMLButton)
 				fileChooser.setFileFilter(new HTMLFilter());
 			else if (source == menuExportarMoodleXMLButton)
@@ -179,13 +180,19 @@ public class Main {
 			int valorRetorno = fileChooser.showSaveDialog(frmPlquiz);
 			if (valorRetorno == JFileChooser.APPROVE_OPTION) {
 				File fichero = fileChooser.getSelectedFile();
-				if (source == menuExportarHTMLButton)
-					documento.exportaHTML(fichero);
-				else if (source == menuExportarMoodleXMLButton)
-					documento.exportaXML(fichero);
+				try {
+					if (source == menuExportarHTMLButton)
+						documento.exportaHTML(fichero);
+					else if (source == menuExportarMoodleXMLButton)
+						documento.exportaXML(fichero);
+				} catch (IOException e) {
+					// TODO Avisar de error / reintento
+					e.printStackTrace();
+				}
 			}
 		}
 	}
+
 	private class MenuNuevoActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			documento = new Documento();

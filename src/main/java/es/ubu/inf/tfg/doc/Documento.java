@@ -14,32 +14,86 @@ import es.ubu.inf.tfg.doc.datos.TraductorHTML;
 import es.ubu.inf.tfg.doc.datos.TraductorMoodleXML;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 
+/**
+ * Documento implementa un documento completo generado por la aplicación, sin
+ * dependencia del formato. Implementa operaciones de añadido, eliminación y
+ * sustitución de problemas.
+ * <p>
+ * Un documento puede exportarse a disco en cualquiera de los formatos
+ * objetivos. Asimismo Documento nos permite obtener una vista previa de los
+ * contenidos en formato HTML.
+ * 
+ * @author Roberto Izquierdo Amo
+ * 
+ */
 public class Documento {
 	private List<Object> problemas;
 
+	/**
+	 * Crea un nuevo documento vacío.
+	 */
 	public Documento() {
 		this.problemas = new ArrayList<>();
 	}
 
+	/**
+	 * Añade un problema de tipo Aho-Sethi-Ullman al final del documento.
+	 * 
+	 * @param problema
+	 *            Nuevo problema Aho-Sethi-Ullman.
+	 */
 	public void añadirProblema(AhoSethiUllman problema) {
 		this.problemas.add(problema);
 	}
 
+	/**
+	 * Elimina un problema de tipo Aho-Sethi-Ullman del documento.
+	 * 
+	 * @param problema
+	 *            Problema Aho-Sethi-Ullman a eliminar.
+	 */
 	public void eliminarProblema(AhoSethiUllman problema) {
 		this.problemas.remove(problema);
 	}
 
+	/**
+	 * Sustituye un problema de tipo Aho-Sethi-Ullman en el documento por otro
+	 * nuevo. Si el problema a sustituir no existe, añade el nuevo al final del
+	 * documento.
+	 * 
+	 * @param anterior
+	 *            Problema Aho-Sethi-Ullman a sustituir.
+	 * @param nuevo
+	 *            Problema Aho-Sethi-Ullman a añadir.
+	 */
 	public void sustituirProblema(AhoSethiUllman anterior, AhoSethiUllman nuevo) {
 		int index = this.problemas.indexOf(anterior);
 		if (index >= 0)
 			this.problemas.set(index, nuevo);
+		else
+			añadirProblema(nuevo);
 	}
 
+	/**
+	 * Devuelve un documento HTML en forma de cadena de caracteres que se
+	 * utilizará como vista previa del documento.
+	 * 
+	 * @return Vista previa del documento en formato HTML.
+	 */
 	public String vistaPrevia() {
 		return traduce(new TraductorHTML());
 	}
 
-	public void exportaHTML(File fichero) {
+	/**
+	 * Exporta el documento como un fichero de formato HTML al fichero destino
+	 * especificado.
+	 * 
+	 * @param fichero
+	 *            Fichero destino.
+	 * @throws IOException
+	 *             Indica un error durante la exportación.
+	 */
+	public void exportaHTML(File fichero) throws IOException {
 		String ruta = fichero.toString();
 		if (!ruta.toLowerCase().endsWith(".html"))
 			ruta += ".html";
@@ -47,7 +101,16 @@ public class Documento {
 		guardar(ruta, traduce(new TraductorHTML()));
 	}
 
-	public void exportaXML(File fichero) {
+	/**
+	 * Exporta el documento como un fichero de formato XML al fichero destino
+	 * especificado.
+	 * 
+	 * @param fichero
+	 *            Fichero destino.
+	 * @throws IOException
+	 *             Indica un error durante la exportación.
+	 */
+	public void exportaXML(File fichero) throws IOException {
 		String ruta = fichero.toString();
 		if (!ruta.toLowerCase().endsWith(".xml"))
 			ruta += ".xml";
@@ -55,6 +118,14 @@ public class Documento {
 		guardar(ruta, traduce(new TraductorMoodleXML()));
 	}
 
+	/**
+	 * Traduce el documento al formato dado por un traductor especifico, y
+	 * devuelve el documento completo como una cadena de caracteres.
+	 * 
+	 * @param traductor
+	 *            Traductor a utilizar.
+	 * @return Documento traducido como cadena de caracteres.
+	 */
 	private String traduce(Traductor traductor) {
 		List<String> problemas = new ArrayList<>();
 
@@ -66,24 +137,21 @@ public class Documento {
 		return traductor.documento(problemas);
 	}
 
-	private void guardar(String ruta, String documento) {
-		Writer writer = null;
+	/**
+	 * Crea o sobreescribe un documento en la ruta dada, con el contenido dado.
+	 * 
+	 * @param ruta
+	 *            Ruta en la que guardar el documento.
+	 * @param documento
+	 *            Contenido del documento.
+	 * @throws IOException
+	 *             Indica un error durante el guardado.
+	 */
+	private void guardar(String ruta, String documento) throws IOException {
+		Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream(ruta), "UTF16"));
+		writer.write(documento);
 
-		try {
-			writer = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream(ruta), "UTF16"));
-			writer.write(documento);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				if (writer != null)
-					writer.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		writer.close();
 	}
 }
