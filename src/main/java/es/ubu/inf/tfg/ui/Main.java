@@ -47,6 +47,7 @@ public class Main {
 
 	private JFileChooser fileChooser;
 	private Documento documento;
+	private JMenuItem menuNuevo;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -94,6 +95,10 @@ public class Main {
 		this.menuExportarHTMLButton = new JMenuItem("Exportar como HTML");
 		this.menuExportarHTMLButton
 				.addActionListener(new MenuExportarButtonActionListener());
+		
+		this.menuNuevo = new JMenuItem("Nuevo");
+		this.menuNuevo.addActionListener(new MenuNuevoActionListener());
+		this.menuArchivo.add(this.menuNuevo);
 		this.menuArchivo.add(this.menuExportarHTMLButton);
 
 		this.menuExportarMoodleXMLButton = new JMenuItem(
@@ -179,6 +184,13 @@ public class Main {
 				else if (source == menuExportarMoodleXMLButton)
 					documento.exportaXML(fichero);
 			}
+		}
+	}
+	private class MenuNuevoActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			documento = new Documento();
+			vistaPreviaText.setText(documento.vistaPrevia());
+			contenedorPanel.removeAll();
 		}
 	}
 
