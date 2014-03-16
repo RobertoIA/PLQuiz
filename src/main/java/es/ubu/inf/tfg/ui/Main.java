@@ -5,19 +5,25 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.filechooser.FileFilter;
 
 import es.ubu.inf.tfg.doc.Documento;
 
@@ -32,10 +38,14 @@ public class Main {
 	private JButton añadirButton;
 	private JComboBox<String> añadirBox;
 	private JPanel contenedorPanel;
-
-	private Documento vistaPrevia;
 	private Component añadirDerechoStrut;
 	private Component añadirIzquierdoStrut;
+	private JMenuBar menuBar;
+	private JMenuItem menuExportarHTMLButton;
+	private JMenu menuArchivo;
+	private JMenuItem menuExportarMoodleXMLButton;
+
+	private Documento vistaPrevia;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -72,8 +82,26 @@ public class Main {
 		this.frmPlquiz.setBounds(100, 100, 1100, 900);
 		this.frmPlquiz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		this.menuBar = new JMenuBar();
+		this.frmPlquiz.getContentPane().add(this.menuBar, BorderLayout.NORTH);
+
+		this.menuArchivo = new JMenu("Archivo");
+		this.menuBar.add(this.menuArchivo);
+
+		this.menuExportarHTMLButton = new JMenuItem("Exportar como HTML");
+		this.menuExportarHTMLButton
+				.addActionListener(new MenuExportarButtonActionListener());
+		this.menuArchivo.add(this.menuExportarHTMLButton);
+
+		this.menuExportarMoodleXMLButton = new JMenuItem(
+				"Exportar como Moodle XML");
+		this.menuExportarMoodleXMLButton
+				.addActionListener(new MenuExportarButtonActionListener());
+		this.menuArchivo.add(this.menuExportarMoodleXMLButton);
+
 		this.controlPanel = new JPanel();
-		this.frmPlquiz.getContentPane().add(this.controlPanel, BorderLayout.WEST);
+		this.frmPlquiz.getContentPane().add(this.controlPanel,
+				BorderLayout.WEST);
 		this.controlPanel.setLayout(new BorderLayout(0, 0));
 
 		this.contenedorPanel = new JPanel();
@@ -86,7 +114,7 @@ public class Main {
 
 		this.añadirButton = new JButton("+");
 		this.añadirButton.addActionListener(new AddButtonActionListener());
-		
+
 		this.añadirIzquierdoStrut = Box.createHorizontalStrut(110);
 		this.añadirPanel.add(this.añadirIzquierdoStrut);
 		this.añadirPanel.add(this.añadirButton);
@@ -95,7 +123,7 @@ public class Main {
 		this.añadirBox.setModel(new DefaultComboBoxModel<String>(new String[] {
 				"Aho-Sethi-Ullman", "Thompson" }));
 		this.añadirPanel.add(this.añadirBox);
-		
+
 		this.añadirDerechoStrut = Box.createHorizontalStrut(110);
 		this.añadirPanel.add(this.añadirDerechoStrut);
 
@@ -128,6 +156,52 @@ public class Main {
 				contenedorPanel.add(nuevoPanel);
 				contenedorPanel.revalidate();
 			}
+		}
+	}
+
+	private class MenuExportarButtonActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			JMenuItem source = (JMenuItem) event.getSource();
+
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+			if (source == menuExportarHTMLButton)
+				fileChooser.setFileFilter(new HTMLFilter());
+			else if (source == menuExportarMoodleXMLButton)
+				fileChooser.setFileFilter(new XMLFilter());
+
+			int valorRetorno = fileChooser.showSaveDialog(frmPlquiz);
+			if (valorRetorno == JFileChooser.APPROVE_OPTION) {
+				File fichero = fileChooser.getSelectedFile();
+				vistaPrevia.guardar(fichero);
+			}
+		}
+	}
+
+	private class HTMLFilter extends FileFilter {
+
+		@Override
+		public boolean accept(File f) {
+			return f.getName().toLowerCase().endsWith(".html");
+		}
+
+		@Override
+		public String getDescription() {
+			return "Ficheros HTML (*.html)";
+		}
+	}
+
+	private class XMLFilter extends FileFilter {
+
+		@Override
+		public boolean accept(File f) {
+			return f.getName().toLowerCase().endsWith(".xml");
+		}
+
+		@Override
+		public String getDescription() {
+			return "Ficheros Moodle XML (*.xml)";
 		}
 	}
 }

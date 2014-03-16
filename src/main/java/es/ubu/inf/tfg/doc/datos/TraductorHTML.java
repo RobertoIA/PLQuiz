@@ -1,4 +1,4 @@
-package es.ubu.inf.tfg.doc.trad;
+package es.ubu.inf.tfg.doc.datos;
 
 import java.util.List;
 

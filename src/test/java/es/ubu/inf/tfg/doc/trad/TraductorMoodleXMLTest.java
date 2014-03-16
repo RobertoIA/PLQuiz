@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import es.ubu.inf.tfg.doc.datos.Traductor;
+import es.ubu.inf.tfg.doc.datos.TraductorMoodleXML;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 
 public class TraductorMoodleXMLTest {
