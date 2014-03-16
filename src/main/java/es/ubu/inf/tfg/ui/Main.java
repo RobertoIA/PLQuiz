@@ -45,7 +45,8 @@ public class Main {
 	private JMenu menuArchivo;
 	private JMenuItem menuExportarMoodleXMLButton;
 
-	private Documento vistaPrevia;
+	private JFileChooser fileChooser;
+	private Documento documento;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -70,7 +71,9 @@ public class Main {
 			e.printStackTrace();
 		}
 		initialize();
-		this.vistaPrevia = Documento.DocumentoHTML();
+		this.documento = new Documento();
+		this.fileChooser = new JFileChooser();
+		this.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 	}
 
 	/**
@@ -150,7 +153,7 @@ public class Main {
 
 			if (añadirBox.getSelectedItem().equals("Aho-Sethi-Ullman"))
 				nuevoPanel = new AhoSethiUllmanPanel(contenedorPanel,
-						vistaPrevia, vistaPreviaText);
+						documento, vistaPreviaText);
 
 			if (nuevoPanel != null) {
 				contenedorPanel.add(nuevoPanel);
@@ -162,10 +165,7 @@ public class Main {
 	private class MenuExportarButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			JMenuItem source = (JMenuItem) event.getSource();
-
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
+			
 			if (source == menuExportarHTMLButton)
 				fileChooser.setFileFilter(new HTMLFilter());
 			else if (source == menuExportarMoodleXMLButton)
@@ -174,7 +174,10 @@ public class Main {
 			int valorRetorno = fileChooser.showSaveDialog(frmPlquiz);
 			if (valorRetorno == JFileChooser.APPROVE_OPTION) {
 				File fichero = fileChooser.getSelectedFile();
-				vistaPrevia.guardar(fichero);
+				if (source == menuExportarHTMLButton)
+					documento.exportaHTML(fichero);
+				else if (source == menuExportarMoodleXMLButton)
+					documento.exportaXML(fichero);
 			}
 		}
 	}

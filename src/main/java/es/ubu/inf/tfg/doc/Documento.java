@@ -15,56 +15,64 @@ import es.ubu.inf.tfg.doc.datos.TraductorMoodleXML;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 
 public class Documento {
-	private List<String> problemas;
-	private Traductor traductor;
+	private List<Object> problemas;
 
-	private Documento(Traductor traductor) {
+	public Documento() {
 		this.problemas = new ArrayList<>();
-		this.traductor = traductor;
-	}
-
-	public static Documento DocumentoHTML() {
-		return new Documento(new TraductorHTML());
-	}
-
-	public static Documento DocumentoMoodleXML() {
-		return new Documento(new TraductorMoodleXML());
 	}
 
 	public void añadirProblema(AhoSethiUllman problema) {
-		this.problemas.add(this.traductor.traduce(problema));
+		this.problemas.add(problema);
 	}
 
 	public void eliminarProblema(AhoSethiUllman problema) {
-		this.problemas.remove(this.traductor.traduce(problema));
+		this.problemas.remove(problema);
 	}
 
 	public void sustituirProblema(AhoSethiUllman anterior, AhoSethiUllman nuevo) {
-		int index = this.problemas.indexOf(this.traductor.traduce(anterior));
+		int index = this.problemas.indexOf(anterior);
 		if (index >= 0)
-			this.problemas.set(index, this.traductor.traduce(nuevo));
+			this.problemas.set(index, nuevo);
 	}
 
-	public void guardar(File fichero) {
-		System.err.println("guardando " + fichero);
+	public String vistaPrevia() {
+		return traduce(new TraductorHTML());
+	}
 
+	public void exportaHTML(File fichero) {
 		String ruta = fichero.toString();
-		Writer writer = null;
+		if (!ruta.toLowerCase().endsWith(".html"))
+			ruta += ".html";
 
-		if (this.traductor instanceof TraductorHTML) {
-			System.err.println("formato html");
-			if (!ruta.toLowerCase().endsWith(".html"))
-				ruta += ".html";
-		} else if (this.traductor instanceof TraductorMoodleXML) {
-			System.err.println("formato moodle xml");
-			if (!ruta.toLowerCase().endsWith(".xml"))
-				ruta += ".xml";
+		guardar(ruta, traduce(new TraductorHTML()));
+	}
+
+	public void exportaXML(File fichero) {
+		String ruta = fichero.toString();
+		if (!ruta.toLowerCase().endsWith(".xml"))
+			ruta += ".xml";
+
+		guardar(ruta, traduce(new TraductorMoodleXML()));
+	}
+
+	private String traduce(Traductor traductor) {
+		List<String> problemas = new ArrayList<>();
+
+		for (Object problema : this.problemas) {
+			if (problema instanceof AhoSethiUllman)
+				problemas.add(traductor.traduce((AhoSethiUllman) problema));
 		}
+
+		return traductor.documento(problemas);
+	}
+
+	private void guardar(String ruta, String documento) {
+		Writer writer = null;
 
 		try {
 			writer = new BufferedWriter(new OutputStreamWriter(
 					new FileOutputStream(ruta), "UTF16"));
-			writer.write(toString());
+			writer.write(documento);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,11 +85,5 @@ public class Documento {
 				e.printStackTrace();
 			}
 		}
-
-		System.err.println("guardado a " + fichero);
-	}
-
-	public String toString() {
-		return this.traductor.documento(this.problemas);
 	}
 }

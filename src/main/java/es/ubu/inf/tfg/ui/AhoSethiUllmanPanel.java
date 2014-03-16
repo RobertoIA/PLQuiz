@@ -30,8 +30,8 @@ public class AhoSethiUllmanPanel extends JPanel {
 
 	private final JPanel contenedorPanel;
 	private final JPanel actualPanel = this;
-	private final Documento vistaPrevia;
-	private final JTextPane vistaPreviaText;
+	private final Documento documento;
+	private final JTextPane vistaPrevia;
 	private AhoSethiUllman problemaActual = null;
 
 	private JPanel expresionPanel;
@@ -52,12 +52,12 @@ public class AhoSethiUllmanPanel extends JPanel {
 	private JSlider estadosSlider;
 	private JLabel estadosEstadoLabel;
 
-	public AhoSethiUllmanPanel(JPanel contenedor, Documento vistaPrevia,
-			JTextPane vistaPreviaPanel) {
+	public AhoSethiUllmanPanel(JPanel contenedor, Documento documento,
+			JTextPane vistaPrevia) {
 
 		this.contenedorPanel = contenedor;
+		this.documento = documento;
 		this.vistaPrevia = vistaPrevia;
-		this.vistaPreviaText = vistaPreviaPanel;
 
 		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 5),
 				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
@@ -163,8 +163,8 @@ public class AhoSethiUllmanPanel extends JPanel {
 	private class BotonBorrarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			if (problemaActual != null) {
-				vistaPrevia.eliminarProblema(problemaActual);
-				vistaPreviaText.setText(vistaPrevia.toString());
+				documento.eliminarProblema(problemaActual);
+				vistaPrevia.setText(documento.vistaPrevia());
 			}
 
 			contenedorPanel.remove(actualPanel);
@@ -179,16 +179,15 @@ public class AhoSethiUllmanPanel extends JPanel {
 			if (expresion.length() > 0) {
 				if (problemaActual != null
 						&& expresion.equals(problemaActual.problema())) {
-					vistaPrevia.eliminarProblema(problemaActual);
-					vistaPrevia.añadirProblema(problemaActual);
+					documento.añadirProblema(problemaActual);
 				} else {
 					AhoSethiUllman problema = new AhoSethiUllman(expresion);
 					if (problemaActual != null)
-						vistaPrevia.sustituirProblema(problemaActual, problema);
+						documento.sustituirProblema(problemaActual, problema);
 					problemaActual = problema;
-					vistaPrevia.añadirProblema(problema);
+					documento.añadirProblema(problema);
 				}
-				vistaPreviaText.setText(vistaPrevia.toString());
+				vistaPrevia.setText(documento.vistaPrevia());
 			}
 		}
 	}
