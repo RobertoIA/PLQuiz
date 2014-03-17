@@ -1,4 +1,4 @@
-package es.ubu.inf.tfg.regex.asu.datos;
+package es.ubu.inf.tfg.regex.datos;
 
 import java.util.Map;
 import java.util.Set;

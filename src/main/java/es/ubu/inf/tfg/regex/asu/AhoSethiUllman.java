@@ -4,10 +4,10 @@ import java.io.StringReader;
 import java.util.Set;
 import java.util.TreeSet;
 
-import es.ubu.inf.tfg.regex.asu.datos.MapaEstados;
 import es.ubu.inf.tfg.regex.asu.datos.MapaPosiciones;
 import es.ubu.inf.tfg.regex.asu.datos.Nodo;
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
+import es.ubu.inf.tfg.regex.datos.MapaEstados;
 import es.ubu.inf.tfg.regex.parser.CharStream;
 import es.ubu.inf.tfg.regex.parser.ExpresionRegularParser;
 import es.ubu.inf.tfg.regex.parser.JavaCharStream;

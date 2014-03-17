@@ -1,4 +1,4 @@
-package es.ubu.inf.tfg.regex.asu.datos;
+package es.ubu.inf.tfg.regex.datos;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,6 +8,8 @@ import java.util.TreeSet;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import es.ubu.inf.tfg.regex.datos.MapaEstados;
 
 public class MapaEstadosTest {
 
