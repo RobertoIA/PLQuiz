@@ -18,6 +18,7 @@ public class Automata {
 
 	private Nodo nodoInicial;
 	private Nodo nodoFinal;
+	private Set<Character> simbolos;
 
 	/**
 	 * Constructor. Define un automata finito no determinista a partir de un
@@ -66,6 +67,10 @@ public class Automata {
 
 		this.nodoInicial = nodo0;
 		this.nodoFinal = nodo10;
+
+		this.simbolos = new TreeSet<>();
+		this.simbolos.add('a');
+		this.simbolos.add('b');
 	}
 
 	/**
@@ -84,6 +89,17 @@ public class Automata {
 	 */
 	public Nodo nodoFinal() {
 		return this.nodoFinal;
+	}
+
+	/**
+	 * Devuelve el conjunto de símbolos que el automata utiliza en sus
+	 * transiciones. No se incluye epsilon ni cualquier otro indicador de
+	 * transición vacía.
+	 * 
+	 * @return Conjunto de símbolos del autómata.
+	 */
+	public Set<Character> simbolos() {
+		return new TreeSet<>(this.simbolos);
 	}
 
 	/**
