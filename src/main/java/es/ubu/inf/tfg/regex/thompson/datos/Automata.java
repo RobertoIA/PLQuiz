@@ -3,12 +3,14 @@ package es.ubu.inf.tfg.regex.thompson.datos;
 import java.util.Set;
 import java.util.TreeSet;
 
+import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
+
 public class Automata {
 
 	private Nodo nodoInicial;
 	private Nodo nodoFinal;
 
-	public Automata() {
+	public Automata(ExpresionRegular expresion) {
 		Nodo nodo0 = new Nodo(0, false);
 		Nodo nodo1 = new Nodo(1, false);
 		Nodo nodo2 = new Nodo(2, false);
@@ -51,44 +53,35 @@ public class Automata {
 	public Nodo nodoInicial() {
 		return this.nodoInicial;
 	}
-	
+
 	public Nodo nodoFinal() {
 		return this.nodoFinal;
 	}
 
 	public Set<Nodo> transicion(Nodo inicio, char simbolo) {
-		// Nodos a los que llegamos sin consumir entrada
-		Set<Nodo> actualesNoConsumido = new TreeSet<>();
-		// Nodos a los que llegamos consumiendo entrada
-		Set<Nodo> actualesConsumido = new TreeSet<>();
-
-		Set<Nodo> visitados = new TreeSet<>();
+		// Nodos a los que llegamos desde el inicio sin consumir
+		Set<Nodo> iniciales = transicionVacia(inicio);
+		// Nodos a los que llegamos tras consumir la entrada
+		Set<Nodo> transicionConsumiendo = new TreeSet<>();
+		// Nodos a los que llegamos tras consumir la entrada
+		Set<Nodo> transicionNoConsumiendo = new TreeSet<>();
 		Nodo actual;
 
-		actualesNoConsumido.add(inicio);
-		while (!(actualesNoConsumido.isEmpty() && actualesConsumido.isEmpty())) {
-			if (!actualesNoConsumido.isEmpty()) {
-				actual = actualesNoConsumido.iterator().next();
-
-//				actualesNoConsumido.addAll(actual.transicionVacia());
-				Nodo transicionConsumiendo = actual.transicion(simbolo);
-				if (transicionConsumiendo != null)
-					actualesConsumido.add(transicionConsumiendo);
-			} else {
-				actual = actualesConsumido.iterator().next();
-
-				actualesNoConsumido.addAll(actual.transicionVacia());
-			}
-
-			visitados.add(actual);
-			actualesNoConsumido.removeAll(visitados);
-			actualesConsumido.removeAll(visitados);
+		for (Nodo nodo : iniciales) {
+			actual = nodo.transicion(simbolo);
+			if (actual != null)
+				transicionConsumiendo.add(actual);
 		}
 
-		return visitados;
+		for (Nodo nodo : transicionConsumiendo)
+			transicionNoConsumiendo.addAll(transicionVacia(nodo));
+
+		transicionConsumiendo.addAll(transicionNoConsumiendo);
+
+		return transicionConsumiendo;
 	}
 
-	public Set<Nodo> transicion(Nodo inicio) {
+	public Set<Nodo> transicionVacia(Nodo inicio) {
 		// Nodos a los que llegamos sin consumir entrada
 		Set<Nodo> actuales = new TreeSet<>();
 		Set<Nodo> visitados = new TreeSet<>();
