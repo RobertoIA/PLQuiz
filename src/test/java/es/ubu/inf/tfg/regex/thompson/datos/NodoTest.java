@@ -53,25 +53,40 @@ public class NodoTest {
 		nodo3.añadeTransicion('c', nodo4);
 
 		// nodo0
-		assertEquals("Error al recuperar transición que consume entrada.", null, nodo0.transicion('a'));
-		assertEquals("Error al recuperar transición que consume entrada.", null, nodo0.transicion('b'));
-		assertEquals("Error al recuperar transición que consume entrada.", null, nodo0.transicion('c'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				null, nodo0.transicion('a'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				null, nodo0.transicion('b'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				null, nodo0.transicion('c'));
 		// nodo1
-		assertEquals("Error al recuperar transición que consume entrada.", nodo2, nodo1.transicion('a'));
-		assertEquals("Error al recuperar transición que consume entrada.", null, nodo1.transicion('b'));
-		assertEquals("Error al recuperar transición que consume entrada.", null, nodo1.transicion('c'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				nodo2, nodo1.transicion('a'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				null, nodo1.transicion('b'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				null, nodo1.transicion('c'));
 		// nodo2
-		assertEquals("Error al recuperar transición que consume entrada.", null, nodo2.transicion('a'));
-		assertEquals("Error al recuperar transición que consume entrada.", nodo4, nodo2.transicion('b'));
-		assertEquals("Error al recuperar transición que consume entrada.", null, nodo2.transicion('c'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				null, nodo2.transicion('a'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				nodo4, nodo2.transicion('b'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				null, nodo2.transicion('c'));
 		// nodo3
-		assertEquals("Error al recuperar transición que consume entrada.", null, nodo3.transicion('a'));
-		assertEquals("Error al recuperar transición que consume entrada.", null, nodo3.transicion('b'));
-		assertEquals("Error al recuperar transición que consume entrada.", nodo4, nodo3.transicion('c'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				null, nodo3.transicion('a'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				null, nodo3.transicion('b'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				nodo4, nodo3.transicion('c'));
 		// nodo4
-		assertEquals("Error al recuperar transición que consume entrada.", null, nodo4.transicion('a'));
-		assertEquals("Error al recuperar transición que consume entrada.", null, nodo4.transicion('b'));
-		assertEquals("Error al recuperar transición que consume entrada.", null, nodo4.transicion('c'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				null, nodo4.transicion('a'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				null, nodo4.transicion('b'));
+		assertEquals("Error al recuperar transición que consume entrada.",
+				null, nodo4.transicion('c'));
 	}
 
 	/**
@@ -94,15 +109,46 @@ public class NodoTest {
 		nodo3.añadeTransicion('c', nodo4);
 
 		// nodo0
-		assertEquals("Error al recuperar transición que no consume entrada.", set(nodo1), nodo0.transicionVacia());
+		assertEquals("Error al recuperar transición que no consume entrada.",
+				set(nodo1), nodo0.transicionVacia());
 		// nodo1
-		assertEquals("Error al recuperar transición que no consume entrada.", set(nodo3), nodo1.transicionVacia());
+		assertEquals("Error al recuperar transición que no consume entrada.",
+				set(nodo3), nodo1.transicionVacia());
 		// nodo2
-		assertEquals("Error al recuperar transición que no consume entrada.", set(), nodo2.transicionVacia());
+		assertEquals("Error al recuperar transición que no consume entrada.",
+				set(), nodo2.transicionVacia());
 		// nodo3
-		assertEquals("Error al recuperar transición que no consume entrada.", set(), nodo3.transicionVacia());
+		assertEquals("Error al recuperar transición que no consume entrada.",
+				set(), nodo3.transicionVacia());
 		// nodo4
-		assertEquals("Error al recuperar transición que no consume entrada.", set(), nodo4.transicionVacia());
+		assertEquals("Error al recuperar transición que no consume entrada.",
+				set(), nodo4.transicionVacia());
+	}
+
+	/**
+	 * Comprueba que dos nodos diferentes se unen correctamente.
+	 */
+	@Test
+	public void testUnir() {
+		Nodo nodo0 = new Nodo(0, false);
+		Nodo nodo1 = new Nodo(1, false);
+		Nodo nodo2 = new Nodo(2, false);
+		Nodo nodo3 = new Nodo(3, false);
+		Nodo nodo4 = new Nodo(4, true);
+
+		nodo0.añadeTransicionVacia(nodo1);
+		nodo1.añadeTransicion('a', nodo2);
+		nodo2.añadeTransicion('b', nodo4);
+		nodo3.añadeTransicion('c', nodo4);
+
+		nodo2.unir(nodo3);
+
+		assertEquals(
+				"Error al recuperar transiciones tras realizar una unión.",
+				nodo4, nodo2.transicion('b'));
+		assertEquals(
+				"Error al recuperar transiciones tras realizar una unión.",
+				nodo4, nodo2.transicion('c'));
 	}
 
 	/**

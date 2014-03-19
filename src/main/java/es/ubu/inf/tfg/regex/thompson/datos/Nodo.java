@@ -71,6 +71,7 @@ public class Nodo implements Comparable<Nodo> {
 	 */
 	public void añadeTransicion(char simbolo, Nodo destino) {
 		this.transiciones.put(simbolo, destino);
+		this.esFinal = false;
 	}
 
 	/**
@@ -81,6 +82,7 @@ public class Nodo implements Comparable<Nodo> {
 	 */
 	public void añadeTransicionVacia(Nodo destino) {
 		this.transicionesVacias.add(destino);
+		this.esFinal = false;
 	}
 
 	/**
@@ -103,6 +105,19 @@ public class Nodo implements Comparable<Nodo> {
 	 */
 	public Set<Nodo> transicionVacia() {
 		return this.transicionesVacias;
+	}
+
+	/**
+	 * Utilizado para unir dos nodos, añade todas las transiciones del segundo
+	 * nodo a este. Este nodo deja de ser final, si es que lo era antes.
+	 * 
+	 * @param otro
+	 *            Nodo del que tomar las transiciones.
+	 */
+	public void unir(Nodo otro) {
+		this.transiciones.putAll(otro.transiciones);
+		this.transicionesVacias.addAll(otro.transicionesVacias);
+		this.esFinal = false;
 	}
 
 	/**

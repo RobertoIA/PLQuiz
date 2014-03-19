@@ -28,49 +28,66 @@ public class Automata {
 	 *            Árbol de expresion regular a partir del cual generar el
 	 *            autómata.
 	 */
-	public Automata(ExpresionRegular expresion) {
-		// TODO completamente provisional
-		Nodo nodo0 = new Nodo(0, false);
-		Nodo nodo1 = new Nodo(1, false);
-		Nodo nodo2 = new Nodo(2, false);
-		Nodo nodo3 = new Nodo(3, false);
-		Nodo nodo4 = new Nodo(4, false);
-		Nodo nodo5 = new Nodo(5, false);
-		Nodo nodo6 = new Nodo(6, false);
-		Nodo nodo7 = new Nodo(7, false);
-		Nodo nodo8 = new Nodo(8, false);
-		Nodo nodo9 = new Nodo(9, false);
-		Nodo nodo10 = new Nodo(10, true);
-
-		nodo0.añadeTransicionVacia(nodo1);
-		nodo0.añadeTransicionVacia(nodo7);
-
-		nodo1.añadeTransicionVacia(nodo2);
-		nodo1.añadeTransicionVacia(nodo4);
-
-		nodo2.añadeTransicion('a', nodo3);
-
-		nodo3.añadeTransicionVacia(nodo6);
-
-		nodo4.añadeTransicion('b', nodo5);
-
-		nodo5.añadeTransicionVacia(nodo6);
-
-		nodo6.añadeTransicionVacia(nodo7);
-		nodo6.añadeTransicionVacia(nodo1);
-
-		nodo7.añadeTransicion('a', nodo8);
-
-		nodo8.añadeTransicion('b', nodo9);
-
-		nodo9.añadeTransicion('b', nodo10);
-
-		this.nodoInicial = nodo0;
-		this.nodoFinal = nodo10;
+	public Automata(ExpresionRegular expresion, int posicionInicial) {
 
 		this.simbolos = new TreeSet<>();
-		this.simbolos.add('a');
-		this.simbolos.add('b');
+
+		if (expresion.esVacio()) {
+			this.nodoInicial = new Nodo(posicionInicial, false);
+			this.nodoFinal = new Nodo(posicionInicial + 1, true);
+			this.nodoInicial.añadeTransicionVacia(this.nodoFinal);
+		} else if (expresion.esSimbolo()) {
+			this.nodoInicial = new Nodo(posicionInicial, false);
+			this.nodoFinal = new Nodo(posicionInicial + 1, true);
+			this.nodoInicial.añadeTransicion(expresion.simbolo(),
+					this.nodoFinal);
+			this.simbolos.add(expresion.simbolo());
+		} else if (expresion.esCierre()) {
+			this.nodoInicial = new Nodo(posicionInicial, false);
+			Automata hijo = new Automata(expresion.hijoIzquierdo(),
+					posicionInicial + 1);
+			this.nodoFinal = new Nodo(hijo.nodoFinal().posicion() + 1, true);
+
+			this.nodoInicial.añadeTransicionVacia(hijo.nodoInicial());
+			this.nodoInicial.añadeTransicionVacia(this.nodoFinal);
+			hijo.nodoFinal().añadeTransicionVacia(hijo.nodoInicial());
+			hijo.nodoFinal().añadeTransicionVacia(this.nodoFinal);
+
+			this.simbolos.addAll(hijo.simbolos());
+		} else if (expresion.esConcat()) {
+			Automata hijoIzquierdo = new Automata(expresion.hijoIzquierdo(),
+					posicionInicial);
+			Automata hijoDerecho = new Automata(expresion.hijoDerecho(),
+					hijoIzquierdo.nodoFinal().posicion());
+
+			hijoIzquierdo.nodoFinal().unir(hijoDerecho.nodoInicial());
+			this.nodoInicial = hijoIzquierdo.nodoInicial();
+			this.nodoFinal = hijoDerecho.nodoFinal();
+
+			this.simbolos.addAll(hijoIzquierdo.simbolos());
+			this.simbolos.addAll(hijoDerecho.simbolos());
+		} else if (expresion.esUnion()) {
+			this.nodoInicial = new Nodo(posicionInicial, false);
+
+			Automata hijoIzquierdo = new Automata(expresion.hijoIzquierdo(),
+					posicionInicial + 1);
+			Automata hijoDerecho = new Automata(expresion.hijoDerecho(),
+					hijoIzquierdo.nodoFinal().posicion() + 1);
+
+			this.nodoFinal = new Nodo(hijoDerecho.nodoFinal().posicion() + 1,
+					true);
+
+			this.nodoInicial.añadeTransicionVacia(hijoIzquierdo.nodoInicial());
+			this.nodoInicial.añadeTransicionVacia(hijoDerecho.nodoInicial());
+			hijoIzquierdo.nodoFinal().añadeTransicionVacia(this.nodoFinal);
+			hijoDerecho.nodoFinal().añadeTransicionVacia(this.nodoFinal);
+
+			this.simbolos.addAll(hijoIzquierdo.simbolos());
+			this.simbolos.addAll(hijoDerecho.simbolos());
+		} else { // runtime exception
+			throw new IllegalArgumentException(
+					"Expresion regular de tipo desconocido.");
+		}
 	}
 
 	/**

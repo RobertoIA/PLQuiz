@@ -67,17 +67,17 @@ public class Thompson {
 			throw new UnsupportedOperationException("Expresión no válida.");
 		}
 
-		this.automata = new Automata(this.expresion);
+		this.automata = new Automata(this.expresion, 0);
 
 		// Calculo de estados
 		this.estados = new TreeMap<>();
 		this.transiciones = new MapaEstados();
-
+		
 		char estadoActual = 'A';
 		Set<Nodo> posiciones = automata.transicionVacia(automata.nodoInicial());
 		estados.put(estadoActual, posiciones);
 
-		while (estados.keySet().contains(estadoActual) && estadoActual < 'L') {
+		while (estados.keySet().contains(estadoActual)) {
 			for (char simbolo : this.automata.simbolos()) {
 				char destino = transicion(estadoActual, simbolo);
 				this.transiciones.add(estadoActual, simbolo, destino);
@@ -99,7 +99,7 @@ public class Thompson {
 		this.expresion = this.expresion.hijoIzquierdo();
 		this.problema = this.expresion.toString();
 
-		this.automata = new Automata(this.expresion);
+		this.automata = new Automata(this.expresion, 0);
 
 		// Calculo de estados
 		this.estados = new TreeMap<>();
@@ -109,7 +109,7 @@ public class Thompson {
 		Set<Nodo> posiciones = automata.transicionVacia(automata.nodoInicial());
 		estados.put(estadoActual, posiciones);
 
-		while (estados.keySet().contains(estadoActual) && estadoActual < 'L') {
+		while (estados.keySet().contains(estadoActual)) {
 			for (char simbolo : this.automata.simbolos()) {
 				char destino = transicion(estadoActual, simbolo);
 				this.transiciones.add(estadoActual, simbolo, destino);
@@ -130,7 +130,7 @@ public class Thompson {
 	 */
 	private char transicion(char estado, char simbolo) {
 		Set<Nodo> posiciones = new TreeSet<>();
-
+		
 		for (Nodo nodo : estados.get(estado)) {
 			if (this.estados.get(estado).contains(nodo))
 				posiciones.addAll(automata.transicion(nodo, simbolo));
@@ -143,6 +143,7 @@ public class Thompson {
 
 		char est = (char) (this.estados.size() + 'A');
 		this.estados.put(est, posiciones);
+		
 		return est;
 	}
 

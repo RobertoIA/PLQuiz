@@ -31,7 +31,7 @@ public class AutomataTest {
 		expresion = ExpresionRegular.nodoConcat(
 				ExpresionRegular.nodoSimbolo(5, 'b'), expresion);
 
-		automata = new Automata(expresion);
+		automata = new Automata(expresion, 0);
 	}
 
 	@After
