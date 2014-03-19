@@ -160,6 +160,9 @@ public class Main {
 			if (añadirBox.getSelectedItem().equals("Aho-Sethi-Ullman"))
 				nuevoPanel = new AhoSethiUllmanPanel(contenedorPanel,
 						documento, vistaPreviaText);
+			else if (añadirBox.getSelectedItem().equals("Thompson"))
+				nuevoPanel = new ThompsonPanel(contenedorPanel, documento,
+						vistaPreviaText);
 
 			if (nuevoPanel != null) {
 				contenedorPanel.add(nuevoPanel);

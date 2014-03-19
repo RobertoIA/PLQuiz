@@ -3,6 +3,7 @@ package es.ubu.inf.tfg.doc.datos;
 import java.util.List;
 
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
+import es.ubu.inf.tfg.regex.thompson.Thompson;
 
 /**
  * Implementa un traductor al formato propietario Moodle XML.
@@ -14,6 +15,7 @@ public class TraductorMoodleXML implements Traductor {
 	private static final String cabecera = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><quiz>";
 	private static final String cierre = "</quiz>";
 	private static final String enunciadoASU = "Aplicar el algoritmo de Aho-Sethi-Ullman para obtener el AFD capaz de reconocer el lenguaje definido por la expresión regular ";
+	private static final String enunciadoCS = "Completa la tabla de la función de transición para el AFD que se obtendría al aplicar el método de construcción de subconjuntos al AFND de la expresión regular ";
 
 	/**
 	 * Genera un documento en formato Moodle XML a partir de una lista de
@@ -106,4 +108,67 @@ public class TraductorMoodleXML implements Traductor {
 		return xml.toString();
 	}
 
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos a formato Moodle
+	 * XML.
+	 * 
+	 * @param problema
+	 *            Problema de construcción de subconjuntos.
+	 * @return Problema traducido a Moodle XML.
+	 */
+	@Override
+	public String traduce(Thompson problema) {
+		StringBuilder xml = new StringBuilder();
+
+		xml.append("<p>");
+		xml.append(enunciadoCS);
+		xml.append(problema.problema());
+		xml.append("</p>");
+
+		// Función de transición
+		xml.append("<p>Función de transición:");
+		xml.append("<table border=\"1\"><tr><th></th>");
+		for (char simbolo : problema.simbolos())
+			if (simbolo != '$')
+				xml.append("<th>" + simbolo + "</th>");
+		xml.append("<th></th></tr>");
+
+		for (char estado : problema.estados()) {
+			if (problema.esFinal(estado))
+				xml.append("<tr><td>(" + estado + ")</td>");
+			else
+				xml.append("<tr><td>" + estado + "</td>");
+			for (char simbolo : problema.simbolos()) {
+				if (simbolo != '$')
+					xml.append("<td>{:MULTICHOICE:="
+							+ problema.mueve(estado, simbolo)
+							+ "#CORRECT~Z#Falso}</td>"); // TODO placeholder
+			}
+			xml.append("<td>");
+			xml.append("{:MULTICHOICE:=");
+			for (int posicion : problema.posiciones(estado))
+				xml.append(posicion + " ");
+			if (problema.posiciones(estado).size() == 0)
+				xml.append("Cjto. vacio");
+			xml.append("#CORRECT~0#Falso}"); // TODO placeholder
+			xml.append("</td></tr>");
+		}
+		xml.append("</table></p>");
+
+		// Estados finales
+		xml.append("\nLos estados finales son: ");
+		xml.append(" {:MULTICHOICE:=");
+		String prefijo = "";
+		for (char estado : problema.estados()) {
+			if (problema.esFinal(estado)) {
+				xml.append(prefijo);
+				prefijo = ", ";
+				xml.append(estado);
+			}
+		}
+		xml.append("#Correct");
+		xml.append("~X, Y, Z#Falso}"); // TODO placeholder
+
+		return xml.toString();
+	}
 }

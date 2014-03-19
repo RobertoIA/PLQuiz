@@ -3,6 +3,7 @@ package es.ubu.inf.tfg.doc.datos;
 import java.util.List;
 
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
+import es.ubu.inf.tfg.regex.thompson.Thompson;
 
 /**
  * Implementa un traductor HTML.
@@ -15,6 +16,7 @@ public class TraductorHTML implements Traductor {
 	private static final String cabecera = "<html><head><meta content=\"text/html; charset=utf-8\"><style>td, th {border: 1px solid black; padding:5px;} table {border-collapse: collapse;}</style></head><body>";
 	private static final String cierre = "</body></html>";
 	private static final String enunciadoASU = "Aplicar el algoritmo de Aho-Sethi-Ullman para obtener el AFD capaz de reconocer el lenguaje definido por la expresión regular ";
+	private static final String enunciadoCS = "Completa la tabla de la función de transición para el AFD que se obtendría al aplicar el método de construcción de subconjuntos al AFND de la expresión regular ";
 	private static final String cabeceraStePos = "<tr><th>n</th><th>stePos(n)</th></tr>";
 
 	/**
@@ -83,18 +85,6 @@ public class TraductorHTML implements Traductor {
 		}
 		html.append("</table></p>");
 
-		// transiciones
-		/*
-		 * for (char estado : problema.estados()) { for (char simbolo :
-		 * problema.simbolos()) { if (simbolo != '$') {
-		 * html.append("<p>mueve("); html.append(estado); html.append(", ");
-		 * html.append(simbolo); html.append(") = {"); char estadoSiguiente =
-		 * problema.mueve(estado, simbolo); String prefijo = ""; for (int pos :
-		 * problema.estado(estadoSiguiente)) { html.append(prefijo); prefijo =
-		 * ", "; html.append(pos); } html.append("} = ");
-		 * html.append(estadoSiguiente); html.append("</p>"); } } }
-		 */
-
 		// Función de transición
 		html.append("<p><table border=\"1\"><tr><th></th>");
 		for (char simbolo : problema.simbolos())
@@ -122,4 +112,46 @@ public class TraductorHTML implements Traductor {
 		return html.toString();
 	}
 
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos a formato HTML.
+	 * 
+	 * @param problema
+	 *            Problema de construcción de subconjuntos.
+	 * @return Problema traducido a HTML.
+	 */
+	@Override
+	public String traduce(Thompson problema) {
+		StringBuilder html = new StringBuilder();
+
+		// enunciado
+		html.append(enunciadoCS);
+		html.append(problema.problema());
+		html.append("</b></p>");
+
+		// Función de transición
+		html.append("<p><table border=\"1\"><tr><th></th>");
+		for (char simbolo : problema.simbolos())
+			if (simbolo != '$')
+				html.append("<th>" + simbolo + "</th>");
+		html.append("<th></th></tr>");
+
+		for (char estado : problema.estados()) {
+			if (problema.esFinal(estado))
+				html.append("<tr><td>(" + estado + ")</td>");
+			else
+				html.append("<tr><td>" + estado + "</td>");
+			for (char simbolo : problema.simbolos()) {
+				if (simbolo != '$')
+					html.append("<td>" + problema.mueve(estado, simbolo)
+							+ "</td>");
+			}
+			html.append("<td>");
+			for (int posicion : problema.posiciones(estado))
+				html.append(posicion + " ");
+			html.append("</td></tr>");
+		}
+		html.append("</table></p>");
+
+		return html.toString();
+	}
 }

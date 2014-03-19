@@ -13,6 +13,7 @@ import es.ubu.inf.tfg.doc.datos.Traductor;
 import es.ubu.inf.tfg.doc.datos.TraductorHTML;
 import es.ubu.inf.tfg.doc.datos.TraductorMoodleXML;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
+import es.ubu.inf.tfg.regex.thompson.Thompson;
 
 /**
  * Documento implementa un documento completo generado por la aplicación, sin
@@ -47,12 +48,33 @@ public class Documento {
 	}
 
 	/**
+	 * Añade un problema de tipo construcción de subconjuntos al final del
+	 * documento.
+	 * 
+	 * @param problema
+	 *            Nuevo problema construcción de subconjuntos.
+	 */
+	public void añadirProblema(Thompson problema) {
+		this.problemas.add(problema);
+	}
+
+	/**
 	 * Elimina un problema de tipo Aho-Sethi-Ullman del documento.
 	 * 
 	 * @param problema
 	 *            Problema Aho-Sethi-Ullman a eliminar.
 	 */
 	public void eliminarProblema(AhoSethiUllman problema) {
+		this.problemas.remove(problema);
+	}
+
+	/**
+	 * Elimina un problema de tipo construcción de subconjuntos del documento.
+	 * 
+	 * @param problema
+	 *            Problema construcción de subconjuntos a eliminar.
+	 */
+	public void eliminarProblema(Thompson problema) {
 		this.problemas.remove(problema);
 	}
 
@@ -67,6 +89,24 @@ public class Documento {
 	 *            Problema Aho-Sethi-Ullman a añadir.
 	 */
 	public void sustituirProblema(AhoSethiUllman anterior, AhoSethiUllman nuevo) {
+		int index = this.problemas.indexOf(anterior);
+		if (index >= 0)
+			this.problemas.set(index, nuevo);
+		else
+			añadirProblema(nuevo);
+	}
+	
+	/**
+	 * Sustituye un problema de tipo construcción de subconjuntos en el documento por otro
+	 * nuevo. Si el problema a sustituir no existe, añade el nuevo al final del
+	 * documento.
+	 * 
+	 * @param anterior
+	 *            Problema construcción de subconjuntos a sustituir.
+	 * @param nuevo
+	 *            Problema construcción de subconjuntos a añadir.
+	 */
+	public void sustituirProblema(Thompson anterior, Thompson nuevo) {
 		int index = this.problemas.indexOf(anterior);
 		if (index >= 0)
 			this.problemas.set(index, nuevo);
@@ -132,6 +172,8 @@ public class Documento {
 		for (Object problema : this.problemas) {
 			if (problema instanceof AhoSethiUllman)
 				problemas.add(traductor.traduce((AhoSethiUllman) problema));
+			else if(problema instanceof Thompson)
+				problemas.add(traductor.traduce((Thompson) problema));
 		}
 
 		return traductor.documento(problemas);
@@ -148,10 +190,9 @@ public class Documento {
 	 *             Indica un error durante el guardado.
 	 */
 	private void guardar(String ruta, String documento) throws IOException {
-		Writer writer = new BufferedWriter(new OutputStreamWriter(
-				new FileOutputStream(ruta), "UTF16"));
-		writer.write(documento);
-
-		writer.close();
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream(ruta), "UTF16"))) {
+			writer.write(documento);
+		}
 	}
 }

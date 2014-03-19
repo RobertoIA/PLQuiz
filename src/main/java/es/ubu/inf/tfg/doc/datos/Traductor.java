@@ -3,6 +3,7 @@ package es.ubu.inf.tfg.doc.datos;
 import java.util.List;
 
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
+import es.ubu.inf.tfg.regex.thompson.Thompson;
 
 /**
  * Traductor presenta una interfaz común para aquellas clases que se encargen de
@@ -31,4 +32,14 @@ public interface Traductor {
 	 * @return Problema traducido.
 	 */
 	public String traduce(AhoSethiUllman problema);
+
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos a un formato
+	 * concreto.
+	 * 
+	 * @param problema
+	 *            Problema construcción de subconjuntos.
+	 * @return Problema traducido.
+	 */
+	public String traduce(Thompson problema);
 }
