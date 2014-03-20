@@ -128,7 +128,7 @@ public class AhoSethiUllmanTest {
 	 */
 	@Test
 	public void testEstados() {
-		assertEquals("Conjunto de estados incorrect.", set('A', 'B', 'C', 'D'),
+		assertEquals("Conjunto de estados incorrecto.", set('A', 'B', 'C', 'D'),
 				asu.estados());
 	}
 

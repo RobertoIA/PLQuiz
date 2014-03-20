@@ -17,6 +17,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
+import es.ubu.inf.tfg.regex.thompson.Thompson;
 
 public class DocumentoTest {
 
@@ -25,17 +26,29 @@ public class DocumentoTest {
 
 	Documento documento;
 
+	String problemaA = "((a|b*)a*c)*";
+	String problemaB = "(a|b*)c*a";
+	String problemaC = "(a|b)*a(a|b)(a|b)";
+
 	AhoSethiUllman asuProblemaA;
 	AhoSethiUllman asuProblemaB;
 	AhoSethiUllman asuProblemaC;
+
+	Thompson csProblemaA;
+	Thompson csProblemaB;
+	Thompson csProblemaC;
 
 	@Before
 	public void setUp() throws Exception {
 		documento = new Documento();
 
-		asuProblemaA = new AhoSethiUllman("((a|b*)a*c)*");
-		asuProblemaB = new AhoSethiUllman("(a|b*)c*a");
-		asuProblemaC = new AhoSethiUllman("(a|b)*a(a|b)(a|b)");
+		asuProblemaA = new AhoSethiUllman(problemaA);
+		asuProblemaB = new AhoSethiUllman(problemaB);
+		asuProblemaC = new AhoSethiUllman(problemaC);
+
+		csProblemaA = new Thompson(problemaA);
+		csProblemaB = new Thompson(problemaB);
+		csProblemaC = new Thompson(problemaC);
 	}
 
 	@After
@@ -49,6 +62,9 @@ public class DocumentoTest {
 
 	/**
 	 * Comprueba que se generan correctamente documentos vacíos.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
 	 */
 	@Test
 	public void testVacio() throws IOException {
@@ -84,6 +100,9 @@ public class DocumentoTest {
 
 	/**
 	 * Commprueba que se añaden problemas Aho-Sethi-Ullman correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
 	 */
 	@Test
 	public void testAñadirASU() throws IOException {
@@ -97,7 +116,7 @@ public class DocumentoTest {
 		documento.añadirProblema(asuProblemaC);
 
 		// Vista previa
-		esperado = toString("añadir.html");
+		esperado = toString("añadirASU.html");
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
@@ -105,7 +124,7 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero HTML
-		ficheroTemporal = ficheroTemporal("añadir.html");
+		ficheroTemporal = ficheroTemporal("añadirASU.html");
 
 		documento.exportaHTML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
@@ -114,7 +133,7 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("añadir.xml");
+		esperado = toString("añadirASU.xml");
 		ficheroTemporal = ficheroTemporal("añadir.xml");
 
 		documento.exportaXML(ficheroTemporal);
@@ -126,6 +145,9 @@ public class DocumentoTest {
 
 	/**
 	 * Comprueba que se eliminan problemas Aho-Sethi-Ullman correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
 	 */
 	@Test
 	public void testEliminarASU() throws IOException {
@@ -140,7 +162,7 @@ public class DocumentoTest {
 		documento.añadirProblema(asuProblemaC);
 		documento.eliminarProblema(asuProblemaC);
 
-		esperado = toString("eliminar.html");
+		esperado = toString("eliminarASU.html");
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
@@ -148,7 +170,7 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero HTML
-		ficheroTemporal = ficheroTemporal("eliminar.html");
+		ficheroTemporal = ficheroTemporal("eliminarASU.html");
 
 		documento.exportaHTML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
@@ -157,7 +179,7 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("eliminar.xml");
+		esperado = toString("eliminarASU.xml");
 		ficheroTemporal = ficheroTemporal("eliminar.xml");
 
 		documento.exportaXML(ficheroTemporal);
@@ -169,6 +191,9 @@ public class DocumentoTest {
 
 	/**
 	 * Comprueba que se sustituyen problemas Aho-Sethi-Ullman correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
 	 */
 	@Test
 	public void testSustituirASU() throws IOException {
@@ -182,7 +207,7 @@ public class DocumentoTest {
 		documento.añadirProblema(asuProblemaB);
 		documento.sustituirProblema(asuProblemaB, asuProblemaC);
 
-		esperado = toString("sustituir.html");
+		esperado = toString("sustituirASU.html");
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
@@ -190,7 +215,7 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero HTML
-		ficheroTemporal = ficheroTemporal("sustituir.html");
+		ficheroTemporal = ficheroTemporal("sustituirASU.html");
 
 		documento.exportaHTML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
@@ -199,13 +224,152 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("sustituir.xml");
+		esperado = toString("sustituirASU.xml");
 		ficheroTemporal = ficheroTemporal("sustituir.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman en documento XML exportado.",
+				esperado, encontrado);
+	}
+
+	/**
+	 * Commprueba que se añaden problemas de construcción de subconjuntos
+	 * correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testAñadirCS() throws IOException {
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		documento.añadirProblema(csProblemaA);
+		documento.añadirProblema(csProblemaB);
+		documento.añadirProblema(csProblemaC);
+
+		// Vista previa
+		esperado = toString("añadirCS.html");
+		encontrado = documento.vistaPrevia();
+
+		assertEquals(
+				"Añadido erróneo de problemas de construcción de subconjuntos a vista previa.",
+				esperado, encontrado);
+
+		// Fichero HTML
+		ficheroTemporal = ficheroTemporal("añadirCS.html");
+
+		documento.exportaHTML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		assertEquals(
+				"Añadido erróneo de problemas de construcción de subconjuntos a documento HTML exportado.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("añadirCS.xml");
+		ficheroTemporal = ficheroTemporal("añadir.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		assertEquals(
+				"Añadido erróneo de problemas de construcción de subconjuntos a documento XML exportado.",
+				esperado, encontrado);
+	}
+
+	/**
+	 * Comprueba que se eliminan problemas de construcción de subconjuntos
+	 * correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testEliminarCS() throws IOException {
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		// Vista previa
+		documento.añadirProblema(csProblemaA);
+		documento.añadirProblema(csProblemaB);
+		documento.añadirProblema(csProblemaC);
+		documento.eliminarProblema(csProblemaC);
+
+		esperado = toString("eliminarCS.html");
+		encontrado = documento.vistaPrevia();
+
+		assertEquals(
+				"Borrado erróneo de problemas de construcción de subconjuntos en vista previa.",
+				esperado, encontrado);
+
+		// Fichero HTML
+		ficheroTemporal = ficheroTemporal("eliminarCS.html");
+
+		documento.exportaHTML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		assertEquals(
+				"Borrado erróneo de problemas de construcción de subconjuntos en documento HTML exportado.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("eliminarCS.xml");
+		ficheroTemporal = ficheroTemporal("eliminar.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		assertEquals(
+				"Borrado erróneo de problemas de construcción de subconjuntos en documento XML exportado.",
+				esperado, encontrado);
+	}
+
+	/**
+	 * Comprueba que se sustituyen problemas de construcción de subconjuntos
+	 * correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testSustituirCS() throws IOException {
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		// Vista previa
+		documento.añadirProblema(csProblemaA);
+		documento.añadirProblema(csProblemaB);
+		documento.sustituirProblema(csProblemaB, csProblemaC);
+
+		esperado = toString("sustituirCS.html");
+		encontrado = documento.vistaPrevia();
+
+		assertEquals(
+				"Sustitución errónea de problemas de construcción de subconjuntos en vista previa.",
+				esperado, encontrado);
+
+		// Fichero HTML
+		ficheroTemporal = ficheroTemporal("sustituirCS.html");
+
+		documento.exportaHTML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		assertEquals(
+				"Sustitución errónea de problemas de construcción de subconjuntos en documento HTML exportado.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("sustituirCS.xml");
+		ficheroTemporal = ficheroTemporal("sustituir.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		assertEquals(
+				"Sustitución errónea de problemas de construcción de subconjuntos en documento XML exportado.",
 				esperado, encontrado);
 	}
 
@@ -237,36 +401,28 @@ public class DocumentoTest {
 	 */
 	private String toString(File fichero) {
 		String resultado;
-		InputStream entrada;
-		BufferedReader lector = null;
 		StringBuilder contenido;
 		String linea;
 
-		try {
-			entrada = new FileInputStream(fichero);
-			lector = new BufferedReader(new InputStreamReader(entrada, "UTF16"));
+		try (InputStream entrada = new FileInputStream(fichero);
+				BufferedReader lector = new BufferedReader(
+						new InputStreamReader(entrada, "UTF16"))) {
 
 			contenido = new StringBuilder();
 			linea = lector.readLine();
 			while (linea != null) {
 				contenido.append(linea);
 				linea = lector.readLine();
+				if (linea != null)
+					contenido.append("\n");
 			}
 
 			resultado = contenido.toString();
 			return resultado;
 		} catch (IOException e) {
 			fail("Error al abrir el archivo temporal " + fichero.getName());
-		} finally {
-			try {
-				if (lector != null)
-					lector.close();
-			} catch (IOException e) {
-				fail("Error al cerrar el archivo temporal " + fichero.getName());
-			}
+			return "";
 		}
-
-		return "";
 	}
 
 	/**
@@ -278,28 +434,27 @@ public class DocumentoTest {
 	 */
 	private String toString(String fichero) {
 		String resultado;
-		InputStream entrada;
-		BufferedReader lector;
 		StringBuilder contenido;
 		String linea;
 
-		entrada = getClass().getResourceAsStream(fichero);
-		try {
-			lector = new BufferedReader(new InputStreamReader(entrada, "UTF16"));
+		try (InputStream entrada = getClass().getResourceAsStream(fichero);
+				BufferedReader lector = new BufferedReader(
+						new InputStreamReader(entrada, "UTF16"))) {
 
 			contenido = new StringBuilder();
 			linea = lector.readLine();
 			while (linea != null) {
 				contenido.append(linea);
 				linea = lector.readLine();
+				if (linea != null)
+					contenido.append("\n");
 			}
 
 			resultado = contenido.toString();
 			return resultado;
 		} catch (IOException e) {
 			fail("Error al abrir el archivo " + fichero);
+			return "";
 		}
-
-		return "";
 	}
 }

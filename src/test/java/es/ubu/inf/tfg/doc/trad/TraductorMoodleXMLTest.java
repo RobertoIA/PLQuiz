@@ -1,7 +1,12 @@
 package es.ubu.inf.tfg.doc.trad;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -11,6 +16,7 @@ import org.junit.Test;
 import es.ubu.inf.tfg.doc.datos.Traductor;
 import es.ubu.inf.tfg.doc.datos.TraductorMoodleXML;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
+import es.ubu.inf.tfg.regex.thompson.Thompson;
 
 public class TraductorMoodleXMLTest {
 
@@ -32,7 +38,7 @@ public class TraductorMoodleXMLTest {
 	 */
 	@Test
 	public void testDocumento() {
-		String esperado = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><quiz></quiz>";
+		String esperado = toString("XMLTraductorVacio.xml");
 
 		assertEquals("Generación incorrecta de documento Moodle XML.",
 				esperado, traductor.documento(new ArrayList<String>()));
@@ -44,11 +50,57 @@ public class TraductorMoodleXMLTest {
 	@Test
 	public void testTraduceAhoSethiUllman() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = "<p>Aplicar el algoritmo de Aho-Sethi-Ullman para obtener el AFD capaz de reconocer el lenguaje definido por la expresión regular ((a|b*)a*c)*</p><p>Función de transición:<table border=\"1\"><tr><th></th><th>a</th><th>b</th><th>c</th><th></th></tr><tr><td>(A)</td><td>{:MULTICHOICE:=B#CORRECT~Z#Falso}</td><td>{:MULTICHOICE:=C#CORRECT~Z#Falso}</td><td>{:MULTICHOICE:=A#CORRECT~Z#Falso}</td><td>{:MULTICHOICE:=1 2 3 4 5 #CORRECT~0#Falso}</td></tr><tr><td>B</td><td>{:MULTICHOICE:=B#CORRECT~Z#Falso}</td><td>{:MULTICHOICE:=D#CORRECT~Z#Falso}</td><td>{:MULTICHOICE:=A#CORRECT~Z#Falso}</td><td>{:MULTICHOICE:=3 4 #CORRECT~0#Falso}</td></tr><tr><td>C</td><td>{:MULTICHOICE:=B#CORRECT~Z#Falso}</td><td>{:MULTICHOICE:=C#CORRECT~Z#Falso}</td><td>{:MULTICHOICE:=A#CORRECT~Z#Falso}</td><td>{:MULTICHOICE:=2 3 4 #CORRECT~0#Falso}</td></tr><tr><td>D</td><td>{:MULTICHOICE:=D#CORRECT~Z#Falso}</td><td>{:MULTICHOICE:=D#CORRECT~Z#Falso}</td><td>{:MULTICHOICE:=D#CORRECT~Z#Falso}</td><td>{:MULTICHOICE:=Cjto. vacio#CORRECT~0#Falso}</td></tr></table></p>\nLos estados finales son:  {:MULTICHOICE:=A#Correct~X, Y, Z#Falso}";
+		String esperado = toString("XMLTraductorASU.xml");
 
 		assertEquals(
 				"Traducción Moodle XML incorrecta de problema AhoSethiUllman.",
 				esperado, traductor.traduce(problema));
 	}
 
+	/**
+	 * Comprueba la correcta traducción de un problema de construcción de
+	 * subconjuntos.
+	 */
+	@Test
+	public void testTraduceConstruccionSubconjuntos() {
+		Thompson problema = new Thompson("((a|b*)a*c)*");
+		String esperado = toString("XMLTraductorCS.xml");
+
+		assertEquals(
+				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos.",
+				esperado, traductor.traduce(problema));
+	}
+
+	/**
+	 * Lee un recurso como una cadena de caracteres.
+	 * 
+	 * @param fichero
+	 *            Recurso a leer.
+	 * @return Contenido del recurso.
+	 */
+	private String toString(String fichero) {
+		String resultado;
+		StringBuilder contenido;
+		String linea;
+
+		try (InputStream entrada = getClass().getResourceAsStream(fichero);
+				BufferedReader lector = new BufferedReader(
+						new InputStreamReader(entrada, "UTF16"))) {
+
+			contenido = new StringBuilder();
+			linea = lector.readLine();
+			while (linea != null) {
+				contenido.append(linea);
+				linea = lector.readLine();
+				if (linea != null)
+					contenido.append("\n");
+			}
+
+			resultado = contenido.toString();
+			return resultado;
+		} catch (IOException e) {
+			fail("Error al abrir el archivo " + fichero);
+			return "";
+		}
+	}
 }
