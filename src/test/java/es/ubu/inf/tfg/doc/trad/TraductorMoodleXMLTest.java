@@ -16,7 +16,7 @@ import org.junit.Test;
 import es.ubu.inf.tfg.doc.datos.Traductor;
 import es.ubu.inf.tfg.doc.datos.TraductorMoodleXML;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
-import es.ubu.inf.tfg.regex.thompson.Thompson;
+import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
 public class TraductorMoodleXMLTest {
 
@@ -63,7 +63,7 @@ public class TraductorMoodleXMLTest {
 	 */
 	@Test
 	public void testTraduceConstruccionSubconjuntos() {
-		Thompson problema = new Thompson("((a|b*)a*c)*");
+		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos("((a|b*)a*c)*");
 		String esperado = toString("XMLTraductorCS.xml");
 
 		assertEquals(

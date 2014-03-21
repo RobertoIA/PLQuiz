@@ -10,14 +10,14 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 
 import es.ubu.inf.tfg.doc.Documento;
-import es.ubu.inf.tfg.regex.thompson.Thompson;
+import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class ThompsonPanel extends JPanel {
+public class ConstruccionSubconjuntosPanel extends JPanel {
 
 	private static final long serialVersionUID = -1805230103073818602L;
 
@@ -25,14 +25,14 @@ public class ThompsonPanel extends JPanel {
 	private final JPanel actualPanel = this;
 	private final Documento documento;
 	private final JTextPane vistaPrevia;
-	private Thompson problemaActual = null;
+	private ConstruccionSubconjuntos problemaActual = null;
 	private JPanel expresionPanel;
 	private JButton borrarButton;
 	private JTextField expresionText;
 	private JPanel botonesPanel;
 	private JButton resolverButton;
 
-	public ThompsonPanel(JPanel contenedor, Documento documento,
+	public ConstruccionSubconjuntosPanel(JPanel contenedor, Documento documento,
 			JTextPane vistaPrevia) {
 
 		this.contenedorPanel = contenedor;
@@ -41,7 +41,7 @@ public class ThompsonPanel extends JPanel {
 
 		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 5),
 				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
-						"Thompson - Construcción de subconjuntos",
+						"Construcción de subconjuntos",
 						TitledBorder.LEADING, TitledBorder.TOP, null, null)));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -87,7 +87,7 @@ public class ThompsonPanel extends JPanel {
 					documento.eliminarProblema(problemaActual);
 					documento.añadirProblema(problemaActual);
 				} else {
-					Thompson problema = new Thompson(expresion);
+					ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(expresion);
 					if (problemaActual != null)
 						documento.sustituirProblema(problemaActual, problema);
 					problemaActual = problema;

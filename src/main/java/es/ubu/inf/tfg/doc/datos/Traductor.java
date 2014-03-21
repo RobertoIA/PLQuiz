@@ -3,7 +3,7 @@ package es.ubu.inf.tfg.doc.datos;
 import java.util.List;
 
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
-import es.ubu.inf.tfg.regex.thompson.Thompson;
+import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
 /**
  * Traductor presenta una interfaz común para aquellas clases que se encargen de
@@ -41,5 +41,5 @@ public interface Traductor {
 	 *            Problema construcción de subconjuntos.
 	 * @return Problema traducido.
 	 */
-	public String traduce(Thompson problema);
+	public String traduce(ConstruccionSubconjuntos problema);
 }

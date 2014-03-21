@@ -19,7 +19,7 @@ import es.ubu.inf.tfg.regex.parser.TokenMgrError;
  * a partir de una expresión regular. Es capaz de trabajar tanto con una cadena
  * de caracteres como con una ExpresionRegular ya construida.
  * <p>
- * Asimismo actua como fachada del subsistema es.ubu.inf.tfg.asu, junto con
+ * Asimismo actua como fachada del subsistema es.ubu.inf.tfg.regex.asu, junto con
  * AhoSethiUllmanGenetico, evitando dependencias con los tipos de datos
  * internos. Todas las salidas se codifican en tipos de datos estandar.
  * 
@@ -100,7 +100,7 @@ public class AhoSethiUllman {
 
 		this.solucion = new Nodo(this.expresion);
 
-		// calculo estados
+		// Calculo estados
 		this.estados = new MapaPosiciones<>();
 		this.transiciones = new MapaEstados();
 

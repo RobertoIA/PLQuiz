@@ -9,13 +9,13 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ThompsonTest {
+public class ConstruccionSubconjuntosTest {
 
-	private Thompson th;
+	private ConstruccionSubconjuntos th;
 
 	@Before
 	public void setUp() throws Exception {
-		th = new Thompson("(a|b)*abb");
+		th = new ConstruccionSubconjuntos("(a|b)*abb");
 	}
 
 	@After

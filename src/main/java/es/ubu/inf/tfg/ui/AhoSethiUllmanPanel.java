@@ -179,6 +179,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 			if (expresion.length() > 0) {
 				if (problemaActual != null
 						&& expresion.equals(problemaActual.problema())) {
+					documento.eliminarProblema(problemaActual);
 					documento.añadirProblema(problemaActual);
 				} else {
 					AhoSethiUllman problema = new AhoSethiUllman(expresion);

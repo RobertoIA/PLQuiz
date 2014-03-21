@@ -13,7 +13,7 @@ import es.ubu.inf.tfg.doc.datos.Traductor;
 import es.ubu.inf.tfg.doc.datos.TraductorHTML;
 import es.ubu.inf.tfg.doc.datos.TraductorMoodleXML;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
-import es.ubu.inf.tfg.regex.thompson.Thompson;
+import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
 /**
  * Documento implementa un documento completo generado por la aplicación, sin
@@ -54,7 +54,7 @@ public class Documento {
 	 * @param problema
 	 *            Nuevo problema construcción de subconjuntos.
 	 */
-	public void añadirProblema(Thompson problema) {
+	public void añadirProblema(ConstruccionSubconjuntos problema) {
 		this.problemas.add(problema);
 	}
 
@@ -74,7 +74,7 @@ public class Documento {
 	 * @param problema
 	 *            Problema construcción de subconjuntos a eliminar.
 	 */
-	public void eliminarProblema(Thompson problema) {
+	public void eliminarProblema(ConstruccionSubconjuntos problema) {
 		this.problemas.remove(problema);
 	}
 
@@ -106,7 +106,7 @@ public class Documento {
 	 * @param nuevo
 	 *            Problema construcción de subconjuntos a añadir.
 	 */
-	public void sustituirProblema(Thompson anterior, Thompson nuevo) {
+	public void sustituirProblema(ConstruccionSubconjuntos anterior, ConstruccionSubconjuntos nuevo) {
 		int index = this.problemas.indexOf(anterior);
 		if (index >= 0)
 			this.problemas.set(index, nuevo);
@@ -172,8 +172,8 @@ public class Documento {
 		for (Object problema : this.problemas) {
 			if (problema instanceof AhoSethiUllman)
 				problemas.add(traductor.traduce((AhoSethiUllman) problema));
-			else if(problema instanceof Thompson)
-				problemas.add(traductor.traduce((Thompson) problema));
+			else if(problema instanceof ConstruccionSubconjuntos)
+				problemas.add(traductor.traduce((ConstruccionSubconjuntos) problema));
 		}
 
 		return traductor.documento(problemas);

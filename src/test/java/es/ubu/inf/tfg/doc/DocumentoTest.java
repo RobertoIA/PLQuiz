@@ -17,7 +17,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
-import es.ubu.inf.tfg.regex.thompson.Thompson;
+import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
 public class DocumentoTest {
 
@@ -34,9 +34,9 @@ public class DocumentoTest {
 	AhoSethiUllman asuProblemaB;
 	AhoSethiUllman asuProblemaC;
 
-	Thompson csProblemaA;
-	Thompson csProblemaB;
-	Thompson csProblemaC;
+	ConstruccionSubconjuntos csProblemaA;
+	ConstruccionSubconjuntos csProblemaB;
+	ConstruccionSubconjuntos csProblemaC;
 
 	@Before
 	public void setUp() throws Exception {
@@ -46,9 +46,9 @@ public class DocumentoTest {
 		asuProblemaB = new AhoSethiUllman(problemaB);
 		asuProblemaC = new AhoSethiUllman(problemaC);
 
-		csProblemaA = new Thompson(problemaA);
-		csProblemaB = new Thompson(problemaB);
-		csProblemaC = new Thompson(problemaC);
+		csProblemaA = new ConstruccionSubconjuntos(problemaA);
+		csProblemaB = new ConstruccionSubconjuntos(problemaB);
+		csProblemaC = new ConstruccionSubconjuntos(problemaC);
 	}
 
 	@After

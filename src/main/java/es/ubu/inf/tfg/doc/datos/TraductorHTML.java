@@ -3,7 +3,7 @@ package es.ubu.inf.tfg.doc.datos;
 import java.util.List;
 
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
-import es.ubu.inf.tfg.regex.thompson.Thompson;
+import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
 /**
  * Implementa un traductor HTML.
@@ -120,7 +120,7 @@ public class TraductorHTML implements Traductor {
 	 * @return Problema traducido a HTML.
 	 */
 	@Override
-	public String traduce(Thompson problema) {
+	public String traduce(ConstruccionSubconjuntos problema) {
 		StringBuilder html = new StringBuilder();
 
 		// enunciado

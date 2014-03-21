@@ -29,7 +29,7 @@ import es.ubu.inf.tfg.regex.thompson.datos.Nodo;
  * @author Roberto Izquierdo Amo
  * 
  */
-public class Thompson {
+public class ConstruccionSubconjuntos {
 
 	private String problema;
 	private ExpresionRegular expresion;
@@ -50,7 +50,7 @@ public class Thompson {
 	 *             Error del parser o del token manager. Indica que la expresión
 	 *             no es válida o que contiene caracteres no reconocidos.
 	 */
-	public Thompson(String problema) throws UnsupportedOperationException {
+	public ConstruccionSubconjuntos(String problema) throws UnsupportedOperationException {
 		if (problema.charAt(problema.length() - 1) != '\n')
 			problema += '\n';
 
@@ -94,7 +94,7 @@ public class Thompson {
 	 * @param expresionExpresionRegular
 	 *            conteniendo la expresión regular a resolver.
 	 */
-	public Thompson(ExpresionRegular expresion) {
+	public ConstruccionSubconjuntos(ExpresionRegular expresion) {
 		// Expresion sin aumentar.
 		this.expresion = this.expresion.hijoIzquierdo();
 		this.problema = this.expresion.toString();

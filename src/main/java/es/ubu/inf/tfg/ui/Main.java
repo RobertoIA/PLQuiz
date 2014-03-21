@@ -130,7 +130,7 @@ public class Main {
 
 		this.añadirBox = new JComboBox<>();
 		this.añadirBox.setModel(new DefaultComboBoxModel<String>(new String[] {
-				"Aho-Sethi-Ullman", "Thompson" }));
+				"Aho-Sethi-Ullman", "Construcción de subconjuntos" }));
 		this.añadirPanel.add(this.añadirBox);
 
 		this.añadirDerechoStrut = Box.createHorizontalStrut(110);
@@ -160,8 +160,8 @@ public class Main {
 			if (añadirBox.getSelectedItem().equals("Aho-Sethi-Ullman"))
 				nuevoPanel = new AhoSethiUllmanPanel(contenedorPanel,
 						documento, vistaPreviaText);
-			else if (añadirBox.getSelectedItem().equals("Thompson"))
-				nuevoPanel = new ThompsonPanel(contenedorPanel, documento,
+			else if (añadirBox.getSelectedItem().equals("Construcción de subconjuntos"))
+				nuevoPanel = new ConstruccionSubconjuntosPanel(contenedorPanel, documento,
 						vistaPreviaText);
 
 			if (nuevoPanel != null) {
