@@ -74,6 +74,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 		this.expresionPanel.add(this.borrarButton);
 
 		this.expresionText = new JTextField();
+		this.expresionText.addActionListener(new BotonResolverActionListener());
 		this.expresionPanel.add(this.expresionText);
 		this.expresionText.setColumns(40);
 

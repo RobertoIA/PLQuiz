@@ -49,10 +49,11 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		add(this.expresionPanel);
 
 		this.borrarButton = new JButton("-");
-		this.borrarButton.addActionListener(new BorrarButtonActionListener());
+		this.borrarButton.addActionListener(new BotonBorrarActionListener());
 		this.expresionPanel.add(this.borrarButton);
 
 		this.expresionText = new JTextField();
+		this.expresionText.addActionListener(new BotonResolverActionListener());
 		this.expresionPanel.add(this.expresionText);
 		this.expresionText.setColumns(40);
 
@@ -61,14 +62,14 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 
 		this.resolverButton = new JButton("Resolver");
 		this.resolverButton
-				.addActionListener(new ResolverButtonActionListener());
+				.addActionListener(new BotonResolverActionListener());
 		this.botonesPanel.add(this.resolverButton);
 	}
 
-	private class BorrarButtonActionListener implements ActionListener {
+	private class BotonBorrarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			if (problemaActual != null) {
-				// documento.eliminarProblema(problemaActual); //TODO
+				documento.eliminarProblema(problemaActual);
 				vistaPrevia.setText(documento.vistaPrevia());
 			}
 
@@ -77,7 +78,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		}
 	}
 
-	private class ResolverButtonActionListener implements ActionListener {
+	private class BotonResolverActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			String expresion = expresionText.getText();
 
