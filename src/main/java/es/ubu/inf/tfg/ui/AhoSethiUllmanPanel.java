@@ -156,8 +156,14 @@ public class AhoSethiUllmanPanel extends JPanel {
 			AhoSethiUllman problema = generador.nuevo(nSimbolos, nEstados,
 					usaVacio);
 
+			if(problemaActual != null)
+				documento.sustituirProblema(problemaActual, problema);
+			else
+				documento.añadirProblema(problema);
+			
 			problemaActual = problema;
 			expresionText.setText(problema.problema());
+			vistaPrevia.setText(documento.vistaPrevia());
 		}
 	}
 
@@ -178,16 +184,16 @@ public class AhoSethiUllmanPanel extends JPanel {
 			String expresion = expresionText.getText();
 
 			if (expresion.length() > 0) {
-				if (problemaActual != null
-						&& expresion.equals(problemaActual.problema())) {
-					documento.eliminarProblema(problemaActual);
-					documento.añadirProblema(problemaActual);
-				} else {
-					AhoSethiUllman problema = new AhoSethiUllman(expresion);
-					if (problemaActual != null)
+				if(problemaActual != null) {
+					if (!expresion.equals(problemaActual.problema())) {
+						AhoSethiUllman problema = new AhoSethiUllman(expresion);
 						documento.sustituirProblema(problemaActual, problema);
-					problemaActual = problema;
+						problemaActual = problema;
+					}
+				}else{
+					AhoSethiUllman problema = new AhoSethiUllman(expresion);
 					documento.añadirProblema(problema);
+					problemaActual = problema;
 				}
 				vistaPrevia.setText(documento.vistaPrevia());
 			}

@@ -1,8 +1,13 @@
 package es.ubu.inf.tfg.ui;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -11,11 +16,6 @@ import javax.swing.border.TitledBorder;
 
 import es.ubu.inf.tfg.doc.Documento;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class ConstruccionSubconjuntosPanel extends JPanel {
 
@@ -83,16 +83,16 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 			String expresion = expresionText.getText();
 
 			if (expresion.length() > 0) {
-				if (problemaActual != null
-						&& expresion.equals(problemaActual.problema())) {
-					documento.eliminarProblema(problemaActual);
-					documento.añadirProblema(problemaActual);
-				} else {
-					ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(expresion);
-					if (problemaActual != null)
+				if(problemaActual != null) {
+					if (!expresion.equals(problemaActual.problema())) {
+						ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(expresion);
 						documento.sustituirProblema(problemaActual, problema);
-					problemaActual = problema;
+						problemaActual = problema;
+					}
+				}else{
+					ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(expresion);
 					documento.añadirProblema(problema);
+					problemaActual = problema;
 				}
 				vistaPrevia.setText(documento.vistaPrevia());
 			}
