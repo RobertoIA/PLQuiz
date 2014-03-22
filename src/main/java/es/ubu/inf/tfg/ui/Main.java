@@ -208,7 +208,7 @@ public class Main {
 
 		@Override
 		public boolean accept(File f) {
-			return f.getName().toLowerCase().endsWith(".html");
+			return f.getName().toLowerCase().endsWith(".html") || f.isDirectory();
 		}
 
 		@Override
@@ -221,7 +221,7 @@ public class Main {
 
 		@Override
 		public boolean accept(File f) {
-			return f.getName().toLowerCase().endsWith(".xml");
+			return f.getName().toLowerCase().endsWith(".xml") || f.isDirectory();
 		}
 
 		@Override
