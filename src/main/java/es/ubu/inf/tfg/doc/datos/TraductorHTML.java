@@ -1,5 +1,10 @@
 package es.ubu.inf.tfg.doc.datos;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.text.MessageFormat;
 import java.util.List;
 
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
@@ -13,12 +18,6 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
  */
 public class TraductorHTML implements Traductor {
 
-	private static final String cabecera = "<html><head><meta content=\"text/html; charset=utf-8\"><style>td, th {border: 1px solid black; padding:5px;} table {border-collapse: collapse;}</style></head><body>";
-	private static final String cierre = "</body></html>";
-	private static final String enunciadoASU = "Aplicar el algoritmo de Aho-Sethi-Ullman para obtener el AFD capaz de reconocer el lenguaje definido por la expresión regular ";
-	private static final String enunciadoCS = "Completa la tabla de la función de transición para el AFD que se obtendría al aplicar el método de construcción de subconjuntos al AFND de la expresión regular ";
-	private static final String cabeceraStePos = "<tr><th>n</th><th>stePos(n)</th></tr>";
-
 	/**
 	 * Genera un documento HTML a partir de una lista de problemas ya
 	 * traducidos.
@@ -31,15 +30,15 @@ public class TraductorHTML implements Traductor {
 	public String documento(List<String> problemas) {
 		StringBuilder documento = new StringBuilder();
 
-		documento.append(cabecera);
 		int n = 1;
-		for (Object problema : problemas) {
-			documento.append("<p><b>" + (n++) + ".- ");
-			documento.append(problema);
-		}
-		documento.append(cierre);
+		for (String problema : problemas)
+			documento.append(MessageFormat.format(problema, n++));
 
-		return documento.toString();
+		String plantilla = formatoIntermedio(plantilla("plantilla.html"));
+		plantilla = MessageFormat.format(plantilla, documento.toString());
+		plantilla = formatoFinal(plantilla);
+
+		return plantilla;
 	}
 
 	/**
@@ -51,65 +50,62 @@ public class TraductorHTML implements Traductor {
 	 */
 	@Override
 	public String traduce(AhoSethiUllman problema) {
-		StringBuilder html = new StringBuilder();
+		StringBuilder stePos = new StringBuilder();
+		StringBuilder fTrans = new StringBuilder();
 
-		// enunciado
-		html.append(enunciadoASU);
-		html.append(problema.problema());
-		html.append("</b></p>");
-
-		// expresión aumentada
-		html.append("<p>");
-		html.append("Expresión aumentada: ");
-		html.append(problema.expresionAumentada());
-		html.append("</p>");
+		String plantilla = formatoIntermedio(plantilla("plantillaASU.html"));
 
 		// siguiente-pos
-		html.append("<p><table border=\"1\">");
-		html.append(cabeceraStePos);
+		stePos.append("<p><table>");
+		stePos.append("<tr><th>n</th><th>stePos(n)</th></tr>");
 		for (int n : problema.posiciones()) {
-			html.append("<tr><td>");
-			html.append(n);
-			html.append("</td><td>");
+			stePos.append("<tr><td>");
+			stePos.append(n);
+			stePos.append("</td><td>");
 			if (problema.siguientePos(n).size() > 0) {
 				String prefijo = "";
 				for (int pos : problema.siguientePos(n)) {
-					html.append(prefijo);
+					stePos.append(prefijo);
 					prefijo = ", ";
-					html.append(pos);
+					stePos.append(pos);
 				}
 			} else {
-				html.append("-");
+				stePos.append("-");
 			}
-			html.append("</td></tr>");
+			stePos.append("</td></tr>");
 		}
-		html.append("</table></p>");
+		stePos.append("</table></p>");
 
 		// Función de transición
-		html.append("<p><table border=\"1\"><tr><th></th>");
+		fTrans.append("<p><table border=\"1\"><tr><th></th>");
 		for (char simbolo : problema.simbolos())
 			if (simbolo != '$')
-				html.append("<th>" + simbolo + "</th>");
-		html.append("<th></th></tr>");
+				fTrans.append("<th>" + simbolo + "</th>");
+		fTrans.append("<th></th></tr>");
 
 		for (char estado : problema.estados()) {
 			if (problema.esFinal(estado))
-				html.append("<tr><td>(" + estado + ")</td>");
+				fTrans.append("<tr><td>(" + estado + ")</td>");
 			else
-				html.append("<tr><td>" + estado + "</td>");
+				fTrans.append("<tr><td>" + estado + "</td>");
 			for (char simbolo : problema.simbolos()) {
 				if (simbolo != '$')
-					html.append("<td>" + problema.mueve(estado, simbolo)
+					fTrans.append("<td>" + problema.mueve(estado, simbolo)
 							+ "</td>");
 			}
-			html.append("<td>");
+			fTrans.append("<td>");
 			for (int posicion : problema.estado(estado))
-				html.append(posicion + " ");
-			html.append("</td></tr>");
+				fTrans.append(posicion + " ");
+			fTrans.append("</td></tr>");
 		}
-		html.append("</table></p>");
+		fTrans.append("</table></p>");
 
-		return html.toString();
+		plantilla = MessageFormat.format(plantilla, "{0}", problema.problema(),
+				problema.expresionAumentada(), stePos.toString(),
+				fTrans.toString());
+		plantilla = formatoFinal(plantilla);
+
+		return plantilla;
 	}
 
 	/**
@@ -121,37 +117,80 @@ public class TraductorHTML implements Traductor {
 	 */
 	@Override
 	public String traduce(ConstruccionSubconjuntos problema) {
-		StringBuilder html = new StringBuilder();
+		StringBuilder fTrans = new StringBuilder();
 
-		// enunciado
-		html.append(enunciadoCS);
-		html.append(problema.problema());
-		html.append("</b></p>");
+		String plantilla = formatoIntermedio(plantilla("plantillaCS.html"));
 
 		// Función de transición
-		html.append("<p><table border=\"1\"><tr><th></th>");
+		fTrans.append("<p><table border=\"1\"><tr><th></th>");
 		for (char simbolo : problema.simbolos())
 			if (simbolo != '$')
-				html.append("<th>" + simbolo + "</th>");
-		html.append("<th></th></tr>");
+				fTrans.append("<th>" + simbolo + "</th>");
+		fTrans.append("<th></th></tr>");
 
 		for (char estado : problema.estados()) {
 			if (problema.esFinal(estado))
-				html.append("<tr><td>(" + estado + ")</td>");
+				fTrans.append("<tr><td>(" + estado + ")</td>");
 			else
-				html.append("<tr><td>" + estado + "</td>");
+				fTrans.append("<tr><td>" + estado + "</td>");
 			for (char simbolo : problema.simbolos()) {
 				if (simbolo != '$')
-					html.append("<td>" + problema.mueve(estado, simbolo)
+					fTrans.append("<td>" + problema.mueve(estado, simbolo)
 							+ "</td>");
 			}
-			html.append("<td>");
+			fTrans.append("<td>");
 			for (int posicion : problema.posiciones(estado))
-				html.append(posicion + " ");
-			html.append("</td></tr>");
+				fTrans.append(posicion + " ");
+			fTrans.append("</td></tr>");
 		}
-		html.append("</table></p>");
+		fTrans.append("</table></p>");
 
-		return html.toString();
+		plantilla = MessageFormat.format(plantilla, "{0}", problema.problema(), fTrans);
+		plantilla = formatoFinal(plantilla);
+
+		return plantilla;
+	}
+
+	private String plantilla(String plantilla) {
+		String resultado;
+		StringBuilder contenido;
+		String linea;
+
+		try (InputStream entrada = getClass().getResourceAsStream(plantilla);
+				BufferedReader lector = new BufferedReader(
+						new InputStreamReader(entrada, "UTF8"))) {
+
+			contenido = new StringBuilder();
+			linea = lector.readLine();
+			while (linea != null) {
+				contenido.append(linea);
+				linea = lector.readLine();
+				if (linea != null)
+					contenido.append("\n");
+			}
+
+			resultado = contenido.toString();
+			return resultado;
+		} catch (IOException e) {
+			System.err.println("Error al recuperar la plantilla " + plantilla);
+			return "";
+		}
+	}
+
+	private String formatoIntermedio(String plantilla) {
+		plantilla = plantilla.replace("{", "\\'{\\'");
+		plantilla = plantilla.replace("}", "\\'}\\'");
+		plantilla = plantilla.replace("<%", "{");
+		plantilla = plantilla.replace("%>", "}");
+
+		return plantilla;
+	}
+
+	private String formatoFinal(String plantilla) {
+		plantilla = plantilla.replace("\\", "");
+		plantilla = plantilla.replace("\'{\'", "{");
+		plantilla = plantilla.replace("\'}\'", "}");
+
+		return plantilla;
 	}
 }
