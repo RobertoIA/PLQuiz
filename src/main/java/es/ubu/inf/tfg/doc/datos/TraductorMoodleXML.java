@@ -1,5 +1,6 @@
 package es.ubu.inf.tfg.doc.datos;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
@@ -11,11 +12,7 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
  * @author Roberto Izquierdo Amo
  * 
  */
-public class TraductorMoodleXML implements Traductor {
-	private static final String cabecera = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<quiz>";
-	private static final String cierre = "\n</quiz>";
-	private static final String enunciadoASU = "Completa la tabla de la función de transición del AFD que se obtendría de aplicar el método de Aho-Sethi-Ullman a la expresión regular ";
-	private static final String enunciadoCS = "Completa la tabla de la función de transición para el AFD que se obtendría al aplicar el método de construcción de subconjuntos al AFND de la expresión regular ";
+public class TraductorMoodleXML extends Traductor {
 
 	/**
 	 * Genera un documento en formato Moodle XML a partir de una lista de
@@ -29,20 +26,15 @@ public class TraductorMoodleXML implements Traductor {
 	public String documento(List<String> problemas) {
 		StringBuilder documento = new StringBuilder();
 
-		documento.append(cabecera);
 		int n = 1;
-		for (Object problema : problemas) {
-			documento
-					.append("<!-- question: "
-							+ (n++)
-							+ "  -->\n<question type=\"cloze\">\n<name>\n<text>PLQuiz</text>\n</name>\n<questiontext>\n<text><![CDATA[");
-			documento.append(problema);
-			documento
-					.append("]]></text>\n</questiontext>\n<generalfeedback><text></text></generalfeedback>\n<shuffleanswers>0</shuffleanswers>\n</question>\n\n");
-		}
-		documento.append(cierre);
+		for (String problema : problemas)
+			documento.append(MessageFormat.format(formatoIntermedio(problema), n++));
+		
+		String plantilla = formatoIntermedio(plantilla("plantilla.xml"));
+		plantilla = MessageFormat.format(plantilla, documento.toString());
+		plantilla = formatoFinal(plantilla);
 
-		return documento.toString();
+		return plantilla;
 	}
 
 	/**
@@ -54,57 +46,54 @@ public class TraductorMoodleXML implements Traductor {
 	 */
 	@Override
 	public String traduce(AhoSethiUllman problema) {
-		StringBuilder xml = new StringBuilder();
+		StringBuilder fTrans = new StringBuilder();
+		StringBuilder eFinales = new StringBuilder();
 
-		xml.append("<p>");
-		xml.append(enunciadoASU);
-		xml.append(problema.problema());
-		xml.append("</p>");
+		String plantilla = formatoIntermedio(plantilla("plantillaASU.xml"));
 
 		// Función de transición
-		xml.append("\n\t<table border=\"1\" cellspacing=\"0\" align=\"left\">\n\t<tbody>");
-		xml.append("\n\t<tr><th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
+		fTrans.append("\n\t<tr><th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
 		for (char simbolo : problema.simbolos())
 			if (simbolo != '$')
-				xml.append("\n\t<th scope=\"col\">" + simbolo + "</th>");
-		xml.append("\n\t<th scope=\"col\"> </th>\n\t</tr>");
+				fTrans.append("\n\t<th scope=\"col\">" + simbolo + "</th>");
+		fTrans.append("\n\t<th scope=\"col\"> </th>\n\t</tr>");
 
 		for (char estado : problema.estados()) {
-			xml.append("\n\t<tr>\n\t<td>" + estado + "</td>");
+			fTrans.append("\n\t<tr>\n\t<td>" + estado + "</td>");
 			for (char simbolo : problema.simbolos()) {
 				if (simbolo != '$')
-					xml.append("\n\t<td>{:MULTICHOICE:="
+					fTrans.append("\n\t<td>{:MULTICHOICE:="
 							+ problema.mueve(estado, simbolo)
 							+ "#CORRECT~Z#Falso}</td>"); // TODO placeholder
 			}
-			xml.append("\n\t<td>");
-			xml.append("{:MULTICHOICE:=");
+			fTrans.append("\n\t<td>");
+			fTrans.append("{:MULTICHOICE:=");
 			for (int posicion : problema.estado(estado))
-				xml.append(posicion + " ");
+				fTrans.append(posicion + " ");
 			if (problema.estado(estado).size() == 0)
-				xml.append("Cjto. vacio");
-			xml.append("#CORRECT~0#Falso}"); // TODO placeholder
-			xml.append("</td>\n\t</tr>");
+				fTrans.append("Cjto. vacio");
+			fTrans.append("#CORRECT~0#Falso}"); // TODO placeholder
+			fTrans.append("</td>\n\t</tr>");
 		}
-		xml.append("\n\t</tbody>\n\t</table>");
 
 		// Estados finales
-		for (int i = 0; i < problema.estados().size() * 2 + 2; i++)
-			xml.append("\n\t<p><br /></p>"); //TODO espacio mínimo?
-		xml.append("\n\tLos estados finales son: ");
-		xml.append(" {:MULTICHOICE:=");
+		eFinales.append("{:MULTICHOICE:=");
 		String prefijo = "";
 		for (char estado : problema.estados()) {
 			if (problema.esFinal(estado)) {
-				xml.append(prefijo);
+				eFinales.append(prefijo);
 				prefijo = ", ";
-				xml.append(estado);
+				eFinales.append(estado);
 			}
 		}
-		xml.append("#Correct");
-		xml.append("~X, Y, Z#Falso}"); // TODO placeholder
+		eFinales.append("#Correct");
+		eFinales.append("~X, Y, Z#Falso}"); // TODO placeholder
 
-		return xml.toString();
+		plantilla = MessageFormat.format(plantilla, "<%0%>",
+				problema.problema(), fTrans.toString(), eFinales.toString());
+		plantilla = formatoFinal(plantilla);
+
+		return plantilla;
 	}
 
 	/**
@@ -117,57 +106,53 @@ public class TraductorMoodleXML implements Traductor {
 	 */
 	@Override
 	public String traduce(ConstruccionSubconjuntos problema) {
-		StringBuilder xml = new StringBuilder();
+		StringBuilder fTrans = new StringBuilder();
+		StringBuilder eFinales = new StringBuilder();
 
-		xml.append("<p>");
-		xml.append(enunciadoCS);
-		xml.append(problema.problema());
-		xml.append("</p>");
+		String plantilla = formatoIntermedio(plantilla("plantillaCS.xml"));
 
 		// Función de transición
-		xml.append("\n\t<table border=\"1\" cellspacing=\"0\" align=\"left\">\n\t<tbody>");
-		xml.append("\n\t<tr>\n\t<th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
+		fTrans.append("\n\t<tr>\n\t<th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
 		for (char simbolo : problema.simbolos())
 			if (simbolo != '$')
-				xml.append("\n\t<th scope=\"col\">" + simbolo + "</th>");
-		xml.append("\n\t<th scope=\"col\"> </th>\n\t</tr>");
+				fTrans.append("\n\t<th scope=\"col\">" + simbolo + "</th>");
+		fTrans.append("\n\t<th scope=\"col\"> </th>\n\t</tr>");
 
 		for (char estado : problema.estados()) {
-			xml.append("\n\t<tr>\n\t<td>" + estado + "</td>");
+			fTrans.append("\n\t<tr>\n\t<td>" + estado + "</td>");
 			for (char simbolo : problema.simbolos()) {
 				if (simbolo != '$')
-					xml.append("\n\t<td>{:MULTICHOICE:="
+					fTrans.append("\n\t<td>{:MULTICHOICE:="
 							+ problema.mueve(estado, simbolo)
 							+ "#CORRECT~Z#Falso}</td>"); // TODO placeholder
 			}
-			xml.append("\n\t<td>");
-			xml.append("{:MULTICHOICE:=");
+			fTrans.append("\n\t<td>");
+			fTrans.append("{:MULTICHOICE:=");
 			for (int posicion : problema.posiciones(estado))
-				xml.append(posicion + " ");
+				fTrans.append(posicion + " ");
 			if (problema.posiciones(estado).size() == 0)
-				xml.append("Cjto. vacio");
-			xml.append("#CORRECT~0#Falso}"); // TODO placeholder
-			xml.append("</td>\n\t</tr>");
+				fTrans.append("Cjto. vacio");
+			fTrans.append("#CORRECT~0#Falso}"); // TODO placeholder
+			fTrans.append("</td>\n\t</tr>");
 		}
-		xml.append("\n\t</tbody>\n\t</table>");
 
 		// Estados finales
-		for (int i = 0; i < problema.estados().size() * 2 + 2; i++)
-			xml.append("\n\t<p><br /></p>"); //TODO espacio mínimo?
-		xml.append("\n<p>Los estados finales son: ");
-		xml.append(" {:MULTICHOICE:=");
+		eFinales.append("{:MULTICHOICE:=");
 		String prefijo = "";
 		for (char estado : problema.estados()) {
 			if (problema.esFinal(estado)) {
-				xml.append(prefijo);
+				eFinales.append(prefijo);
 				prefijo = ", ";
-				xml.append(estado);
+				eFinales.append(estado);
 			}
 		}
-		xml.append("#Correct");
-		xml.append("~X, Y, Z#Falso}"); // TODO placeholder
-		xml.append("</p>");
+		eFinales.append("#Correct");
+		eFinales.append("~X, Y, Z#Falso}"); // TODO placeholder
 
-		return xml.toString();
+		plantilla = MessageFormat.format(plantilla, "<%0%>",
+				problema.problema(), fTrans.toString(), eFinales.toString());
+		plantilla = formatoFinal(plantilla);
+
+		return plantilla;
 	}
 }

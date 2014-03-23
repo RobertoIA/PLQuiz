@@ -1,5 +1,9 @@
 package es.ubu.inf.tfg.doc.datos;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
@@ -13,7 +17,7 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
  * @author Roberto Izquierdo Amo
  * 
  */
-public interface Traductor {
+public abstract class Traductor {
 	/**
 	 * Genera un documento de un formato concreto a partir de una lista de
 	 * problemas ya traducidos.
@@ -22,7 +26,7 @@ public interface Traductor {
 	 *            Lista de problemas traducidos.
 	 * @return Documento completo.
 	 */
-	public String documento(List<String> problemas);
+	public abstract String documento(List<String> problemas);
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman a un formato concreto.
@@ -31,7 +35,7 @@ public interface Traductor {
 	 *            Problema AhoSethiUllman.
 	 * @return Problema traducido.
 	 */
-	public String traduce(AhoSethiUllman problema);
+	public abstract String traduce(AhoSethiUllman problema);
 
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos a un formato
@@ -41,5 +45,47 @@ public interface Traductor {
 	 *            Problema construcción de subconjuntos.
 	 * @return Problema traducido.
 	 */
-	public String traduce(ConstruccionSubconjuntos problema);
+	public abstract String traduce(ConstruccionSubconjuntos problema);
+	
+	String plantilla(String plantilla) {
+		String resultado;
+		StringBuilder contenido;
+		String linea;
+
+		try (InputStream entrada = getClass().getResourceAsStream(plantilla);
+				BufferedReader lector = new BufferedReader(
+						new InputStreamReader(entrada, "UTF8"))) {
+
+			contenido = new StringBuilder();
+			linea = lector.readLine();
+			while (linea != null) {
+				contenido.append(linea);
+				linea = lector.readLine();
+				if (linea != null)
+					contenido.append("\n");
+			}
+
+			resultado = contenido.toString();
+			return resultado;
+		} catch (IOException e) {
+			System.err.println("Error al recuperar la plantilla " + plantilla);
+			return "";
+		}
+	}
+
+	String formatoIntermedio(String plantilla) {
+		plantilla = plantilla.replace("{", "\\'{\\'");
+		plantilla = plantilla.replace("}", "\\'}\\'");
+		plantilla = plantilla.replace("<%", "{");
+		plantilla = plantilla.replace("%>", "}");
+
+		return plantilla;
+	}
+
+	String formatoFinal(String plantilla) {
+		plantilla = plantilla.replace("\\{\\", "{");
+		plantilla = plantilla.replace("\\}\\", "}");
+
+		return plantilla;
+	}
 }

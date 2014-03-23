@@ -42,13 +42,13 @@ public class Main {
 	private Component añadirDerechoStrut;
 	private Component añadirIzquierdoStrut;
 	private JMenuBar menuBar;
-	private JMenuItem menuExportarHTMLButton;
-	private JMenu menuArchivo;
+	private JMenuItem menuNuevo;
 	private JMenuItem menuExportarMoodleXMLButton;
-
+	private JMenuItem menuExportarLatexButton;
+	private JMenu menuArchivo;
+	
 	private JFileChooser fileChooser;
 	private Documento documento;
-	private JMenuItem menuNuevo;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -93,20 +93,21 @@ public class Main {
 		this.menuArchivo = new JMenu("Archivo");
 		this.menuBar.add(this.menuArchivo);
 
-		this.menuExportarHTMLButton = new JMenuItem("Exportar como HTML");
-		this.menuExportarHTMLButton
-				.addActionListener(new MenuExportarButtonActionListener());
-
 		this.menuNuevo = new JMenuItem("Nuevo");
 		this.menuNuevo.addActionListener(new MenuNuevoActionListener());
 		this.menuArchivo.add(this.menuNuevo);
-		this.menuArchivo.add(this.menuExportarHTMLButton);
 
 		this.menuExportarMoodleXMLButton = new JMenuItem(
 				"Exportar como Moodle XML");
 		this.menuExportarMoodleXMLButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuArchivo.add(this.menuExportarMoodleXMLButton);
+		
+		this.menuExportarLatexButton = new JMenuItem(
+				"Exportar como LaTeX");
+		this.menuExportarLatexButton
+				.addActionListener(new MenuExportarButtonActionListener());
+		this.menuArchivo.add(this.menuExportarLatexButton);
 
 		this.controlPanel = new JPanel();
 		this.frmPlquiz.getContentPane().add(this.controlPanel,
@@ -148,7 +149,7 @@ public class Main {
 
 		this.vistaPreviaText = new JTextPane();
 		this.vistaPreviaText.setEditable(false);
-		this.vistaPreviaText.setContentType("text/html");
+		this.vistaPreviaText.setContentType("text/html;charset=UTF-8");
 		this.vistaPreviaScroll.add(this.vistaPreviaText);
 		this.vistaPreviaScroll.setViewportView(this.vistaPreviaText);
 	}
@@ -175,19 +176,19 @@ public class Main {
 		public void actionPerformed(ActionEvent event) {
 			JMenuItem source = (JMenuItem) event.getSource();
 
-			if (source == menuExportarHTMLButton)
-				fileChooser.setFileFilter(new HTMLFilter());
-			else if (source == menuExportarMoodleXMLButton)
+			if (source == menuExportarMoodleXMLButton)
 				fileChooser.setFileFilter(new XMLFilter());
+			else if(source == menuExportarLatexButton)
+				fileChooser.setFileFilter(new LatexFilter());
 
 			int valorRetorno = fileChooser.showSaveDialog(frmPlquiz);
 			if (valorRetorno == JFileChooser.APPROVE_OPTION) {
 				File fichero = fileChooser.getSelectedFile();
 				try {
-					if (source == menuExportarHTMLButton)
-						documento.exportaHTML(fichero);
-					else if (source == menuExportarMoodleXMLButton)
+					if (source == menuExportarMoodleXMLButton)
 						documento.exportaXML(fichero);
+					else if(source == menuExportarLatexButton)
+						documento.exportaLatex(fichero);
 				} catch (IOException e) {
 					// TODO Avisar de error / reintento
 					e.printStackTrace();
@@ -204,19 +205,6 @@ public class Main {
 		}
 	}
 
-	private class HTMLFilter extends FileFilter {
-
-		@Override
-		public boolean accept(File f) {
-			return f.getName().toLowerCase().endsWith(".html") || f.isDirectory();
-		}
-
-		@Override
-		public String getDescription() {
-			return "Ficheros HTML (*.html)";
-		}
-	}
-
 	private class XMLFilter extends FileFilter {
 
 		@Override
@@ -227,6 +215,19 @@ public class Main {
 		@Override
 		public String getDescription() {
 			return "Ficheros Moodle XML (*.xml)";
+		}
+	}
+	
+	private class LatexFilter extends FileFilter {
+
+		@Override
+		public boolean accept(File f) {
+			return f.getName().toLowerCase().endsWith(".tex") || f.isDirectory();
+		}
+
+		@Override
+		public String getDescription() {
+			return "Ficheros LaTeX (*.tex)";
 		}
 	}
 }

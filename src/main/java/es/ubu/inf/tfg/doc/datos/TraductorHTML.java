@@ -1,9 +1,5 @@
 package es.ubu.inf.tfg.doc.datos;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.MessageFormat;
 import java.util.List;
 
@@ -16,7 +12,7 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
  * @author Roberto Izquierdo Amo
  * 
  */
-public class TraductorHTML implements Traductor {
+public class TraductorHTML extends Traductor {
 
 	/**
 	 * Genera un documento HTML a partir de una lista de problemas ya
@@ -32,8 +28,8 @@ public class TraductorHTML implements Traductor {
 
 		int n = 1;
 		for (String problema : problemas)
-			documento.append(MessageFormat.format(problema, n++));
-
+			documento.append(MessageFormat.format(formatoIntermedio(problema), n++));
+		
 		String plantilla = formatoIntermedio(plantilla("plantilla.html"));
 		plantilla = MessageFormat.format(plantilla, documento.toString());
 		plantilla = formatoFinal(plantilla);
@@ -77,7 +73,7 @@ public class TraductorHTML implements Traductor {
 		stePos.append("</table></p>");
 
 		// Función de transición
-		fTrans.append("<p><table border=\"1\"><tr><th></th>");
+		fTrans.append("<table><tr><th></th>");
 		for (char simbolo : problema.simbolos())
 			if (simbolo != '$')
 				fTrans.append("<th>" + simbolo + "</th>");
@@ -98,9 +94,9 @@ public class TraductorHTML implements Traductor {
 				fTrans.append(posicion + " ");
 			fTrans.append("</td></tr>");
 		}
-		fTrans.append("</table></p>");
-
-		plantilla = MessageFormat.format(plantilla, "{0}", problema.problema(),
+		fTrans.append("</table>");
+		
+		plantilla = MessageFormat.format(plantilla, "<%0%>", problema.problema(),
 				problema.expresionAumentada(), stePos.toString(),
 				fTrans.toString());
 		plantilla = formatoFinal(plantilla);
@@ -122,7 +118,7 @@ public class TraductorHTML implements Traductor {
 		String plantilla = formatoIntermedio(plantilla("plantillaCS.html"));
 
 		// Función de transición
-		fTrans.append("<p><table border=\"1\"><tr><th></th>");
+		fTrans.append("<table><tr><th></th>");
 		for (char simbolo : problema.simbolos())
 			if (simbolo != '$')
 				fTrans.append("<th>" + simbolo + "</th>");
@@ -143,53 +139,10 @@ public class TraductorHTML implements Traductor {
 				fTrans.append(posicion + " ");
 			fTrans.append("</td></tr>");
 		}
-		fTrans.append("</table></p>");
+		fTrans.append("</table>");
 
-		plantilla = MessageFormat.format(plantilla, "{0}", problema.problema(), fTrans);
+		plantilla = MessageFormat.format(plantilla, "<%0%>", problema.problema(), fTrans.toString());
 		plantilla = formatoFinal(plantilla);
-
-		return plantilla;
-	}
-
-	private String plantilla(String plantilla) {
-		String resultado;
-		StringBuilder contenido;
-		String linea;
-
-		try (InputStream entrada = getClass().getResourceAsStream(plantilla);
-				BufferedReader lector = new BufferedReader(
-						new InputStreamReader(entrada, "UTF8"))) {
-
-			contenido = new StringBuilder();
-			linea = lector.readLine();
-			while (linea != null) {
-				contenido.append(linea);
-				linea = lector.readLine();
-				if (linea != null)
-					contenido.append("\n");
-			}
-
-			resultado = contenido.toString();
-			return resultado;
-		} catch (IOException e) {
-			System.err.println("Error al recuperar la plantilla " + plantilla);
-			return "";
-		}
-	}
-
-	private String formatoIntermedio(String plantilla) {
-		plantilla = plantilla.replace("{", "\\'{\\'");
-		plantilla = plantilla.replace("}", "\\'}\\'");
-		plantilla = plantilla.replace("<%", "{");
-		plantilla = plantilla.replace("%>", "}");
-
-		return plantilla;
-	}
-
-	private String formatoFinal(String plantilla) {
-		plantilla = plantilla.replace("\\", "");
-		plantilla = plantilla.replace("\'{\'", "{");
-		plantilla = plantilla.replace("\'}\'", "}");
 
 		return plantilla;
 	}

@@ -11,6 +11,7 @@ import java.util.List;
 
 import es.ubu.inf.tfg.doc.datos.Traductor;
 import es.ubu.inf.tfg.doc.datos.TraductorHTML;
+import es.ubu.inf.tfg.doc.datos.TraductorLatex;
 import es.ubu.inf.tfg.doc.datos.TraductorMoodleXML;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
@@ -95,18 +96,19 @@ public class Documento {
 		else
 			añadirProblema(nuevo);
 	}
-	
+
 	/**
-	 * Sustituye un problema de tipo construcción de subconjuntos en el documento por otro
-	 * nuevo. Si el problema a sustituir no existe, añade el nuevo al final del
-	 * documento.
+	 * Sustituye un problema de tipo construcción de subconjuntos en el
+	 * documento por otro nuevo. Si el problema a sustituir no existe, añade el
+	 * nuevo al final del documento.
 	 * 
 	 * @param anterior
 	 *            Problema construcción de subconjuntos a sustituir.
 	 * @param nuevo
 	 *            Problema construcción de subconjuntos a añadir.
 	 */
-	public void sustituirProblema(ConstruccionSubconjuntos anterior, ConstruccionSubconjuntos nuevo) {
+	public void sustituirProblema(ConstruccionSubconjuntos anterior,
+			ConstruccionSubconjuntos nuevo) {
 		int index = this.problemas.indexOf(anterior);
 		if (index >= 0)
 			this.problemas.set(index, nuevo);
@@ -159,6 +161,23 @@ public class Documento {
 	}
 
 	/**
+	 * Exporta el documento como un fichero de formato XML al fichero destino
+	 * especificado.
+	 * 
+	 * @param fichero
+	 *            Fichero destino.
+	 * @throws IOException
+	 *             Indica un error durante la exportación.
+	 */
+	public void exportaLatex(File fichero) throws IOException {
+		String ruta = fichero.toString();
+		if (!ruta.toLowerCase().endsWith(".tex"))
+			ruta += ".tex";
+
+		guardar(ruta, traduce(new TraductorLatex()));
+	}
+
+	/**
 	 * Traduce el documento al formato dado por un traductor especifico, y
 	 * devuelve el documento completo como una cadena de caracteres.
 	 * 
@@ -172,8 +191,9 @@ public class Documento {
 		for (Object problema : this.problemas) {
 			if (problema instanceof AhoSethiUllman)
 				problemas.add(traductor.traduce((AhoSethiUllman) problema));
-			else if(problema instanceof ConstruccionSubconjuntos)
-				problemas.add(traductor.traduce((ConstruccionSubconjuntos) problema));
+			else if (problema instanceof ConstruccionSubconjuntos)
+				problemas.add(traductor
+						.traduce((ConstruccionSubconjuntos) problema));
 		}
 
 		return traductor.documento(problemas);
@@ -191,7 +211,7 @@ public class Documento {
 	 */
 	private void guardar(String ruta, String documento) throws IOException {
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-				new FileOutputStream(ruta), "UTF16"))) {
+				new FileOutputStream(ruta), "UTF8"))) {
 			writer.write(documento);
 		}
 	}
