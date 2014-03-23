@@ -1,0 +1,56 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+\usepackage[utf8]{inputenc}
+\begin{document}
+\paragraph{}
+
+\paragraph{}
+\textbf{1.-} Aplicar el algoritmo de Aho-Sethi-Ullman a la expresión regular: \textbf{((a\textbar b*)a*c)*} \\
+\\
+Expresión aumentada: ((((a\textbar b*)·a*)·c)*·\$) \\
+
+\begin{tabular} {| c | l |}
+\hline
+n & stePos(n) \\ \hline
+1 & 3, 4 \\ \hline
+2 & 2, 3, 4 \\ \hline
+3 & 3, 4 \\ \hline
+4 & 1, 2, 3, 4, 5 \\ \hline
+5 & - \\ \hline
+\end{tabular}
+\quad
+\begin{tabular} {| c | c |c |c | l |}
+\hline 
+& a & b & c & \\ \hline
+(A) & B & C & A & 1 2 3 4 5 \\ \hline
+B & B & D & A & 3 4 \\ \hline
+C & B & C & A & 2 3 4 \\ \hline
+D & D & D & D & \\ \hline
+\end{tabular}\paragraph{}
+\textbf{2.-} Aplicar el algoritmo de Aho-Sethi-Ullman a la expresión regular: \textbf{(a\textbar b*)c*a} \\
+\\
+Expresión aumentada: ((((a\textbar b*)·c*)·a)·\$) \\
+
+\begin{tabular} {| c | l |}
+\hline
+n & stePos(n) \\ \hline
+1 & 3, 4 \\ \hline
+2 & 2, 3, 4 \\ \hline
+3 & 3, 4 \\ \hline
+4 & 5 \\ \hline
+5 & - \\ \hline
+\end{tabular}
+\quad
+\begin{tabular} {| c | c |c |c | l |}
+\hline 
+& a & b & c & \\ \hline
+A & B & C & D & 1 2 3 4 \\ \hline
+(B) & E & F & D & 3 4 5 \\ \hline
+C & E & C & D & 2 3 4 \\ \hline
+D & E & F & D & 3 4 \\ \hline
+(E) & F & F & F & 5 \\ \hline
+F & F & F & F & \\ \hline
+\end{tabular}
+
+\end{document}

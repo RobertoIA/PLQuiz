@@ -127,23 +127,6 @@ public class Documento {
 	}
 
 	/**
-	 * Exporta el documento como un fichero de formato HTML al fichero destino
-	 * especificado.
-	 * 
-	 * @param fichero
-	 *            Fichero destino.
-	 * @throws IOException
-	 *             Indica un error durante la exportación.
-	 */
-	public void exportaHTML(File fichero) throws IOException {
-		String ruta = fichero.toString();
-		if (!ruta.toLowerCase().endsWith(".html"))
-			ruta += ".html";
-
-		guardar(ruta, traduce(new TraductorHTML()));
-	}
-
-	/**
 	 * Exporta el documento como un fichero de formato XML al fichero destino
 	 * especificado.
 	 * 

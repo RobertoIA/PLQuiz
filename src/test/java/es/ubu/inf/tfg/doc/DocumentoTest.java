@@ -80,14 +80,6 @@ public class DocumentoTest {
 		assertEquals("Vista previa de documento vacío erronea.", esperado,
 				encontrado);
 
-		// Fichero HTML
-		ficheroTemporal = ficheroTemporal("vacio.html");
-
-		documento.exportaHTML(ficheroTemporal);
-		encontrado = toString(ficheroTemporal);
-		assertEquals("Exportación de documento HTML vacío erronea.", esperado,
-				encontrado);
-
 		// Fichero XML
 		esperado = toString("vacio.xml");
 		ficheroTemporal = ficheroTemporal("vacio.xml");
@@ -95,6 +87,15 @@ public class DocumentoTest {
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		assertEquals("Exportación de documento XML vacío erronea.", esperado,
+				encontrado);
+
+		// Fichero Latex
+		esperado = toString("vacio.tex");
+		ficheroTemporal = ficheroTemporal("vacio.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		assertEquals("Exportación de documento Latex vacío erronea.", esperado,
 				encontrado);
 	}
 
@@ -123,15 +124,6 @@ public class DocumentoTest {
 				"Añadido erróneo de problemas Aho-Sethi-Ullman a vista previa.",
 				esperado, encontrado);
 
-		// Fichero HTML
-		ficheroTemporal = ficheroTemporal("añadirASU.html");
-
-		documento.exportaHTML(ficheroTemporal);
-		encontrado = toString(ficheroTemporal);
-		assertEquals(
-				"Añadido erróneo de problemas Aho-Sethi-Ullman a documento HTML exportado.",
-				esperado, encontrado);
-
 		// Fichero XML
 		esperado = toString("añadirASU.xml");
 		ficheroTemporal = ficheroTemporal("añadir.xml");
@@ -140,6 +132,16 @@ public class DocumentoTest {
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman a documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("añadirASU.tex");
+		ficheroTemporal = ficheroTemporal("añadir.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		assertEquals(
+				"Añadido erróneo de problemas Aho-Sethi-Ullman a documento Latex exportado.",
 				esperado, encontrado);
 	}
 
@@ -169,15 +171,6 @@ public class DocumentoTest {
 				"Borrado erróneo de problemas Aho-Sethi-Ullman en vista previa.",
 				esperado, encontrado);
 
-		// Fichero HTML
-		ficheroTemporal = ficheroTemporal("eliminarASU.html");
-
-		documento.exportaHTML(ficheroTemporal);
-		encontrado = toString(ficheroTemporal);
-		assertEquals(
-				"Borrado erróneo de problemas Aho-Sethi-Ullman en documento HTML exportado.",
-				esperado, encontrado);
-
 		// Fichero XML
 		esperado = toString("eliminarASU.xml");
 		ficheroTemporal = ficheroTemporal("eliminar.xml");
@@ -186,6 +179,16 @@ public class DocumentoTest {
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman en documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("eliminarASU.tex");
+		ficheroTemporal = ficheroTemporal("eliminar.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		assertEquals(
+				"Borrado erróneo de problemas Aho-Sethi-Ullman en documento Latex exportado.",
 				esperado, encontrado);
 	}
 
@@ -214,15 +217,6 @@ public class DocumentoTest {
 				"Sustitución errónea de problemas Aho-Sethi-Ullman en vista previa.",
 				esperado, encontrado);
 
-		// Fichero HTML
-		ficheroTemporal = ficheroTemporal("sustituirASU.html");
-
-		documento.exportaHTML(ficheroTemporal);
-		encontrado = toString(ficheroTemporal);
-		assertEquals(
-				"Sustitución errónea de problemas Aho-Sethi-Ullman en documento HTML exportado.",
-				esperado, encontrado);
-
 		// Fichero XML
 		esperado = toString("sustituirASU.xml");
 		ficheroTemporal = ficheroTemporal("sustituir.xml");
@@ -231,6 +225,16 @@ public class DocumentoTest {
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman en documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("sustituirASU.tex");
+		ficheroTemporal = ficheroTemporal("sustituir.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		assertEquals(
+				"Sustitución errónea de problemas Aho-Sethi-Ullman en documento Latex exportado.",
 				esperado, encontrado);
 	}
 
@@ -260,15 +264,6 @@ public class DocumentoTest {
 				"Añadido erróneo de problemas de construcción de subconjuntos a vista previa.",
 				esperado, encontrado);
 
-		// Fichero HTML
-		ficheroTemporal = ficheroTemporal("añadirCS.html");
-
-		documento.exportaHTML(ficheroTemporal);
-		encontrado = toString(ficheroTemporal);
-		assertEquals(
-				"Añadido erróneo de problemas de construcción de subconjuntos a documento HTML exportado.",
-				esperado, encontrado);
-
 		// Fichero XML
 		esperado = toString("añadirCS.xml");
 		ficheroTemporal = ficheroTemporal("añadir.xml");
@@ -277,6 +272,16 @@ public class DocumentoTest {
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
 				"Añadido erróneo de problemas de construcción de subconjuntos a documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("añadirCS.tex");
+		ficheroTemporal = ficheroTemporal("añadir.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		assertEquals(
+				"Añadido erróneo de problemas de construcción de subconjuntos a documento Latex exportado.",
 				esperado, encontrado);
 	}
 
@@ -307,20 +312,21 @@ public class DocumentoTest {
 				"Borrado erróneo de problemas de construcción de subconjuntos en vista previa.",
 				esperado, encontrado);
 
-		// Fichero HTML
-		ficheroTemporal = ficheroTemporal("eliminarCS.html");
-
-		documento.exportaHTML(ficheroTemporal);
-		encontrado = toString(ficheroTemporal);
-		assertEquals(
-				"Borrado erróneo de problemas de construcción de subconjuntos en documento HTML exportado.",
-				esperado, encontrado);
-
 		// Fichero XML
 		esperado = toString("eliminarCS.xml");
 		ficheroTemporal = ficheroTemporal("eliminar.xml");
 
 		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		assertEquals(
+				"Borrado erróneo de problemas de construcción de subconjuntos en documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("eliminarCS.tex");
+		ficheroTemporal = ficheroTemporal("eliminar.tex");
+
+		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
 				"Borrado erróneo de problemas de construcción de subconjuntos en documento XML exportado.",
@@ -353,15 +359,6 @@ public class DocumentoTest {
 				"Sustitución errónea de problemas de construcción de subconjuntos en vista previa.",
 				esperado, encontrado);
 
-		// Fichero HTML
-		ficheroTemporal = ficheroTemporal("sustituirCS.html");
-
-		documento.exportaHTML(ficheroTemporal);
-		encontrado = toString(ficheroTemporal);
-		assertEquals(
-				"Sustitución errónea de problemas de construcción de subconjuntos en documento HTML exportado.",
-				esperado, encontrado);
-
 		// Fichero XML
 		esperado = toString("sustituirCS.xml");
 		ficheroTemporal = ficheroTemporal("sustituir.xml");
@@ -370,6 +367,16 @@ public class DocumentoTest {
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
 				"Sustitución errónea de problemas de construcción de subconjuntos en documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("sustituirCS.tex");
+		ficheroTemporal = ficheroTemporal("sustituir.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		assertEquals(
+				"Sustitución errónea de problemas de construcción de subconjuntos en documento Latex exportado.",
 				esperado, encontrado);
 	}
 

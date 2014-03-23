@@ -46,7 +46,15 @@ public abstract class Traductor {
 	 * @return Problema traducido.
 	 */
 	public abstract String traduce(ConstruccionSubconjuntos problema);
-	
+
+	/**
+	 * Carga el contenido de una plantilla y lo devuelve como cadena de
+	 * caracteres.
+	 * 
+	 * @param plantilla
+	 *            Plantilla a cargar.
+	 * @return Plantilla como cadena de caracteres.
+	 */
 	String plantilla(String plantilla) {
 		String resultado;
 		StringBuilder contenido;
@@ -73,6 +81,15 @@ public abstract class Traductor {
 		}
 	}
 
+	/**
+	 * Transforma una plantilla a su forma intermedia, haciendola compatible con
+	 * <code>MessageFormat.format</code>. Es decir, escapa los caracteres '{' y
+	 * '}' y convierte los marcadores '<%' y '%>' en llaves.
+	 * 
+	 * @param plantilla
+	 *            Plantilla original.
+	 * @return Plantilla en forma intermedia.
+	 */
 	String formatoIntermedio(String plantilla) {
 		plantilla = plantilla.replace("{", "\\'{\\'");
 		plantilla = plantilla.replace("}", "\\'}\\'");
@@ -82,6 +99,14 @@ public abstract class Traductor {
 		return plantilla;
 	}
 
+	/**
+	 * Transforma una plantilla de su forma intermedia a su forma original, es
+	 * decir, al formato que debe tener el archivo final.
+	 * 
+	 * @param plantilla
+	 *            Plantilla en formato intermedio.
+	 * @return Plantilla en formato final.
+	 */
 	String formatoFinal(String plantilla) {
 		plantilla = plantilla.replace("\\{\\", "{");
 		plantilla = plantilla.replace("\\}\\", "}");

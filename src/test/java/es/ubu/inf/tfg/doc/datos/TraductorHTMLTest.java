@@ -1,4 +1,4 @@
-package es.ubu.inf.tfg.doc.trad;
+package es.ubu.inf.tfg.doc.datos;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -14,17 +14,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 import es.ubu.inf.tfg.doc.datos.Traductor;
-import es.ubu.inf.tfg.doc.datos.TraductorMoodleXML;
+import es.ubu.inf.tfg.doc.datos.TraductorHTML;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
-public class TraductorMoodleXMLTest {
+public class TraductorHTMLTest {
 
 	Traductor traductor;
 
 	@Before
 	public void setUp() throws Exception {
-		traductor = new TraductorMoodleXML();
+		traductor = new TraductorHTML();
 	}
 
 	@After
@@ -38,10 +38,10 @@ public class TraductorMoodleXMLTest {
 	 */
 	@Test
 	public void testDocumento() {
-		String esperado = toString("XMLTraductorVacio.xml");
+		String esperado = toString("HTMLTraductorVacio.html");
 
-		assertEquals("Generación incorrecta de documento Moodle XML.",
-				esperado, traductor.documento(new ArrayList<String>()));
+		assertEquals("Generación incorrecta de documento HTML.", esperado,
+				traductor.documento(new ArrayList<String>()));
 	}
 
 	/**
@@ -50,10 +50,9 @@ public class TraductorMoodleXMLTest {
 	@Test
 	public void testTraduceAhoSethiUllman() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("XMLTraductorASU.xml");
+		String esperado = toString("HTMLTraductorASU.html");
 
-		assertEquals(
-				"Traducción Moodle XML incorrecta de problema AhoSethiUllman.",
+		assertEquals("Traducción HTML incorrecta de problema AhoSethiUllman.",
 				esperado, traductor.traduce(problema));
 	}
 
@@ -64,10 +63,10 @@ public class TraductorMoodleXMLTest {
 	@Test
 	public void testTraduceConstruccionSubconjuntos() {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos("((a|b*)a*c)*");
-		String esperado = toString("XMLTraductorCS.xml");
+		String esperado = toString("HTMLTraductorCS.html");
 
 		assertEquals(
-				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos.",
+				"Traducción HTML incorrecta de problema de construcción de subconjuntos.",
 				esperado, traductor.traduce(problema));
 	}
 
