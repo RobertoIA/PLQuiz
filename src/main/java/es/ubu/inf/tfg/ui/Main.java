@@ -46,7 +46,7 @@ public class Main {
 	private JMenuItem menuExportarMoodleXMLButton;
 	private JMenuItem menuExportarLatexButton;
 	private JMenu menuArchivo;
-	
+
 	private JFileChooser fileChooser;
 	private Documento documento;
 
@@ -65,8 +65,7 @@ public class Main {
 
 	public Main() {
 		try {
-			UIManager
-					.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
 			// TODO Auto-generated catch block
@@ -102,9 +101,8 @@ public class Main {
 		this.menuExportarMoodleXMLButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuArchivo.add(this.menuExportarMoodleXMLButton);
-		
-		this.menuExportarLatexButton = new JMenuItem(
-				"Exportar como LaTeX");
+
+		this.menuExportarLatexButton = new JMenuItem("Exportar como LaTeX");
 		this.menuExportarLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuArchivo.add(this.menuExportarLatexButton);
@@ -161,9 +159,10 @@ public class Main {
 			if (añadirBox.getSelectedItem().equals("Aho-Sethi-Ullman"))
 				nuevoPanel = new AhoSethiUllmanPanel(contenedorPanel,
 						documento, vistaPreviaText);
-			else if (añadirBox.getSelectedItem().equals("Construcción de subconjuntos"))
-				nuevoPanel = new ConstruccionSubconjuntosPanel(contenedorPanel, documento,
-						vistaPreviaText);
+			else if (añadirBox.getSelectedItem().equals(
+					"Construcción de subconjuntos"))
+				nuevoPanel = new ConstruccionSubconjuntosPanel(contenedorPanel,
+						documento, vistaPreviaText);
 
 			if (nuevoPanel != null) {
 				contenedorPanel.add(nuevoPanel);
@@ -178,7 +177,7 @@ public class Main {
 
 			if (source == menuExportarMoodleXMLButton)
 				fileChooser.setFileFilter(new XMLFilter());
-			else if(source == menuExportarLatexButton)
+			else if (source == menuExportarLatexButton)
 				fileChooser.setFileFilter(new LatexFilter());
 
 			int valorRetorno = fileChooser.showSaveDialog(frmPlquiz);
@@ -187,7 +186,7 @@ public class Main {
 				try {
 					if (source == menuExportarMoodleXMLButton)
 						documento.exportaXML(fichero);
-					else if(source == menuExportarLatexButton)
+					else if (source == menuExportarLatexButton)
 						documento.exportaLatex(fichero);
 				} catch (IOException e) {
 					// TODO Avisar de error / reintento
@@ -209,7 +208,8 @@ public class Main {
 
 		@Override
 		public boolean accept(File f) {
-			return f.getName().toLowerCase().endsWith(".xml") || f.isDirectory();
+			return f.getName().toLowerCase().endsWith(".xml")
+					|| f.isDirectory();
 		}
 
 		@Override
@@ -217,12 +217,13 @@ public class Main {
 			return "Ficheros Moodle XML (*.xml)";
 		}
 	}
-	
+
 	private class LatexFilter extends FileFilter {
 
 		@Override
 		public boolean accept(File f) {
-			return f.getName().toLowerCase().endsWith(".tex") || f.isDirectory();
+			return f.getName().toLowerCase().endsWith(".tex")
+					|| f.isDirectory();
 		}
 
 		@Override
