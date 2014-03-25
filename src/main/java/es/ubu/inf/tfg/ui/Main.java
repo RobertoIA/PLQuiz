@@ -26,9 +26,14 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.filechooser.FileFilter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.ubu.inf.tfg.doc.Documento;
 
 public class Main {
+
+	private static final Logger log = LoggerFactory.getLogger(Main.class);
 
 	private JFrame frmPlquiz;
 	private JPanel controlPanel;
@@ -51,13 +56,15 @@ public class Main {
 	private Documento documento;
 
 	public static void main(String[] args) {
+		log.info("Aplicación iniciada");
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Main window = new Main();
 					window.frmPlquiz.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					log.error("Error al iniciar la aplicación", e);
 				}
 			}
 		});
@@ -68,11 +75,11 @@ public class Main {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Error estableciendo el look and feel", e);
 		}
 		initialize();
 		this.documento = new Documento();
+		this.vistaPreviaText.setText(documento.vistaPrevia());
 		this.fileChooser = new JFileChooser();
 		this.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 	}
@@ -156,14 +163,16 @@ public class Main {
 		public void actionPerformed(ActionEvent event) {
 			JPanel nuevoPanel = null;
 
-			if (añadirBox.getSelectedItem().equals("Aho-Sethi-Ullman"))
+			if (añadirBox.getSelectedItem().equals("Aho-Sethi-Ullman")) {
+				log.info("Añadiendo problema tipo Aho-Sethi-Ullman");
 				nuevoPanel = new AhoSethiUllmanPanel(contenedorPanel,
 						documento, vistaPreviaText);
-			else if (añadirBox.getSelectedItem().equals(
-					"Construcción de subconjuntos"))
+			} else if (añadirBox.getSelectedItem().equals(
+					"Construcción de subconjuntos")) {
+				log.info("Añadiendo problema tipo construcción de subconjuntos");
 				nuevoPanel = new ConstruccionSubconjuntosPanel(contenedorPanel,
 						documento, vistaPreviaText);
-
+			}
 			if (nuevoPanel != null) {
 				contenedorPanel.add(nuevoPanel);
 				contenedorPanel.revalidate();
@@ -184,13 +193,15 @@ public class Main {
 			if (valorRetorno == JFileChooser.APPROVE_OPTION) {
 				File fichero = fileChooser.getSelectedFile();
 				try {
-					if (source == menuExportarMoodleXMLButton)
+					if (source == menuExportarMoodleXMLButton) {
+						log.info("Exportando fichero XML a {}", fichero);
 						documento.exportaXML(fichero);
-					else if (source == menuExportarLatexButton)
+					} else if (source == menuExportarLatexButton) {
+						log.info("Exportando fichero Latex a {}", fichero);
 						documento.exportaLatex(fichero);
+					}
 				} catch (IOException e) {
-					// TODO Avisar de error / reintento
-					e.printStackTrace();
+					log.error("Fallo al exportar fichero", e);
 				}
 			}
 		}
@@ -198,6 +209,7 @@ public class Main {
 
 	private class MenuNuevoActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
+			log.info("Generando un documento nuevo");
 			documento = new Documento();
 			vistaPreviaText.setText(documento.vistaPrevia());
 			contenedorPanel.removeAll();
