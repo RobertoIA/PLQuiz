@@ -50,7 +50,8 @@ public class ConstruccionSubconjuntos {
 	 *             Error del parser o del token manager. Indica que la expresión
 	 *             no es válida o que contiene caracteres no reconocidos.
 	 */
-	public ConstruccionSubconjuntos(String problema) throws UnsupportedOperationException {
+	public ConstruccionSubconjuntos(String problema)
+			throws UnsupportedOperationException {
 		if (problema.charAt(problema.length() - 1) != '\n')
 			problema += '\n';
 
@@ -72,7 +73,7 @@ public class ConstruccionSubconjuntos {
 		// Calculo de estados
 		this.estados = new TreeMap<>();
 		this.transiciones = new MapaEstados();
-		
+
 		char estadoActual = 'A';
 		Set<Nodo> posiciones = automata.transicionVacia(automata.nodoInicial());
 		estados.put(estadoActual, posiciones);
@@ -130,7 +131,7 @@ public class ConstruccionSubconjuntos {
 	 */
 	private char transicion(char estado, char simbolo) {
 		Set<Nodo> posiciones = new TreeSet<>();
-		
+
 		for (Nodo nodo : estados.get(estado)) {
 			if (this.estados.get(estado).contains(nodo))
 				posiciones.addAll(automata.transicion(nodo, simbolo));
@@ -143,7 +144,7 @@ public class ConstruccionSubconjuntos {
 
 		char est = (char) (this.estados.size() + 'A');
 		this.estados.put(est, posiciones);
-		
+
 		return est;
 	}
 
@@ -190,6 +191,21 @@ public class ConstruccionSubconjuntos {
 		for (Nodo nodo : this.estados.get(estado))
 			posiciones.add(nodo.posicion());
 
+		return posiciones;
+	}
+
+	/**
+	 * Devuelve el conjunto de posiciones encontradas en la expresión regular.
+	 * El conjunto será un rango [1, n].
+	 * 
+	 * @return Conjunto de posiciones en la expresión regular.
+	 */
+	public Set<Integer> posiciones() {
+		Set<Integer> posiciones = new TreeSet<Integer>();
+		for (int i = this.automata.nodoInicial().posicion(); i <= this.automata
+				.nodoFinal().posicion(); i++) {
+			posiciones.add(i);
+		}
 		return posiciones;
 	}
 
