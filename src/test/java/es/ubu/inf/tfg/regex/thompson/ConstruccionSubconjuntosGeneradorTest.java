@@ -1,34 +1,31 @@
-package es.ubu.inf.tfg.regex.asu;
+package es.ubu.inf.tfg.regex.thompson;
 
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.Random;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-public class AhoSethiUllmanGeneradorTest {
+public class ConstruccionSubconjuntosGeneradorTest {
 
 	private final int MIN_CORRECTOS = 99; // Mínimo porcentaje de correctos
 	private final int N_ITERACIONES = 10; // Total de problemas generados por
 											// test
 
 	private static final Random random = new Random(new Date().getTime());
-	AhoSethiUllmanGenerador generador = AhoSethiUllmanGenerador.getInstance();
+	ConstruccionSubconjuntosGenerador generador;
 
-	/**
-	 * Comprueba que la petición de múltiples instancias de
-	 * AhoSethiUllmanGenerador da como resultado múltiples referencias a la
-	 * misma instancia. Es decir, implementa correctamente el patrón singleton.
-	 */
-	@Test
-	public void testGetInstance() {
-		AhoSethiUllmanGenerador generadorB = AhoSethiUllmanGenerador
-				.getInstance();
+	@Before
+	public void setUp() throws Exception {
+		generador = new ConstruccionSubconjuntosGenerador();
+	}
 
-		assertSame("Comportamiento de singleton erroneo.", generador,
-				generadorB);
+	@After
+	public void tearDown() throws Exception {
+		generador = null;
 	}
 
 	/**
@@ -38,21 +35,21 @@ public class AhoSethiUllmanGeneradorTest {
 	 */
 	@Test
 	public void testNuevoNoVacio() {
-		AhoSethiUllman problema;
+		ConstruccionSubconjuntos problema;
 		int correctos = 0;
 		int estados, simbolos;
 		boolean estadosCorrectos;
 		boolean simbolosCorrectos;
 
 		for (int i = 0; i < N_ITERACIONES; i++) {
-//			estados = random.nextInt(10) + 1;
-//			simbolos = random.nextInt(19) + 3;
-			simbolos = random.nextInt(5) + 6;
-			estados = random.nextInt(5) + 4;
-			
+			// simbolos = random.nextInt(19) + 3;
+			// estados = random.nextInt(10) + 1;
+			simbolos = 3;
+			estados = 5;
+
 			problema = generador.nuevo(simbolos, estados, false);
 
-			simbolosCorrectos = problema.simbolos().size() == simbolos + 1;
+			simbolosCorrectos = problema.simbolos().size() == simbolos;
 			estadosCorrectos = problema.estados().size() == estados;
 
 			if (estadosCorrectos && simbolosCorrectos)
@@ -71,21 +68,21 @@ public class AhoSethiUllmanGeneradorTest {
 	 */
 	@Test
 	public void testNuevoVacio() {
-		AhoSethiUllman problema;
+		ConstruccionSubconjuntos problema;
 		int correctos = 0;
 		int estados, simbolos;
 		boolean estadosCorrectos;
 		boolean simbolosCorrectos;
 
 		for (int i = 0; i < N_ITERACIONES; i++) {
-//			estados = random.nextInt(10) + 1;
-//			simbolos = random.nextInt(19) + 3;
-			simbolos = random.nextInt(5) + 6;
-			estados = random.nextInt(5) + 4;
+			// simbolos = random.nextInt(19) + 3;
+			// estados = random.nextInt(10) + 1;
+			simbolos = 3;
+			estados = 5;
 
 			problema = generador.nuevo(simbolos, estados, true);
 
-			simbolosCorrectos = problema.simbolos().size() == simbolos + 1;
+			simbolosCorrectos = problema.simbolos().size() == simbolos;
 			estadosCorrectos = problema.estados().size() == estados;
 
 			if (estadosCorrectos && simbolosCorrectos)
