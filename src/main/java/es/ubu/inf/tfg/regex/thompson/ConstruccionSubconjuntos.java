@@ -97,7 +97,7 @@ public class ConstruccionSubconjuntos {
 	 */
 	public ConstruccionSubconjuntos(ExpresionRegular expresion) {
 		// Expresion sin aumentar.
-		this.expresion = this.expresion.hijoIzquierdo();
+		this.expresion = expresion.hijoIzquierdo();
 		this.problema = this.expresion.toString();
 
 		this.automata = new Automata(this.expresion, 0);

@@ -6,8 +6,7 @@ import es.ubu.inf.tfg.regex.datos.Generador;
 /**
  * AhoSethiUllmanGenerador implementa una clase encargada de generar problemas
  * de tipo AhoSethiUllman con los parámetros especificados, siguiendo un
- * algoritmo de búsqueda aleatoria, con generación de árboles basada en el
- * algoritmo GROW.
+ * algoritmo de búsqueda aleatoria.
  * <p>
  * El generador implementa el patrón de diseño singleton, representando un
  * proveedor de problemas que recibe peticiones y devuelve los resultados de la
@@ -26,7 +25,7 @@ public class AhoSethiUllmanGenerador {
 	private static final int MIN_PROFUNDIDAD = 2;
 
 	private static final AhoSethiUllmanGenerador instance = new AhoSethiUllmanGenerador();
-	private static final Generador generador = new Generador();
+	private static Generador generador ;
 
 	/**
 	 * Constructor privado, no se le llama.
@@ -68,7 +67,7 @@ public class AhoSethiUllmanGenerador {
 
 		do {
 			// Inicializa variables
-			generador.inicializa(nSimbolos, usaVacio);
+			generador = new Generador(nSimbolos, usaVacio);
 
 			// Genera expresión
 			expresion = generador.subArbol(profundidad, null);

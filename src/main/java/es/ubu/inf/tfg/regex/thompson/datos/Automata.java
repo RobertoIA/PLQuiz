@@ -173,7 +173,7 @@ public class Automata {
 			actuales.addAll(actual.transicionVacia());
 
 			visitados.add(actual);
-			actuales.remove(actual);
+			actuales.removeAll(visitados);
 		}
 
 		return visitados;
