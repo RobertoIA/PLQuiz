@@ -84,7 +84,7 @@ public class TraductorHTMLTest {
 
 		try (InputStream entrada = getClass().getResourceAsStream(fichero);
 				BufferedReader lector = new BufferedReader(
-						new InputStreamReader(entrada, "UTF16"))) {
+						new InputStreamReader(entrada, "UTF8"))) {
 
 			contenido = new StringBuilder();
 			linea = lector.readLine();

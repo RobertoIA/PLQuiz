@@ -20,31 +20,31 @@
 	</tr>
 	<tr>
 	<td>A</td>
-	<td>{:MULTICHOICE:=B#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=C#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=A#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=1 2 3 4 5 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%B~D~C~A}</td>
+	<td>{1:MULTICHOICE:%100%C~D~B~A}</td>
+	<td>{1:MULTICHOICE:%100%A~C~B~D}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5~1, 2, 4, 5~1, 2, 3, 5~2, 3, 4, 5}</td>
 	</tr>
 	<tr>
 	<td>B</td>
-	<td>{:MULTICHOICE:=B#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=D#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=A#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=3 4 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%B~D~A~C}</td>
+	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
+	<td>{1:MULTICHOICE:%100%A~C~B~D}</td>
+	<td>{1:MULTICHOICE:%100%3, 4~4, 5~1, 3, 4~1, 4}</td>
 	</tr>
 	<tr>
 	<td>C</td>
-	<td>{:MULTICHOICE:=B#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=C#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=A#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=2 3 4 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%B~C~D~A}</td>
+	<td>{1:MULTICHOICE:%100%C~B~A~D}</td>
+	<td>{1:MULTICHOICE:%100%A~B~C~D}</td>
+	<td>{1:MULTICHOICE:%100%2, 3, 4~3, 4~2, 3~1, 3, 4}</td>
 	</tr>
 	<tr>
 	<td>D</td>
-	<td>{:MULTICHOICE:=D#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=D#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=D#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=Cjto. vacio#CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
+	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
+	<td>{1:MULTICHOICE:%100%D~C~B~A}</td>
+	<td>{1:MULTICHOICE:%100%Cjto. vacío~2~4~5}</td>
 	</tr>
 				</tbody>
 				</table>
@@ -60,7 +60,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: {:MULTICHOICE:=A#Correct~X, Y, Z#Falso}</p>
+				<p>Los estados finales son: {1:MULTICHOICE:%100%A~C~Cjto. vacío~D}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>
@@ -87,45 +87,45 @@
 	</tr>
 	<tr>
 	<td>A</td>
-	<td>{:MULTICHOICE:=B#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=C#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=D#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=1 2 3 4 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%B~C~D~F}</td>
+	<td>{1:MULTICHOICE:%100%C~A~D~F}</td>
+	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 4~1, 2, 3~2, 3, 4, 5~1, 2, 3, 5}</td>
 	</tr>
 	<tr>
 	<td>B</td>
-	<td>{:MULTICHOICE:=E#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=F#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=D#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=3 4 5 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%E~D~C~A}</td>
+	<td>{1:MULTICHOICE:%100%F~D~E~C}</td>
+	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
+	<td>{1:MULTICHOICE:%100%3, 4, 5~2, 3, 5~3, 4~1, 3, 4}</td>
 	</tr>
 	<tr>
 	<td>C</td>
-	<td>{:MULTICHOICE:=E#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=C#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=D#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=2 3 4 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%E~C~D~A}</td>
+	<td>{1:MULTICHOICE:%100%C~B~A~F}</td>
+	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
+	<td>{1:MULTICHOICE:%100%2, 3, 4~1, 2, 4~3, 4, 5~2, 3, 5}</td>
 	</tr>
 	<tr>
 	<td>D</td>
-	<td>{:MULTICHOICE:=E#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=F#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=D#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=3 4 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%E~C~F~A}</td>
+	<td>{1:MULTICHOICE:%100%F~E~D~C}</td>
+	<td>{1:MULTICHOICE:%100%D~C~B~A}</td>
+	<td>{1:MULTICHOICE:%100%3, 4~2, 3~1, 3~3, 4, 5}</td>
 	</tr>
 	<tr>
 	<td>E</td>
-	<td>{:MULTICHOICE:=F#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=F#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=F#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=5 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%F~E~D~C}</td>
+	<td>{1:MULTICHOICE:%100%F~E~D~A}</td>
+	<td>{1:MULTICHOICE:%100%F~E~D~B}</td>
+	<td>{1:MULTICHOICE:%100%5~3, 5~Cjto. vacío~1, 5}</td>
 	</tr>
 	<tr>
 	<td>F</td>
-	<td>{:MULTICHOICE:=F#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=F#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=F#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=Cjto. vacio#CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%F~D~E~A}</td>
+	<td>{1:MULTICHOICE:%100%F~D~E~C}</td>
+	<td>{1:MULTICHOICE:%100%F~D~E~B}</td>
+	<td>{1:MULTICHOICE:%100%Cjto. vacío~1~5~2}</td>
 	</tr>
 				</tbody>
 				</table>
@@ -141,7 +141,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: {:MULTICHOICE:=B, E#Correct~X, Y, Z#Falso}</p>
+				<p>Los estados finales son: {1:MULTICHOICE:%100%B, E~B, C, E~B, D~B}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>
@@ -167,51 +167,51 @@
 	</tr>
 	<tr>
 	<td>A</td>
-	<td>{:MULTICHOICE:=B#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=A#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=1 2 3 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%B~A~D~H}</td>
+	<td>{1:MULTICHOICE:%100%A~C~B~F}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3~2, 3, 6~1, 2, 8~2, 3, 7}</td>
 	</tr>
 	<tr>
 	<td>B</td>
-	<td>{:MULTICHOICE:=C#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=D#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=1 2 3 4 5 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%C~B~E~H}</td>
+	<td>{1:MULTICHOICE:%100%D~C~E~G}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5~1, 3, 4, 5, 8~1, 2, 3, 4, 6~1, 3, 4, 5}</td>
 	</tr>
 	<tr>
 	<td>C</td>
-	<td>{:MULTICHOICE:=E#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=F#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=1 2 3 4 5 6 7 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%E~G~F~A}</td>
+	<td>{1:MULTICHOICE:%100%F~D~E~A}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5, 6, 7~1, 2, 3, 4, 6, 7, 8~1, 2, 3, 5, 6, 7~1, 2, 4, 5, 6, 7, 8}</td>
 	</tr>
 	<tr>
 	<td>D</td>
-	<td>{:MULTICHOICE:=G#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=H#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=1 2 3 6 7 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%G~E~H~A}</td>
+	<td>{1:MULTICHOICE:%100%H~G~F~D}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 6, 7~1, 2, 3, 4, 6, 7~1, 2, 3, 6, 8~2, 3, 6, 7}</td>
 	</tr>
 	<tr>
 	<td>E</td>
-	<td>{:MULTICHOICE:=E#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=F#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=1 2 3 4 5 6 7 8 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%E~D~C~B}</td>
+	<td>{1:MULTICHOICE:%100%F~E~G~C}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5, 6, 7, 8~1, 2, 3, 4, 6, 7, 8~1, 3, 4, 5, 6, 7, 8~1, 2, 3, 4, 5, 7, 8}</td>
 	</tr>
 	<tr>
 	<td>F</td>
-	<td>{:MULTICHOICE:=G#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=H#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=1 2 3 6 7 8 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%G~H~F~B}</td>
+	<td>{1:MULTICHOICE:%100%H~G~F~B}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 6, 7, 8~1, 2, 3, 6, 7~1, 2, 4, 6, 7, 8~1, 3, 5, 6, 7, 8}</td>
 	</tr>
 	<tr>
 	<td>G</td>
-	<td>{:MULTICHOICE:=C#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=D#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=1 2 3 4 5 8 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%C~D~B~G}</td>
+	<td>{1:MULTICHOICE:%100%D~B~C~H}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5, 8~2, 3, 4, 5, 8~1, 2, 3, 5, 7, 8~1, 2, 3, 5, 6, 8}</td>
 	</tr>
 	<tr>
 	<td>H</td>
-	<td>{:MULTICHOICE:=B#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=A#CORRECT~Z#Falso}</td>
-	<td>{:MULTICHOICE:=1 2 3 8 #CORRECT~0#Falso}</td>
+	<td>{1:MULTICHOICE:%100%B~D~C~E}</td>
+	<td>{1:MULTICHOICE:%100%A~B~C~G}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 8~1, 2, 5, 8~1, 2, 3, 5~1, 2, 3, 7, 8}</td>
 	</tr>
 				</tbody>
 				</table>
@@ -227,7 +227,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: {:MULTICHOICE:=E, F, G, H#Correct~X, Y, Z#Falso}</p>
+				<p>Los estados finales son: {1:MULTICHOICE:%100%E, F, G, H~C, E, G, H~B, E, F, G, H~C, E, F, H}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>

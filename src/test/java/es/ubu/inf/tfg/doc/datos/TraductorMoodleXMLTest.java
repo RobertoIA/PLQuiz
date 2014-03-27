@@ -51,10 +51,16 @@ public class TraductorMoodleXMLTest {
 	public void testTraduceAhoSethiUllman() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("XMLTraductorASU.xml");
+		String encontrado = traductor.traduce(problema);
+
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
 
 		assertEquals(
 				"Traducción Moodle XML incorrecta de problema AhoSethiUllman.",
-				esperado, traductor.traduce(problema));
+				esperado, encontrado);
 	}
 
 	/**
@@ -63,12 +69,19 @@ public class TraductorMoodleXMLTest {
 	 */
 	@Test
 	public void testTraduceConstruccionSubconjuntos() {
-		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos("((a|b*)a*c)*");
+		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
+				"((a|b*)a*c)*");
 		String esperado = toString("XMLTraductorCS.xml");
+		String encontrado = traductor.traduce(problema);
+
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
 
 		assertEquals(
 				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos.",
-				esperado, traductor.traduce(problema));
+				esperado, encontrado);
 	}
 
 	/**
@@ -85,7 +98,7 @@ public class TraductorMoodleXMLTest {
 
 		try (InputStream entrada = getClass().getResourceAsStream(fichero);
 				BufferedReader lector = new BufferedReader(
-						new InputStreamReader(entrada, "UTF16"))) {
+						new InputStreamReader(entrada, "UTF8"))) {
 
 			contenido = new StringBuilder();
 			linea = lector.readLine();

@@ -86,6 +86,10 @@ public class DocumentoTest {
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
+		
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
+		
 		assertEquals("Exportación de documento XML vacío erronea.", esperado,
 				encontrado);
 
@@ -130,6 +134,10 @@ public class DocumentoTest {
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
+		
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
+		
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman a documento XML exportado.",
 				esperado, encontrado);
@@ -177,6 +185,10 @@ public class DocumentoTest {
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
+		
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
+		
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman en documento XML exportado.",
 				esperado, encontrado);
@@ -223,6 +235,10 @@ public class DocumentoTest {
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
+		
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
+		
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman en documento XML exportado.",
 				esperado, encontrado);
@@ -270,6 +286,10 @@ public class DocumentoTest {
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
+		
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
+		
 		assertEquals(
 				"Añadido erróneo de problemas de construcción de subconjuntos a documento XML exportado.",
 				esperado, encontrado);
@@ -318,6 +338,10 @@ public class DocumentoTest {
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
+		
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
+		
 		assertEquals(
 				"Borrado erróneo de problemas de construcción de subconjuntos en documento XML exportado.",
 				esperado, encontrado);
@@ -365,6 +389,10 @@ public class DocumentoTest {
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
+		
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
+		
 		assertEquals(
 				"Sustitución errónea de problemas de construcción de subconjuntos en documento XML exportado.",
 				esperado, encontrado);
@@ -413,7 +441,7 @@ public class DocumentoTest {
 
 		try (InputStream entrada = new FileInputStream(fichero);
 				BufferedReader lector = new BufferedReader(
-						new InputStreamReader(entrada, "UTF16"))) {
+						new InputStreamReader(entrada, "UTF8"))) {
 
 			contenido = new StringBuilder();
 			linea = lector.readLine();
@@ -446,7 +474,7 @@ public class DocumentoTest {
 
 		try (InputStream entrada = getClass().getResourceAsStream(fichero);
 				BufferedReader lector = new BufferedReader(
-						new InputStreamReader(entrada, "UTF16"))) {
+						new InputStreamReader(entrada, "UTF8"))) {
 
 			contenido = new StringBuilder();
 			linea = lector.readLine();
