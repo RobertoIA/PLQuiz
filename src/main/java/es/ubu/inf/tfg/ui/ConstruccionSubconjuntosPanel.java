@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -13,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SwingWorker;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -145,22 +147,44 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 
 	private class BotonGenerarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			ConstruccionSubconjuntosGenerador generador = new ConstruccionSubconjuntosGenerador();
-			int nSimbolos = simbolosSlider.getValue();
-			int nEstados = estadosSlider.getValue();
-			boolean usaVacio = vacioCheck.isSelected();
+			SwingWorker<ConstruccionSubconjuntos, Void> worker = new SwingWorker<ConstruccionSubconjuntos, Void>() {
 
-			ConstruccionSubconjuntos problema = generador.nuevo(nSimbolos,
-					nEstados, usaVacio);
+				@Override
+				protected ConstruccionSubconjuntos doInBackground()
+						throws Exception {
+					ConstruccionSubconjuntosGenerador generador = new ConstruccionSubconjuntosGenerador();
+					int nSimbolos = simbolosSlider.getValue();
+					int nEstados = estadosSlider.getValue();
+					boolean usaVacio = vacioCheck.isSelected();
 
-			if (problemaActual != null)
-				documento.sustituirProblema(problemaActual, problema);
-			else
-				documento.añadirProblema(problema);
+					ConstruccionSubconjuntos problema = generador.nuevo(nSimbolos,
+							nEstados, usaVacio);
+					return problema;
+				}
+				
+				@Override
+				public void done() {
+					ConstruccionSubconjuntos problema = null;
+					try {
+						problema = get();
+						
+						if (problemaActual != null)
+							documento.sustituirProblema(problemaActual, problema);
+						else
+							documento.añadirProblema(problema);
 
-			problemaActual = problema;
-			expresionText.setText(problema.problema());
-			vistaPrevia.setText(documento.vistaPrevia());
+						problemaActual = problema;
+						expresionText.setText(problema.problema());
+						vistaPrevia.setText(documento.vistaPrevia());
+					} catch (InterruptedException | ExecutionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			};
+			
+			worker.execute();
 		}
 	}
 
