@@ -25,6 +25,8 @@ import javax.swing.event.ChangeListener;
 import es.ubu.inf.tfg.doc.Documento;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntosGenerador;
+import javax.swing.JProgressBar;
+import java.awt.BorderLayout;
 
 public class ConstruccionSubconjuntosPanel extends JPanel {
 
@@ -52,6 +54,8 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 	private JLabel estadosLabel;
 	private JSlider estadosSlider;
 	private JLabel estadosEstadoLabel;
+	private JPanel progresoPanel;
+	private JProgressBar progresoBar;
 
 	public ConstruccionSubconjuntosPanel(JPanel contenedor,
 			Documento documento, JTextPane vistaPrevia) {
@@ -133,6 +137,15 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 
 		this.estadosEstadoLabel = new JLabel("5");
 		this.estadosPanel.add(this.estadosEstadoLabel);
+		
+		this.progresoPanel = new JPanel();
+		this.opcionesPanel.add(this.progresoPanel);
+		
+		this.progresoBar = new JProgressBar();
+		this.progresoBar.setVisible(false);
+		this.progresoPanel.setLayout(new BorderLayout(0, 0));
+		this.progresoBar.setIndeterminate(true);
+		this.progresoPanel.add(this.progresoBar);
 	}
 
 	private class SliderChangeListener implements ChangeListener {
@@ -156,6 +169,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 					int nSimbolos = simbolosSlider.getValue();
 					int nEstados = estadosSlider.getValue();
 					boolean usaVacio = vacioCheck.isSelected();
+					progresoBar.setVisible(true);
 
 					ConstruccionSubconjuntos problema = generador.nuevo(nSimbolos,
 							nEstados, usaVacio);
@@ -167,6 +181,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 					ConstruccionSubconjuntos problema = null;
 					try {
 						problema = get();
+						progresoBar.setVisible(false);
 						
 						if (problemaActual != null)
 							documento.sustituirProblema(problemaActual, problema);
