@@ -140,10 +140,10 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		
 		this.progresoPanel = new JPanel();
 		this.opcionesPanel.add(this.progresoPanel);
+		this.progresoPanel.setLayout(new BorderLayout(0, 0));
 		
 		this.progresoBar = new JProgressBar();
 		this.progresoBar.setVisible(false);
-		this.progresoPanel.setLayout(new BorderLayout(0, 0));
 		this.progresoBar.setIndeterminate(true);
 		this.progresoPanel.add(this.progresoBar);
 	}

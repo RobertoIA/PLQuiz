@@ -1,18 +1,22 @@
 package es.ubu.inf.tfg.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
+import javax.swing.SwingWorker;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -51,6 +55,8 @@ public class AhoSethiUllmanPanel extends JPanel {
 	private JLabel estadosLabel;
 	private JSlider estadosSlider;
 	private JLabel estadosEstadoLabel;
+	private JPanel progresoPanel;
+	private JProgressBar progresoBar;
 
 	public AhoSethiUllmanPanel(JPanel contenedor, Documento documento,
 			JTextPane vistaPrevia) {
@@ -132,6 +138,15 @@ public class AhoSethiUllmanPanel extends JPanel {
 
 		this.estadosEstadoLabel = new JLabel("5");
 		this.estadosPanel.add(this.estadosEstadoLabel);
+		
+		this.progresoPanel = new JPanel();
+		this.opcionesPanel.add(this.progresoPanel);
+		this.progresoPanel.setLayout(new BorderLayout(0, 0));
+		
+		this.progresoBar = new JProgressBar();
+		this.progresoBar.setVisible(false);
+		this.progresoBar.setIndeterminate(true);
+		this.progresoPanel.add(this.progresoBar, BorderLayout.CENTER);
 
 	}
 
@@ -147,23 +162,47 @@ public class AhoSethiUllmanPanel extends JPanel {
 
 	private class BotonGenerarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			AhoSethiUllmanGenerador generador = AhoSethiUllmanGenerador
-					.getInstance();
-			int nSimbolos = simbolosSlider.getValue();
-			int nEstados = estadosSlider.getValue();
-			boolean usaVacio = vacioCheck.isSelected();
+			SwingWorker<AhoSethiUllman, Void> worker = new SwingWorker<AhoSethiUllman, Void>() {
 
-			AhoSethiUllman problema = generador.nuevo(nSimbolos, nEstados,
-					usaVacio);
+				@Override
+				protected AhoSethiUllman doInBackground() throws Exception {
+					AhoSethiUllmanGenerador generador = AhoSethiUllmanGenerador
+							.getInstance();
+					int nSimbolos = simbolosSlider.getValue();
+					int nEstados = estadosSlider.getValue();
+					boolean usaVacio = vacioCheck.isSelected();
+					progresoBar.setVisible(true);
 
-			if(problemaActual != null)
-				documento.sustituirProblema(problemaActual, problema);
-			else
-				documento.añadirProblema(problema);
-			
-			problemaActual = problema;
-			expresionText.setText(problema.problema());
-			vistaPrevia.setText(documento.vistaPrevia());
+					AhoSethiUllman problema = generador.nuevo(nSimbolos,
+							nEstados, usaVacio);
+					return problema;
+				}
+
+				@Override
+				public void done() {
+					AhoSethiUllman problema = null;
+					try {
+						problema = get();
+						progresoBar.setVisible(false);
+
+						if (problemaActual != null)
+							documento.sustituirProblema(problemaActual,
+									problema);
+						else
+							documento.añadirProblema(problema);
+
+						problemaActual = problema;
+						expresionText.setText(problema.problema());
+						vistaPrevia.setText(documento.vistaPrevia());
+					} catch (InterruptedException | ExecutionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+			};
+
+			worker.execute();
 		}
 	}
 
@@ -184,13 +223,13 @@ public class AhoSethiUllmanPanel extends JPanel {
 			String expresion = expresionText.getText();
 
 			if (expresion.length() > 0) {
-				if(problemaActual != null) {
+				if (problemaActual != null) {
 					if (!expresion.equals(problemaActual.problema())) {
 						AhoSethiUllman problema = new AhoSethiUllman(expresion);
 						documento.sustituirProblema(problemaActual, problema);
 						problemaActual = problema;
 					}
-				}else{
+				} else {
 					AhoSethiUllman problema = new AhoSethiUllman(expresion);
 					documento.añadirProblema(problema);
 					problemaActual = problema;
