@@ -8,10 +8,6 @@ import es.ubu.inf.tfg.regex.datos.Generador;
  * de tipo AhoSethiUllman con los parámetros especificados, siguiendo un
  * algoritmo de búsqueda aleatoria.
  * <p>
- * El generador implementa el patrón de diseño singleton, representando un
- * proveedor de problemas que recibe peticiones y devuelve los resultados de la
- * búsqueda.
- * <p>
  * El generador no garantiza que los resultados se adapten perfectamente a los
  * parámetros de entrada.
  * 
@@ -24,23 +20,7 @@ public class AhoSethiUllmanGenerador {
 	private static final int MAX_PROFUNDIDAD = 6;
 	private static final int MIN_PROFUNDIDAD = 2;
 
-	private static final AhoSethiUllmanGenerador instance = new AhoSethiUllmanGenerador();
-	private static Generador generador ;
-
-	/**
-	 * Constructor privado, no se le llama.
-	 */
-	private AhoSethiUllmanGenerador() {
-	}
-
-	/**
-	 * Devuelve la instancia compartida de la clase.
-	 * 
-	 * @return Instancia única de AhoSethiUllmanGenerador.
-	 */
-	public static AhoSethiUllmanGenerador getInstance() {
-		return instance;
-	}
+	private Generador generador;
 
 	/**
 	 * Genera un nuevo problema de tipo AhoSethiUllman. Intentará acercarse lo

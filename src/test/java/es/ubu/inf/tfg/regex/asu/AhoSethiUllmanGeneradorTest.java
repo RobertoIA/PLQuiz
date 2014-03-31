@@ -1,11 +1,12 @@
 package es.ubu.inf.tfg.regex.asu;
 
-import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.Random;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class AhoSethiUllmanGeneradorTest {
@@ -15,20 +16,16 @@ public class AhoSethiUllmanGeneradorTest {
 											// test
 
 	private static final Random random = new Random(new Date().getTime());
-	AhoSethiUllmanGenerador generador = AhoSethiUllmanGenerador.getInstance();
+	AhoSethiUllmanGenerador generador;
 
-	/**
-	 * Comprueba que la petición de múltiples instancias de
-	 * AhoSethiUllmanGenerador da como resultado múltiples referencias a la
-	 * misma instancia. Es decir, implementa correctamente el patrón singleton.
-	 */
-	@Test
-	public void testGetInstance() {
-		AhoSethiUllmanGenerador generadorB = AhoSethiUllmanGenerador
-				.getInstance();
+	@Before
+	public void setUp() throws Exception {
+		generador = new AhoSethiUllmanGenerador();
+	}
 
-		assertSame("Comportamiento de singleton erroneo.", generador,
-				generadorB);
+	@After
+	public void tearDown() throws Exception {
+		generador = null;
 	}
 
 	/**

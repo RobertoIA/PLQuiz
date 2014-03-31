@@ -138,11 +138,11 @@ public class AhoSethiUllmanPanel extends JPanel {
 
 		this.estadosEstadoLabel = new JLabel("5");
 		this.estadosPanel.add(this.estadosEstadoLabel);
-		
+
 		this.progresoPanel = new JPanel();
 		this.opcionesPanel.add(this.progresoPanel);
 		this.progresoPanel.setLayout(new BorderLayout(0, 0));
-		
+
 		this.progresoBar = new JProgressBar();
 		this.progresoBar.setVisible(false);
 		this.progresoBar.setIndeterminate(true);
@@ -166,8 +166,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 
 				@Override
 				protected AhoSethiUllman doInBackground() throws Exception {
-					AhoSethiUllmanGenerador generador = AhoSethiUllmanGenerador
-							.getInstance();
+					AhoSethiUllmanGenerador generador = new AhoSethiUllmanGenerador();
 					int nSimbolos = simbolosSlider.getValue();
 					int nEstados = estadosSlider.getValue();
 					boolean usaVacio = vacioCheck.isSelected();
