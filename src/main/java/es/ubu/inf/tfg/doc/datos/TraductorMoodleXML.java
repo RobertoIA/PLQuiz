@@ -235,9 +235,11 @@ public class TraductorMoodleXML extends Traductor {
 	 * finales, a partir del conjunto de estados finales real y del conjunto
 	 * total de estados del problema.
 	 * <p>
-	 * Las opciones alternativas se obtienen modificando la solución original,
-	 * ya sea añadiendo elementos, eliminándolos, o intercambiandolos por otros
-	 * nuevos.
+	 * La lista de opciones incluirá la solución correcta, dos soluciones
+	 * similares y una solución completamente distinta. Las soluciones similares
+	 * se obtienen añadiendo y quitando un elemento del conjunto
+	 * respectivamente. La solución distinta es el conjunto complementario al
+	 * dado.
 	 * 
 	 * @param solucion
 	 *            Conjunto de estados finales del problema.
@@ -247,51 +249,40 @@ public class TraductorMoodleXML extends Traductor {
 	 *         opciones.
 	 */
 	private String opcionesFinales(Set<Character> solucion,
-			Set<Character> estados) { // TODO no da una opción diferente y 2
-										// similares
+			Set<Character> estados) {
 		log.debug(
 				"Generando opciones para estados finales con finales {} y estados {}",
 				solucion, estados);
 
 		StringBuilder opciones = new StringBuilder();
 		opciones.append("{1:MULTICHOICE:%100%");
-		opciones.append(setToString(solucion));
+		opciones.append(listToString(new ArrayList<>(solucion)));
 
-		List<Character> finales = new ArrayList<>(solucion);
-		List<Character> noFinales = new ArrayList<>(estados);
-		noFinales.removeAll(finales);
-
-		List<Set<Character>> conjuntos = new ArrayList<>();
-		Set<Character> conjunto;
-		// Añadir
-		for (char estado : noFinales) {
-			conjunto = new TreeSet<>(solucion);
-			conjunto.add(estado);
-			conjuntos.add(conjunto);
-		}
-		// Eliminar
-		for (char estado : finales) {
-			conjunto = new TreeSet<>(solucion);
-			conjunto.remove(estado);
-			conjuntos.add(conjunto);
-		}
-		// Permutar
-		for (char viejo : finales) {
-			for (char nuevo : noFinales) {
-				conjunto = new TreeSet<>(solucion);
-				conjunto.remove(viejo);
-				conjunto.add(nuevo);
-				conjuntos.add(conjunto);
-			}
-		} // TODO muchos más permutados que de otros tipos.
-
+		List<Character> complementarios = new ArrayList<>(estados);
+		complementarios.removeAll(solucion);
+		List<Character> conjunto;
 		int index;
-		for (int i = 0; i < 3; i++) {
-			index = random.nextInt(conjuntos.size());
-			opciones.append("~");
-			log.debug("Añadiendo opcion {}", conjuntos.get(index));
-			opciones.append(setToString(conjuntos.remove(index)));
+		// Opción similar 1 (eliminamos un estado)
+		conjunto = new ArrayList<>(solucion);
+		if (conjunto.size() > 0) {
+			index = random.nextInt(conjunto.size());
+			conjunto.remove(index);
+			log.debug("Añadiendo opcion {} (similar)", conjunto);
+			opciones.append("~" + listToString(conjunto));
 		}
+
+		// Opción similar 2 (añadimos un estado)
+		conjunto = new ArrayList<>(solucion);
+		if (conjunto.size() < solucion.size()) {
+			index = random.nextInt(complementarios.size());
+			conjunto.add(complementarios.get(index));
+			log.debug("Añadiendo opcion {} (similar)", conjunto);
+			opciones.append("~" + listToString(conjunto));
+		}
+
+		// Opción diferente
+		log.debug("Añadiendo opcion {} (diferente)", complementarios);
+		opciones.append("~" + listToString(complementarios));
 
 		opciones.append("}");
 		return opciones.toString();
@@ -302,9 +293,11 @@ public class TraductorMoodleXML extends Traductor {
 	 * partir del conjunto de posiciones real y del conjunto total de posiciones
 	 * del problema.
 	 * <p>
-	 * Las opciones alternativas se obtienen modificando la solución original,
-	 * ya sea añadiendo elementos, eliminándolos, o intercambiandolos por otros
-	 * nuevos.
+	 * La lista de opciones incluirá la solución correcta, dos soluciones
+	 * similares y una solución completamente distinta. Las soluciones similares
+	 * se obtienen añadiendo y quitando un elemento del conjunto
+	 * respectivamente. La solución distinta es el conjunto complementario al
+	 * dado.
 	 * 
 	 * @param solucion
 	 *            Conjunto de posiciones real.
@@ -321,62 +314,52 @@ public class TraductorMoodleXML extends Traductor {
 
 		StringBuilder opciones = new StringBuilder();
 		opciones.append("{1:MULTICHOICE:%100%");
-		opciones.append(setToString(solucion));
+		opciones.append(new ArrayList<>(solucion));
 
-		List<Integer> incluidos = new ArrayList<>(solucion);
-		List<Integer> noIncluidos = new ArrayList<>(posiciones);
-		noIncluidos.removeAll(incluidos);
-
-		List<Set<Integer>> conjuntos = new ArrayList<>();
-		Set<Integer> conjunto;
-		// Añadir
-		for (int estado : noIncluidos) {
-			conjunto = new TreeSet<>(solucion);
-			conjunto.add(estado);
-			conjuntos.add(conjunto);
-		}
-		// Eliminar
-		for (int estado : incluidos) {
-			conjunto = new TreeSet<>(solucion);
-			conjunto.remove(estado);
-			conjuntos.add(conjunto);
-		}
-		// Permutar
-		for (int viejo : incluidos) {
-			for (int nuevo : noIncluidos) {
-				conjunto = new TreeSet<>(solucion);
-				conjunto.remove(viejo);
-				conjunto.add(nuevo);
-				conjuntos.add(conjunto);
-			}
-		} // TODO muchos más permutados que de otros tipos.
-
+		List<Integer> complementarios = new ArrayList<>(posiciones);
+		complementarios.removeAll(solucion);
+		List<Integer> conjunto;
 		int index;
-		for (int i = 0; i < 3; i++) {
-			index = random.nextInt(conjuntos.size());
-			opciones.append("~");
-			log.debug("Añadiendo opcion {}", conjuntos.get(index));
-			opciones.append(setToString(conjuntos.remove(index)));
+		// Opción similar 1 (eliminamos un estado si es posible)
+		conjunto = new ArrayList<>(solucion);
+		if (conjunto.size() > 0) {
+			index = random.nextInt(conjunto.size());
+			conjunto.remove(index);
+			log.debug("Añadiendo opcion {} (similar)", conjunto);
+			opciones.append("~" + listToString(conjunto));
 		}
+
+		// Opción similar 2 (añadimos un estado si es posible)
+		conjunto = new ArrayList<>(solucion);
+		if (conjunto.size() < solucion.size()) {
+			index = random.nextInt(complementarios.size());
+			conjunto.add(complementarios.get(index));
+			log.debug("Añadiendo opcion {} (similar)", conjunto);
+			opciones.append("~" + listToString(conjunto));
+		}
+
+		// Opción diferente
+		log.debug("Añadiendo opcion {} (diferente)", complementarios);
+		opciones.append("~" + listToString(complementarios));
 
 		opciones.append("}");
 		return opciones.toString();
 	}
 
 	/**
-	 * Devuelve una representación de un conjunto de elementos separados con
+	 * Devuelve una representación de una lista de elementos separados con
 	 * comas.
 	 * 
-	 * @param set
-	 *            Conjunto de elementos.
-	 * @return Representación del conjunto como elementos separados por comas.
+	 * @param lista
+	 *            Lista de elementos.
+	 * @return Representación de la lista como elementos separados por comas.
 	 */
-	private String setToString(Set<?> set) {
+	private String listToString(List<?> lista) {
 		StringBuilder setToString = new StringBuilder();
 
-		if (set.size() > 0) {
+		if (lista.size() > 0) {
 			String prefijo = "";
-			for (Object elemento : set) {
+			for (Object elemento : lista) {
 				setToString.append(prefijo);
 				prefijo = ", ";
 				setToString.append(elemento.toString());
