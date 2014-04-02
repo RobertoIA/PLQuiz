@@ -42,10 +42,8 @@ public class ConstruccionSubconjuntosGeneradorTest {
 		boolean simbolosCorrectos;
 
 		for (int i = 0; i < N_ITERACIONES; i++) {
-			// simbolos = random.nextInt(19) + 3;
-			// estados = random.nextInt(10) + 1;
-			simbolos = 3;
-			estados = 5;
+			 simbolos = random.nextInt(19) + 3;
+			 estados = random.nextInt(10) + 1;
 
 			problema = generador.nuevo(simbolos, estados, false);
 
@@ -75,10 +73,8 @@ public class ConstruccionSubconjuntosGeneradorTest {
 		boolean simbolosCorrectos;
 
 		for (int i = 0; i < N_ITERACIONES; i++) {
-			// simbolos = random.nextInt(19) + 3;
-			// estados = random.nextInt(10) + 1;
-			simbolos = 3;
-			estados = 5;
+			 simbolos = random.nextInt(19) + 3;
+			 estados = random.nextInt(10) + 1;
 
 			problema = generador.nuevo(simbolos, estados, true);
 
