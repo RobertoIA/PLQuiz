@@ -1,5 +1,8 @@
 package es.ubu.inf.tfg.regex.thompson;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
 import es.ubu.inf.tfg.regex.datos.Generador;
 
@@ -15,6 +18,9 @@ import es.ubu.inf.tfg.regex.datos.Generador;
  * 
  */
 public class ConstruccionSubconjuntosGenerador {
+
+	private static final Logger log = LoggerFactory
+			.getLogger(ConstruccionSubconjuntosGenerador.class);
 
 	private static final int MAX_ITERACIONES = Integer.MAX_VALUE;
 	private static final int MAX_PROFUNDIDAD = 6;
@@ -40,6 +46,10 @@ public class ConstruccionSubconjuntosGenerador {
 	 */
 	public ConstruccionSubconjuntos nuevo(int nSimbolos, int nEstados,
 			boolean usaVacio) {
+		log.info(
+				"Generando problema de construcción de subconjuntos con {} simbolos y {} estados, vacios = {}.",
+				nSimbolos, nEstados, usaVacio);
+
 		ConstruccionSubconjuntos candidato = null, actual = null;
 		ExpresionRegular expresion;
 
@@ -55,25 +65,28 @@ public class ConstruccionSubconjuntosGenerador {
 
 			// Evalua candidato
 			actual = new ConstruccionSubconjuntos(expresion);
+			log.debug("Generada expresión {}, evaluada como {}.", expresion,
+					evalua(actual, nEstados));
 			if (candidato == null
 					|| evalua(actual, nEstados) < evalua(candidato, nEstados))
 				candidato = actual;
 
 			// Modifica la profundidad
 			int dif = nEstados - actual.estados().size();
-			if (dif > 1)
+			if (dif > 1 && profundidad < MAX_PROFUNDIDAD) {
+				log.debug("Aumento de profundidad de árbol a {}.", profundidad);
 				profundidad++;
-			else if (dif < 1)
+			} else if (dif < 1 && profundidad > MIN_PROFUNDIDAD) {
+				log.debug("Disminución de profundidad de árbol a {}.",
+						profundidad);
 				profundidad--;
-
-			if (profundidad < MIN_PROFUNDIDAD)
-				profundidad = MIN_PROFUNDIDAD;
-			else if (profundidad > MAX_PROFUNDIDAD)
-				profundidad = MAX_PROFUNDIDAD;
+			}
 
 			iteraciones++;
 		} while (evalua(candidato, nEstados) != 0
 				&& iteraciones < MAX_ITERACIONES);
+
+		log.info("Solución encontrada en {} iteraciones.", iteraciones);
 
 		return candidato;
 	}
