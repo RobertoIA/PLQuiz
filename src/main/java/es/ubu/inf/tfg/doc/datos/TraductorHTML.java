@@ -3,6 +3,9 @@ package es.ubu.inf.tfg.doc.datos;
 import java.text.MessageFormat;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
@@ -14,6 +17,9 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
  */
 public class TraductorHTML extends Traductor {
 
+	private static final Logger log = LoggerFactory
+			.getLogger(TraductorHTML.class);
+
 	/**
 	 * Genera un documento HTML a partir de una lista de problemas ya
 	 * traducidos.
@@ -24,12 +30,16 @@ public class TraductorHTML extends Traductor {
 	 */
 	@Override
 	public String documento(List<String> problemas) {
+		log.info("Generando documento HTML a partir de {} problemas.",
+				problemas.size());
+
 		StringBuilder documento = new StringBuilder();
 
 		int n = 1;
 		for (String problema : problemas)
-			documento.append(MessageFormat.format(formatoIntermedio(problema), n++));
-		
+			documento.append(MessageFormat.format(formatoIntermedio(problema),
+					n++));
+
 		String plantilla = formatoIntermedio(plantilla("plantilla.html"));
 		plantilla = MessageFormat.format(plantilla, documento.toString());
 		plantilla = formatoFinal(plantilla);
@@ -46,6 +56,10 @@ public class TraductorHTML extends Traductor {
 	 */
 	@Override
 	public String traduce(AhoSethiUllman problema) {
+		log.info(
+				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}",
+				problema.problema());
+
 		StringBuilder stePos = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 
@@ -95,10 +109,10 @@ public class TraductorHTML extends Traductor {
 			fTrans.append("</td></tr>");
 		}
 		fTrans.append("</table>");
-		
-		plantilla = MessageFormat.format(plantilla, "<%0%>", problema.problema(),
-				problema.expresionAumentada(), stePos.toString(),
-				fTrans.toString());
+
+		plantilla = MessageFormat.format(plantilla, "<%0%>",
+				problema.problema(), problema.expresionAumentada(),
+				stePos.toString(), fTrans.toString());
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
@@ -113,6 +127,10 @@ public class TraductorHTML extends Traductor {
 	 */
 	@Override
 	public String traduce(ConstruccionSubconjuntos problema) {
+		log.info(
+				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresion {}",
+				problema.problema());
+
 		StringBuilder fTrans = new StringBuilder();
 
 		String plantilla = formatoIntermedio(plantilla("plantillaCS.html"));
@@ -141,7 +159,8 @@ public class TraductorHTML extends Traductor {
 		}
 		fTrans.append("</table>");
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>", problema.problema(), fTrans.toString());
+		plantilla = MessageFormat.format(plantilla, "<%0%>",
+				problema.problema(), fTrans.toString());
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;

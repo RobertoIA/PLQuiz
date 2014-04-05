@@ -6,6 +6,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
@@ -18,6 +21,9 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
  * 
  */
 public abstract class Traductor {
+	
+	private static final Logger log = LoggerFactory.getLogger(Traductor.class);
+
 	/**
 	 * Genera un documento de un formato concreto a partir de una lista de
 	 * problemas ya traducidos.
@@ -76,7 +82,7 @@ public abstract class Traductor {
 			resultado = contenido.toString();
 			return resultado;
 		} catch (IOException e) {
-			System.err.println("Error al recuperar la plantilla " + plantilla);
+			log.error("Error al recuperar la plantilla {}", plantilla);
 			return "";
 		}
 	}

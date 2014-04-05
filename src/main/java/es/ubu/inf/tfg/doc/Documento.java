@@ -9,6 +9,9 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.ubu.inf.tfg.doc.datos.Traductor;
 import es.ubu.inf.tfg.doc.datos.TraductorHTML;
 import es.ubu.inf.tfg.doc.datos.TraductorLatex;
@@ -29,6 +32,9 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
  * 
  */
 public class Documento {
+
+	private static final Logger log = LoggerFactory.getLogger(Documento.class);
+
 	private List<Object> problemas;
 
 	/**
@@ -45,6 +51,9 @@ public class Documento {
 	 *            Nuevo problema Aho-Sethi-Ullman.
 	 */
 	public void añadirProblema(AhoSethiUllman problema) {
+		log.info(
+				"Añadiendo problema de Aho-Sethi-Ullman al documento con expresión {}",
+				problema.problema());
 		this.problemas.add(problema);
 	}
 
@@ -56,6 +65,9 @@ public class Documento {
 	 *            Nuevo problema construcción de subconjuntos.
 	 */
 	public void añadirProblema(ConstruccionSubconjuntos problema) {
+		log.info(
+				"Añadiendo problema de construcción de subconjuntos al documento con expresión {}",
+				problema.problema());
 		this.problemas.add(problema);
 	}
 
@@ -66,6 +78,9 @@ public class Documento {
 	 *            Problema Aho-Sethi-Ullman a eliminar.
 	 */
 	public void eliminarProblema(AhoSethiUllman problema) {
+		log.info(
+				"Eliminando problema de Aho-Sethi-Ullman del documento con expresión {}",
+				problema.problema());
 		this.problemas.remove(problema);
 	}
 
@@ -76,6 +91,9 @@ public class Documento {
 	 *            Problema construcción de subconjuntos a eliminar.
 	 */
 	public void eliminarProblema(ConstruccionSubconjuntos problema) {
+		log.info(
+				"Eliminando problema de construcción de subconjuntos del documento con expresión {}",
+				problema.problema());
 		this.problemas.remove(problema);
 	}
 
@@ -90,6 +108,9 @@ public class Documento {
 	 *            Problema Aho-Sethi-Ullman a añadir.
 	 */
 	public void sustituirProblema(AhoSethiUllman anterior, AhoSethiUllman nuevo) {
+		log.info(
+				"Sustituyendo en el documento problema de Aho-Sethi-Ullman {} por {}",
+				anterior.problema(), nuevo.problema());
 		int index = this.problemas.indexOf(anterior);
 		if (index >= 0)
 			this.problemas.set(index, nuevo);
@@ -109,6 +130,9 @@ public class Documento {
 	 */
 	public void sustituirProblema(ConstruccionSubconjuntos anterior,
 			ConstruccionSubconjuntos nuevo) {
+		log.info(
+				"Sustituyendo en el documento problema de construcción de subconjuntos {} por {}",
+				anterior.problema(), nuevo.problema());
 		int index = this.problemas.indexOf(anterior);
 		if (index >= 0)
 			this.problemas.set(index, nuevo);
@@ -136,6 +160,7 @@ public class Documento {
 	 *             Indica un error durante la exportación.
 	 */
 	public void exportaXML(File fichero) throws IOException {
+		log.info("Exportando documento como Moodle XML a {}", fichero);
 		String ruta = fichero.toString();
 		if (!ruta.toLowerCase().endsWith(".xml"))
 			ruta += ".xml";
@@ -153,6 +178,7 @@ public class Documento {
 	 *             Indica un error durante la exportación.
 	 */
 	public void exportaLatex(File fichero) throws IOException {
+		log.info("Exportando documento como Latex a {}", fichero);
 		String ruta = fichero.toString();
 		if (!ruta.toLowerCase().endsWith(".tex"))
 			ruta += ".tex";

@@ -3,6 +3,9 @@ package es.ubu.inf.tfg.doc.datos;
 import java.text.MessageFormat;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
@@ -14,6 +17,9 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
  */
 public class TraductorLatex extends Traductor {
 
+	private static final Logger log = LoggerFactory
+			.getLogger(TraductorLatex.class);
+	
 	/**
 	 * Genera un documento Latex a partir de una lista de problemas ya
 	 * traducidos.
@@ -24,6 +30,9 @@ public class TraductorLatex extends Traductor {
 	 */
 	@Override
 	public String documento(List<String> problemas) {
+		log.info("Generando documento Latex a partir de {} problemas.",
+				problemas.size());
+		
 		StringBuilder documento = new StringBuilder();
 
 		int n = 1;
@@ -47,6 +56,10 @@ public class TraductorLatex extends Traductor {
 	 */
 	@Override
 	public String traduce(AhoSethiUllman problema) {
+		log.info(
+				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresion {}",
+				problema.problema());
+		
 		StringBuilder stePos = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 
@@ -125,6 +138,10 @@ public class TraductorLatex extends Traductor {
 	 */
 	@Override
 	public String traduce(ConstruccionSubconjuntos problema) {
+		log.info(
+				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresion {}",
+				problema.problema());
+		
 		StringBuilder fTrans = new StringBuilder();
 
 		String plantilla = formatoIntermedio(plantilla("plantillaCS.tex"));

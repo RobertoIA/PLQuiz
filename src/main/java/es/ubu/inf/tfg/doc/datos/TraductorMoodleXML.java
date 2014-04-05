@@ -36,8 +36,7 @@ public class TraductorMoodleXML extends Traductor {
 	 */
 	@Override
 	public String documento(List<String> problemas) {
-		log.info(
-				"Generando documento Moodle XML a partir de una lista de {} problemas",
+		log.info("Generando documento Moodle XML a partir de {} problemas.",
 				problemas.size());
 
 		StringBuilder documento = new StringBuilder();
@@ -64,7 +63,7 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public String traduce(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Moodle XML un problema de tipo Aho-Sethi-Ullman con expresión {}",
+				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}",
 				problema.problema());
 
 		StringBuilder fTrans = new StringBuilder();
@@ -121,7 +120,7 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public String traduce(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Moodle XML un problema de tipo construcción de subconjuntos con expresión {}",
+				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {}",
 				problema.problema());
 
 		StringBuilder fTrans = new StringBuilder();
