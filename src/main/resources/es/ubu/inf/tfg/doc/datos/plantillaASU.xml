@@ -7,11 +7,22 @@
 			<text><![CDATA[
 				<p>Completa la tabla de la función de transición del AFD que se obtendría de aplicar el método de Aho-Sethi-Ullman a la expresión regular <%1%></p>
 
-				<table border="1" cellspacing="0" align="left">
-				<tbody>
-				<%2%>
-				</tbody>
-				</table>
+				<p>
+					<table border="1" cellspacing="0" align="left">
+						<tr>
+							<th>n</th>
+							<th>stePos(n)</th>
+						</tr>
+						<%2%>
+					</table>
+				</p>
+				<p>
+					<table border="1" cellspacing="0" align="left">
+						<tbody>
+							<%3%>
+						</tbody>
+					</table>
+				</p>
 
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
@@ -24,7 +35,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: <%3%></p>
+				<p>Los estados finales son: <%4%></p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>

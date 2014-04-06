@@ -9,9 +9,19 @@
 			<text><![CDATA[
 				<p>Completa la tabla de la función de transición del AFD que se obtendría de aplicar el método de Aho-Sethi-Ullman a la expresión regular ((a|b*)a*c)*</p>
 
-				<table border="1" cellspacing="0" align="left">
-				<tbody>
-				
+				<p>
+					<table border="1" cellspacing="0" align="left">
+						<tr>
+							<th>n</th>
+							<th>stePos(n)</th>
+						</tr>
+						<tr><td>1</td><td>{1:MULTICHOICE:%100%3, 4~4~1, 2, 5}</td></tr><tr><td>2</td><td>{1:MULTICHOICE:%100%2, 3, 4~2, 4~1, 5}</td></tr><tr><td>3</td><td>{1:MULTICHOICE:%100%3, 4~3~1, 2, 5}</td></tr><tr><td>4</td><td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5~1, 2, 3, 5~Cjto. vacío}</td></tr><tr><td>5</td><td>{1:MULTICHOICE:%100%Cjto. vacío~1, 2, 3, 4, 5}</td></tr>
+					</table>
+				</p>
+				<p>
+					<table border="1" cellspacing="0" align="left">
+						<tbody>
+							
 	<tr><th scope="col">$$\mathcal{Q}/\Sigma$$</th>
 	<th scope="col">a</th>
 	<th scope="col">b</th>
@@ -20,34 +30,35 @@
 	</tr>
 	<tr>
 	<td>A</td>
-	<td>{1:MULTICHOICE:%100%B~D~C~A}</td>
+	<td>{1:MULTICHOICE:%100%B~C~D~A}</td>
 	<td>{1:MULTICHOICE:%100%C~A~B~D}</td>
-	<td>{1:MULTICHOICE:%100%A~C~B~D}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5~1, 2, 3, 4~1, 2, 4, 5~2, 3, 4, 5}</td>
+	<td>{1:MULTICHOICE:%100%A~B~C~D}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5~1, 2, 4, 5~Cjto. vacío}</td>
 	</tr>
 	<tr>
 	<td>B</td>
-	<td>{1:MULTICHOICE:%100%B~D~A~C}</td>
-	<td>{1:MULTICHOICE:%100%D~C~B~A}</td>
+	<td>{1:MULTICHOICE:%100%B~A~C~D}</td>
+	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
 	<td>{1:MULTICHOICE:%100%A~C~B~D}</td>
-	<td>{1:MULTICHOICE:%100%3, 4~2, 4~2, 3~1, 4}</td>
+	<td>{1:MULTICHOICE:%100%3, 4~3~1, 2, 5}</td>
 	</tr>
 	<tr>
 	<td>C</td>
-	<td>{1:MULTICHOICE:%100%B~A~D~C}</td>
+	<td>{1:MULTICHOICE:%100%B~C~D~A}</td>
 	<td>{1:MULTICHOICE:%100%C~D~B~A}</td>
-	<td>{1:MULTICHOICE:%100%A~B~C~D}</td>
-	<td>{1:MULTICHOICE:%100%2, 3, 4~2, 3, 5~1, 2, 3, 4~2, 4}</td>
+	<td>{1:MULTICHOICE:%100%A~C~B~D}</td>
+	<td>{1:MULTICHOICE:%100%2, 3, 4~2, 3~1, 5}</td>
 	</tr>
 	<tr>
 	<td>D</td>
+	<td>{1:MULTICHOICE:%100%D~C~B~A}</td>
+	<td>{1:MULTICHOICE:%100%D~C~B~A}</td>
 	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
-	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
-	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
-	<td>{1:MULTICHOICE:%100%Cjto. vacío~2~4~5}</td>
+	<td>{1:MULTICHOICE:%100%Cjto. vacío~1, 2, 3, 4, 5}</td>
 	</tr>
-				</tbody>
-				</table>
+						</tbody>
+					</table>
+				</p>
 
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
@@ -76,9 +87,19 @@
 			<text><![CDATA[
 				<p>Completa la tabla de la función de transición del AFD que se obtendría de aplicar el método de Aho-Sethi-Ullman a la expresión regular (a|b)*a(a|b)(a|b)</p>
 
-				<table border="1" cellspacing="0" align="left">
-				<tbody>
-				
+				<p>
+					<table border="1" cellspacing="0" align="left">
+						<tr>
+							<th>n</th>
+							<th>stePos(n)</th>
+						</tr>
+						<tr><td>1</td><td>{1:MULTICHOICE:%100%1, 2, 3~1, 3~4, 5, 6, 7, 8}</td></tr><tr><td>2</td><td>{1:MULTICHOICE:%100%1, 2, 3~1, 3~4, 5, 6, 7, 8}</td></tr><tr><td>3</td><td>{1:MULTICHOICE:%100%4, 5~5~1, 2, 3, 6, 7, 8}</td></tr><tr><td>4</td><td>{1:MULTICHOICE:%100%6, 7~6~1, 2, 3, 4, 5, 8}</td></tr><tr><td>5</td><td>{1:MULTICHOICE:%100%6, 7~7~1, 2, 3, 4, 5, 8}</td></tr><tr><td>6</td><td>{1:MULTICHOICE:%100%8~Cjto. vacío~1, 2, 3, 4, 5, 6, 7}</td></tr><tr><td>7</td><td>{1:MULTICHOICE:%100%8~Cjto. vacío~1, 2, 3, 4, 5, 6, 7}</td></tr><tr><td>8</td><td>{1:MULTICHOICE:%100%Cjto. vacío~1, 2, 3, 4, 5, 6, 7, 8}</td></tr>
+					</table>
+				</p>
+				<p>
+					<table border="1" cellspacing="0" align="left">
+						<tbody>
+							
 	<tr><th scope="col">$$\mathcal{Q}/\Sigma$$</th>
 	<th scope="col">a</th>
 	<th scope="col">b</th>
@@ -86,54 +107,55 @@
 	</tr>
 	<tr>
 	<td>A</td>
-	<td>{1:MULTICHOICE:%100%B~A~D~G}</td>
-	<td>{1:MULTICHOICE:%100%A~C~B~H}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3~1, 2, 7~1, 2, 8~1, 2, 6}</td>
+	<td>{1:MULTICHOICE:%100%B~C~A~H}</td>
+	<td>{1:MULTICHOICE:%100%A~C~B~E}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3~1, 3~4, 5, 6, 7, 8}</td>
 	</tr>
 	<tr>
 	<td>B</td>
-	<td>{1:MULTICHOICE:%100%C~D~E~F}</td>
-	<td>{1:MULTICHOICE:%100%D~B~F~A}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5~1, 2, 3, 4, 5, 7~1, 2, 3, 5, 7~1, 2, 3, 4, 5, 8}</td>
+	<td>{1:MULTICHOICE:%100%C~E~D~H}</td>
+	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5~1, 2, 3, 4~6, 7, 8}</td>
 	</tr>
 	<tr>
 	<td>C</td>
-	<td>{1:MULTICHOICE:%100%E~D~G~A}</td>
-	<td>{1:MULTICHOICE:%100%F~D~G~B}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5, 6, 7~1, 2, 4, 5, 6, 7~1, 2, 3, 4, 5, 7, 8~2, 3, 4, 5, 6, 7, 8}</td>
+	<td>{1:MULTICHOICE:%100%E~G~C~B}</td>
+	<td>{1:MULTICHOICE:%100%F~E~D~B}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5, 6, 7~2, 3, 4, 5, 6, 7~8}</td>
 	</tr>
 	<tr>
 	<td>D</td>
-	<td>{1:MULTICHOICE:%100%G~E~H~C}</td>
-	<td>{1:MULTICHOICE:%100%H~F~G~C}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3, 6, 7~1, 2, 6, 7, 8~2, 3, 4, 6, 7~1, 3, 4, 6, 7}</td>
+	<td>{1:MULTICHOICE:%100%G~H~E~B}</td>
+	<td>{1:MULTICHOICE:%100%H~F~G~E}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 6, 7~1, 2, 3, 7~4, 5, 8}</td>
 	</tr>
 	<tr>
 	<td>E</td>
-	<td>{1:MULTICHOICE:%100%E~D~F~B}</td>
-	<td>{1:MULTICHOICE:%100%F~G~E~A}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5, 6, 7, 8~1, 2, 4, 5, 6, 7, 8~1, 2, 3, 5, 6, 7, 8~1, 2, 3, 4, 5, 6, 7}</td>
+	<td>{1:MULTICHOICE:%100%E~F~D~H}</td>
+	<td>{1:MULTICHOICE:%100%F~G~E~C}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5, 6, 7, 8~2, 3, 4, 5, 6, 7, 8~Cjto. vacío}</td>
 	</tr>
 	<tr>
 	<td>F</td>
-	<td>{1:MULTICHOICE:%100%G~F~H~D}</td>
-	<td>{1:MULTICHOICE:%100%H~G~F~B}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3, 6, 7, 8~1, 3, 5, 6, 7, 8~1, 2, 6, 7, 8~2, 3, 4, 6, 7, 8}</td>
+	<td>{1:MULTICHOICE:%100%G~H~E~A}</td>
+	<td>{1:MULTICHOICE:%100%H~G~F~C}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 6, 7, 8~1, 3, 6, 7, 8~4, 5}</td>
 	</tr>
 	<tr>
 	<td>G</td>
-	<td>{1:MULTICHOICE:%100%C~D~E~F}</td>
-	<td>{1:MULTICHOICE:%100%D~E~F~G}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5, 8~1, 2, 3, 5, 8~1, 2, 3, 4, 6, 8~1, 2, 4, 5, 7, 8}</td>
+	<td>{1:MULTICHOICE:%100%C~D~E~H}</td>
+	<td>{1:MULTICHOICE:%100%D~B~E~A}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5, 8~1, 2, 3, 4, 5~6, 7}</td>
 	</tr>
 	<tr>
 	<td>H</td>
-	<td>{1:MULTICHOICE:%100%B~A~D~G}</td>
-	<td>{1:MULTICHOICE:%100%A~B~C~G}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3, 8~1, 2, 8~1, 2, 6, 8~2, 3, 7, 8}</td>
+	<td>{1:MULTICHOICE:%100%B~C~D~E}</td>
+	<td>{1:MULTICHOICE:%100%A~C~B~G}</td>
+	<td>{1:MULTICHOICE:%100%1, 2, 3, 8~2, 3, 8~4, 5, 6, 7}</td>
 	</tr>
-				</tbody>
-				</table>
+						</tbody>
+					</table>
+				</p>
 
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>

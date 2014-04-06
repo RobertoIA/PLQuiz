@@ -66,10 +66,21 @@ public class TraductorMoodleXML extends Traductor {
 				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}",
 				problema.problema());
 
+		StringBuilder stePos = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 		StringBuilder eFinales = new StringBuilder();
 
 		String plantilla = formatoIntermedio(plantilla("plantillaASU.xml"));
+
+		// siguiente-pos
+		for (int n : problema.posiciones()) {
+			stePos.append("<tr><td>");
+			stePos.append(n);
+			stePos.append("</td><td>");
+			stePos.append(opcionesPosiciones(problema.siguientePos(n),
+					problema.posiciones()));
+			stePos.append("</td></tr>");
+		}
 
 		// Función de transición
 		fTrans.append("\n\t<tr><th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
@@ -103,7 +114,8 @@ public class TraductorMoodleXML extends Traductor {
 		eFinales.append(opcionesFinales(finales, problema.estados()));
 
 		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				problema.problema(), fTrans.toString(), eFinales.toString());
+				problema.problema(), stePos.toString(), fTrans.toString(),
+				eFinales.toString());
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
@@ -313,7 +325,7 @@ public class TraductorMoodleXML extends Traductor {
 
 		StringBuilder opciones = new StringBuilder();
 		opciones.append("{1:MULTICHOICE:%100%");
-		opciones.append(new ArrayList<>(solucion));
+		opciones.append(listToString(new ArrayList<>(solucion)));
 
 		List<Integer> complementarios = new ArrayList<>(posiciones);
 		complementarios.removeAll(solucion);
