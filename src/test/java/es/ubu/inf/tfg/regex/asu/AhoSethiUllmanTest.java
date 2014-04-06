@@ -118,7 +118,7 @@ public class AhoSethiUllmanTest {
 				asu.siguientePos(3));
 		assertEquals("Función siguiente-pos erronea.", set(1, 2, 3, 4, 5),
 				asu.siguientePos(4));
-		assertEquals("Función siguiente-pos erronea.", set(),
+		assertEquals("Función siguiente-pos erronea.", new TreeSet<Integer>(),
 				asu.siguientePos(5));
 	}
 
@@ -145,7 +145,7 @@ public class AhoSethiUllmanTest {
 		assertEquals("Incorrecto conjunto de posiciones para un estado dado.",
 				set(2, 3, 4), asu.estado('C'));
 		assertEquals("Incorrecto conjunto de posiciones para un estado dado.",
-				set(), asu.estado('D'));
+				new TreeSet<Integer>(), asu.estado('D'));
 	}
 
 	/**

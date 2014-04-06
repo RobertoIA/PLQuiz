@@ -34,12 +34,12 @@ public class MapaPosicionesTest {
 	public void testAddClave() {
 		// MapaPosiciones<Integer>
 		mapaInteger.add(1);
-		assertEquals("Error recuperando contenido de clave suelta.", set(),
+		assertEquals("Error recuperando contenido de clave suelta.", new TreeSet<Integer>(),
 				mapaInteger.get(1));
 
 		// MapaPosiciones<Character>
 		mapaCharacter.add('a');
-		assertEquals("Error recuperando contenido de clave suelta.", set(),
+		assertEquals("Error recuperando contenido de clave suelta.",  new TreeSet<Character>(),
 				mapaCharacter.get('a'));
 	}
 
