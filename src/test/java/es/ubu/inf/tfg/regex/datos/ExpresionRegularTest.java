@@ -442,4 +442,104 @@ public class ExpresionRegularTest {
 				nodo.toString());
 	}
 
+	/**
+	 * Comprueba el correcto cálculo de la profundidad de un nodo.
+	 */
+	@Test
+	public void testProfundidad() {
+		ExpresionRegular hijo = ExpresionRegular.nodoSimbolo(1, 'a');
+		ExpresionRegular padre = ExpresionRegular.nodoCierre(hijo);
+		ExpresionRegular abuelo = ExpresionRegular.nodoConcat(padre,
+				ExpresionRegular.nodoVacio());
+
+		assertEquals("Error calculando la profundidad del árbol", 0,
+				hijo.profundidad());
+		assertEquals("Error calculando la profundidad del árbol", 1,
+				padre.profundidad());
+		assertEquals("Error calculando la profundidad del árbol", 2,
+				abuelo.profundidad());
+	}
+
+	/**
+	 * Comprueba que se sustituyen adecuadamente hijos derechos cuando sus tipos
+	 * son correctos.
+	 */
+	@Test
+	public void testNuevoHijoDerecho() {
+		ExpresionRegular hijo = ExpresionRegular.nodoSimbolo(1, 'a');
+		ExpresionRegular padre = ExpresionRegular.nodoConcat(
+				ExpresionRegular.nodoVacio(), ExpresionRegular.nodoVacio());
+
+		padre.hijoDerecho(hijo);
+
+		assertEquals("Error sustituyendo el hijo derecho.", hijo,
+				padre.hijoDerecho());
+	}
+
+	/**
+	 * Comprueba que se sustituyen adecuadamente hijos izquierdos cuando sus
+	 * tipos son correctos.
+	 */
+	@Test
+	public void testNuevoHijoIzquierdo() {
+		ExpresionRegular hijo = ExpresionRegular.nodoSimbolo(1, 'a');
+		ExpresionRegular padre = ExpresionRegular.nodoCierre(ExpresionRegular
+				.nodoVacio());
+
+		padre.hijoIzquierdo(hijo);
+
+		assertEquals("Error sustituyendo el hijo izquierdo.", hijo,
+				padre.hijoIzquierdo());
+	}
+
+	/**
+	 * Comprueba que no se puede modificar el hijo izquierdo de un nodo símbolo.
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testNuevoHijoIzquierdoNodoSimbolo() {
+		ExpresionRegular nodo = ExpresionRegular.nodoSimbolo(1, 'a');
+
+		nodo.hijoIzquierdo(ExpresionRegular.nodoVacio());
+	}
+
+	/**
+	 * Comprueba que no se puede modificar el hijo izquierdo de un nodo vacío.
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testNuevoHijoIzquierdoNodoVacio() {
+		ExpresionRegular nodo = ExpresionRegular.nodoVacio();
+
+		nodo.hijoIzquierdo(ExpresionRegular.nodoVacio());
+	}
+
+	/**
+	 * Comprueba que no se puede modificar el hijo derecho de un nodo símbolo.
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testNuevoHijoDerechoNodoSimbolo() {
+		ExpresionRegular nodo = ExpresionRegular.nodoSimbolo(1, 'a');
+
+		nodo.hijoDerecho(ExpresionRegular.nodoVacio());
+	}
+
+	/**
+	 * Comprueba que no se puede modificar el hijo derecho de un nodo vacío.
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testNuevoHijoDerechoNodoVacio() {
+		ExpresionRegular nodo = ExpresionRegular.nodoVacio();
+
+		nodo.hijoDerecho(ExpresionRegular.nodoVacio());
+	}
+
+	/**
+	 * Comprueba que no se puede modificar el hijo derecho de un nodo cierre.
+	 */
+	@Test(expected = UnsupportedOperationException.class)
+	public void testNuevoHijoDerechoNodoCierre() {
+		ExpresionRegular nodo = ExpresionRegular.nodoCierre(ExpresionRegular
+				.nodoVacio());
+
+		nodo.hijoDerecho(ExpresionRegular.nodoVacio());
+	}
 }

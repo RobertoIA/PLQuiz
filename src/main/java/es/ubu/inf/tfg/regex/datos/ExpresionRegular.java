@@ -34,8 +34,8 @@ public class ExpresionRegular {
 	private final int posicion;
 	private final char simbolo;
 
-	private final ExpresionRegular hijoIzquierdo;
-	private final ExpresionRegular hijoDerecho;
+	private ExpresionRegular hijoIzquierdo;
+	private ExpresionRegular hijoDerecho;
 
 	private ExpresionRegular(Tipo tipo, int posicion, char simbolo,
 			ExpresionRegular hijoDerecho, ExpresionRegular hijoIzquierdo) {
@@ -242,6 +242,52 @@ public class ExpresionRegular {
 			throw new UnsupportedOperationException("Los nodos " + this.tipo
 					+ " no tienen hijo derecho.");
 		return this.hijoDerecho;
+	}
+
+	/**
+	 * Calcula la profundidad de un nodo dado, siendo 0 para los nodos hoja y
+	 * creciendo hacia la raíz.
+	 * 
+	 * @return Profundidad del nodo.
+	 */
+	public int profundidad() {
+		if (esSimbolo() || esVacio())
+			return 0;
+		else if (esCierre())
+			return this.hijoIzquierdo.profundidad() + 1;
+		else
+			return Math.max(this.hijoIzquierdo.profundidad() + 1,
+					this.hijoDerecho.profundidad() + 1);
+	}
+
+	/**
+	 * Sustituye el hijo izquierdo de este nodo, alterando el árbol de la
+	 * expresión regular.
+	 * 
+	 * @param nuevoHijo
+	 *            Nuevo hijo izquierdo.
+	 */
+	public void hijoIzquierdo(ExpresionRegular nuevoHijo) {
+		if (esSimbolo() || esVacio())
+			throw new UnsupportedOperationException("Los nodos " + this.tipo
+					+ " no tienen hijo izquierdo.");
+
+		this.hijoIzquierdo = nuevoHijo;
+	}
+
+	/**
+	 * Sustituye el hijo derecho de este nodo, alterando el árbol de la
+	 * expresión regular.
+	 * 
+	 * @param nuevoHijo
+	 *            Nuevo hijo derecho.
+	 */
+	public void hijoDerecho(ExpresionRegular nuevoHijo) {
+		if (esSimbolo() || esVacio() || esCierre())
+			throw new UnsupportedOperationException("Los nodos " + this.tipo
+					+ " no tienen hijo derecho.");
+
+		this.hijoDerecho = nuevoHijo;
 	}
 
 	/**
