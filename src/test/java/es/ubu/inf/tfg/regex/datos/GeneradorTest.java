@@ -1,6 +1,6 @@
 package es.ubu.inf.tfg.regex.datos;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -12,39 +12,32 @@ public class GeneradorTest {
 	 */
 	@Test
 	public void testArbol() {
-		Generador generador = new Generador();
-		ExpresionRegular expresion = generador.arbol(8, 2, true);
+		Generador generador = new Generador(2, true);
+		ExpresionRegular expresion = generador.arbol(8);
 
 		assertEquals("Generado árbol de profundidad erronea", 8,
-				profundidad(expresion, 0));
+				expresion.profundidad());
 
-		expresion = generador.arbol(12, 5, false);
+		generador = new Generador(5, false);
+		expresion = generador.arbol(12);
 
 		assertEquals("Generado árbol de profundidad erronea", 12,
-				profundidad(expresion, 0));
+				expresion.profundidad());
 	}
 
 	/**
-	 * Calcula de forma recursiva la profundidad de un árbol de expresión
-	 * regular.
-	 * 
-	 * @param expresion
-	 *            Expresión regular en forma de árbol.
-	 * @param profundidad
-	 *            Profundidad alcanzada hasta el momento.
-	 * @return Profundidad alcanzada tras analizar el nodo actual.
+	 * Comprueba que las mutaciones sobre una expresión devuelven expresiones
+	 * correctas.
 	 */
-	private int profundidad(ExpresionRegular expresion, int profundidad) {
-		if (expresion.esSimbolo() || expresion.esVacio()) {
-			return profundidad;
-		} else if (expresion.esCierre()) {
-			return profundidad(expresion.hijoIzquierdo(), profundidad + 1);
-		} else {
-			int profIzquierda = profundidad(expresion.hijoIzquierdo(),
-					profundidad + 1);
-			int profDerecha = profundidad(expresion.hijoDerecho(),
-					profundidad + 1);
-			return Math.max(profIzquierda, profDerecha);
-		}
+	@Test
+	public void testMutacion() {
+		Generador generador = new Generador(2, true);
+		ExpresionRegular expresion = generador.arbol(8);
+		ExpresionRegular mutante = generador.mutacion(expresion);
+
+		assertFalse("La expresión mutada es igual a la original.",
+				expresion.equals(mutante));
+		assertEquals("La expresión mutada tiene una profundidad erronea.", 8,
+				mutante.profundidad());
 	}
 }

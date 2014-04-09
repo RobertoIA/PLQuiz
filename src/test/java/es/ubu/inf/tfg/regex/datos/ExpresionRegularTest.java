@@ -2,7 +2,11 @@ package es.ubu.inf.tfg.regex.datos;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -440,6 +444,50 @@ public class ExpresionRegularTest {
 
 		assertEquals("Incorrecta impresión de nodo cierre.", "a*",
 				nodo.toString());
+	}
+
+	/**
+	 * Comprueba que se realizan copias correctas.
+	 */
+	@Test
+	public void testCopia() {
+		ExpresionRegular expresion = ExpresionRegular.nodoSimbolo(1, 'a');
+		expresion = ExpresionRegular.nodoConcat(expresion,
+				ExpresionRegular.nodoVacio());
+		expresion = ExpresionRegular.nodoCierre(expresion);
+
+		ExpresionRegular copia = ExpresionRegular.copia(expresion);
+
+		assertNotSame("Copia devuelve referencia al mismo objeto.", expresion,
+				copia);
+		assertNotSame("Copia en profundidad incorrecta.",
+				expresion.hijoIzquierdo(), copia.hijoIzquierdo());
+		assertEquals("Copia diferente al original.", expresion, copia);
+		assertEquals("Copia en profundidad diferente al original.",
+				expresion.hijoIzquierdo(), copia.hijoIzquierdo());
+	}
+
+	/**
+	 * Comprueba que los nodos se lista correctamente.
+	 */
+	@Test
+	public void testNodos() {
+		ExpresionRegular nodoA = ExpresionRegular.nodoSimbolo(1, 'a');
+		ExpresionRegular nodoB = ExpresionRegular.nodoCierre(nodoA);
+		ExpresionRegular nodoC = ExpresionRegular.nodoSimbolo(2, 'b');
+		ExpresionRegular nodoD = ExpresionRegular.nodoConcat(nodoB, nodoC);
+		ExpresionRegular nodoE = ExpresionRegular.nodoVacio();
+		ExpresionRegular nodoF = ExpresionRegular.nodoUnion(nodoD, nodoE);
+
+		List<ExpresionRegular> nodos = new ArrayList<>();
+		nodos.add(nodoF);
+		nodos.add(nodoD);
+		nodos.add(nodoB);
+		nodos.add(nodoA);
+		nodos.add(nodoC);
+		nodos.add(nodoE);
+
+		assertEquals("Listado de nodos incorrecto.", nodos, nodoF.nodos());
 	}
 
 	/**

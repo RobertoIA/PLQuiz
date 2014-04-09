@@ -1,5 +1,9 @@
 package es.ubu.inf.tfg.regex.datos;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 /**
  * ExpresionRegular implementa un nodo de una expresión regular en forma de
  * árbol. Únicamente mantiene información acerca del tipo de nodo y referencias
@@ -130,6 +134,25 @@ public class ExpresionRegular {
 				null, hijo);
 	}
 
+	public static ExpresionRegular copia(ExpresionRegular original) {
+		switch (original.tipo) {
+		case VACIO:
+			return original;
+		case SIMBOLO:
+			return nodoSimbolo(original.posicion(), original.simbolo());
+		case UNION:
+			return nodoUnion(copia(original.hijoDerecho()),
+					copia(original.hijoIzquierdo()));
+		case CONCAT:
+			return nodoConcat(copia(original.hijoDerecho()),
+					copia(original.hijoIzquierdo()));
+		case CIERRE:
+			return nodoCierre(copia(original.hijoIzquierdo()));
+		default:
+			return null;
+		}
+	}
+
 	/**
 	 * Comprueba si el nodo es de tipo símbolo.
 	 * 
@@ -245,6 +268,33 @@ public class ExpresionRegular {
 	}
 
 	/**
+	 * Devuelve la lista de nodos que constituyen la expresión.
+	 * 
+	 * @return Nodos que forman la expresión.
+	 */
+	public List<ExpresionRegular> nodos() {
+		List<ExpresionRegular> nodos = new ArrayList<>();
+		Stack<ExpresionRegular> pila = new Stack<>();
+		pila.add(this);
+		ExpresionRegular actual = this;
+
+		while (!pila.isEmpty()) {
+			nodos.add(actual);
+
+			if (!actual.esSimbolo() && !actual.esVacio()) {
+				pila.push(actual.hijoIzquierdo());
+
+				if (!actual.esCierre())
+					pila.push(actual.hijoDerecho());
+			}
+
+			actual = pila.pop();
+		}
+
+		return nodos;
+	}
+
+	/**
 	 * Calcula la profundidad de un nodo dado, siendo 0 para los nodos hoja y
 	 * creciendo hacia la raíz.
 	 * 
@@ -262,7 +312,8 @@ public class ExpresionRegular {
 
 	/**
 	 * Sustituye el hijo izquierdo de este nodo, alterando el árbol de la
-	 * expresión regular.
+	 * expresión regular. Se realiza una copia del nuevo hijo antes de alterar
+	 * la referencia.
 	 * 
 	 * @param nuevoHijo
 	 *            Nuevo hijo izquierdo.
@@ -272,12 +323,13 @@ public class ExpresionRegular {
 			throw new UnsupportedOperationException("Los nodos " + this.tipo
 					+ " no tienen hijo izquierdo.");
 
-		this.hijoIzquierdo = nuevoHijo;
+		this.hijoIzquierdo = copia(nuevoHijo);
 	}
 
 	/**
 	 * Sustituye el hijo derecho de este nodo, alterando el árbol de la
-	 * expresión regular.
+	 * expresión regular. Se realiza una copia del nuevo hijo antes de alterar
+	 * la referencia.
 	 * 
 	 * @param nuevoHijo
 	 *            Nuevo hijo derecho.
@@ -287,7 +339,7 @@ public class ExpresionRegular {
 			throw new UnsupportedOperationException("Los nodos " + this.tipo
 					+ " no tienen hijo derecho.");
 
-		this.hijoDerecho = nuevoHijo;
+		this.hijoDerecho = copia(nuevoHijo);
 	}
 
 	/**
