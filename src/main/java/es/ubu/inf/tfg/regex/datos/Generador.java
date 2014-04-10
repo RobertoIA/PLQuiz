@@ -99,42 +99,90 @@ public class Generador {
 	 * @return Expresión mutada.
 	 */
 	public ExpresionRegular mutacion(ExpresionRegular expresion) {
-		ExpresionRegular mutante = ExpresionRegular.copia(expresion);
+		boolean esAumentada = expresion.esConcat()
+				&& expresion.hijoDerecho().esSimbolo()
+				&& expresion.hijoDerecho().simbolo() == '$';
 
 		// Trabaja con la expresión sin aumentar.
-		if (expresion.hijoDerecho().esSimbolo()
-				&& expresion.hijoDerecho().simbolo() == '$')
-			mutante = mutante.hijoIzquierdo();
+		if (esAumentada)
+			expresion = expresion.hijoIzquierdo();
 
-		List<ExpresionRegular> nodos = mutante.nodos().stream()
+		List<ExpresionRegular> nodos = expresion.nodos().stream()
 		// .filter(e -> !e.esSimbolo() && !e.esVacio())
 				.collect(Collectors.toList());
-		ExpresionRegular seleccion = nodos.get(random.nextInt(nodos.size()));
+		ExpresionRegular nodo = nodos.get(random.nextInt(nodos.size()));
+		ExpresionRegular nuevo = arbol(nodo.profundidad());
 
-		for (ExpresionRegular nodo : mutante.nodos()) {
-			if (!nodo.esSimbolo() && !nodo.esVacio()) {
-				if (nodo.hijoIzquierdo().equals(seleccion))
-					nodo.hijoIzquierdo(arbol(seleccion.profundidad()));
-				if (!nodo.esCierre()) {
-					if (nodo.hijoDerecho().equals(seleccion))
-						nodo.hijoDerecho(arbol(seleccion.profundidad()));
-				}
-			}
-		}
+		posicion = 0;
+		ExpresionRegular mutante = sustituir(expresion, nodo, nuevo);
 
 		// Vuelve a aumentar la expresión.
-		if (expresion.hijoDerecho().esSimbolo()
-				&& expresion.hijoDerecho().simbolo() == '$') {
-			int index = mutante.nodos().stream().filter(e -> e.esSimbolo())
-					.mapToInt(ExpresionRegular::posicion).max().getAsInt() + 1;
-
+		if (esAumentada)
 			mutante = ExpresionRegular.nodoConcat(
-					ExpresionRegular.nodoAumentado(index), mutante);
-		}
+					ExpresionRegular.nodoAumentado(posicion), mutante);
 
 		log.debug("Mutación de {} -> {}", expresion, mutante);
 
 		return mutante;
+	}
+
+	/**
+	 * Sustituye un subárbol en un nodo dado de una expresión regular existente,
+	 * sin modificar la expresión original. Los nodos se numeran correctamente,
+	 * incluyendo el nuevo subárbol.
+	 * <p>
+	 * Construye la expresión de manera recursiva.
+	 * 
+	 * @param original
+	 *            Expresion regular original.
+	 * @param nodo
+	 *            Nodo en el que realizar la sustitución. Será reemplazado por
+	 *            la raíz del subárbol.
+	 * @param nuevo
+	 *            Subárbol a introducir en la expresión.
+	 * @return Nueva expresión regular con la sustitución realizada.
+	 */
+	private ExpresionRegular sustituir(ExpresionRegular original,
+			ExpresionRegular nodo, ExpresionRegular nuevo) {
+		ExpresionRegular hijoDerecho;
+		ExpresionRegular hijoIzquierdo;
+
+		if (original.esVacio())
+			return original;
+		else if (original.esSimbolo())
+			return ExpresionRegular.nodoSimbolo(++posicion, original.simbolo());
+		else if (original.esCierre()) {
+			if (original.hijoIzquierdo().equals(nodo))
+				hijoIzquierdo = nuevo;
+			else
+				hijoIzquierdo = sustituir(original.hijoIzquierdo(), nodo, nuevo);
+			return ExpresionRegular.nodoCierre(hijoIzquierdo);
+		} else if (original.esConcat()) {
+			if (original.hijoDerecho().equals(nodo))
+				hijoDerecho = nuevo;
+			else
+				hijoDerecho = sustituir(original.hijoDerecho(), nodo, nuevo);
+			if (original.hijoIzquierdo().equals(nodo))
+				hijoIzquierdo = nuevo;
+			else
+				hijoIzquierdo = sustituir(original.hijoIzquierdo(), nodo, nuevo);
+			return ExpresionRegular.nodoConcat(hijoDerecho, hijoIzquierdo);
+		} else if (original.esUnion()) {
+			if (original.hijoDerecho().equals(nodo))
+				hijoDerecho = nuevo;
+			else
+				hijoDerecho = sustituir(original.hijoDerecho(), nodo, nuevo);
+			if (original.hijoIzquierdo().equals(nodo))
+				hijoIzquierdo = nuevo;
+			else
+				hijoIzquierdo = sustituir(original.hijoIzquierdo(), nodo, nuevo);
+			return ExpresionRegular.nodoUnion(hijoDerecho, hijoIzquierdo);
+		}
+
+		log.error(
+				"Encontrado nodo de tipo no válido al sustituir subárbol, en expresión {}, nodo {}, subárbol {}",
+				original, nodo, nuevo);
+		throw new UnsupportedOperationException("Nodo de tipo no válido.");
 	}
 
 	/**
