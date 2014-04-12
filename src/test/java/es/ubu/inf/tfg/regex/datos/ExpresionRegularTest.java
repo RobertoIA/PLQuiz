@@ -2,7 +2,6 @@ package es.ubu.inf.tfg.regex.datos;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -447,27 +446,6 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba que se realizan copias correctas.
-	 */
-	@Test
-	public void testCopia() {
-		ExpresionRegular expresion = ExpresionRegular.nodoSimbolo(1, 'a');
-		expresion = ExpresionRegular.nodoConcat(expresion,
-				ExpresionRegular.nodoVacio());
-		expresion = ExpresionRegular.nodoCierre(expresion);
-
-		ExpresionRegular copia = ExpresionRegular.copia(expresion);
-
-		assertNotSame("Copia devuelve referencia al mismo objeto.", expresion,
-				copia);
-		assertNotSame("Copia en profundidad incorrecta.",
-				expresion.hijoIzquierdo(), copia.hijoIzquierdo());
-		assertEquals("Copia diferente al original.", expresion, copia);
-		assertEquals("Copia en profundidad diferente al original.",
-				expresion.hijoIzquierdo(), copia.hijoIzquierdo());
-	}
-
-	/**
 	 * Comprueba que los nodos se lista correctamente.
 	 */
 	@Test
@@ -508,86 +486,4 @@ public class ExpresionRegularTest {
 				abuelo.profundidad());
 	}
 
-	/**
-	 * Comprueba que se sustituyen adecuadamente hijos derechos cuando sus tipos
-	 * son correctos.
-	 */
-	@Test
-	public void testNuevoHijoDerecho() {
-		ExpresionRegular hijo = ExpresionRegular.nodoSimbolo(1, 'a');
-		ExpresionRegular padre = ExpresionRegular.nodoConcat(
-				ExpresionRegular.nodoVacio(), ExpresionRegular.nodoVacio());
-
-		padre.hijoDerecho(hijo);
-
-		assertEquals("Error sustituyendo el hijo derecho.", hijo,
-				padre.hijoDerecho());
-	}
-
-	/**
-	 * Comprueba que se sustituyen adecuadamente hijos izquierdos cuando sus
-	 * tipos son correctos.
-	 */
-	@Test
-	public void testNuevoHijoIzquierdo() {
-		ExpresionRegular hijo = ExpresionRegular.nodoSimbolo(1, 'a');
-		ExpresionRegular padre = ExpresionRegular.nodoCierre(ExpresionRegular
-				.nodoVacio());
-
-		padre.hijoIzquierdo(hijo);
-
-		assertEquals("Error sustituyendo el hijo izquierdo.", hijo,
-				padre.hijoIzquierdo());
-	}
-
-	/**
-	 * Comprueba que no se puede modificar el hijo izquierdo de un nodo símbolo.
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testNuevoHijoIzquierdoNodoSimbolo() {
-		ExpresionRegular nodo = ExpresionRegular.nodoSimbolo(1, 'a');
-
-		nodo.hijoIzquierdo(ExpresionRegular.nodoVacio());
-	}
-
-	/**
-	 * Comprueba que no se puede modificar el hijo izquierdo de un nodo vacío.
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testNuevoHijoIzquierdoNodoVacio() {
-		ExpresionRegular nodo = ExpresionRegular.nodoVacio();
-
-		nodo.hijoIzquierdo(ExpresionRegular.nodoVacio());
-	}
-
-	/**
-	 * Comprueba que no se puede modificar el hijo derecho de un nodo símbolo.
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testNuevoHijoDerechoNodoSimbolo() {
-		ExpresionRegular nodo = ExpresionRegular.nodoSimbolo(1, 'a');
-
-		nodo.hijoDerecho(ExpresionRegular.nodoVacio());
-	}
-
-	/**
-	 * Comprueba que no se puede modificar el hijo derecho de un nodo vacío.
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testNuevoHijoDerechoNodoVacio() {
-		ExpresionRegular nodo = ExpresionRegular.nodoVacio();
-
-		nodo.hijoDerecho(ExpresionRegular.nodoVacio());
-	}
-
-	/**
-	 * Comprueba que no se puede modificar el hijo derecho de un nodo cierre.
-	 */
-	@Test(expected = UnsupportedOperationException.class)
-	public void testNuevoHijoDerechoNodoCierre() {
-		ExpresionRegular nodo = ExpresionRegular.nodoCierre(ExpresionRegular
-				.nodoVacio());
-
-		nodo.hijoDerecho(ExpresionRegular.nodoVacio());
-	}
 }

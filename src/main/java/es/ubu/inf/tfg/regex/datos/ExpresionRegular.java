@@ -134,25 +134,6 @@ public class ExpresionRegular {
 				null, hijo);
 	}
 
-	public static ExpresionRegular copia(ExpresionRegular original) {
-		switch (original.tipo) {
-		case VACIO:
-			return original;
-		case SIMBOLO:
-			return nodoSimbolo(original.posicion(), original.simbolo());
-		case UNION:
-			return nodoUnion(copia(original.hijoDerecho()),
-					copia(original.hijoIzquierdo()));
-		case CONCAT:
-			return nodoConcat(copia(original.hijoDerecho()),
-					copia(original.hijoIzquierdo()));
-		case CIERRE:
-			return nodoCierre(copia(original.hijoIzquierdo()));
-		default:
-			return null;
-		}
-	}
-
 	/**
 	 * Comprueba si el nodo es de tipo símbolo.
 	 * 
@@ -308,38 +289,6 @@ public class ExpresionRegular {
 		else
 			return Math.max(this.hijoIzquierdo.profundidad() + 1,
 					this.hijoDerecho.profundidad() + 1);
-	}
-
-	/**
-	 * Sustituye el hijo izquierdo de este nodo, alterando el árbol de la
-	 * expresión regular. Se realiza una copia del nuevo hijo antes de alterar
-	 * la referencia.
-	 * 
-	 * @param nuevoHijo
-	 *            Nuevo hijo izquierdo.
-	 */
-	public void hijoIzquierdo(ExpresionRegular nuevoHijo) {
-		if (esSimbolo() || esVacio())
-			throw new UnsupportedOperationException("Los nodos " + this.tipo
-					+ " no tienen hijo izquierdo.");
-
-		this.hijoIzquierdo = copia(nuevoHijo);
-	}
-
-	/**
-	 * Sustituye el hijo derecho de este nodo, alterando el árbol de la
-	 * expresión regular. Se realiza una copia del nuevo hijo antes de alterar
-	 * la referencia.
-	 * 
-	 * @param nuevoHijo
-	 *            Nuevo hijo derecho.
-	 */
-	public void hijoDerecho(ExpresionRegular nuevoHijo) {
-		if (esSimbolo() || esVacio() || esCierre())
-			throw new UnsupportedOperationException("Los nodos " + this.tipo
-					+ " no tienen hijo derecho.");
-
-		this.hijoDerecho = copia(nuevoHijo);
 	}
 
 	/**
