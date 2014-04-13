@@ -8,11 +8,16 @@ import java.util.Random;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AhoSethiUllmanGeneradorTest {
 
+	private static final Logger log = LoggerFactory
+			.getLogger(AhoSethiUllmanGeneradorTest.class);
+
 	private final int MIN_CORRECTOS = 99; // Mínimo porcentaje de correctos
-	private final int N_ITERACIONES = 10; // Total de problemas generados por
+	private final int N_ITERACIONES = 100; // Total de problemas generados por
 											// test
 
 	private static final Random random = new Random(new Date().getTime());
@@ -42,15 +47,22 @@ public class AhoSethiUllmanGeneradorTest {
 		boolean simbolosCorrectos;
 
 		for (int i = 0; i < N_ITERACIONES; i++) {
-//			estados = random.nextInt(10) + 1;
-//			simbolos = random.nextInt(19) + 3;
+//			 estados = random.nextInt(10) + 1;
+//			 simbolos = random.nextInt(19) + 3;
 			simbolos = random.nextInt(5) + 6;
 			estados = random.nextInt(5) + 4;
 			
+			log.warn("buscando {} {}", simbolos, estados);
+
 			problema = generador.nuevo(simbolos, estados, false);
+
+//			 log.warn(problema.problema());
 
 			simbolosCorrectos = problema.simbolos().size() == simbolos + 1;
 			estadosCorrectos = problema.estados().size() == estados;
+
+//			 log.warn("simbolos: {}/{} estados: {}/{}", problema.simbolos().size(), simbolos,
+//					 problema.estados().size(), estados);
 
 			if (estadosCorrectos && simbolosCorrectos)
 				correctos++;
@@ -75,15 +87,22 @@ public class AhoSethiUllmanGeneradorTest {
 		boolean simbolosCorrectos;
 
 		for (int i = 0; i < N_ITERACIONES; i++) {
-//			estados = random.nextInt(10) + 1;
-//			simbolos = random.nextInt(19) + 3;
+//			 estados = random.nextInt(10) + 1;
+//			 simbolos = random.nextInt(19) + 3;
 			simbolos = random.nextInt(5) + 6;
 			estados = random.nextInt(5) + 4;
+			
+			log.warn("buscando {} {}", simbolos, estados);
 
 			problema = generador.nuevo(simbolos, estados, true);
 
+//			log.warn(problema.problema());
+
 			simbolosCorrectos = problema.simbolos().size() == simbolos + 1;
 			estadosCorrectos = problema.estados().size() == estados;
+
+//			 log.warn("simbolos: {}/{} estados: {}/{}", problema.simbolos().size(), simbolos,
+//					 problema.estados().size(), estados);
 
 			if (estadosCorrectos && simbolosCorrectos)
 				correctos++;
