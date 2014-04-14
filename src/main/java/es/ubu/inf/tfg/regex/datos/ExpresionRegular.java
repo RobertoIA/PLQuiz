@@ -21,9 +21,6 @@ import java.util.Stack;
  * ExpresionRegular proporciona métodos estáticos builder que se encargan de la
  * creación de cada tipo de nodo. Incluye un método extra para construir el nodo
  * con el que se aumenta una expresión, que se trata de un nodo símbolo '$'.
- * <p>
- * A excepción de las referencias a sus hijos, las propiedades de un nodo son
- * inmutables.
  * 
  * @author Roberto Izquierdo Amo
  * 

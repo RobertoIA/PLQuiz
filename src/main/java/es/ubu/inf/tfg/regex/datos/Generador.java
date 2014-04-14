@@ -34,6 +34,7 @@ public class Generador {
 
 	private final int nSimbolos;
 	private final boolean usaVacio;
+	private final boolean esAumentada;
 
 	/**
 	 * Operador implementa un tipo enumerado que contiene los tipos de
@@ -70,9 +71,10 @@ public class Generador {
 	 *            <code>true</code> en caso de que la expresión contenga nodos
 	 *            vacíos, <code>false</code> en caso contrario.
 	 */
-	public Generador(int nSimbolos, boolean usaVacio) {
+	public Generador(int nSimbolos, boolean usaVacio, boolean esAumentada) {
 		this.nSimbolos = nSimbolos;
 		this.usaVacio = usaVacio;
+		this.esAumentada = esAumentada;
 	}
 
 	/**
@@ -225,8 +227,16 @@ public class Generador {
 		ExpresionRegular hijoIzquierdo;
 		ExpresionRegular hijoDerecho;
 
-		if (operadores == null)
-			operadores = Operador.COMPLETO;
+		if (operadores == null) {
+			if (esAumentada) {
+				hijoIzquierdo = subArbol(profundidad, Operador.COMPLETO);
+				return ExpresionRegular
+						.nodoConcat(ExpresionRegular.nodoAumentado(posicion),
+								hijoIzquierdo);
+			} else {
+				operadores = Operador.COMPLETO;
+			}
+		}
 
 		// Hoja del árbol.
 		if (profundidad <= 0) {

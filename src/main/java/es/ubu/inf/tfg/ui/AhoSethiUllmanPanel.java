@@ -115,8 +115,8 @@ public class AhoSethiUllmanPanel extends JPanel {
 
 		this.simbolosSlider = new JSlider();
 		this.simbolosSlider.setValue(3);
-		this.simbolosSlider.setMaximum(10);
-		this.simbolosSlider.setMinimum(1);
+		this.simbolosSlider.setMaximum(6);
+		this.simbolosSlider.setMinimum(2);
 		this.simbolosSlider.addChangeListener(new SliderChangeListener());
 		this.simbolosPanel.add(this.simbolosSlider);
 
@@ -132,7 +132,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 		this.estadosSlider = new JSlider();
 		this.estadosSlider.setValue(5);
 		this.estadosSlider.setMinimum(3);
-		this.estadosSlider.setMaximum(21);
+		this.estadosSlider.setMaximum(15);
 		this.estadosSlider.addChangeListener(new SliderChangeListener());
 		this.estadosPanel.add(this.estadosSlider);
 
