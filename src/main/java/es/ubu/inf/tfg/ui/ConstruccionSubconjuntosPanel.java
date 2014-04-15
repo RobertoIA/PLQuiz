@@ -1,9 +1,11 @@
 package es.ubu.inf.tfg.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.BoxLayout;
@@ -11,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
@@ -22,14 +25,17 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.ubu.inf.tfg.doc.Documento;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntosGenerador;
-import javax.swing.JProgressBar;
-import java.awt.BorderLayout;
 
 public class ConstruccionSubconjuntosPanel extends JPanel {
 
+	private static final Logger log = LoggerFactory
+			.getLogger(ConstruccionSubconjuntosPanel.class);
 	private static final long serialVersionUID = -1805230103073818602L;
 
 	private final JPanel contenedorPanel;
@@ -37,6 +43,9 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 	private final Documento documento;
 	private final JTextPane vistaPrevia;
 	private ConstruccionSubconjuntos problemaActual = null;
+	private boolean generando = false;
+	private SwingWorker<ConstruccionSubconjuntos, Void> worker;
+
 	private JPanel expresionPanel;
 	private JButton borrarButton;
 	private JTextField expresionText;
@@ -89,7 +98,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		this.generarButton = new JButton("Generar");
 		this.generarButton.addActionListener(new BotonGenerarActionListener());
 		this.botonesPanel.add(this.generarButton);
-		
+
 		this.resolverButton = new JButton("Resolver");
 		this.resolverButton
 				.addActionListener(new BotonResolverActionListener());
@@ -137,11 +146,11 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 
 		this.estadosEstadoLabel = new JLabel("5");
 		this.estadosPanel.add(this.estadosEstadoLabel);
-		
+
 		this.progresoPanel = new JPanel();
 		this.opcionesPanel.add(this.progresoPanel);
 		this.progresoPanel.setLayout(new BorderLayout(0, 0));
-		
+
 		this.progresoBar = new JProgressBar();
 		this.progresoBar.setVisible(false);
 		this.progresoBar.setIndeterminate(true);
@@ -160,46 +169,12 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 
 	private class BotonGenerarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			SwingWorker<ConstruccionSubconjuntos, Void> worker = new SwingWorker<ConstruccionSubconjuntos, Void>() {
-
-				@Override
-				protected ConstruccionSubconjuntos doInBackground()
-						throws Exception {
-					ConstruccionSubconjuntosGenerador generador = new ConstruccionSubconjuntosGenerador();
-					int nSimbolos = simbolosSlider.getValue();
-					int nEstados = estadosSlider.getValue();
-					boolean usaVacio = vacioCheck.isSelected();
-					progresoBar.setVisible(true);
-
-					ConstruccionSubconjuntos problema = generador.nuevo(nSimbolos,
-							nEstados, usaVacio);
-					return problema;
-				}
-				
-				@Override
-				public void done() {
-					ConstruccionSubconjuntos problema = null;
-					try {
-						problema = get();
-						progresoBar.setVisible(false);
-						
-						if (problemaActual != null)
-							documento.sustituirProblema(problemaActual, problema);
-						else
-							documento.añadirProblema(problema);
-
-						problemaActual = problema;
-						expresionText.setText(problema.problema());
-						vistaPrevia.setText(documento.vistaPrevia());
-					} catch (InterruptedException | ExecutionException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				
-			};
-			
-			worker.execute();
+			if (!generando) {
+				worker = new Worker();
+				worker.execute();
+			} else {
+				((Worker) worker).cancel();
+			}
 		}
 	}
 
@@ -235,6 +210,63 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 				}
 				vistaPrevia.setText(documento.vistaPrevia());
 			}
+		}
+	}
+
+	/**
+	 * Implementa un SwingWorker cancelable encargado de generar problemas de
+	 * tipo ConstruccionSubconjuntos de manera concurrente, y de actualizar la
+	 * interfaz en consecuencia.
+	 * 
+	 * @author Roberto Izquierdo Amo.
+	 *
+	 */
+	private class Worker extends SwingWorker<ConstruccionSubconjuntos, Void> {
+
+		private ConstruccionSubconjuntosGenerador generador;
+
+		@Override
+		protected ConstruccionSubconjuntos doInBackground() throws Exception {
+			generando = true;
+			generarButton.setText("Cancelar");
+			generador = new ConstruccionSubconjuntosGenerador();
+			int nSimbolos = simbolosSlider.getValue();
+			int nEstados = estadosSlider.getValue();
+			boolean usaVacio = vacioCheck.isSelected();
+			progresoBar.setVisible(true);
+
+			ConstruccionSubconjuntos problema = generador.nuevo(nSimbolos,
+					nEstados, usaVacio);
+			return problema;
+		}
+
+		@Override
+		public void done() {
+			ConstruccionSubconjuntos problema = null;
+			try {
+				problema = get();
+
+				if (problemaActual != null)
+					documento.sustituirProblema(problemaActual, problema);
+				else
+					documento.añadirProblema(problema);
+
+				problemaActual = problema;
+				expresionText.setText(problema.problema());
+				vistaPrevia.setText(documento.vistaPrevia());
+			} catch (InterruptedException | ExecutionException
+					| CancellationException e) {
+				log.error("Error generando problema de tipo AhoSethiUllman", e);
+			} finally {
+				generando = false;
+				generarButton.setText("Generar");
+				progresoBar.setVisible(false);
+			}
+		}
+
+		public void cancel() {
+			log.info("Cancelando generación de problema ConstruccionSubconjuntos.");
+			generador.cancelar();
 		}
 	}
 }

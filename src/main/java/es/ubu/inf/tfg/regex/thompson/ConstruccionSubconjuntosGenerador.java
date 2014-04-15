@@ -1,5 +1,13 @@
 package es.ubu.inf.tfg.regex.thompson;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,11 +30,18 @@ public class ConstruccionSubconjuntosGenerador {
 	private static final Logger log = LoggerFactory
 			.getLogger(ConstruccionSubconjuntosGenerador.class);
 
-	private static final int MAX_ITERACIONES = Integer.MAX_VALUE;
-	private static final int MAX_PROFUNDIDAD = 6;
+	private static final Random random = new Random(new Date().getTime());
+
+	private static final int MAX_ITERACIONES = 3000;// Integer.MAX_VALUE;
+	private static final int MAX_PROFUNDIDAD = 10;
 	private static final int MIN_PROFUNDIDAD = 2;
 
+	private static final int ELITISMO = 1;
+	private static final int MUTACION = 2;
+	private static final int NUEVOS = 3;
+
 	private Generador generador;
+	private AtomicBoolean cancelar = new AtomicBoolean();
 
 	/**
 	 * Genera un nuevo problema de tipo ConstruccionSubconjuntos. Intentará
@@ -50,43 +65,84 @@ public class ConstruccionSubconjuntosGenerador {
 				"Generando problema de construcción de subconjuntos con {} simbolos y {} estados, vacios = {}.",
 				nSimbolos, nEstados, usaVacio);
 
-		ConstruccionSubconjuntos candidato = null, actual = null;
-		ExpresionRegular expresion;
+		List<ExpresionRegular> poblacion = new ArrayList<>();
+		List<ExpresionRegular> elite, mutacion, nuevos = new ArrayList<>();
+		ConstruccionSubconjuntos candidato = null;
+		ExpresionRegular candidatoExpresion = null;
+		int candidatoEvalua = 0;
+		generador = new Generador(nSimbolos, usaVacio, false);
 
 		int iteraciones = 0;
-		int profundidad = MIN_PROFUNDIDAD;
+		int profundidad;
 
+		Comparator<ExpresionRegular> evalua = Comparator.comparing(e -> evalua(
+				new ConstruccionSubconjuntos(e), nEstados, nSimbolos));
+
+		// inicializa población
+		for (int i = 0; i < (ELITISMO + MUTACION + NUEVOS); i++) {
+			profundidad = random.nextInt(MAX_PROFUNDIDAD - MIN_PROFUNDIDAD)
+					+ MIN_PROFUNDIDAD;
+			poblacion.add(generador.arbol(profundidad));
+		}
+
+		mutacion = new ArrayList<>();
 		do {
-			// Inicializa variables
-			generador = new Generador(nSimbolos, usaVacio);
+			poblacion.sort(evalua);
 
-			// Genera expresión
-			expresion = generador.subArbol(profundidad, null);
+			elite = poblacion.stream().limit(ELITISMO)
+					.collect(Collectors.toList());
+			// mutacion = poblacion.stream()
+			// //.skip(ELITISMO)
+			// .limit(MUTACION)
+			// .map(e -> generador.mutacion(e))
+			// .collect(Collectors.toList());
 
-			// Evalua candidato
-			actual = new ConstruccionSubconjuntos(expresion);
-			log.debug("Generada expresión {}, evaluada como {}.", expresion,
-					evalua(actual, nEstados));
-			if (candidato == null
-					|| evalua(actual, nEstados) < evalua(candidato, nEstados))
-				candidato = actual;
+			mutacion.clear();
+			for (int i = 0; i < MUTACION && candidatoExpresion != null; i++)
+				mutacion.add(generador.mutacion(candidatoExpresion));
 
-			// Modifica la profundidad
-			int dif = nEstados - actual.estados().size();
-			if (dif > 1 && profundidad < MAX_PROFUNDIDAD) {
-				log.debug("Aumento de profundidad de árbol a {}.", profundidad);
-				profundidad++;
-			} else if (dif < 1 && profundidad > MIN_PROFUNDIDAD) {
-				log.debug("Disminución de profundidad de árbol a {}.",
-						profundidad);
-				profundidad--;
+			nuevos.clear();
+
+			for (int i = 0; i < NUEVOS; i++) {
+				profundidad = elite.get(0).profundidad()
+						+ (random.nextInt(3) - 1);
+				if (profundidad < MIN_PROFUNDIDAD)
+					profundidad = MIN_PROFUNDIDAD;
+				if (profundidad > MAX_PROFUNDIDAD)
+					profundidad = MAX_PROFUNDIDAD;
+
+				nuevos.add(generador.arbol(profundidad));
 			}
 
-			iteraciones++;
-		} while (evalua(candidato, nEstados) != 0
-				&& iteraciones < MAX_ITERACIONES);
+			if (candidatoExpresion == null
+					|| !poblacion.get(0).equals(candidatoExpresion)) {
+				candidatoExpresion = poblacion.get(0);
+				candidato = new ConstruccionSubconjuntos(candidatoExpresion);
+				candidatoEvalua = evalua(candidato, nEstados, nSimbolos);
 
-		log.info("Solución encontrada en {} iteraciones.", iteraciones);
+				iteraciones = 0;
+			} else {
+				iteraciones++;
+			}
+
+			poblacion.clear();
+			poblacion.addAll(elite);
+			poblacion.addAll(mutacion);
+			poblacion.addAll(nuevos);
+
+			if (iteraciones % 1000 == 0)
+				log.warn("{} it con mejor {} prof{}", iteraciones,
+						candidatoEvalua, candidatoExpresion.profundidad());
+
+			// log.info("{} iteraciones, {} poblacion, {} prof candidato, {} fitness",
+			// iteraciones, poblacion.size(), poblacion.get(0).profundidad(),
+			// candidatoEvalua);
+		} while (candidatoEvalua != 0 && iteraciones < MAX_ITERACIONES
+				&& !cancelar.get());
+
+		// log.warn("{}", candidatoExpresion.profundidad());
+		log.info("Solución encontrada en {} iteraciones con valor {}",
+				iteraciones, candidatoEvalua);
 
 		return candidato;
 	}
@@ -105,17 +161,21 @@ public class ConstruccionSubconjuntosGenerador {
 	 *            Número de estados en el problema pedido.
 	 * @return Función de evaluación del problema.
 	 */
-	private int evalua(ConstruccionSubconjuntos problema, int nEstados) {
+	private int evalua(ConstruccionSubconjuntos problema, int nEstados,
+			int nSimbolos) {
 		int diferenciaEstados = Math.abs(problema.estados().size() - nEstados);
-		int diferenciaSimbolos;
-
-		if (generador.usaVacio())
-			diferenciaSimbolos = Math.abs(problema.simbolos().size()
-					- generador.simbolos() + 1);
-		else
-			diferenciaSimbolos = Math.abs(problema.simbolos().size()
-					- generador.simbolos());
+		int diferenciaSimbolos = Math.abs(problema.simbolos().size() - 1
+				- nSimbolos);
 
 		return diferenciaEstados + diferenciaSimbolos;
+	}
+
+	/**
+	 * Cancela la generación del problema, devolviendo el resultado de la
+	 * iteración actual.
+	 */
+	public void cancelar() {
+		log.info("Cancelando generación de problema.");
+		cancelar.compareAndSet(false, true);
 	}
 }
