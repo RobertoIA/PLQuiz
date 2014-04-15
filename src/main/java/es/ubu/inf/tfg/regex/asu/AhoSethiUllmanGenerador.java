@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -40,6 +41,7 @@ public class AhoSethiUllmanGenerador {
 	private static final int NUEVOS = 4;
 
 	private Generador generador;
+	private AtomicBoolean cancelar = new AtomicBoolean();
 
 	/**
 	 * Genera un nuevo problema de tipo AhoSethiUllman. Intentará acercarse lo
@@ -66,6 +68,7 @@ public class AhoSethiUllmanGenerador {
 		ExpresionRegular candidatoExpresion = null;
 		int candidatoEvalua = 0;
 		generador = new Generador(nSimbolos, usaVacio, true);
+		cancelar.set(false);
 
 		int iteraciones = 0;
 		int profundidad;
@@ -85,18 +88,21 @@ public class AhoSethiUllmanGenerador {
 
 			elite = poblacion.stream().limit(ELITISMO)
 					.collect(Collectors.toList());
-			mutacion = poblacion.stream().skip(ELITISMO).limit(MUTACION)
-					.map(e -> generador.mutacion(e))
+			mutacion = poblacion.stream()
+					// .skip(ELITISMO)
+					.limit(MUTACION).map(e -> generador.mutacion(e))
 					.collect(Collectors.toList());
 
 			nuevos.clear();
+
 			for (int i = 0; i < NUEVOS; i++) {
-				profundidad = elite.get(0).profundidad() + (random.nextInt(3) - 2);
-				if (profundidad < MIN_PROFUNDIDAD) profundidad = MIN_PROFUNDIDAD;
-				if (profundidad > MAX_PROFUNDIDAD) profundidad = MAX_PROFUNDIDAD;
-				
-//				profundidad = random.nextInt(MAX_PROFUNDIDAD - MIN_PROFUNDIDAD)
-//						+ MIN_PROFUNDIDAD;
+				profundidad = elite.get(0).profundidad()
+						+ (random.nextInt(3) - 1);
+				if (profundidad < MIN_PROFUNDIDAD)
+					profundidad = MIN_PROFUNDIDAD;
+				if (profundidad > MAX_PROFUNDIDAD)
+					profundidad = MAX_PROFUNDIDAD;
+
 				nuevos.add(generador.arbol(profundidad));
 			}
 
@@ -111,14 +117,10 @@ public class AhoSethiUllmanGenerador {
 			poblacion.addAll(elite);
 			poblacion.addAll(mutacion);
 			poblacion.addAll(nuevos);
-			elite.clear();
-			mutacion.clear();
-			nuevos.clear();
 
 			iteraciones++;
-			
-			log.info("{} iteraciones, {} poblacion, {} prof candidato, {} fitness", iteraciones, poblacion.size(), poblacion.get(0).profundidad(), candidatoEvalua);
-		} while (candidatoEvalua != 0 && iteraciones < MAX_ITERACIONES);
+		} while (candidatoEvalua != 0 && iteraciones < MAX_ITERACIONES
+				&& !cancelar.get());
 
 		log.info("Solución encontrada en {} iteraciones.", iteraciones);
 
@@ -145,5 +147,14 @@ public class AhoSethiUllmanGenerador {
 				- nSimbolos);
 
 		return diferenciaEstados + diferenciaSimbolos;
+	}
+
+	/**
+	 * Cancela la generación del problema, devolviendo el resultado de la
+	 * iteración actual.
+	 */
+	public void cancelar() {
+		log.info("Cancelando generación de problema.");
+		cancelar.compareAndSet(false, true);
 	}
 }
