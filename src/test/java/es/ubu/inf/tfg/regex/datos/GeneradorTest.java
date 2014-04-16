@@ -17,7 +17,7 @@ public class GeneradorTest {
 
 		assertEquals("Generado árbol de profundidad erronea", 8,
 				expresion.profundidad());
-		
+
 		generador = new Generador(2, true, true);
 		expresion = generador.arbol(8);
 
@@ -29,7 +29,7 @@ public class GeneradorTest {
 
 		assertEquals("Generado árbol de profundidad erronea", 12,
 				expresion.profundidad());
-		
+
 		generador = new Generador(5, false, true);
 		expresion = generador.arbol(12);
 
@@ -39,7 +39,7 @@ public class GeneradorTest {
 
 	/**
 	 * Comprueba que las mutaciones sobre una expresión devuelven expresiones
-	 * correctas.
+	 * correctas (profundidad dada +/- 1).
 	 */
 	@Test
 	public void testMutacion() {
@@ -49,7 +49,7 @@ public class GeneradorTest {
 
 		assertFalse("La expresión mutada es igual a la original.",
 				expresion.equals(mutante));
-		assertEquals("La expresión mutada tiene una profundidad erronea.", 8,
-				mutante.profundidad());
+		assertTrue("La expresión mutada tiene una profundidad erronea.",
+				Math.abs(8 - mutante.profundidad()) <= 1);
 	}
 }

@@ -17,7 +17,7 @@ public class AhoSethiUllmanGeneradorTest {
 	private static final Logger log = LoggerFactory
 			.getLogger(AhoSethiUllmanGeneradorTest.class);
 
-	private final int MIN_CORRECTOS = 99; // Mínimo porcentaje de correctos
+	private final int MIN_CORRECTOS = 90; // Mínimo porcentaje de correctos
 	private final int N_ITERACIONES = 10; // Total de problemas generados por
 											// test
 
@@ -33,7 +33,7 @@ public class AhoSethiUllmanGeneradorTest {
 	public void tearDown() throws Exception {
 		generador = null;
 	}
-	
+
 	@Ignore
 	@Test
 	public void testTime() {
@@ -48,8 +48,10 @@ public class AhoSethiUllmanGeneradorTest {
 				problema = generador.nuevo(simbolos, estados, false);
 				tiempo = System.nanoTime() - tiempo;
 				log.warn("{} {} {}", simbolos, estados, tiempo);
-				
-				assertTrue("Fallo en e" + estados + "s" + simbolos, (problema.simbolos().size() == simbolos + 1) && (problema.estados().size() == estados));
+
+				assertTrue("Fallo en e" + estados + "s" + simbolos, (problema
+						.simbolos().size() == simbolos + 1)
+						&& (problema.estados().size() == estados));
 			}
 		}
 
@@ -60,8 +62,10 @@ public class AhoSethiUllmanGeneradorTest {
 				problema = generador.nuevo(simbolos, estados, true);
 				tiempo = System.nanoTime() - tiempo;
 				log.warn("{} {} {}", simbolos, estados, tiempo);
-				
-				assertTrue("Fallo en e" + estados + "s" + simbolos, (problema.simbolos().size() == simbolos + 1) && (problema.estados().size() == estados));
+
+				assertTrue("Fallo en e" + estados + "s" + simbolos, (problema
+						.simbolos().size() == simbolos + 1)
+						&& (problema.estados().size() == estados));
 			}
 		}
 	}
@@ -69,7 +73,7 @@ public class AhoSethiUllmanGeneradorTest {
 	/**
 	 * Comprueba que la clase genera un problema sin incluir nodos vacíos y con
 	 * los parámetros pedidos. Debe generar el problema pedido en al menos un
-	 * 99% de los casos.
+	 * 90% de los casos.
 	 */
 	@Test
 	public void testNuevoNoVacio() {
@@ -80,8 +84,8 @@ public class AhoSethiUllmanGeneradorTest {
 		boolean simbolosCorrectos;
 
 		for (int i = 0; i < N_ITERACIONES; i++) {
-			estados = random.nextInt(19) + 3;
-			simbolos = random.nextInt(10) + 1;
+			estados = random.nextInt(13) + 3;
+			simbolos = random.nextInt(5) + 2;
 
 			problema = generador.nuevo(simbolos, estados, false);
 
@@ -100,7 +104,7 @@ public class AhoSethiUllmanGeneradorTest {
 	/**
 	 * Comprueba que la clase genera un problema incluyendo nodos vacíos y con
 	 * los parámetros pedidos o similares. Debe generar el problema pedido en al
-	 * menos un 99% de los casos.
+	 * menos un 90% de los casos.
 	 */
 	@Test
 	public void testNuevoVacio() {
@@ -111,8 +115,8 @@ public class AhoSethiUllmanGeneradorTest {
 		boolean simbolosCorrectos;
 
 		for (int i = 0; i < N_ITERACIONES; i++) {
-			estados = random.nextInt(19) + 3;
-			simbolos = random.nextInt(10) + 1;
+			estados = random.nextInt(13) + 3;
+			simbolos = random.nextInt(5) + 2;
 
 			problema = generador.nuevo(simbolos, estados, true);
 

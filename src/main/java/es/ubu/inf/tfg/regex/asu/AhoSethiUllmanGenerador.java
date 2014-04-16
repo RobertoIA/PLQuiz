@@ -1,12 +1,6 @@
 package es.ubu.inf.tfg.regex.asu;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,15 +24,9 @@ public class AhoSethiUllmanGenerador {
 	private static final Logger log = LoggerFactory
 			.getLogger(AhoSethiUllmanGenerador.class);
 
-	private static final Random random = new Random(new Date().getTime());
-
-	private static final int MAX_ITERACIONES = Integer.MAX_VALUE;
+	private static final int MAX_ITERACIONES = 3000;
 	private static final int MAX_PROFUNDIDAD = 7;
 	private static final int MIN_PROFUNDIDAD = 2;
-
-	private static final int ELITISMO = 2;
-	private static final int MUTACION = 4;
-	private static final int NUEVOS = 4;
 
 	private Generador generador;
 	private AtomicBoolean cancelar = new AtomicBoolean();
@@ -62,65 +50,38 @@ public class AhoSethiUllmanGenerador {
 				"Generando problema de Aho-Sethi-Ullman con {} simbolos y {} estados, vacios = {}.",
 				nSimbolos, nEstados, usaVacio);
 
-		List<ExpresionRegular> poblacion = new ArrayList<>();
-		List<ExpresionRegular> elite, mutacion, nuevos = new ArrayList<>();
-		AhoSethiUllman candidato = null;
-		ExpresionRegular candidatoExpresion = null;
-		int candidatoEvalua = 0;
-		generador = new Generador(nSimbolos, usaVacio, true);
-		cancelar.set(false);
+		AhoSethiUllman candidato = null, actual = null;
+		int evaluaCandidato = 0, evaluaActual;
+		ExpresionRegular expresion;
 
 		int iteraciones = 0;
-		int profundidad;
+		int profundidad = MIN_PROFUNDIDAD;
 
-		Comparator<ExpresionRegular> evalua = Comparator.comparing(e -> evalua(
-				new AhoSethiUllman(e), nEstados, nSimbolos));
-
-		// inicializa población
-		for (int i = 0; i < (ELITISMO + MUTACION + NUEVOS); i++) {
-			profundidad = random.nextInt(MAX_PROFUNDIDAD - MIN_PROFUNDIDAD)
-					+ MIN_PROFUNDIDAD;
-			poblacion.add(generador.arbol(profundidad));
-		}
+		// Inicializa variables
+		generador = new Generador(nSimbolos, usaVacio, true);
 
 		do {
-			poblacion.sort(evalua);
-
-			elite = poblacion.stream().limit(ELITISMO)
-					.collect(Collectors.toList());
-			mutacion = poblacion.stream()
-					// .skip(ELITISMO)
-					.limit(MUTACION).map(e -> generador.mutacion(e))
-					.collect(Collectors.toList());
-
-			nuevos.clear();
-
-			for (int i = 0; i < NUEVOS; i++) {
-				profundidad = elite.get(0).profundidad()
-						+ (random.nextInt(3) - 1);
-				if (profundidad < MIN_PROFUNDIDAD)
-					profundidad = MIN_PROFUNDIDAD;
-				if (profundidad > MAX_PROFUNDIDAD)
-					profundidad = MAX_PROFUNDIDAD;
-
-				nuevos.add(generador.arbol(profundidad));
+			expresion = generador.arbol(profundidad);
+			actual = new AhoSethiUllman(expresion);
+			
+			evaluaActual = evalua(actual, nEstados, nSimbolos);
+			
+			if (candidato == null
+					||  (evaluaActual < evaluaCandidato)) {
+				candidato = actual;
+				evaluaCandidato = evaluaActual;
 			}
 
-			if (candidatoExpresion == null
-					|| !poblacion.get(0).equals(candidatoExpresion)) {
-				candidatoExpresion = poblacion.get(0);
-				candidato = new AhoSethiUllman(candidatoExpresion);
-				candidatoEvalua = evalua(candidato, nEstados, nSimbolos);
-			}
-
-			poblacion.clear();
-			poblacion.addAll(elite);
-			poblacion.addAll(mutacion);
-			poblacion.addAll(nuevos);
+			// Modifica la profundidad
+			int dif = nEstados - actual.estados().size();
+			if (dif > 1 && profundidad < MAX_PROFUNDIDAD)
+				profundidad++;
+			else if (dif < 1 && profundidad > MIN_PROFUNDIDAD)
+				profundidad--;
 
 			iteraciones++;
-		} while (candidatoEvalua != 0 && iteraciones < MAX_ITERACIONES
-				&& !cancelar.get());
+		} while (evalua(candidato, nEstados, nSimbolos) != 0
+				&& iteraciones < MAX_ITERACIONES);
 
 		log.info("Solución encontrada en {} iteraciones.", iteraciones);
 

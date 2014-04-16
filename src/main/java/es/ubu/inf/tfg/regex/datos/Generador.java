@@ -70,11 +70,22 @@ public class Generador {
 	 * @param usaVacio
 	 *            <code>true</code> en caso de que la expresión contenga nodos
 	 *            vacíos, <code>false</code> en caso contrario.
+	 * @param esAumentada
+	 *            Especifica si el algoritmo trabajará con expresiones
+	 *            aumentadas (<code>true</code>), o no (<code>false</code>).
 	 */
 	public Generador(int nSimbolos, boolean usaVacio, boolean esAumentada) {
 		this.nSimbolos = nSimbolos;
 		this.usaVacio = usaVacio;
 		this.esAumentada = esAumentada;
+
+		simbolosRepetidos = new ArrayList<>();
+		for (int i = 0; i < this.nSimbolos; i++)
+			simbolosRepetidos.add((char) ('a' + i));
+		if (this.usaVacio)
+			simbolosRepetidos.add('E');
+
+		simbolos = new ArrayList<>();
 	}
 
 	/**
@@ -110,10 +121,13 @@ public class Generador {
 			expresion = expresion.hijoIzquierdo();
 
 		List<ExpresionRegular> nodos = expresion.nodos().stream()
-		// .filter(e -> !e.esSimbolo() && !e.esVacio())
+				.filter(e -> !e.esSimbolo() && !e.esVacio())
+				// .filter(e -> e.profundidad() < 2)
 				.collect(Collectors.toList());
 		ExpresionRegular nodo = nodos.get(random.nextInt(nodos.size()));
-		ExpresionRegular nuevo = arbol(nodo.profundidad());
+		// ExpresionRegular nuevo = arbol(nodo.profundidad());
+		ExpresionRegular nuevo = arbol(nodo.profundidad() + random.nextInt(3)
+				- 1);
 
 		posicion = 0;
 		ExpresionRegular mutante = sustituir(expresion, nodo, nuevo);
@@ -197,14 +211,7 @@ public class Generador {
 	 *         dada.
 	 */
 	public ExpresionRegular arbol(int profundidad) {
-		simbolosRepetidos = new ArrayList<>();
-		for (int i = 0; i < this.nSimbolos; i++)
-			simbolosRepetidos.add((char) ('a' + i));
-		if (this.usaVacio)
-			simbolosRepetidos.add('E');
-
-		simbolos = new ArrayList<>(simbolosRepetidos);
-
+		simbolos.addAll(simbolosRepetidos);
 		posicion = 0;
 
 		return subArbol(profundidad, null);

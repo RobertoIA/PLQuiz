@@ -7,17 +7,11 @@ import java.util.Random;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class ConstruccionSubconjuntosGeneradorTest {
-	
-	private static final Logger log = LoggerFactory
-			.getLogger(ConstruccionSubconjuntosGeneradorTest.class);
 
-	private final int MIN_CORRECTOS = 99; // Mínimo porcentaje de correctos
+	private final int MIN_CORRECTOS = 80; // Mínimo porcentaje de correctos
 	private final int N_ITERACIONES = 10; // Total de problemas generados por
 											// test
 
@@ -33,63 +27,30 @@ public class ConstruccionSubconjuntosGeneradorTest {
 	public void tearDown() throws Exception {
 		generador = null;
 	}
-	
-	@Ignore
-	@Test
-	public void testTime() {
-		int estados, simbolos;
-		long tiempo;
-		ConstruccionSubconjuntos problema;
-
-		log.warn("No vacío");
-		for (simbolos = 2; simbolos <= 6; simbolos++) {
-			for (estados = 3; estados <= 15; estados++) {
-				tiempo = System.nanoTime();
-				problema = generador.nuevo(simbolos, estados, false);
-				tiempo = System.nanoTime() - tiempo;
-				log.warn("{} {} {}", simbolos, estados, tiempo);
-				
-				assertTrue("Fallo en e" + estados + "s" + simbolos, (problema.simbolos().size() == simbolos + 1) && (problema.estados().size() == estados));
-			}
-		}
-
-		log.warn("vacío");
-		for (simbolos = 2; simbolos <= 6; simbolos++) {
-			for (estados = 3; estados <= 15; estados++) {
-				tiempo = System.nanoTime();
-				problema = generador.nuevo(simbolos, estados, true);
-				tiempo = System.nanoTime() - tiempo;
-				log.warn("{} {} {}", simbolos, estados, tiempo);
-				
-				assertTrue("Fallo en e" + estados + "s" + simbolos, (problema.simbolos().size() == simbolos + 1) && (problema.estados().size() == estados));
-			}
-		}
-	}
 
 	/**
 	 * Comprueba que la clase genera un problema sin incluir nodos vacíos y con
-	 * los parámetros pedidos. Debe generar el problema pedido en al menos un
-	 * 99% de los casos.
+	 * los parámetros pedidos. Debe generar el problema pedido o diferir de el
+	 * en uno en como máximo uno de los parámetros en al menos un 80% de los
+	 * casos.
 	 */
-//	@Ignore
 	@Test
 	public void testNuevoNoVacio() {
 		ConstruccionSubconjuntos problema;
 		int correctos = 0;
 		int estados, simbolos;
-		boolean estadosCorrectos;
-		boolean simbolosCorrectos;
+		int dif;
 
 		for (int i = 0; i < N_ITERACIONES; i++) {
-			estados = random.nextInt(19) + 3;
-			simbolos = random.nextInt(10) + 1;
+			estados = random.nextInt(13) + 3;
+			simbolos = random.nextInt(5) + 2;
 
 			problema = generador.nuevo(simbolos, estados, false);
 
-			simbolosCorrectos = problema.simbolos().size() == simbolos + 1;
-			estadosCorrectos = problema.estados().size() == estados;
+			dif = Math.abs(problema.simbolos().size() - simbolos)
+					+ Math.abs(problema.estados().size() - estados);
 
-			if (estadosCorrectos && simbolosCorrectos)
+			if (dif <= 1)
 				correctos++;
 		}
 
@@ -100,28 +61,27 @@ public class ConstruccionSubconjuntosGeneradorTest {
 
 	/**
 	 * Comprueba que la clase genera un problema incluyendo nodos vacíos y con
-	 * los parámetros pedidos o similares. Debe generar el problema pedido en al
-	 * menos un 99% de los casos.
+	 * los parámetros pedidos o similares. Debe generar el problema pedido o
+	 * diferir de el en uno en como máximo uno de los parámetros en al menos un
+	 * 80% de los casos.
 	 */
-	@Ignore
 	@Test
 	public void testNuevoVacio() {
 		ConstruccionSubconjuntos problema;
 		int correctos = 0;
 		int estados, simbolos;
-		boolean estadosCorrectos;
-		boolean simbolosCorrectos;
+		int dif;
 
 		for (int i = 0; i < N_ITERACIONES; i++) {
-			estados = random.nextInt(19) + 3;
-			simbolos = random.nextInt(10) + 1;
+			estados = random.nextInt(13) + 3;
+			simbolos = random.nextInt(5) + 2;
 
 			problema = generador.nuevo(simbolos, estados, true);
 
-			simbolosCorrectos = problema.simbolos().size() == simbolos + 1;
-			estadosCorrectos = problema.estados().size() == estados;
+			dif = Math.abs(problema.simbolos().size() - simbolos)
+					+ Math.abs(problema.estados().size() - estados);
 
-			if (estadosCorrectos && simbolosCorrectos)
+			if (dif <= 1)
 				correctos++;
 		}
 

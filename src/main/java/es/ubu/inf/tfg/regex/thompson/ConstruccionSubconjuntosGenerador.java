@@ -20,7 +20,8 @@ import es.ubu.inf.tfg.regex.datos.Generador;
  * especificados, siguiendo un algoritmo de búsqueda aleatoria.
  * <p>
  * El generador no garantiza que los resultados se adapten perfectamente a los
- * parámetros de entrada.
+ * parámetros de entrada, pero intenta que los resultados difieran como mucho en
+ * uno de uno solo de los parámetros pedidos.
  * 
  * @author Roberto Izquierdo Amo
  * 
@@ -32,13 +33,13 @@ public class ConstruccionSubconjuntosGenerador {
 
 	private static final Random random = new Random(new Date().getTime());
 
-	private static final int MAX_ITERACIONES = 3000;// Integer.MAX_VALUE;
-	private static final int MAX_PROFUNDIDAD = 10;
+	private static final int MAX_ITERACIONES = 500; // Integer.MAX_VALUE;
+	private static final int MAX_PROFUNDIDAD = 6;
 	private static final int MIN_PROFUNDIDAD = 2;
 
-	private static final int ELITISMO = 1;
+	private static final int ELITISMO = 2;
 	private static final int MUTACION = 2;
-	private static final int NUEVOS = 3;
+	private static final int NUEVOS = 4;
 
 	private Generador generador;
 	private AtomicBoolean cancelar = new AtomicBoolean();
@@ -91,15 +92,10 @@ public class ConstruccionSubconjuntosGenerador {
 
 			elite = poblacion.stream().limit(ELITISMO)
 					.collect(Collectors.toList());
-			// mutacion = poblacion.stream()
-			// //.skip(ELITISMO)
-			// .limit(MUTACION)
-			// .map(e -> generador.mutacion(e))
-			// .collect(Collectors.toList());
-
-			mutacion.clear();
-			for (int i = 0; i < MUTACION && candidatoExpresion != null; i++)
-				mutacion.add(generador.mutacion(candidatoExpresion));
+			mutacion = poblacion.stream()
+					// .skip(ELITISMO)
+					.limit(MUTACION).map(e -> generador.mutacion(e))
+					.collect(Collectors.toList());
 
 			nuevos.clear();
 
@@ -129,20 +125,11 @@ public class ConstruccionSubconjuntosGenerador {
 			poblacion.addAll(elite);
 			poblacion.addAll(mutacion);
 			poblacion.addAll(nuevos);
-
-			if (iteraciones % 1000 == 0)
-				log.warn("{} it con mejor {} prof{}", iteraciones,
-						candidatoEvalua, candidatoExpresion.profundidad());
-
-			// log.info("{} iteraciones, {} poblacion, {} prof candidato, {} fitness",
-			// iteraciones, poblacion.size(), poblacion.get(0).profundidad(),
-			// candidatoEvalua);
 		} while (candidatoEvalua != 0 && iteraciones < MAX_ITERACIONES
 				&& !cancelar.get());
 
-		// log.warn("{}", candidatoExpresion.profundidad());
-		log.info("Solución encontrada en {} iteraciones con valor {}",
-				iteraciones, candidatoEvalua);
+		log.info("Solución encontrada en {} iteraciones (fitness {}).", iteraciones,
+				candidatoEvalua);
 
 		return candidato;
 	}
@@ -164,7 +151,7 @@ public class ConstruccionSubconjuntosGenerador {
 	private int evalua(ConstruccionSubconjuntos problema, int nEstados,
 			int nSimbolos) {
 		int diferenciaEstados = Math.abs(problema.estados().size() - nEstados);
-		int diferenciaSimbolos = Math.abs(problema.simbolos().size() - 1
+		int diferenciaSimbolos = Math.abs(problema.simbolos().size()
 				- nSimbolos);
 
 		return diferenciaEstados + diferenciaSimbolos;
