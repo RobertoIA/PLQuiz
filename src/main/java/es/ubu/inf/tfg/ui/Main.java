@@ -54,6 +54,7 @@ public class Main {
 
 	private JFileChooser fileChooser;
 	private Documento documento;
+	private JMenuItem menuBloque;
 
 	public static void main(String[] args) {
 		log.info("Aplicación iniciada");
@@ -99,7 +100,7 @@ public class Main {
 		this.menuArchivo = new JMenu("Archivo");
 		this.menuBar.add(this.menuArchivo);
 
-		this.menuNuevo = new JMenuItem("Nuevo");
+		this.menuNuevo = new JMenuItem("Documento en blanco");
 		this.menuNuevo.addActionListener(new MenuNuevoActionListener());
 		this.menuArchivo.add(this.menuNuevo);
 
@@ -108,6 +109,10 @@ public class Main {
 		this.menuExportarMoodleXMLButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuArchivo.add(this.menuExportarMoodleXMLButton);
+		
+		this.menuBloque = new JMenuItem("Bloque de problemas");
+		this.menuNuevo.addActionListener(new MenuBloqueActionListener());
+		this.menuArchivo.add(this.menuBloque);
 
 		this.menuExportarLatexButton = new JMenuItem("Exportar como LaTeX");
 		this.menuExportarLatexButton
@@ -194,10 +199,10 @@ public class Main {
 				File fichero = fileChooser.getSelectedFile();
 				try {
 					if (source == menuExportarMoodleXMLButton) {
-						log.info("Exportando fichero XML a {}", fichero);
+						log.info("Exportando fichero XML a {}.", fichero);
 						documento.exportaXML(fichero);
 					} else if (source == menuExportarLatexButton) {
-						log.info("Exportando fichero Latex a {}", fichero);
+						log.info("Exportando fichero Latex a {}.", fichero);
 						documento.exportaLatex(fichero);
 					}
 				} catch (IOException e) {
@@ -209,10 +214,17 @@ public class Main {
 
 	private class MenuNuevoActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			log.info("Generando un documento nuevo");
+			log.info("Generando un documento nuevo.");
 			documento = new Documento();
 			vistaPreviaText.setText(documento.vistaPrevia());
 			contenedorPanel.removeAll();
+		}
+	}
+	
+	private class MenuBloqueActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			log.info("Generando un bloque de problemas.");
+			
 		}
 	}
 
