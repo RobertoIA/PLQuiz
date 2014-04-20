@@ -48,13 +48,14 @@ public class Main {
 	private Component añadirIzquierdoStrut;
 	private JMenuBar menuBar;
 	private JMenuItem menuNuevo;
+	private JMenuItem menuBloque;
 	private JMenuItem menuExportarMoodleXMLButton;
 	private JMenuItem menuExportarLatexButton;
 	private JMenu menuArchivo;
 
+	private Main main = this;
 	private JFileChooser fileChooser;
 	private Documento documento;
-	private JMenuItem menuBloque;
 
 	public static void main(String[] args) {
 		log.info("Aplicación iniciada");
@@ -103,16 +104,16 @@ public class Main {
 		this.menuNuevo = new JMenuItem("Documento en blanco");
 		this.menuNuevo.addActionListener(new MenuNuevoActionListener());
 		this.menuArchivo.add(this.menuNuevo);
+		
+		this.menuBloque = new JMenuItem("Generar bloque de problemas");
+		this.menuBloque.addActionListener(new MenuBloqueActionListener());
+		this.menuArchivo.add(this.menuBloque);
 
 		this.menuExportarMoodleXMLButton = new JMenuItem(
 				"Exportar como Moodle XML");
 		this.menuExportarMoodleXMLButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuArchivo.add(this.menuExportarMoodleXMLButton);
-		
-		this.menuBloque = new JMenuItem("Bloque de problemas");
-		this.menuNuevo.addActionListener(new MenuBloqueActionListener());
-		this.menuArchivo.add(this.menuBloque);
 
 		this.menuExportarLatexButton = new JMenuItem("Exportar como LaTeX");
 		this.menuExportarLatexButton
@@ -224,7 +225,7 @@ public class Main {
 	private class MenuBloqueActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			log.info("Generando un bloque de problemas.");
-			
+			new BloquePreguntas(main);
 		}
 	}
 
