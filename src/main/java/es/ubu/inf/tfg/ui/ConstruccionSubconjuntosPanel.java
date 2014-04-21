@@ -156,6 +156,18 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		this.progresoBar.setIndeterminate(true);
 		this.progresoPanel.add(this.progresoBar);
 	}
+	
+	void problema(ConstruccionSubconjuntos problema) {
+		if (problemaActual != null) {
+			if (!problema.problema().equals(problemaActual.problema()))
+				documento.sustituirProblema(problemaActual, problema);
+		} else {
+			documento.añadirProblema(problema);
+		}
+
+		problemaActual = problema;
+		vistaPrevia.setText(documento.vistaPrevia());
+	}
 
 	private class SliderChangeListener implements ChangeListener {
 		public void stateChanged(ChangeEvent event) {

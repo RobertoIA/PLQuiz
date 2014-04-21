@@ -5,6 +5,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -15,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JSpinner;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -23,6 +28,11 @@ import javax.swing.border.TitledBorder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
+import es.ubu.inf.tfg.regex.asu.AhoSethiUllmanGenerador;
+import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
+import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntosGenerador;
+
 @SuppressWarnings("serial")
 public class BloquePreguntas extends JDialog {
 
@@ -30,6 +40,8 @@ public class BloquePreguntas extends JDialog {
 			.getLogger(BloquePreguntas.class);
 
 	private Main main;
+	private boolean generando;
+	private SwingWorker<List<Object>, Void> worker;
 
 	private JPanel asuPanel;
 	private JPanel csPanel;
@@ -234,6 +246,7 @@ public class BloquePreguntas extends JDialog {
 
 		this.progressBar = new JProgressBar();
 		this.progressBar.setVisible(false);
+		this.progressBar.setIndeterminate(true);
 		this.controlesPanel.add(this.progressBar);
 
 		setVisible(true);
@@ -241,10 +254,96 @@ public class BloquePreguntas extends JDialog {
 
 	private class AñadeButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			if (!generando) {
+				worker = new Worker();
+				worker.execute();
+			} else {
+				((Worker) worker).cancel();
+			}
+		}
+	}
+
+	private class Worker extends SwingWorker<List<Object>, Void> {
+		
+		private AhoSethiUllmanGenerador asuGenerador;
+		private ConstruccionSubconjuntosGenerador csGenerador;
+
+		@Override
+		protected List<Object> doInBackground() throws Exception {
+			generando = true;
+			añadeButton.setText("Cancelar");
+			progressBar.setVisible(true);
+			
+			asuGenerador = new AhoSethiUllmanGenerador();
+			csGenerador = new ConstruccionSubconjuntosGenerador();
+			
+			Integer asuNum = (Integer) asuNumSpinner.getValue();
+			Integer asuEstados = (Integer) asuEstadosSpinner.getValue();
+			Integer asuEstadosVar = (Integer) asuEstadosVarSpinner.getValue();
+			Integer asuSimbolos = (Integer) asuSimbolosSpinner.getValue();
+			Integer asuSimbolosVar = (Integer) asuSimbolosVarSpinner.getValue();
+
+			Integer csNum = (Integer) csNumSpinner.getValue();
+			Integer csEstados = (Integer) csEstadosSpinner.getValue();
+			Integer csEstadosVar = (Integer) csEstadosVarSpinner.getValue();
+			Integer csSimbolos = (Integer) csSimbolosSpinner.getValue();
+			Integer csSimbolosVar = (Integer) csSimbolosVarSpinner.getValue();
+
 			log.info(
-					"Generando bloque de preguntas con {} de tipo AhoSethiUllman y {} de tipo Construcción de Subconjuntos",
-					0, 0);
-			dispose();
+					"Generando bloque de preguntas con {} de tipo Aho-Sethi-Ullman y {} de tipo Construcción de Subconjuntos",
+					asuNum, csNum);
+			log.info(
+					"Problemas Aho-Sethi-Ullman con {} +/- {} estados y {} +/- {} simbolos",
+					asuEstados, asuEstadosVar, asuSimbolos, asuSimbolosVar);
+			log.info(
+					"Problemas Construcción de subconjuntos con {} +/- {} estados y {} +/- {} simbolos",
+					csEstados, csEstadosVar, csSimbolos, csSimbolosVar);
+
+			List<Object> problemas = new ArrayList<>();
+			AhoSethiUllman asuProblema;
+			ConstruccionSubconjuntos csProblema;
+			
+			for (int i = 0; i < asuNum; i++) {
+				asuProblema = asuGenerador.nuevo(asuSimbolos, asuEstados, false); //TODO nunca usa vacio
+				problemas.add(asuProblema);
+			}
+
+			for (int i = 0; i < csNum; i++) {
+				csProblema = csGenerador.nuevo(csSimbolos, csEstados, false); //TODO nunca usa vacio
+				problemas.add(csProblema);
+			}
+
+			return problemas;
+		}
+
+		@Override
+		public void done() {			
+			try {
+				List<Object> problemas = get();
+				
+				for(Object problema : problemas) {
+					if(problema instanceof AhoSethiUllman)
+						main.añadeAhoSethiUllman((AhoSethiUllman) problema);
+					else if(problema instanceof ConstruccionSubconjuntos)
+						main.añadeConstruccionSubconjuntos((ConstruccionSubconjuntos) problema);
+					else
+						log.error("Generado problema de tipo desconocido.");
+				}
+				
+			} catch (InterruptedException | ExecutionException
+					| CancellationException e) {
+				log.error("Error generando bloque de problemas", e);
+			} finally {
+				generando = false;
+				añadeButton.setText("Genera y añade problemas");
+				progressBar.setVisible(false);
+				dispose();
+			}
+		}
+		
+		public void cancel() {
+			asuGenerador.cancelar();
+			csGenerador.cancelar();
 		}
 	}
 }

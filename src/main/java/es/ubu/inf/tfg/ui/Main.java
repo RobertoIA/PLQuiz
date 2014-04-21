@@ -30,6 +30,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import es.ubu.inf.tfg.doc.Documento;
+import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
+import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
 public class Main {
 
@@ -104,7 +106,7 @@ public class Main {
 		this.menuNuevo = new JMenuItem("Documento en blanco");
 		this.menuNuevo.addActionListener(new MenuNuevoActionListener());
 		this.menuArchivo.add(this.menuNuevo);
-		
+
 		this.menuBloque = new JMenuItem("Generar bloque de problemas");
 		this.menuBloque.addActionListener(new MenuBloqueActionListener());
 		this.menuArchivo.add(this.menuBloque);
@@ -165,23 +167,37 @@ public class Main {
 		this.vistaPreviaScroll.setViewportView(this.vistaPreviaText);
 	}
 
+	void añadeAhoSethiUllman(AhoSethiUllman problema) {
+		AhoSethiUllmanPanel panel = new AhoSethiUllmanPanel(contenedorPanel,
+				documento, vistaPreviaText);
+
+		if (problema != null)
+			panel.problema(problema);
+
+		contenedorPanel.add(panel);
+		contenedorPanel.revalidate();
+	}
+
+	void añadeConstruccionSubconjuntos(ConstruccionSubconjuntos problema) {
+		ConstruccionSubconjuntosPanel panel = new ConstruccionSubconjuntosPanel(
+				contenedorPanel, documento, vistaPreviaText);
+
+		if (problema != null)
+			panel.problema(problema);
+
+		contenedorPanel.add(panel);
+		contenedorPanel.revalidate();
+	}
+
 	private class AddButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			JPanel nuevoPanel = null;
-
 			if (añadirBox.getSelectedItem().equals("Aho-Sethi-Ullman")) {
 				log.info("Añadiendo problema tipo Aho-Sethi-Ullman");
-				nuevoPanel = new AhoSethiUllmanPanel(contenedorPanel,
-						documento, vistaPreviaText);
+				añadeAhoSethiUllman(null);
 			} else if (añadirBox.getSelectedItem().equals(
 					"Construcción de subconjuntos")) {
 				log.info("Añadiendo problema tipo construcción de subconjuntos");
-				nuevoPanel = new ConstruccionSubconjuntosPanel(contenedorPanel,
-						documento, vistaPreviaText);
-			}
-			if (nuevoPanel != null) {
-				contenedorPanel.add(nuevoPanel);
-				contenedorPanel.revalidate();
+				añadeConstruccionSubconjuntos(null);
 			}
 		}
 	}
@@ -221,7 +237,7 @@ public class Main {
 			contenedorPanel.removeAll();
 		}
 	}
-	
+
 	private class MenuBloqueActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			log.info("Generando un bloque de problemas.");
