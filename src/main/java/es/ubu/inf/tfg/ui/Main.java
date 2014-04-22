@@ -168,8 +168,8 @@ public class Main {
 	}
 
 	void añadeAhoSethiUllman(AhoSethiUllman problema) {
-		AhoSethiUllmanPanel panel = new AhoSethiUllmanPanel(contenedorPanel,
-				documento, vistaPreviaText);
+		AhoSethiUllmanPanel panel = new AhoSethiUllmanPanel(this,
+				contenedorPanel, documento);
 
 		if (problema != null)
 			panel.problema(problema);
@@ -180,13 +180,17 @@ public class Main {
 
 	void añadeConstruccionSubconjuntos(ConstruccionSubconjuntos problema) {
 		ConstruccionSubconjuntosPanel panel = new ConstruccionSubconjuntosPanel(
-				contenedorPanel, documento, vistaPreviaText);
+				this, contenedorPanel, documento);
 
 		if (problema != null)
 			panel.problema(problema);
 
 		contenedorPanel.add(panel);
 		contenedorPanel.revalidate();
+	}
+
+	void actualizaVistaPrevia() {
+		vistaPreviaText.setText(documento.vistaPrevia());
 	}
 
 	private class AddButtonActionListener implements ActionListener {
@@ -233,7 +237,7 @@ public class Main {
 		public void actionPerformed(ActionEvent event) {
 			log.info("Generando un documento nuevo.");
 			documento = new Documento();
-			vistaPreviaText.setText(documento.vistaPrevia());
+			actualizaVistaPrevia();
 			contenedorPanel.removeAll();
 		}
 	}

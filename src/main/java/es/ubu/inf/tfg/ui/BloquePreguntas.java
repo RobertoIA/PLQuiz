@@ -15,11 +15,13 @@ import java.util.concurrent.ExecutionException;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 import javax.swing.border.CompoundBorder;
@@ -34,15 +36,13 @@ import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllmanGenerador;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntosGenerador;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
 public class BloquePreguntas extends JDialog {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(BloquePreguntas.class);
-	
+
 	private static final Random random = new Random(new Date().getTime());
 
 	private Main main;
@@ -139,15 +139,16 @@ public class BloquePreguntas extends JDialog {
 		this.asuNumSpinner = new JSpinner();
 		this.asuNumSpinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		this.asuNumPanel.add(this.asuNumSpinner);
-		
+
 		this.asuVacioPanel = new JPanel();
 		this.asuVacioPanel.setBorder(new EmptyBorder(0, 5, 5, 5));
 		this.asuPanel.add(this.asuVacioPanel);
-		this.asuVacioPanel.setLayout(new BoxLayout(this.asuVacioPanel, BoxLayout.X_AXIS));
-		
+		this.asuVacioPanel.setLayout(new BoxLayout(this.asuVacioPanel,
+				BoxLayout.X_AXIS));
+
 		this.asuVacioCheck = new JCheckBox("Incluir s\u00EDmbolo vac\u00EDo");
 		this.asuVacioPanel.add(this.asuVacioCheck);
-		
+
 		this.asuVacioGlue = Box.createHorizontalGlue();
 		this.asuVacioPanel.add(this.asuVacioGlue);
 
@@ -221,15 +222,16 @@ public class BloquePreguntas extends JDialog {
 		this.csNumSpinner = new JSpinner();
 		this.csNumSpinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		this.csNumPanel.add(this.csNumSpinner);
-		
+
 		this.csVacioPanel = new JPanel();
 		this.csVacioPanel.setBorder(new EmptyBorder(0, 5, 5, 5));
 		this.csPanel.add(this.csVacioPanel);
-		this.csVacioPanel.setLayout(new BoxLayout(this.csVacioPanel, BoxLayout.X_AXIS));
-		
+		this.csVacioPanel.setLayout(new BoxLayout(this.csVacioPanel,
+				BoxLayout.X_AXIS));
+
 		this.csVacioCheck = new JCheckBox("Incluir s\u00EDmbolo vac\u00EDo");
 		this.csVacioPanel.add(this.csVacioCheck);
-		
+
 		this.csVacioGlue = Box.createHorizontalGlue();
 		this.csVacioPanel.add(this.csVacioGlue);
 
@@ -292,7 +294,7 @@ public class BloquePreguntas extends JDialog {
 
 		this.progressBar = new JProgressBar();
 		this.progressBar.setVisible(false);
-		
+
 		this.controlesStrut = Box.createVerticalStrut(5);
 		this.controlesPanel.add(this.controlesStrut);
 		this.progressBar.setIndeterminate(true);
@@ -313,7 +315,7 @@ public class BloquePreguntas extends JDialog {
 	}
 
 	private class Worker extends SwingWorker<List<Object>, Void> {
-		
+
 		private AhoSethiUllmanGenerador asuGenerador;
 		private ConstruccionSubconjuntosGenerador csGenerador;
 
@@ -322,10 +324,10 @@ public class BloquePreguntas extends JDialog {
 			generando = true;
 			añadeButton.setText("Cancelar");
 			progressBar.setVisible(true);
-			
+
 			asuGenerador = new AhoSethiUllmanGenerador();
 			csGenerador = new ConstruccionSubconjuntosGenerador();
-			
+
 			Integer asuNum = (Integer) asuNumSpinner.getValue();
 			Integer asuEstados = (Integer) asuEstadosSpinner.getValue();
 			Integer asuEstadosVar = (Integer) asuEstadosVarSpinner.getValue();
@@ -353,8 +355,8 @@ public class BloquePreguntas extends JDialog {
 			ConstruccionSubconjuntos csProblema;
 			int simbolos, estados;
 			boolean vacio = asuVacioCheck.isSelected();
-			
-			for (int i = 0; i < asuNum; i++) {
+
+			for (int i = 0; i < asuNum && generando; i++) {
 				simbolos = asuSimbolos
 						+ (random.nextInt((2 * asuSimbolosVar) + 1) - asuSimbolosVar);
 				estados = asuEstados
@@ -374,7 +376,7 @@ public class BloquePreguntas extends JDialog {
 			}
 
 			vacio = csVacioCheck.isSelected();
-			for (int i = 0; i < csNum; i++) {
+			for (int i = 0; i < csNum && generando; i++) {
 				simbolos = csSimbolos
 						+ (random.nextInt((2 * csSimbolosVar) + 1) - csSimbolosVar);
 				estados = csEstados
@@ -397,19 +399,21 @@ public class BloquePreguntas extends JDialog {
 		}
 
 		@Override
-		public void done() {			
+		public void done() {
 			try {
 				List<Object> problemas = get();
-				
-				for(Object problema : problemas) {
-					if(problema instanceof AhoSethiUllman)
+
+				for (Object problema : problemas) {
+					if (problema instanceof AhoSethiUllman)
 						main.añadeAhoSethiUllman((AhoSethiUllman) problema);
-					else if(problema instanceof ConstruccionSubconjuntos)
+					else if (problema instanceof ConstruccionSubconjuntos)
 						main.añadeConstruccionSubconjuntos((ConstruccionSubconjuntos) problema);
 					else
 						log.error("Generado problema de tipo desconocido.");
 				}
 				
+				main.actualizaVistaPrevia();
+
 			} catch (InterruptedException | ExecutionException
 					| CancellationException e) {
 				log.error("Error generando bloque de problemas", e);
@@ -420,8 +424,9 @@ public class BloquePreguntas extends JDialog {
 				dispose();
 			}
 		}
-		
+
 		public void cancel() {
+			generando = false;
 			asuGenerador.cancelar();
 			csGenerador.cancelar();
 		}

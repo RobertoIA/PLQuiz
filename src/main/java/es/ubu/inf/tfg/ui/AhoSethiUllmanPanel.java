@@ -16,7 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.SwingWorker;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -38,10 +37,10 @@ public class AhoSethiUllmanPanel extends JPanel {
 			.getLogger(AhoSethiUllmanPanel.class);
 	private static final long serialVersionUID = -8899275410326830826L;
 
+	private final Main main;
 	private final JPanel contenedorPanel;
 	private final JPanel actualPanel = this;
 	private final Documento documento;
-	private final JTextPane vistaPrevia;
 	private AhoSethiUllman problemaActual = null;
 	private boolean generando = false;
 	private SwingWorker<AhoSethiUllman, Void> worker;
@@ -66,12 +65,11 @@ public class AhoSethiUllmanPanel extends JPanel {
 	private JPanel progresoPanel;
 	private JProgressBar progresoBar;
 
-	public AhoSethiUllmanPanel(JPanel contenedor, Documento documento,
-			JTextPane vistaPrevia) {
+	public AhoSethiUllmanPanel(Main main, JPanel contenedor, Documento documento) {
 
+		this.main = main;
 		this.contenedorPanel = contenedor;
 		this.documento = documento;
-		this.vistaPrevia = vistaPrevia;
 
 		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 5),
 				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
@@ -166,7 +164,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 		}
 
 		problemaActual = problema;
-		vistaPrevia.setText(documento.vistaPrevia());
+		expresionText.setText(problema.problema());
 	}
 
 	private class SliderChangeListener implements ChangeListener {
@@ -194,7 +192,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 		public void actionPerformed(ActionEvent event) {
 			if (problemaActual != null) {
 				documento.eliminarProblema(problemaActual);
-				vistaPrevia.setText(documento.vistaPrevia());
+				main.actualizaVistaPrevia();
 			}
 
 			contenedorPanel.remove(actualPanel);
@@ -218,7 +216,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 					documento.añadirProblema(problema);
 					problemaActual = problema;
 				}
-				vistaPrevia.setText(documento.vistaPrevia());
+				main.actualizaVistaPrevia();
 			}
 		}
 	}
@@ -263,7 +261,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 
 				problemaActual = problema;
 				expresionText.setText(problema.problema());
-				vistaPrevia.setText(documento.vistaPrevia());
+				main.actualizaVistaPrevia();
 			} catch (InterruptedException | ExecutionException
 					| CancellationException e) {
 				log.error("Error generando problema de tipo AhoSethiUllman", e);
