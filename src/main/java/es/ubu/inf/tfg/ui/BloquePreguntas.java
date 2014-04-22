@@ -6,7 +6,9 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
@@ -32,12 +34,16 @@ import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllmanGenerador;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntosGenerador;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
 public class BloquePreguntas extends JDialog {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(BloquePreguntas.class);
+	
+	private static final Random random = new Random(new Date().getTime());
 
 	private Main main;
 	private boolean generando;
@@ -81,6 +87,13 @@ public class BloquePreguntas extends JDialog {
 	private Component csNumStrut;
 	private Component csEstadosStrut;
 	private Component csSimbolosStrut;
+	private JPanel asuVacioPanel;
+	private JCheckBox asuVacioCheck;
+	private JPanel csVacioPanel;
+	private JCheckBox csVacioCheck;
+	private Component asuVacioGlue;
+	private Component csVacioGlue;
+	private Component controlesStrut;
 
 	/**
 	 * Create the dialog.
@@ -92,7 +105,7 @@ public class BloquePreguntas extends JDialog {
 		setResizable(false);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
-		setBounds(100, 100, 301, 345);
+		setBounds(100, 100, 300, 373);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		this.mainPanel = new JPanel();
@@ -124,7 +137,19 @@ public class BloquePreguntas extends JDialog {
 		this.asuNumPanel.add(this.asuNumStrut);
 
 		this.asuNumSpinner = new JSpinner();
+		this.asuNumSpinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		this.asuNumPanel.add(this.asuNumSpinner);
+		
+		this.asuVacioPanel = new JPanel();
+		this.asuVacioPanel.setBorder(new EmptyBorder(0, 5, 5, 5));
+		this.asuPanel.add(this.asuVacioPanel);
+		this.asuVacioPanel.setLayout(new BoxLayout(this.asuVacioPanel, BoxLayout.X_AXIS));
+		
+		this.asuVacioCheck = new JCheckBox("Incluir s\u00EDmbolo vac\u00EDo");
+		this.asuVacioPanel.add(this.asuVacioCheck);
+		
+		this.asuVacioGlue = Box.createHorizontalGlue();
+		this.asuVacioPanel.add(this.asuVacioGlue);
 
 		this.asuEstadosPanel = new JPanel();
 		this.asuEstadosPanel.setBorder(new EmptyBorder(0, 5, 5, 5));
@@ -139,12 +164,14 @@ public class BloquePreguntas extends JDialog {
 		this.asuEstadosPanel.add(this.asuEstadosStrut);
 
 		this.asuEstadosSpinner = new JSpinner();
+		this.asuEstadosSpinner.setModel(new SpinnerNumberModel(3, 3, 15, 1));
 		this.asuEstadosPanel.add(this.asuEstadosSpinner);
 
 		this.asuEstadosVarLabel = new JLabel(" +/- ");
 		this.asuEstadosPanel.add(this.asuEstadosVarLabel);
 
 		this.asuEstadosVarSpinner = new JSpinner();
+		this.asuEstadosVarSpinner.setModel(new SpinnerNumberModel(0, 0, 4, 1));
 		this.asuEstadosPanel.add(this.asuEstadosVarSpinner);
 
 		this.asuSimbolosPanel = new JPanel();
@@ -160,12 +187,14 @@ public class BloquePreguntas extends JDialog {
 		this.asuSimbolosPanel.add(this.asuSimbolosStrut);
 
 		this.asuSimbolosSpinner = new JSpinner();
+		this.asuSimbolosSpinner.setModel(new SpinnerNumberModel(2, 2, 6, 1));
 		this.asuSimbolosPanel.add(this.asuSimbolosSpinner);
 
 		this.asuSimbolosVarLabel = new JLabel(" +/- ");
 		this.asuSimbolosPanel.add(this.asuSimbolosVarLabel);
 
 		this.asuSimbolosVarSpinner = new JSpinner();
+		this.asuSimbolosVarSpinner.setModel(new SpinnerNumberModel(0, 0, 4, 1));
 		this.asuSimbolosPanel.add(this.asuSimbolosVarSpinner);
 
 		this.csPanel = new JPanel();
@@ -190,7 +219,19 @@ public class BloquePreguntas extends JDialog {
 		this.csNumPanel.add(this.csNumStrut);
 
 		this.csNumSpinner = new JSpinner();
+		this.csNumSpinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		this.csNumPanel.add(this.csNumSpinner);
+		
+		this.csVacioPanel = new JPanel();
+		this.csVacioPanel.setBorder(new EmptyBorder(0, 5, 5, 5));
+		this.csPanel.add(this.csVacioPanel);
+		this.csVacioPanel.setLayout(new BoxLayout(this.csVacioPanel, BoxLayout.X_AXIS));
+		
+		this.csVacioCheck = new JCheckBox("Incluir s\u00EDmbolo vac\u00EDo");
+		this.csVacioPanel.add(this.csVacioCheck);
+		
+		this.csVacioGlue = Box.createHorizontalGlue();
+		this.csVacioPanel.add(this.csVacioGlue);
 
 		this.csEstadosPanel = new JPanel();
 		this.csEstadosPanel.setBorder(new EmptyBorder(0, 5, 5, 5));
@@ -205,12 +246,14 @@ public class BloquePreguntas extends JDialog {
 		this.csEstadosPanel.add(this.csEstadosStrut);
 
 		this.csEstadosSpinner = new JSpinner();
+		this.csEstadosSpinner.setModel(new SpinnerNumberModel(3, 3, 15, 1));
 		this.csEstadosPanel.add(this.csEstadosSpinner);
 
 		this.csEstadosVarLabel = new JLabel(" +/- ");
 		this.csEstadosPanel.add(this.csEstadosVarLabel);
 
 		this.csEstadosVarSpinner = new JSpinner();
+		this.csEstadosVarSpinner.setModel(new SpinnerNumberModel(0, 0, 4, 1));
 		this.csEstadosPanel.add(this.csEstadosVarSpinner);
 
 		this.csSimbolosPanel = new JPanel();
@@ -226,15 +269,18 @@ public class BloquePreguntas extends JDialog {
 		this.csSimbolosPanel.add(this.csSimbolosStrut);
 
 		this.csSimbolosSpinner = new JSpinner();
+		this.csSimbolosSpinner.setModel(new SpinnerNumberModel(2, 2, 6, 1));
 		this.csSimbolosPanel.add(this.csSimbolosSpinner);
 
 		this.csSimbolosVarLabel = new JLabel(" +/- ");
 		this.csSimbolosPanel.add(this.csSimbolosVarLabel);
 
 		this.csSimbolosVarSpinner = new JSpinner();
+		this.csSimbolosVarSpinner.setModel(new SpinnerNumberModel(0, 0, 4, 1));
 		this.csSimbolosPanel.add(this.csSimbolosVarSpinner);
 
 		this.controlesPanel = new JPanel();
+		this.controlesPanel.setBorder(new EmptyBorder(0, 5, 5, 5));
 		this.mainPanel.add(this.controlesPanel);
 		this.controlesPanel.setLayout(new BoxLayout(this.controlesPanel,
 				BoxLayout.Y_AXIS));
@@ -246,6 +292,9 @@ public class BloquePreguntas extends JDialog {
 
 		this.progressBar = new JProgressBar();
 		this.progressBar.setVisible(false);
+		
+		this.controlesStrut = Box.createVerticalStrut(5);
+		this.controlesPanel.add(this.controlesStrut);
 		this.progressBar.setIndeterminate(true);
 		this.controlesPanel.add(this.progressBar);
 
@@ -302,14 +351,45 @@ public class BloquePreguntas extends JDialog {
 			List<Object> problemas = new ArrayList<>();
 			AhoSethiUllman asuProblema;
 			ConstruccionSubconjuntos csProblema;
+			int simbolos, estados;
+			boolean vacio = asuVacioCheck.isSelected();
 			
 			for (int i = 0; i < asuNum; i++) {
-				asuProblema = asuGenerador.nuevo(asuSimbolos, asuEstados, false); //TODO nunca usa vacio
+				simbolos = asuSimbolos
+						+ (random.nextInt((2 * asuSimbolosVar) + 1) - asuSimbolosVar);
+				estados = asuEstados
+						+ (random.nextInt((2 * asuEstadosVar) + 1) - asuEstadosVar);
+
+				if (simbolos < 2)
+					simbolos = 2;
+				else if (simbolos > 6)
+					simbolos = 6;
+				if (estados < 3)
+					estados = 3;
+				else if (estados > 15)
+					estados = 15;
+
+				asuProblema = asuGenerador.nuevo(simbolos, estados, vacio);
 				problemas.add(asuProblema);
 			}
 
+			vacio = csVacioCheck.isSelected();
 			for (int i = 0; i < csNum; i++) {
-				csProblema = csGenerador.nuevo(csSimbolos, csEstados, false); //TODO nunca usa vacio
+				simbolos = csSimbolos
+						+ (random.nextInt((2 * csSimbolosVar) + 1) - csSimbolosVar);
+				estados = csEstados
+						+ (random.nextInt((2 * csEstadosVar) + 1) - csEstadosVar);
+
+				if (simbolos < 2)
+					simbolos = 2;
+				else if (simbolos > 6)
+					simbolos = 6;
+				if (estados < 3)
+					estados = 3;
+				else if (estados > 15)
+					estados = 15;
+
+				csProblema = csGenerador.nuevo(simbolos, estados, vacio);
 				problemas.add(csProblema);
 			}
 
