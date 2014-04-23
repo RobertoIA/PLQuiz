@@ -241,4 +241,13 @@ public class ConstruccionSubconjuntos {
 
 		return esFinal;
 	}
+
+	/**
+	 * TODO Solución temporal. Devuelve el automata asociado a este problema.
+	 * 
+	 * @return Automata.
+	 */
+	public Automata automata() {
+		return automata;
+	}
 }
