@@ -58,6 +58,7 @@ public class Main {
 	private Main main = this;
 	private JFileChooser fileChooser;
 	private Documento documento;
+	private JScrollPane contenedorScroll;
 
 	public static void main(String[] args) {
 		log.info("Aplicación iniciada");
@@ -126,11 +127,17 @@ public class Main {
 		this.frmPlquiz.getContentPane().add(this.controlPanel,
 				BorderLayout.WEST);
 		this.controlPanel.setLayout(new BorderLayout(0, 0));
+		
+		this.contenedorScroll = new JScrollPane();
+		this.contenedorScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		this.controlPanel.add(this.contenedorScroll, BorderLayout.CENTER);
 
 		this.contenedorPanel = new JPanel();
-		this.controlPanel.add(this.contenedorPanel, BorderLayout.NORTH);
+//		this.controlPanel.add(this.contenedorPanel, BorderLayout.NORTH);
 		this.contenedorPanel.setLayout(new BoxLayout(this.contenedorPanel,
 				BoxLayout.Y_AXIS));
+		this.contenedorScroll.add(this.contenedorPanel);
+		this.contenedorScroll.setViewportView(this.contenedorPanel);
 
 		this.añadirPanel = new JPanel();
 		this.controlPanel.add(this.añadirPanel, BorderLayout.SOUTH);
@@ -182,11 +189,14 @@ public class Main {
 		ConstruccionSubconjuntosPanel panel = new ConstruccionSubconjuntosPanel(
 				this, contenedorPanel, documento);
 
-		if (problema != null)
+		if (problema != null) {			
 			panel.problema(problema);
+		}
 
 		contenedorPanel.add(panel);
 		contenedorPanel.revalidate();
+		
+//		vistaPreviaText.insertIcon(new ImageIcon(p.automata()));
 	}
 
 	void actualizaVistaPrevia() {
