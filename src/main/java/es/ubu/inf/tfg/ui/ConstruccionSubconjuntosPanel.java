@@ -232,7 +232,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 	private class VerButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (problemaActual != null)
-				new GraphFrame(problemaActual.automata());
+				new GraphFrame(problemaActual);
 		}
 	}
 

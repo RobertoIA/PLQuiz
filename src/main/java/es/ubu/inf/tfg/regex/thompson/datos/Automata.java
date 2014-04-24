@@ -1,7 +1,19 @@
 package es.ubu.inf.tfg.regex.thompson.datos;
 
+import java.awt.Color;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
+import com.mxgraph.layout.mxParallelEdgeLayout;
+import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
+import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.util.mxCellRenderer;
+import com.mxgraph.view.mxGraph;
 
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
 
@@ -19,6 +31,7 @@ public class Automata {
 	private Nodo nodoInicial;
 	private Nodo nodoFinal;
 	private Set<Character> simbolos;
+	private BufferedImage imagen;
 
 	/**
 	 * Constructor. Define un automata finito no determinista a partir de un
@@ -177,5 +190,107 @@ public class Automata {
 		}
 
 		return visitados;
+	}
+
+	public BufferedImage imagen() {
+		if (this.imagen == null) {
+			// Visualización del autómata
+			mxGraph graph = new mxGraph();
+			Object parent = graph.getDefaultParent();
+			Map<Integer, Object> gNodos = new HashMap<>();
+
+			String estiloVertex = "shape=ellipse;fillColor=white;strokeColor=black;fontColor=black;movable=false;direction=north";// horizontal=false;";
+			String estiloEdge = "strokeColor=black;fontColor=black;rounded=true;";
+
+			graph.getModel().beginUpdate();
+			try {
+				Object gNodoInicial = graph.insertVertex(parent, null,
+						nodoInicial.posicion(), 0, 0, 30, 30, estiloVertex);
+				gNodos.put(nodoInicial.posicion(), gNodoInicial);
+
+				// Añade iniciales
+				Set<Nodo> visitados = new TreeSet<>();
+				Set<Nodo> pendientes = new TreeSet<>();
+				Set<Nodo> iniciales = nodoInicial.transicionVacia();
+				for (Nodo nodo : iniciales) {
+					Object gNodo = graph.insertVertex(parent, null,
+							nodo.posicion(), 0, 0, 30, 30, estiloVertex);
+					gNodos.put(nodo.posicion(), gNodo);
+					graph.insertEdge(parent, null, null, gNodoInicial, gNodo,
+							estiloEdge);
+
+					pendientes.add(nodo);
+				}
+				visitados.add(nodoInicial);
+
+				while (pendientes.size() > 0) {
+					Nodo actual = pendientes.iterator().next();
+					Object gActual = gNodos.get(actual.posicion());
+
+					for (Nodo nodo : actual.transicionVacia()) {
+						if (!visitados.contains(nodo)) {
+							Object gNodo;
+							if (!gNodos.containsKey(nodo.posicion())) {
+								gNodo = graph.insertVertex(parent, null,
+										nodo.posicion(), 0, 0, 30, 30,
+										estiloVertex);
+							} else {
+								gNodo = gNodos.get(nodo.posicion());
+							}
+
+							gNodos.put(nodo.posicion(), gNodo);
+							graph.insertEdge(parent, null, null, gActual,
+									gNodo, estiloEdge);
+
+							pendientes.add(nodo);
+						}
+					}
+
+					for (char simbolo : simbolos) {
+						Nodo nodo = actual.transicion(simbolo);
+						if (nodo != null && !visitados.contains(nodo)) {
+							Object gNodo;
+							if (!gNodos.containsKey(nodo.posicion())) {
+								gNodo = graph.insertVertex(parent, null,
+										nodo.posicion(), 0, 0, 30, 30,
+										estiloVertex);
+							} else {
+								gNodo = gNodos.get(nodo.posicion());
+							}
+
+							gNodos.put(nodo.posicion(), gNodo);
+							graph.insertEdge(parent, null, simbolo, gActual,
+									gNodo, estiloEdge);
+
+							pendientes.add(nodo);
+						}
+					}
+
+					visitados.add(actual);
+					pendientes.remove(actual);
+				}
+
+			} finally {
+				graph.getModel().endUpdate();
+			}
+			mxGraphComponent graphComponent = new mxGraphComponent(graph);
+
+			new mxHierarchicalLayout(graph).execute(parent);
+			new mxParallelEdgeLayout(graph).execute(parent);
+
+			this.imagen = mxCellRenderer.createBufferedImage(graph, null, 1,
+					Color.WHITE, graphComponent.isAntiAlias(), null,
+					graphComponent.getCanvas());
+
+//			AffineTransform tx = new AffineTransform();
+//			tx.rotate(Math.PI / 2, this.imagen.getWidth() / 2,
+//					this.imagen.getHeight() / 2);
+//
+//			AffineTransformOp op = new AffineTransformOp(tx,
+//					AffineTransformOp.TYPE_BILINEAR);
+//			this.imagen = op.filter(this.imagen, null);
+		}
+
+		return this.imagen;
 	}
 }

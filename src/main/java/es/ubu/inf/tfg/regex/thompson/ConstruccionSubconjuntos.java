@@ -1,5 +1,6 @@
 package es.ubu.inf.tfg.regex.thompson;
 
+import java.awt.image.BufferedImage;
 import java.io.StringReader;
 import java.util.Map;
 import java.util.Set;
@@ -243,11 +244,11 @@ public class ConstruccionSubconjuntos {
 	}
 
 	/**
-	 * TODO Solución temporal. Devuelve el automata asociado a este problema.
+	 * Devuelve una imagen representando el autómata asociado a este problema.
 	 * 
-	 * @return Automata.
+	 * @return Imagen del autómata.
 	 */
-	public Automata automata() {
-		return automata;
+	public BufferedImage automata() {
+		return automata.imagen();
 	}
 }
