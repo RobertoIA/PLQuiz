@@ -59,6 +59,7 @@ public class Main {
 	private JFileChooser fileChooser;
 	private Documento documento;
 	private JScrollPane contenedorScroll;
+	private JPanel problemasPanel;
 
 	public static void main(String[] args) {
 		log.info("Aplicación iniciada");
@@ -124,6 +125,7 @@ public class Main {
 		this.menuArchivo.add(this.menuExportarLatexButton);
 
 		this.controlPanel = new JPanel();
+		this.controlPanel.setBorder(null);
 		this.frmPlquiz.getContentPane().add(this.controlPanel,
 				BorderLayout.WEST);
 		this.controlPanel.setLayout(new BorderLayout(0, 0));
@@ -131,13 +133,18 @@ public class Main {
 		this.contenedorScroll = new JScrollPane();
 		this.contenedorScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.controlPanel.add(this.contenedorScroll, BorderLayout.CENTER);
+		
+		this.problemasPanel = new JPanel();
+		this.problemasPanel.setBorder(null);
+		this.contenedorScroll.add(this.problemasPanel);
+		this.contenedorScroll.setViewportView(this.problemasPanel);
 
 		this.contenedorPanel = new JPanel();
+		this.contenedorPanel.setBorder(null);
 //		this.controlPanel.add(this.contenedorPanel, BorderLayout.NORTH);
 		this.contenedorPanel.setLayout(new BoxLayout(this.contenedorPanel,
 				BoxLayout.Y_AXIS));
-		this.contenedorScroll.add(this.contenedorPanel);
-		this.contenedorScroll.setViewportView(this.contenedorPanel);
+		this.problemasPanel.add(this.contenedorPanel);
 
 		this.añadirPanel = new JPanel();
 		this.controlPanel.add(this.añadirPanel, BorderLayout.SOUTH);
@@ -145,7 +152,7 @@ public class Main {
 		this.añadirButton = new JButton("+");
 		this.añadirButton.addActionListener(new AddButtonActionListener());
 
-		this.añadirIzquierdoStrut = Box.createHorizontalStrut(110);
+		this.añadirIzquierdoStrut = Box.createHorizontalStrut(100);
 		this.añadirPanel.add(this.añadirIzquierdoStrut);
 		this.añadirPanel.add(this.añadirButton);
 
@@ -154,7 +161,7 @@ public class Main {
 				"Aho-Sethi-Ullman", "Construcción de subconjuntos" }));
 		this.añadirPanel.add(this.añadirBox);
 
-		this.añadirDerechoStrut = Box.createHorizontalStrut(110);
+		this.añadirDerechoStrut = Box.createHorizontalStrut(100);
 		this.añadirPanel.add(this.añadirDerechoStrut);
 
 		this.vistaPreviaPanel = new JPanel();
