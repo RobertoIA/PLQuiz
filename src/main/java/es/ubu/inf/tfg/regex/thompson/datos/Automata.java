@@ -210,6 +210,12 @@ public class Automata {
 				Set<Nodo> visitados = new TreeSet<>();
 				Set<Nodo> pendientes = new TreeSet<>();
 				Set<Nodo> iniciales = nodoInicial.transicionVacia();
+				for (char simbolo : simbolos) {
+					Nodo nodo = nodoInicial.transicion(simbolo);
+					if(nodo != null)
+						iniciales.add(nodo);
+				}
+				
 				for (Nodo nodo : iniciales) {
 					Object gNodo = graph.insertVertex(parent, null,
 							nodo.posicion(), 0, 0, 30, 30, estiloVertex);
