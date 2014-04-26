@@ -2,10 +2,16 @@ package es.ubu.inf.tfg.regex.thompson.datos;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.mxgraph.layout.mxParallelEdgeLayout;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
@@ -25,6 +31,9 @@ import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
  * 
  */
 public class Automata {
+	
+	
+	private static final Logger log = LoggerFactory.getLogger(Automata.class);
 
 	private Nodo nodoInicial;
 	private Nodo nodoFinal;
@@ -192,107 +201,76 @@ public class Automata {
 
 	public BufferedImage imagen() {
 		if (this.imagen == null) {
-			// Visualización del autómata
 			mxGraph graph = new mxGraph();
 			Object parent = graph.getDefaultParent();
 			Map<Integer, Object> gNodos = new HashMap<>();
+			Object gNodo, gActual;
+			List<Nodo> pendientes = new ArrayList<>();
+			Map<Nodo, Character> siguientes;
+			Nodo actual;
 
-			String estiloVertex = "shape=ellipse;fillColor=white;strokeColor=black;fontColor=black;movable=false;direction=north";// horizontal=false;";
+			String estiloVertex = "shape=ellipse;fillColor=white;strokeColor=black;fontColor=black;movable=false;direction=north";
 			String estiloEdge = "strokeColor=black;fontColor=black;rounded=true;";
 
 			graph.getModel().beginUpdate();
 			try {
-				Object gNodoInicial = graph.insertVertex(parent, null,
-						nodoInicial.posicion(), 0, 0, 30, 30, estiloVertex);
-				gNodos.put(nodoInicial.posicion(), gNodoInicial);
-
-				// Añade iniciales
-				Set<Nodo> visitados = new TreeSet<>();
-				Set<Nodo> pendientes = new TreeSet<>();
-				Set<Nodo> iniciales = nodoInicial.transicionVacia();
-				for (char simbolo : simbolos) {
-					Nodo nodo = nodoInicial.transicion(simbolo);
-					if(nodo != null)
-						iniciales.add(nodo);
-				}
-				
-				for (Nodo nodo : iniciales) {
-					Object gNodo = graph.insertVertex(parent, null,
-							nodo.posicion(), 0, 0, 30, 30, estiloVertex);
-					gNodos.put(nodo.posicion(), gNodo);
-					graph.insertEdge(parent, null, null, gNodoInicial, gNodo,
-							estiloEdge);
-
-					pendientes.add(nodo);
-				}
-				visitados.add(nodoInicial);
-
-				while (pendientes.size() > 0) {
-					Nodo actual = pendientes.iterator().next();
-					Object gActual = gNodos.get(actual.posicion());
-
-					for (Nodo nodo : actual.transicionVacia()) {
-						if (!visitados.contains(nodo)) {
-							Object gNodo;
-							if (!gNodos.containsKey(nodo.posicion())) {
-								gNodo = graph.insertVertex(parent, null,
-										nodo.posicion(), 0, 0, 30, 30,
-										estiloVertex);
-							} else {
-								gNodo = gNodos.get(nodo.posicion());
-							}
-
-							gNodos.put(nodo.posicion(), gNodo);
-							graph.insertEdge(parent, null, null, gActual,
-									gNodo, estiloEdge);
-
-							pendientes.add(nodo);
-						}
+				actual = nodoInicial;
+				do {
+					log.info("actual: {}", actual.posicion());
+					gActual = gNodos.get(actual.posicion());
+					if(gActual == null) { // Primer nodo
+						gActual = graph.insertVertex(parent, null, actual.posicion(), 0, 0, 30, 30, estiloVertex);
+						gNodos.put(actual.posicion(), gActual);
 					}
-
+					
+					// Calcula transiciones
+					siguientes = new HashMap<>();
+					for(Nodo nodo : actual.transicionVacia())
+						siguientes.put(nodo, null);
+					Nodo siguiente;
 					for (char simbolo : simbolos) {
-						Nodo nodo = actual.transicion(simbolo);
-						if (nodo != null && !visitados.contains(nodo)) {
-							Object gNodo;
-							if (!gNodos.containsKey(nodo.posicion())) {
-								gNodo = graph.insertVertex(parent, null,
-										nodo.posicion(), 0, 0, 30, 30,
-										estiloVertex);
-							} else {
-								gNodo = gNodos.get(nodo.posicion());
-							}
-
-							gNodos.put(nodo.posicion(), gNodo);
-							graph.insertEdge(parent, null, simbolo, gActual,
-									gNodo, estiloEdge);
-
-							pendientes.add(nodo);
-						}
+						siguiente = actual.transicion(simbolo);
+						if (siguiente != null)
+							siguientes.put(siguiente, simbolo);
 					}
-
-					visitados.add(actual);
-					pendientes.remove(actual);
-				}
-
+					
+					pendientes.addAll(siguientes.keySet().stream().filter(n -> !gNodos.containsKey(n.posicion())).collect(Collectors.toList()));
+					
+					for(Nodo nodo : siguientes.keySet()) {
+						if(!gNodos.containsKey(nodo.posicion())) { // Añade nodo
+							log.info("        añade {}", nodo.posicion());
+							gNodo = graph.insertVertex(parent, null, nodo.posicion(), 0, 0, 30, 30, estiloVertex);
+							gNodos.put(nodo.posicion(), gNodo);
+						} else { // Recupera nodo
+							gNodo = gNodos.get(nodo.posicion());
+						}
+						// Añade transición
+						graph.insertEdge(parent, null, siguientes.get(nodo), gActual, gNodo, estiloEdge);
+					}
+					
+					actual = pendientes.isEmpty() ? null : pendientes.remove(0);
+				} while (actual != null);
+				
 			} finally {
 				graph.getModel().endUpdate();
+
+				mxGraphComponent graphComponent = new mxGraphComponent(graph);
+
+				new mxHierarchicalLayout(graph).execute(parent);
+				new mxParallelEdgeLayout(graph).execute(parent);
+
+				this.imagen = mxCellRenderer.createBufferedImage(graph, null,
+						1, Color.WHITE, graphComponent.isAntiAlias(), null,
+						graphComponent.getCanvas());
+				
+				// AffineTransform tx = new AffineTransform();
+				// tx.rotate(Math.PI / 2, this.imagen.getWidth() / 2,
+				// this.imagen.getHeight() / 2);
+				//
+				// AffineTransformOp op = new AffineTransformOp(tx,
+				// AffineTransformOp.TYPE_BILINEAR);
+				// this.imagen = op.filter(this.imagen, null);
 			}
-			mxGraphComponent graphComponent = new mxGraphComponent(graph);
-
-			new mxHierarchicalLayout(graph).execute(parent);
-			new mxParallelEdgeLayout(graph).execute(parent);
-
-			this.imagen = mxCellRenderer.createBufferedImage(graph, null, 1,
-					Color.WHITE, graphComponent.isAntiAlias(), null,
-					graphComponent.getCanvas());
-
-//			AffineTransform tx = new AffineTransform();
-//			tx.rotate(Math.PI / 2, this.imagen.getWidth() / 2,
-//					this.imagen.getHeight() / 2);
-//
-//			AffineTransformOp op = new AffineTransformOp(tx,
-//					AffineTransformOp.TYPE_BILINEAR);
-//			this.imagen = op.filter(this.imagen, null);
 		}
 
 		return this.imagen;
