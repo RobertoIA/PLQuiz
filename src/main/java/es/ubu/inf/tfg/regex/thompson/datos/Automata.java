@@ -1,6 +1,8 @@
 package es.ubu.inf.tfg.regex.thompson.datos;
 
 import java.awt.Color;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,8 +33,7 @@ import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
  * 
  */
 public class Automata {
-	
-	
+
 	private static final Logger log = LoggerFactory.getLogger(Automata.class);
 
 	private Nodo nodoInicial;
@@ -209,7 +210,7 @@ public class Automata {
 			Map<Nodo, Character> siguientes;
 			Nodo actual;
 
-			String estiloVertex = "shape=ellipse;fillColor=white;strokeColor=black;fontColor=black;movable=false;direction=north";
+			String estiloVertex = "shape=ellipse;fillColor=white;strokeColor=black;fontColor=black;";
 			String estiloEdge = "strokeColor=black;fontColor=black;rounded=true;";
 
 			graph.getModel().beginUpdate();
@@ -218,14 +219,15 @@ public class Automata {
 				do {
 					log.info("actual: {}", actual.posicion());
 					gActual = gNodos.get(actual.posicion());
-					if(gActual == null) { // Primer nodo
-						gActual = graph.insertVertex(parent, null, actual.posicion(), 0, 0, 30, 30, estiloVertex);
+					if (gActual == null) { // Primer nodo
+						gActual = graph.insertVertex(parent, null,
+								actual.posicion(), 0, 0, 30, 30, estiloVertex);
 						gNodos.put(actual.posicion(), gActual);
 					}
-					
+
 					// Calcula transiciones
 					siguientes = new HashMap<>();
-					for(Nodo nodo : actual.transicionVacia())
+					for (Nodo nodo : actual.transicionVacia())
 						siguientes.put(nodo, null);
 					Nodo siguiente;
 					for (char simbolo : simbolos) {
@@ -233,24 +235,28 @@ public class Automata {
 						if (siguiente != null)
 							siguientes.put(siguiente, simbolo);
 					}
-					
-					pendientes.addAll(siguientes.keySet().stream().filter(n -> !gNodos.containsKey(n.posicion())).collect(Collectors.toList()));
-					
-					for(Nodo nodo : siguientes.keySet()) {
-						if(!gNodos.containsKey(nodo.posicion())) { // Añade nodo
-							log.info("        añade {}", nodo.posicion());
-							gNodo = graph.insertVertex(parent, null, nodo.posicion(), 0, 0, 30, 30, estiloVertex);
+
+					pendientes.addAll(siguientes.keySet().stream()
+							.filter(n -> !gNodos.containsKey(n.posicion()))
+							.collect(Collectors.toList()));
+
+					for (Nodo nodo : siguientes.keySet()) {
+						if (!gNodos.containsKey(nodo.posicion())) { // Añade nodo
+							gNodo = graph.insertVertex(parent, null,
+									nodo.posicion(), 0, 0, 30, 30,
+									estiloVertex);
 							gNodos.put(nodo.posicion(), gNodo);
 						} else { // Recupera nodo
 							gNodo = gNodos.get(nodo.posicion());
 						}
 						// Añade transición
-						graph.insertEdge(parent, null, siguientes.get(nodo), gActual, gNodo, estiloEdge);
+						graph.insertEdge(parent, null, siguientes.get(nodo),
+								gActual, gNodo, estiloEdge);
 					}
-					
+
 					actual = pendientes.isEmpty() ? null : pendientes.remove(0);
 				} while (actual != null);
-				
+
 			} finally {
 				graph.getModel().endUpdate();
 
@@ -259,17 +265,21 @@ public class Automata {
 				new mxHierarchicalLayout(graph).execute(parent);
 				new mxParallelEdgeLayout(graph).execute(parent);
 
-				this.imagen = mxCellRenderer.createBufferedImage(graph, null,
-						1, Color.WHITE, graphComponent.isAntiAlias(), null,
+				BufferedImage original = mxCellRenderer.createBufferedImage(
+						graph, null, 1, Color.WHITE,
+						graphComponent.isAntiAlias(), null,
 						graphComponent.getCanvas());
-				
-				// AffineTransform tx = new AffineTransform();
-				// tx.rotate(Math.PI / 2, this.imagen.getWidth() / 2,
-				// this.imagen.getHeight() / 2);
-				//
-				// AffineTransformOp op = new AffineTransformOp(tx,
-				// AffineTransformOp.TYPE_BILINEAR);
-				// this.imagen = op.filter(this.imagen, null);
+
+				this.imagen = new BufferedImage(original.getHeight(),
+						original.getWidth(), BufferedImage.TYPE_INT_RGB);
+
+				int px = 0;
+				for (int i = 0; i < original.getWidth(); i++) {
+					for (int j = original.getHeight() - 1; j >= 0; j--) {
+						px = original.getRGB(i, j);
+						imagen.setRGB(j, original.getWidth() - 1 - i, px);
+					}
+				}
 			}
 		}
 
