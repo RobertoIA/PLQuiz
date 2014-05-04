@@ -216,12 +216,15 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 						ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 								expresion);
 						documento.sustituirProblema(problemaActual, problema);
+						main.eliminaImagen(problemaActual.automata());
+						main.añadeImagen(problema.automata());
 						problemaActual = problema;
 					}
 				} else {
 					ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 							expresion);
 					documento.añadirProblema(problema);
+					main.añadeImagen(problema.automata());
 					problemaActual = problema;
 				}
 				main.actualizaVistaPrevia();
@@ -269,10 +272,14 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 			try {
 				problema = get();
 
-				if (problemaActual != null)
+				if (problemaActual != null) {
+					main.eliminaImagen(problemaActual.automata());
+					main.añadeImagen(problema.automata());
 					documento.sustituirProblema(problemaActual, problema);
-				else
+				} else {
+					main.añadeImagen(problema.automata());
 					documento.añadirProblema(problema);
+				}
 
 				problemaActual = problema;
 				expresionText.setText(problema.problema());

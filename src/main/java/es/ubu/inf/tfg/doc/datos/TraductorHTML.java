@@ -131,9 +131,16 @@ public class TraductorHTML extends Traductor {
 				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresion {}",
 				problema.problema());
 
+		String url = "http:\\" + problema.automata().hashCode() + ".jpg";
+		StringBuilder imagen = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 
 		String plantilla = formatoIntermedio(plantilla("plantillaCS.html"));
+
+		// Imagen
+		imagen.append("<p><img src=\"" + url + "\"></p>");
+		
+		log.info(imagen.toString());
 
 		// Función de transición
 		fTrans.append("<table><tr><th></th>");
@@ -160,7 +167,7 @@ public class TraductorHTML extends Traductor {
 		fTrans.append("</table>");
 
 		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				problema.problema(), fTrans.toString());
+				problema.problema(), imagen.toString() + fTrans.toString());
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;

@@ -5,8 +5,13 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -129,11 +134,12 @@ public class Main {
 		this.frmPlquiz.getContentPane().add(this.controlPanel,
 				BorderLayout.WEST);
 		this.controlPanel.setLayout(new BorderLayout(0, 0));
-		
+
 		this.contenedorScroll = new JScrollPane();
-		this.contenedorScroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		this.contenedorScroll
+				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.controlPanel.add(this.contenedorScroll, BorderLayout.CENTER);
-		
+
 		this.problemasPanel = new JPanel();
 		this.problemasPanel.setBorder(null);
 		this.contenedorScroll.add(this.problemasPanel);
@@ -141,7 +147,7 @@ public class Main {
 
 		this.contenedorPanel = new JPanel();
 		this.contenedorPanel.setBorder(null);
-//		this.controlPanel.add(this.contenedorPanel, BorderLayout.NORTH);
+		// this.controlPanel.add(this.contenedorPanel, BorderLayout.NORTH);
 		this.contenedorPanel.setLayout(new BoxLayout(this.contenedorPanel,
 				BoxLayout.Y_AXIS));
 		this.problemasPanel.add(this.contenedorPanel);
@@ -196,18 +202,37 @@ public class Main {
 		ConstruccionSubconjuntosPanel panel = new ConstruccionSubconjuntosPanel(
 				this, contenedorPanel, documento);
 
-		if (problema != null) {			
+		if (problema != null) {
 			panel.problema(problema);
 		}
 
 		contenedorPanel.add(panel);
 		contenedorPanel.revalidate();
-		
-//		vistaPreviaText.insertIcon(new ImageIcon(p.automata()));
 	}
 
 	void actualizaVistaPrevia() {
 		vistaPreviaText.setText(documento.vistaPrevia());
+	}
+	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	void añadeImagen(BufferedImage imagen) {
+		try {
+			String url = "http:\\" + imagen.hashCode() + ".jpg";
+			Dictionary cache = (Dictionary) vistaPreviaText.getDocument()
+					.getProperty("imageCache");
+			if (cache == null) {
+				cache = new Hashtable();
+				vistaPreviaText.getDocument().putProperty("imageCache", cache);
+			}
+			cache.put(new URL(url), imagen);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	void eliminaImagen(BufferedImage imagen) {
+		
 	}
 
 	private class AddButtonActionListener implements ActionListener {
