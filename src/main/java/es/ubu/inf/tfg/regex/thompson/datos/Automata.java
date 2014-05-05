@@ -10,11 +10,15 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+import javax.swing.SwingConstants;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.mxgraph.layout.mxParallelEdgeLayout;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
+import com.mxgraph.model.mxGeometry;
+import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxCellRenderer;
 import com.mxgraph.view.mxGraph;
@@ -198,6 +202,13 @@ public class Automata {
 		return visitados;
 	}
 
+	/**
+	 * Genera un grafo representando el autómata. La imagen generada se cachea
+	 * al ser solicitada por primera vez para evitar realizar los cálculos
+	 * repetidas veces.
+	 * 
+	 * @return Imagen conteniendo el grafo que representa al autómata.
+	 */
 	public BufferedImage imagen() {
 		if (this.imagen == null) {
 			mxGraph graph = new mxGraph();
@@ -239,10 +250,12 @@ public class Automata {
 							.collect(Collectors.toList()));
 
 					for (Nodo nodo : siguientes.keySet()) {
-						if (!gNodos.containsKey(nodo.posicion())) { // Añade nodo
-							gNodo = graph.insertVertex(parent, null,
-									nodo.posicion(), 0, 0, 30, 30,
-									estiloVertex);
+						if (!gNodos.containsKey(nodo.posicion())) { // Añade
+																	// nodo
+							gNodo = graph
+									.insertVertex(parent, null,
+											nodo.posicion(), 0, 0, 30, 30,
+											estiloVertex);
 							gNodos.put(nodo.posicion(), gNodo);
 						} else { // Recupera nodo
 							gNodo = gNodos.get(nodo.posicion());
@@ -260,24 +273,13 @@ public class Automata {
 
 				mxGraphComponent graphComponent = new mxGraphComponent(graph);
 
-				new mxHierarchicalLayout(graph).execute(parent);
+				new mxHierarchicalLayout(graph, SwingConstants.WEST)
+						.execute(parent);
 				new mxParallelEdgeLayout(graph).execute(parent);
 
-				BufferedImage original = mxCellRenderer.createBufferedImage(
-						graph, null, 1, Color.WHITE,
-						graphComponent.isAntiAlias(), null,
+				this.imagen = mxCellRenderer.createBufferedImage(graph, null,
+						1, Color.WHITE, graphComponent.isAntiAlias(), null,
 						graphComponent.getCanvas());
-
-				this.imagen = new BufferedImage(original.getHeight(),
-						original.getWidth(), BufferedImage.TYPE_INT_RGB);
-
-				int px = 0;
-				for (int i = 0; i < original.getWidth(); i++) {
-					for (int j = original.getHeight() - 1; j >= 0; j--) {
-						px = original.getRGB(i, j);
-						imagen.setRGB(j, original.getWidth() - 1 - i, px);
-					}
-				}
 			}
 		}
 

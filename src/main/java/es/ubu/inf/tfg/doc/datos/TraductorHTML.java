@@ -139,8 +139,6 @@ public class TraductorHTML extends Traductor {
 
 		// Imagen
 		imagen.append("<p><img src=\"" + url + "\"></p>");
-		
-		log.info(imagen.toString());
 
 		// Función de transición
 		fTrans.append("<table><tr><th></th>");
