@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -225,9 +224,8 @@ public class Main {
 				vistaPreviaText.getDocument().putProperty("imageCache", cache);
 			}
 			cache.put(new URL(url), imagen);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			log.error("Error al añadir imagen.", e);
 		}
 	}
 	

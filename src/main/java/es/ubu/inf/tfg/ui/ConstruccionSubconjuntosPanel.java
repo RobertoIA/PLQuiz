@@ -64,7 +64,6 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 	private JLabel estadosEstadoLabel;
 	private JPanel progresoPanel;
 	private JProgressBar progresoBar;
-	private JButton verButton;
 
 	public ConstruccionSubconjuntosPanel(Main main, JPanel contenedor,
 			Documento documento) {
@@ -103,11 +102,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		this.resolverButton
 				.addActionListener(new BotonResolverActionListener());
 		this.botonesPanel.add(this.resolverButton);
-
-		this.verButton = new JButton("Ver aut\u00F3mata");
-		this.verButton.addActionListener(new VerButtonActionListener());
-		this.botonesPanel.add(this.verButton);
-
+		
 		this.opcionesPanel = new JPanel();
 		add(this.opcionesPanel);
 		this.opcionesPanel.setLayout(new BoxLayout(this.opcionesPanel,
@@ -229,13 +224,6 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 				}
 				main.actualizaVistaPrevia();
 			}
-		}
-	}
-
-	private class VerButtonActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			if (problemaActual != null)
-				new GraphFrame(problemaActual);
 		}
 	}
 
