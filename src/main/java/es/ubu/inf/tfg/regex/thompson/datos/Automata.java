@@ -17,8 +17,6 @@ import org.slf4j.LoggerFactory;
 
 import com.mxgraph.layout.mxParallelEdgeLayout;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
-import com.mxgraph.model.mxGeometry;
-import com.mxgraph.model.mxIGraphModel;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxCellRenderer;
 import com.mxgraph.view.mxGraph;
@@ -220,7 +218,7 @@ public class Automata {
 			Nodo actual;
 
 			String estiloVertex = "shape=ellipse;fillColor=white;strokeColor=black;fontColor=black;";
-			String estiloEdge = "strokeColor=black;fontColor=black;rounded=true;";
+			String estiloEdge = "strokeColor=black;fontColor=black;labelBackgroundColor=white;rounded=true;";
 
 			graph.getModel().beginUpdate();
 			try {
