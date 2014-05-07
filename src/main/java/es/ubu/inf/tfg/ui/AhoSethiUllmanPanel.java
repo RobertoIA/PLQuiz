@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import es.ubu.inf.tfg.doc.Documento;
+import es.ubu.inf.tfg.doc.Problema;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllmanGenerador;
 
@@ -41,7 +42,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 	private final JPanel contenedorPanel;
 	private final JPanel actualPanel = this;
 	private final Documento documento;
-	private AhoSethiUllman problemaActual = null;
+	private Problema<AhoSethiUllman> problemaActual = null;
 	private boolean generando = false;
 	private SwingWorker<AhoSethiUllman, Void> worker;
 
@@ -156,14 +157,15 @@ public class AhoSethiUllmanPanel extends JPanel {
 	}
 
 	void problema(AhoSethiUllman problema) {
+		Problema<AhoSethiUllman> asuProblema = Problema.ASU(problema);
 		if (problemaActual != null) {
-			if (!problema.problema().equals(problemaActual.problema()))
-				documento.sustituirProblema(problemaActual, problema);
+			if (!problema.equals(problemaActual))
+				documento.sustituirProblema(problemaActual, asuProblema);
 		} else {
-			documento.añadirProblema(problema);
+			documento.añadirProblema(asuProblema);
 		}
 
-		problemaActual = problema;
+		problemaActual = asuProblema;
 		expresionText.setText(problema.problema());
 	}
 
@@ -203,18 +205,20 @@ public class AhoSethiUllmanPanel extends JPanel {
 	private class BotonResolverActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			String expresion = expresionText.getText();
-
+			
 			if (expresion.length() > 0) {
 				if (problemaActual != null) {
-					if (!expresion.equals(problemaActual.problema())) {
+					if (!expresion.equals(problemaActual.getProblema().problema())) {
 						AhoSethiUllman problema = new AhoSethiUllman(expresion);
-						documento.sustituirProblema(problemaActual, problema);
-						problemaActual = problema;
+						Problema<AhoSethiUllman> asuProblema = Problema.ASU(problema);
+						documento.sustituirProblema(problemaActual, asuProblema);
+						problemaActual = asuProblema;
 					}
 				} else {
 					AhoSethiUllman problema = new AhoSethiUllman(expresion);
-					documento.añadirProblema(problema);
-					problemaActual = problema;
+					Problema<AhoSethiUllman> asuProblema = Problema.ASU(problema);
+					documento.añadirProblema(asuProblema);
+					problemaActual = asuProblema;
 				}
 				main.actualizaVistaPrevia();
 			}
@@ -251,15 +255,17 @@ public class AhoSethiUllmanPanel extends JPanel {
 		@Override
 		public void done() {
 			AhoSethiUllman problema = null;
+			Problema<AhoSethiUllman> asuProblema = null;
 			try {
 				problema = get();
+				asuProblema = Problema.ASU(problema);
 
 				if (problemaActual != null)
-					documento.sustituirProblema(problemaActual, problema);
+					documento.sustituirProblema(problemaActual, asuProblema);
 				else
-					documento.añadirProblema(problema);
+					documento.añadirProblema(asuProblema);
 
-				problemaActual = problema;
+				problemaActual = asuProblema;
 				expresionText.setText(problema.problema());
 				main.actualizaVistaPrevia();
 			} catch (InterruptedException | ExecutionException

@@ -35,7 +35,7 @@ public class Documento {
 
 	private static final Logger log = LoggerFactory.getLogger(Documento.class);
 
-	private List<Object> problemas;
+	private List<Problema<?>> problemas;
 
 	/**
 	 * Crea un nuevo documento vacío.
@@ -45,99 +45,54 @@ public class Documento {
 	}
 
 	/**
-	 * Añade un problema de tipo Aho-Sethi-Ullman al final del documento.
+	 * Añade un problema al documento.
 	 * 
 	 * @param problema
-	 *            Nuevo problema Aho-Sethi-Ullman.
+	 *            Nuevo problema.
 	 */
-	public void añadirProblema(AhoSethiUllman problema) {
-		log.info(
-				"Añadiendo problema de Aho-Sethi-Ullman al documento con expresión {}",
-				problema.problema());
+	public void añadirProblema(Problema<?> problema) {
+		log.info("Añadiendo problema de tipo {} al documento.",
+				problema.getTipo());
 		this.problemas.add(problema);
 	}
 
 	/**
-	 * Añade un problema de tipo construcción de subconjuntos al final del
-	 * documento.
+	 * Elimina un problema del documento.
 	 * 
 	 * @param problema
-	 *            Nuevo problema construcción de subconjuntos.
+	 *            Problema a eliminar.
 	 */
-	public void añadirProblema(ConstruccionSubconjuntos problema) {
-		log.info(
-				"Añadiendo problema de construcción de subconjuntos al documento con expresión {}",
-				problema.problema());
-		this.problemas.add(problema);
-	}
-
-	/**
-	 * Elimina un problema de tipo Aho-Sethi-Ullman del documento.
-	 * 
-	 * @param problema
-	 *            Problema Aho-Sethi-Ullman a eliminar.
-	 */
-	public void eliminarProblema(AhoSethiUllman problema) {
-		log.info(
-				"Eliminando problema de Aho-Sethi-Ullman del documento con expresión {}",
-				problema.problema());
+	public void eliminarProblema(Problema<?> problema) {
+		log.info("Eliminando problema de tipo {} del documento.",
+				problema.getTipo());
 		this.problemas.remove(problema);
 	}
 
 	/**
-	 * Elimina un problema de tipo construcción de subconjuntos del documento.
-	 * 
-	 * @param problema
-	 *            Problema construcción de subconjuntos a eliminar.
-	 */
-	public void eliminarProblema(ConstruccionSubconjuntos problema) {
-		log.info(
-				"Eliminando problema de construcción de subconjuntos del documento con expresión {}",
-				problema.problema());
-		this.problemas.remove(problema);
-	}
-
-	/**
-	 * Sustituye un problema de tipo Aho-Sethi-Ullman en el documento por otro
-	 * nuevo. Si el problema a sustituir no existe, añade el nuevo al final del
-	 * documento.
+	 * Sustituye un problema en el documento por otro nuevo. Si el problema a
+	 * sustituir no existe, añade el nuevo al documento.
 	 * 
 	 * @param anterior
-	 *            Problema Aho-Sethi-Ullman a sustituir.
+	 *            Problema a sustituir.
 	 * @param nuevo
-	 *            Problema Aho-Sethi-Ullman a añadir.
+	 *            Problema a añadir.
 	 */
-	public void sustituirProblema(AhoSethiUllman anterior, AhoSethiUllman nuevo) {
-		log.info(
-				"Sustituyendo en el documento problema de Aho-Sethi-Ullman {} por {}",
-				anterior.problema(), nuevo.problema());
+	public void sustituirProblema(Problema<?> anterior, Problema<?> nuevo) {
+		log.info("Sustituyendo problema de tipo {} en el documento.",
+				anterior.getTipo());
+
+		if (!anterior.getTipo().equals(nuevo.getTipo()))
+			throw new UnsupportedOperationException(
+					"No se puede sustituir un problema de tipo "
+							+ anterior.getTipo() + " por uno de tipo "
+							+ nuevo.getTipo());
+
 		int index = this.problemas.indexOf(anterior);
 		if (index >= 0)
 			this.problemas.set(index, nuevo);
 		else
 			añadirProblema(nuevo);
-	}
 
-	/**
-	 * Sustituye un problema de tipo construcción de subconjuntos en el
-	 * documento por otro nuevo. Si el problema a sustituir no existe, añade el
-	 * nuevo al final del documento.
-	 * 
-	 * @param anterior
-	 *            Problema construcción de subconjuntos a sustituir.
-	 * @param nuevo
-	 *            Problema construcción de subconjuntos a añadir.
-	 */
-	public void sustituirProblema(ConstruccionSubconjuntos anterior,
-			ConstruccionSubconjuntos nuevo) {
-		log.info(
-				"Sustituyendo en el documento problema de construcción de subconjuntos {} por {}",
-				anterior.problema(), nuevo.problema());
-		int index = this.problemas.indexOf(anterior);
-		if (index >= 0)
-			this.problemas.set(index, nuevo);
-		else
-			añadirProblema(nuevo);
 	}
 
 	/**

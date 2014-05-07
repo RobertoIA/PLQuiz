@@ -5,15 +5,19 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
@@ -28,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import es.ubu.inf.tfg.doc.Documento;
+import es.ubu.inf.tfg.doc.Problema;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntosGenerador;
 
@@ -41,7 +46,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 	private final JPanel contenedorPanel;
 	private final JPanel actualPanel = this;
 	private final Documento documento;
-	private ConstruccionSubconjuntos problemaActual = null;
+	private Problema<ConstruccionSubconjuntos> problemaActual = null;
 	private boolean generando = false;
 	private SwingWorker<ConstruccionSubconjuntos, Void> worker;
 
@@ -64,6 +69,10 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 	private JLabel estadosEstadoLabel;
 	private JPanel progresoPanel;
 	private JProgressBar progresoBar;
+	private JPanel modoPanel;
+	private JRadioButton modoExpresionButton;
+	private JRadioButton modoAutomataButton;
+	private final ButtonGroup modoGroup = new ButtonGroup();
 
 	public ConstruccionSubconjuntosPanel(Main main, JPanel contenedor,
 			Documento documento) {
@@ -91,6 +100,19 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		this.expresionPanel.add(this.expresionText);
 		this.expresionText.setColumns(40);
 
+		this.modoPanel = new JPanel();
+		add(this.modoPanel);
+
+		this.modoExpresionButton = new JRadioButton("Resolver expresi\u00F3n");
+		this.modoExpresionButton.setSelected(true);
+		modoGroup.add(this.modoExpresionButton);
+		this.modoPanel.add(this.modoExpresionButton);
+
+		this.modoAutomataButton = new JRadioButton("Resolver aut\u00F3mata");
+		this.modoAutomataButton.addItemListener(new ModoButtonChangeListener());
+		modoGroup.add(this.modoAutomataButton);
+		this.modoPanel.add(this.modoAutomataButton);
+
 		this.botonesPanel = new JPanel();
 		add(this.botonesPanel);
 
@@ -102,7 +124,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		this.resolverButton
 				.addActionListener(new BotonResolverActionListener());
 		this.botonesPanel.add(this.resolverButton);
-		
+
 		this.opcionesPanel = new JPanel();
 		add(this.opcionesPanel);
 		this.opcionesPanel.setLayout(new BoxLayout(this.opcionesPanel,
@@ -157,14 +179,17 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 	}
 
 	void problema(ConstruccionSubconjuntos problema) {
+		Problema<ConstruccionSubconjuntos> csProblema = modoExpresionButton
+				.isSelected() ? Problema.CSExpresion(problema) : Problema
+				.CSAutomata(problema);
 		if (problemaActual != null) {
-			if (!problema.problema().equals(problemaActual.problema()))
-				documento.sustituirProblema(problemaActual, problema);
+			if (!problema.equals(problemaActual))
+				documento.sustituirProblema(problemaActual, csProblema);
 		} else {
-			documento.añadirProblema(problema);
+			documento.añadirProblema(csProblema);
 		}
 
-		problemaActual = problema;
+		problemaActual = csProblema;
 		expresionText.setText(problema.problema());
 	}
 
@@ -207,20 +232,28 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 
 			if (expresion.length() > 0) {
 				if (problemaActual != null) {
-					if (!expresion.equals(problemaActual.problema())) {
+					if (!expresion.equals(problemaActual.getProblema()
+							.problema())) {
 						ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 								expresion);
-						documento.sustituirProblema(problemaActual, problema);
-						main.eliminaImagen(problemaActual.automata());
+						Problema<ConstruccionSubconjuntos> csProblema = modoExpresionButton
+								.isSelected() ? Problema.CSExpresion(problema)
+								: Problema.CSAutomata(problema);
+						documento.sustituirProblema(problemaActual, csProblema);
+						main.eliminaImagen(problemaActual.getProblema()
+								.automata());
 						main.añadeImagen(problema.automata());
-						problemaActual = problema;
+						problemaActual = csProblema;
 					}
 				} else {
 					ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 							expresion);
-					documento.añadirProblema(problema);
+					Problema<ConstruccionSubconjuntos> csProblema = modoExpresionButton
+							.isSelected() ? Problema.CSExpresion(problema)
+							: Problema.CSAutomata(problema);
+					documento.añadirProblema(csProblema);
 					main.añadeImagen(problema.automata());
-					problemaActual = problema;
+					problemaActual = csProblema;
 				}
 				main.actualizaVistaPrevia();
 			}
@@ -257,19 +290,22 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		@Override
 		public void done() {
 			ConstruccionSubconjuntos problema = null;
+			Problema<ConstruccionSubconjuntos> csProblema = null;
 			try {
 				problema = get();
+				csProblema = modoExpresionButton.isSelected() ? Problema
+						.CSExpresion(problema) : Problema.CSAutomata(problema);
 
 				if (problemaActual != null) {
-					main.eliminaImagen(problemaActual.automata());
+					main.eliminaImagen(problemaActual.getProblema().automata());
 					main.añadeImagen(problema.automata());
-					documento.sustituirProblema(problemaActual, problema);
+					documento.sustituirProblema(problemaActual, csProblema);
 				} else {
 					main.añadeImagen(problema.automata());
-					documento.añadirProblema(problema);
+					documento.añadirProblema(csProblema);
 				}
 
-				problemaActual = problema;
+				problemaActual = csProblema;
 				expresionText.setText(problema.problema());
 				main.actualizaVistaPrevia();
 			} catch (InterruptedException | ExecutionException
@@ -285,6 +321,16 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		public void cancel() {
 			log.info("Cancelando generación de problema ConstruccionSubconjuntos.");
 			generador.cancelar();
+		}
+	}
+
+	private class ModoButtonChangeListener implements ItemListener {
+		public void itemStateChanged(ItemEvent e) {
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				log.info("Seleccionado modo autómata en problema de construcción de subconjuntos.");
+			} else if (e.getStateChange() == ItemEvent.DESELECTED) {
+				log.info("Seleccionado modo expresión en problema de construcción de subconjuntos.");
+			}
 		}
 	}
 }
