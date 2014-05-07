@@ -1,5 +1,8 @@
 package es.ubu.inf.tfg.doc.datos;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,9 +11,12 @@ import java.util.Random;
 import java.util.Set;
 import java.util.TreeSet;
 
+import javax.imageio.ImageIO;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import sun.misc.BASE64Encoder;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
@@ -135,10 +141,17 @@ public class TraductorMoodleXML extends Traductor {
 				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {}",
 				problema.problema());
 
+		StringBuilder imagen = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 		StringBuilder eFinales = new StringBuilder();
 
 		String plantilla = formatoIntermedio(plantilla("plantillaCS.xml"));
+
+		// Imagen
+		imagen.append("]]></text><file name=\"" + problema.automata().hashCode()
+				+ ".jpg\" encoding=\"base64\">");
+		imagen.append(imageToBase64(problema.automata()));
+		imagen.append("</file><text><![CDATA[");
 
 		// Función de transición
 		fTrans.append("\n\t<tr>\n\t<th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
@@ -172,7 +185,8 @@ public class TraductorMoodleXML extends Traductor {
 		eFinales.append(opcionesFinales(finales, problema.estados()));
 
 		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				problema.problema(), fTrans.toString(), eFinales.toString());
+				problema.problema(), imagen.toString() + fTrans.toString(),
+				eFinales.toString());
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
@@ -379,5 +393,29 @@ public class TraductorMoodleXML extends Traductor {
 			setToString.append("Cjto. vacío");
 		}
 		return setToString.toString();
+	}
+
+	/**
+	 * Convierte una imagen en una cadena representando a la misma en base 64.
+	 * 
+	 * @param imagen
+	 *            Imagen a convertir.
+	 * @return Cadena en base 64 representando la imagen dada.
+	 */
+	private String imageToBase64(BufferedImage imagen) {
+		String imagenBase64 = "";
+
+		try (ByteArrayOutputStream output = new ByteArrayOutputStream();) {
+			ImageIO.write(imagen, "JPG", output);
+			byte[] imageBytes = output.toByteArray();
+
+			BASE64Encoder encoder = new BASE64Encoder();
+			imagenBase64 = encoder.encode(imageBytes);
+
+		} catch (IOException e) {
+			log.error("Error convirtiendo imagen a base 64", e);
+		}
+
+		return imagenBase64;
 	}
 }
