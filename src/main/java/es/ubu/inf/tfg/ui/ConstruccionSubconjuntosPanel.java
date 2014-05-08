@@ -331,7 +331,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 				log.info("Seleccionado modo autómata en problema de construcción de subconjuntos.");
 				if (problemaActual != null) {
 					ConstruccionSubconjuntos problema = problemaActual.getProblema();
-					Problema csProblema = Problema.CSAutomata(problema);
+					Problema<ConstruccionSubconjuntos> csProblema = Problema.CSAutomata(problema);
 					documento.sustituirProblema(problemaActual, csProblema);
 					problemaActual = csProblema;
 					main.actualizaVistaPrevia();
@@ -340,7 +340,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 				log.info("Seleccionado modo expresión en problema de construcción de subconjuntos.");
 				if (problemaActual != null) {
 					ConstruccionSubconjuntos problema = problemaActual.getProblema();
-					Problema csProblema = Problema.CSExpresion(problema);
+					Problema<ConstruccionSubconjuntos> csProblema = Problema.CSExpresion(problema);
 					documento.sustituirProblema(problemaActual, csProblema);
 					problemaActual = csProblema;
 					main.actualizaVistaPrevia();

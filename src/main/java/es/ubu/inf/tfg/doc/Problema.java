@@ -5,9 +5,11 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
 public class Problema<T> {
 	private enum Tipo {
-		AHOSETHIULLMAN, // Aho-Sethi-Ullman
-		CONJUNTOS_EXP, // Construcción de subconjuntos desde expresión regular
-		CONJUNTOS_AUT // Construcción de subconjuntos desde autómata
+		AHOSETHIULLMAN_COMPLETO, // Aho-Sethi-Ullman normal
+		AHOSETHIULLMAN_ARBOL, // Aho-Sethi-Ullman construcción de árbol
+		CONSTRUCCIONSUBCONJUNTOS_EXPRESION, // Subconjuntos desde expresión
+		CONSTRUCCIONSUBCONJUNTOS_AUTOMATA, // Subconjuntos desde autómata
+		THOMPSON // Thompson
 	}
 
 	private Tipo tipo;
@@ -17,23 +19,29 @@ public class Problema<T> {
 		this.problema = problema;
 	}
 
-	public static Problema<AhoSethiUllman> ASU(AhoSethiUllman problema) {
+	public static Problema<AhoSethiUllman> ASUCompleto(AhoSethiUllman problema) {
 		Problema<AhoSethiUllman> asuProblema = new Problema<>(problema);
-		asuProblema.tipo = Tipo.AHOSETHIULLMAN;
+		asuProblema.tipo = Tipo.AHOSETHIULLMAN_COMPLETO;
+		return asuProblema;
+	}
+
+	public static Problema<AhoSethiUllman> ASUArbol(AhoSethiUllman problema) {
+		Problema<AhoSethiUllman> asuProblema = new Problema<>(problema);
+		asuProblema.tipo = Tipo.AHOSETHIULLMAN_ARBOL;
 		return asuProblema;
 	}
 
 	public static Problema<ConstruccionSubconjuntos> CSExpresion(
 			ConstruccionSubconjuntos problema) {
 		Problema<ConstruccionSubconjuntos> csProblema = new Problema<>(problema);
-		csProblema.tipo = Tipo.CONJUNTOS_EXP;
+		csProblema.tipo = Tipo.CONSTRUCCIONSUBCONJUNTOS_EXPRESION;
 		return csProblema;
 	}
 
 	public static Problema<ConstruccionSubconjuntos> CSAutomata(
 			ConstruccionSubconjuntos problema) {
 		Problema<ConstruccionSubconjuntos> csProblema = new Problema<>(problema);
-		csProblema.tipo = Tipo.CONJUNTOS_AUT;
+		csProblema.tipo = Tipo.CONSTRUCCIONSUBCONJUNTOS_AUTOMATA;
 		return csProblema;
 	}
 
@@ -43,12 +51,16 @@ public class Problema<T> {
 
 	public String getTipo() {
 		switch (tipo) {
-		case AHOSETHIULLMAN:
-			return "AhoSethiUllman";
-		case CONJUNTOS_EXP:
+		case AHOSETHIULLMAN_COMPLETO:
+			return "AhoSethiUllmanCompleto";
+		case AHOSETHIULLMAN_ARBOL:
+			return "AhoSethiUllmanArbol";
+		case CONSTRUCCIONSUBCONJUNTOS_EXPRESION:
 			return "ConstruccionSubconjuntosExpresion";
-		case CONJUNTOS_AUT:
+		case CONSTRUCCIONSUBCONJUNTOS_AUTOMATA:
 			return "ConstruccionSubconjuntosAutomata";
+		case THOMPSON:
+			return "Thompson";
 		default:
 			throw new UnsupportedOperationException(
 					"Argumento tipo no soportado.");
@@ -70,17 +82,19 @@ public class Problema<T> {
 		String estaExpresion, otraExpresion;
 
 		switch (tipo) {
-		case AHOSETHIULLMAN:
+		case AHOSETHIULLMAN_COMPLETO:
+		case AHOSETHIULLMAN_ARBOL:
 			estaExpresion = ((AhoSethiUllman) problema).problema();
 			otraExpresion = ((Problema<AhoSethiUllman>) o).getProblema()
 					.problema();
 			return estaExpresion.equals(otraExpresion);
-		case CONJUNTOS_EXP:
-		case CONJUNTOS_AUT:
+		case CONSTRUCCIONSUBCONJUNTOS_EXPRESION:
+		case CONSTRUCCIONSUBCONJUNTOS_AUTOMATA:
 			estaExpresion = ((ConstruccionSubconjuntos) problema).problema();
 			otraExpresion = ((Problema<ConstruccionSubconjuntos>) o)
 					.getProblema().problema();
 			return estaExpresion.equals(otraExpresion);
+		case THOMPSON:
 		default:
 			return false;
 		}
