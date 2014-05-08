@@ -81,12 +81,6 @@ public class Documento {
 		log.info("Sustituyendo problema de tipo {} en el documento.",
 				anterior.getTipo());
 
-		if (!anterior.getTipo().equals(nuevo.getTipo()))
-			throw new UnsupportedOperationException(
-					"No se puede sustituir un problema de tipo "
-							+ anterior.getTipo() + " por uno de tipo "
-							+ nuevo.getTipo());
-
 		int index = this.problemas.indexOf(anterior);
 		if (index >= 0)
 			this.problemas.set(index, nuevo);
@@ -152,12 +146,27 @@ public class Documento {
 	private String traduce(Traductor traductor) {
 		List<String> problemas = new ArrayList<>();
 
-		for (Object problema : this.problemas) {
-			if (problema instanceof AhoSethiUllman)
-				problemas.add(traductor.traduce((AhoSethiUllman) problema));
-			else if (problema instanceof ConstruccionSubconjuntos)
-				problemas.add(traductor
-						.traduce((ConstruccionSubconjuntos) problema));
+		for (Problema<?> problema : this.problemas) {
+			switch (problema.getTipo()) {
+			case "AhoSethiUllman":
+				AhoSethiUllman asuProblema = (AhoSethiUllman) problema
+						.getProblema();
+				problemas.add(traductor.traduce(asuProblema));
+				break;
+			case "ConstruccionSubconjuntosExpresion":
+				ConstruccionSubconjuntos csProblemaExpresion = (ConstruccionSubconjuntos) problema
+						.getProblema();
+				problemas.add(traductor.traduceCS_Expresion(csProblemaExpresion));
+				break;
+			case "ConstruccionSubconjuntosAutomata":
+				ConstruccionSubconjuntos csProblemaAutomata = (ConstruccionSubconjuntos) problema
+						.getProblema();
+				problemas.add(traductor.traduceCS_Automata(csProblemaAutomata));
+				break;
+			default:
+				throw new UnsupportedOperationException(
+						"Argumento tipo no soportado.");
+			}
 		}
 
 		return traductor.documento(problemas);

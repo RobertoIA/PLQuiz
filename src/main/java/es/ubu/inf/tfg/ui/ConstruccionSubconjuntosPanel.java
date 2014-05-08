@@ -36,6 +36,7 @@ import es.ubu.inf.tfg.doc.Problema;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntosGenerador;
 
+// TODO añadir imagen solo en los formatos en que vaya a utilizarse
 public class ConstruccionSubconjuntosPanel extends JPanel {
 
 	private static final Logger log = LoggerFactory
@@ -328,8 +329,22 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		public void itemStateChanged(ItemEvent e) {
 			if (e.getStateChange() == ItemEvent.SELECTED) {
 				log.info("Seleccionado modo autómata en problema de construcción de subconjuntos.");
+				if (problemaActual != null) {
+					ConstruccionSubconjuntos problema = problemaActual.getProblema();
+					Problema csProblema = Problema.CSAutomata(problema);
+					documento.sustituirProblema(problemaActual, csProblema);
+					problemaActual = csProblema;
+					main.actualizaVistaPrevia();
+				}
 			} else if (e.getStateChange() == ItemEvent.DESELECTED) {
 				log.info("Seleccionado modo expresión en problema de construcción de subconjuntos.");
+				if (problemaActual != null) {
+					ConstruccionSubconjuntos problema = problemaActual.getProblema();
+					Problema csProblema = Problema.CSExpresion(problema);
+					documento.sustituirProblema(problemaActual, csProblema);
+					problemaActual = csProblema;
+					main.actualizaVistaPrevia();
+				}
 			}
 		}
 	}

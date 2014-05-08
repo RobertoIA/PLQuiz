@@ -53,6 +53,10 @@ public abstract class Traductor {
 	 */
 	public abstract String traduce(ConstruccionSubconjuntos problema);
 
+	public abstract String traduceASU(AhoSethiUllman problema);
+	public abstract String traduceCS_Expresion(ConstruccionSubconjuntos problema);
+	public abstract String traduceCS_Automata(ConstruccionSubconjuntos problema);
+	
 	/**
 	 * Carga el contenido de una plantilla y lo devuelve como cadena de
 	 * caracteres.

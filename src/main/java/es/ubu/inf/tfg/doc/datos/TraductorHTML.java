@@ -131,14 +131,9 @@ public class TraductorHTML extends Traductor {
 				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresion {}",
 				problema.problema());
 
-		String url = "http:\\" + problema.automata().hashCode() + ".jpg";
-		StringBuilder imagen = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 
 		String plantilla = formatoIntermedio(plantilla("plantillaCS.html"));
-
-		// Imagen
-		imagen.append("<p><img src=\"" + url + "\"></p>");
 
 		// Función de transición
 		fTrans.append("<table><tr><th></th>");
@@ -165,7 +160,38 @@ public class TraductorHTML extends Traductor {
 		fTrans.append("</table>");
 
 		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				problema.problema(), imagen.toString() + fTrans.toString());
+				problema.problema(), fTrans.toString());
+		plantilla = formatoFinal(plantilla);
+
+		return plantilla;
+	}
+
+	@Override
+	public String traduceASU(AhoSethiUllman problema) {
+		return traduce(problema);
+	}
+
+	@Override
+	public String traduceCS_Expresion(ConstruccionSubconjuntos problema) {
+		return traduce(problema);
+	}
+
+	@Override
+	public String traduceCS_Automata(ConstruccionSubconjuntos problema) {
+		log.info(
+				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresion {}",
+				problema.problema());
+
+		String url = "http:\\" + problema.automata().hashCode() + ".jpg";
+		StringBuilder imagen = new StringBuilder();
+
+		String plantilla = formatoIntermedio(plantilla("plantillaCS.html"));
+
+		// Imagen
+		imagen.append("<p><img src=\"" + url + "\"></p>");
+
+		plantilla = MessageFormat.format(plantilla, "<%0%>",
+				problema.problema(), imagen.toString());
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
