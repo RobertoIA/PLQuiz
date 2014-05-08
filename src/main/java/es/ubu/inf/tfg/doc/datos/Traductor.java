@@ -21,7 +21,7 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
  * 
  */
 public abstract class Traductor {
-	
+
 	private static final Logger log = LoggerFactory.getLogger(Traductor.class);
 
 	/**
@@ -35,28 +35,45 @@ public abstract class Traductor {
 	public abstract String documento(List<String> problemas);
 
 	/**
-	 * Traduce un problema de tipo AhoSethiUllman a un formato concreto.
+	 * Traduce un problema de tipo AhoSethiUllman subtipo completo a un formato
+	 * concreto.
 	 * 
 	 * @param problema
 	 *            Problema AhoSethiUllman.
 	 * @return Problema traducido.
 	 */
-	public abstract String traduce(AhoSethiUllman problema);
+	public abstract String traduceASUCompleto(AhoSethiUllman problema);
 
 	/**
-	 * Traduce un problema de tipo construcción de subconjuntos a un formato
+	 * Traduce un problema de tipo AhoSethiUllman subtipo árbol a un formato
 	 * concreto.
+	 * 
+	 * @param problema
+	 *            Problema AhoSethiUllman.
+	 * @return Problema traducido.
+	 */
+	public abstract String traduceASUArbol(AhoSethiUllman problema);
+
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos subtipo
+	 * expresión a un formato concreto.
 	 * 
 	 * @param problema
 	 *            Problema construcción de subconjuntos.
 	 * @return Problema traducido.
 	 */
-	public abstract String traduce(ConstruccionSubconjuntos problema);
+	public abstract String traduceCSExpresion(ConstruccionSubconjuntos problema);
 
-	public abstract String traduceASU(AhoSethiUllman problema);
-	public abstract String traduceCS_Expresion(ConstruccionSubconjuntos problema);
-	public abstract String traduceCS_Automata(ConstruccionSubconjuntos problema);
-	
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos subtipo autómata
+	 * a un formato concreto.
+	 * 
+	 * @param problema
+	 *            Problema construcción de subconjuntos.
+	 * @return Problema traducido.
+	 */
+	public abstract String traduceCSAutomata(ConstruccionSubconjuntos problema);
+
 	/**
 	 * Carga el contenido de una plantilla y lo devuelve como cadena de
 	 * caracteres.

@@ -1,5 +1,6 @@
 package es.ubu.inf.tfg.doc;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -8,6 +9,8 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.imageio.ImageIO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -132,7 +135,18 @@ public class Documento {
 		if (!ruta.toLowerCase().endsWith(".tex"))
 			ruta += ".tex";
 
+		List<BufferedImage> imagenes = new ArrayList<>();
+		;
+		for (Problema<?> problema : problemas) {
+			if (problema.getTipo().equals("ConstruccionSubconjuntosAutomata")) {
+				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
+						.getProblema();
+				imagenes.add(p.automata());
+			}
+		}
+
 		guardar(ruta, traduce(new TraductorLatex()));
+		guardar(ruta, imagenes);
 	}
 
 	/**
@@ -148,20 +162,22 @@ public class Documento {
 
 		for (Problema<?> problema : this.problemas) {
 			switch (problema.getTipo()) {
-			case "AhoSethiUllman":
+			case "AhoSethiUllmanArbol": // TODO
+			case "AhoSethiUllmanCompleto":
 				AhoSethiUllman asuProblema = (AhoSethiUllman) problema
 						.getProblema();
-				problemas.add(traductor.traduce(asuProblema));
+				problemas.add(traductor.traduceASUCompleto(asuProblema));
 				break;
 			case "ConstruccionSubconjuntosExpresion":
 				ConstruccionSubconjuntos csProblemaExpresion = (ConstruccionSubconjuntos) problema
 						.getProblema();
-				problemas.add(traductor.traduceCS_Expresion(csProblemaExpresion));
+				problemas
+						.add(traductor.traduceCSExpresion(csProblemaExpresion));
 				break;
 			case "ConstruccionSubconjuntosAutomata":
 				ConstruccionSubconjuntos csProblemaAutomata = (ConstruccionSubconjuntos) problema
 						.getProblema();
-				problemas.add(traductor.traduceCS_Automata(csProblemaAutomata));
+				problemas.add(traductor.traduceCSAutomata(csProblemaAutomata));
 				break;
 			default:
 				throw new UnsupportedOperationException(
@@ -187,5 +203,30 @@ public class Documento {
 				new FileOutputStream(ruta), "UTF8"))) {
 			writer.write(documento);
 		}
+	}
+
+	/**
+	 * Crea o sobreescribe una serie de imagenes en la ruta dada.
+	 * 
+	 * @param ruta
+	 *            Ruta en la que guardar las imágenes.
+	 * @param imagenes
+	 *            Imagenes que guardar en disco.
+	 */
+	private void guardar(String ruta, List<BufferedImage> imagenes) {
+		log.info("Guardando {} imagenes", imagenes.size());
+
+		try {
+			File parent = new File(ruta);
+			for (BufferedImage imagen : imagenes) {
+				String nombre = imagen.hashCode() + ".jpg";
+				File salida = new File(parent.getParent() + File.separator
+						+ nombre);
+				ImageIO.write(imagen, "jpg", salida);
+			}
+		} catch (IOException e) {
+			log.error("Encontrado error durante el guardado de imágenes");
+		}
+
 	}
 }

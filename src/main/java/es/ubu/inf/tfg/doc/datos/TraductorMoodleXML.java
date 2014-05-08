@@ -60,16 +60,18 @@ public class TraductorMoodleXML extends Traductor {
 	}
 
 	/**
-	 * Traduce un problema de tipo AhoSethiUllman a formato Moodle XML.
+	 * Traduce un problema de tipo AhoSethiUllman subtipo completo a formato
+	 * Moodle XML.
 	 * 
 	 * @param problema
 	 *            Problema AhoSethiUllman.
 	 * @return Problema traducido a Moodle XML.
 	 */
+
 	@Override
-	public String traduce(AhoSethiUllman problema) {
+	public String traduceASUCompleto(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}",
+				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato completo",
 				problema.problema());
 
 		StringBuilder stePos = new StringBuilder();
@@ -128,30 +130,41 @@ public class TraductorMoodleXML extends Traductor {
 	}
 
 	/**
-	 * Traduce un problema de tipo construcción de subconjuntos a formato Moodle
+	 * Traduce un problema de tipo AhoSethiUllman subtipo árbol a formato Moodle
 	 * XML.
+	 * 
+	 * @param problema
+	 *            Problema AhoSethiUllman.
+	 * @return Problema traducido a Moodle XML.
+	 */
+
+	@Override
+	public String traduceASUArbol(AhoSethiUllman problema) {
+		log.info(
+				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato árbol",
+				problema.problema());
+
+		return traduceASUCompleto(problema); // TODO
+	}
+
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos subtipo
+	 * expresión a formato Moodle XML.
 	 * 
 	 * @param problema
 	 *            Problema de construcción de subconjuntos.
 	 * @return Problema traducido a Moodle XML.
 	 */
 	@Override
-	public String traduce(ConstruccionSubconjuntos problema) {
+	public String traduceCSExpresion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {}",
+				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {, formato expresión}",
 				problema.problema());
 
-		StringBuilder imagen = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 		StringBuilder eFinales = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaCS.xml"));
-
-		// Imagen
-		imagen.append("]]></text><file name=\"" + problema.automata().hashCode()
-				+ ".jpg\" encoding=\"base64\">");
-		imagen.append(imageToBase64(problema.automata()));
-		imagen.append("</file><text><![CDATA[");
+		String plantilla = formatoIntermedio(plantilla("plantillaCSExpresion.xml"));
 
 		// Función de transición
 		fTrans.append("\n\t<tr>\n\t<th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
@@ -185,8 +198,65 @@ public class TraductorMoodleXML extends Traductor {
 		eFinales.append(opcionesFinales(finales, problema.estados()));
 
 		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				problema.problema(), imagen.toString() + fTrans.toString(),
-				eFinales.toString());
+				problema.problema(), fTrans.toString(), eFinales.toString());
+		plantilla = formatoFinal(plantilla);
+
+		return plantilla;
+	}
+
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos subtipo autómata
+	 * a formato Moodle XML.
+	 * 
+	 * @param problema
+	 *            Problema de construcción de subconjuntos.
+	 * @return Problema traducido a Moodle XML.
+	 */
+	@Override
+	public String traduceCSAutomata(ConstruccionSubconjuntos problema) {
+		log.info(
+				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {}, formato autómata",
+				problema.problema());
+
+		String url = problema.automata().hashCode() + ".jpg";
+		StringBuilder fTrans = new StringBuilder();
+		StringBuilder eFinales = new StringBuilder();
+
+		String plantilla = formatoIntermedio(plantilla("plantillaCSAutomata.xml"));
+
+		// Función de transición
+		fTrans.append("\n\t<tr>\n\t<th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
+		for (char simbolo : problema.simbolos())
+			if (simbolo != '$')
+				fTrans.append("\n\t<th scope=\"col\">" + simbolo + "</th>");
+		fTrans.append("\n\t<th scope=\"col\"> </th>\n\t</tr>");
+
+		for (char estado : problema.estados()) {
+			fTrans.append("\n\t<tr>\n\t<td>" + estado + "</td>");
+			for (char simbolo : problema.simbolos()) {
+				if (simbolo != '$') {
+					fTrans.append("\n\t<td>");
+					fTrans.append(opcionesTransicion(
+							problema.mueve(estado, simbolo), problema.estados()));
+					fTrans.append("</td>");
+				}
+			}
+			fTrans.append("\n\t<td>");
+			fTrans.append(opcionesPosiciones(problema.posiciones(estado),
+					problema.posiciones()));
+			fTrans.append("</td>\n\t</tr>");
+		}
+
+		// Estados finales
+		Set<Character> finales = new TreeSet<>();
+		for (char estado : problema.estados()) {
+			if (problema.esFinal(estado))
+				finales.add(estado);
+		}
+		eFinales.append(opcionesFinales(finales, problema.estados()));
+
+		plantilla = MessageFormat.format(plantilla, "<%0%>", url, fTrans.toString(),
+				eFinales.toString(), imageToBase64(problema.automata()));
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
@@ -417,20 +487,5 @@ public class TraductorMoodleXML extends Traductor {
 		}
 
 		return imagenBase64;
-	}
-
-	@Override
-	public String traduceASU(AhoSethiUllman problema) {
-		return traduce(problema);
-	}
-
-	@Override
-	public String traduceCS_Expresion(ConstruccionSubconjuntos problema) {
-		return traduce(problema);
-	}
-
-	@Override
-	public String traduceCS_Automata(ConstruccionSubconjuntos problema) {
-		return traduce(problema);
 	}
 }

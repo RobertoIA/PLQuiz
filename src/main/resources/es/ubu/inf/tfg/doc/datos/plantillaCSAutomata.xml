@@ -1,0 +1,36 @@
+	<!-- question: <%0%>  -->
+	<question type="cloze">
+		<name>
+			<text>PLQuiz: Construcción de subconjuntos</text>
+		</name>
+		<questiontext>
+			<text><![CDATA[
+				<p>Completa la tabla de función de transición para el AFD que se obtendría de aplicar el método de construcción de subconjuntos al AFND de la figura
+					<img src="@@PLUGINFILE@@/<%1%>.png" alt="" /></p>
+
+				<table border="1" cellspacing="0" align="left">
+				<tbody>
+				<%2%>
+				</tbody>
+				</table>
+
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+
+				<p>Los estados finales son: <%3%></p>
+			]]></text>
+			<file name="<%1%>.png" encoding="base64"><%4%></file> 
+		</questiontext>
+		<generalfeedback>
+			<text></text>
+		</generalfeedback>
+		<shuffleanswers>0</shuffleanswers>
+	</question>
