@@ -184,4 +184,19 @@ public class TraductorLatex extends Traductor {
 		return plantilla;
 	}
 
+	@Override
+	public String traduceASU(AhoSethiUllman problema) {
+		return traduce(problema);
+	}
+
+	@Override
+	public String traduceCS_Expresion(ConstruccionSubconjuntos problema) {
+		return traduce(problema);
+	}
+
+	@Override
+	public String traduceCS_Automata(ConstruccionSubconjuntos problema) {
+		return traduce(problema);
+	}
+
 }
