@@ -48,16 +48,17 @@ public class TraductorHTML extends Traductor {
 	}
 
 	/**
-	 * Traduce un problema de tipo AhoSethiUllman a formato HTML.
+	 * Traduce un problema de tipo AhoSethiUllman subtipo completo a formato
+	 * HTML.
 	 * 
 	 * @param problema
 	 *            Problema AhoSethiUllman.
 	 * @return Problema traducido a HTML.
 	 */
 	@Override
-	public String traduce(AhoSethiUllman problema) {
+	public String traduceASUCompleto(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}",
+				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato completo",
 				problema.problema());
 
 		StringBuilder stePos = new StringBuilder();
@@ -119,21 +120,38 @@ public class TraductorHTML extends Traductor {
 	}
 
 	/**
-	 * Traduce un problema de tipo construcción de subconjuntos a formato HTML.
+	 * Traduce un problema de tipo AhoSethiUllman subtipo árbol a formato HTML.
+	 * 
+	 * @param problema
+	 *            Problema AhoSethiUllman.
+	 * @return Problema traducido a HTML.
+	 */
+	@Override
+	public String traduceASUArbol(AhoSethiUllman problema) {
+		log.info(
+				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato árbol",
+				problema.problema());
+
+		return traduceASUCompleto(problema); // TODO
+	}
+
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos subtipo
+	 * expresión a formato HTML.
 	 * 
 	 * @param problema
 	 *            Problema de construcción de subconjuntos.
 	 * @return Problema traducido a HTML.
 	 */
 	@Override
-	public String traduce(ConstruccionSubconjuntos problema) {
+	public String traduceCSExpresion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresion {}",
+				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresion {}, formato expresión",
 				problema.problema());
 
 		StringBuilder fTrans = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaCS.html"));
+		String plantilla = formatoIntermedio(plantilla("plantillaCSExpresion.html"));
 
 		// Función de transición
 		fTrans.append("<table><tr><th></th>");
@@ -166,57 +184,51 @@ public class TraductorHTML extends Traductor {
 		return plantilla;
 	}
 
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos subtipo
+	 * expresión a formato HTML.
+	 * 
+	 * @param problema
+	 *            Problema de construcción de subconjuntos.
+	 * @return Problema traducido a HTML.
+	 */
 	@Override
-	public String traduceASU(AhoSethiUllman problema) {
-		return traduce(problema);
-	}
-
-	@Override
-	public String traduceCS_Expresion(ConstruccionSubconjuntos problema) {
-		return traduce(problema);
-	}
-
-	@Override
-	public String traduceCS_Automata(ConstruccionSubconjuntos problema) {
+	public String traduceCSAutomata(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresion {}",
+				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresion {}, formato autómata",
 				problema.problema());
 
 		String url = "http:\\" + problema.automata().hashCode() + ".jpg";
-		StringBuilder imagen = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaCS.html"));
+		String plantilla = formatoIntermedio(plantilla("plantillaCSAutomata.html"));
 
-		// Imagen
-		imagen.append("<p><img src=\"" + url + "\"></p>");
-		
 		// Función de transición
-				fTrans.append("<table><tr><th></th>");
-				for (char simbolo : problema.simbolos())
-					if (simbolo != '$')
-						fTrans.append("<th>" + simbolo + "</th>");
-				fTrans.append("<th></th></tr>");
+		fTrans.append("<table><tr><th></th>");
+		for (char simbolo : problema.simbolos())
+			if (simbolo != '$')
+				fTrans.append("<th>" + simbolo + "</th>");
+		fTrans.append("<th></th></tr>");
 
-				for (char estado : problema.estados()) {
-					if (problema.esFinal(estado))
-						fTrans.append("<tr><td>(" + estado + ")</td>");
-					else
-						fTrans.append("<tr><td>" + estado + "</td>");
-					for (char simbolo : problema.simbolos()) {
-						if (simbolo != '$')
-							fTrans.append("<td>" + problema.mueve(estado, simbolo)
-									+ "</td>");
-					}
-					fTrans.append("<td>");
-					for (int posicion : problema.posiciones(estado))
-						fTrans.append(posicion + " ");
-					fTrans.append("</td></tr>");
-				}
-				fTrans.append("</table>");
+		for (char estado : problema.estados()) {
+			if (problema.esFinal(estado))
+				fTrans.append("<tr><td>(" + estado + ")</td>");
+			else
+				fTrans.append("<tr><td>" + estado + "</td>");
+			for (char simbolo : problema.simbolos()) {
+				if (simbolo != '$')
+					fTrans.append("<td>" + problema.mueve(estado, simbolo)
+							+ "</td>");
+			}
+			fTrans.append("<td>");
+			for (int posicion : problema.posiciones(estado))
+				fTrans.append(posicion + " ");
+			fTrans.append("</td></tr>");
+		}
+		fTrans.append("</table>");
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				imagen.toString(), fTrans.toString());
+		plantilla = MessageFormat.format(plantilla, "<%0%>", url,
+				fTrans.toString());
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;

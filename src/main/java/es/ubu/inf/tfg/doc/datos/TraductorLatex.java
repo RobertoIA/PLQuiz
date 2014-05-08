@@ -19,7 +19,7 @@ public class TraductorLatex extends Traductor {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(TraductorLatex.class);
-	
+
 	/**
 	 * Genera un documento Latex a partir de una lista de problemas ya
 	 * traducidos.
@@ -32,7 +32,7 @@ public class TraductorLatex extends Traductor {
 	public String documento(List<String> problemas) {
 		log.info("Generando documento Latex a partir de {} problemas.",
 				problemas.size());
-		
+
 		StringBuilder documento = new StringBuilder();
 
 		int n = 1;
@@ -48,18 +48,19 @@ public class TraductorLatex extends Traductor {
 	}
 
 	/**
-	 * Traduce un problema de tipo AhoSethiUllman a formato Latex.
+	 * Traduce un problema de tipo AhoSethiUllman subtipo completo a formato
+	 * Latex.
 	 * 
 	 * @param problema
 	 *            Problema AhoSethiUllman.
 	 * @return Problema traducido a Latex.
 	 */
 	@Override
-	public String traduce(AhoSethiUllman problema) {
+	public String traduceASUCompleto(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresion {}",
+				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresion {}, formato completo",
 				problema.problema());
-		
+
 		StringBuilder stePos = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 
@@ -102,15 +103,14 @@ public class TraductorLatex extends Traductor {
 				fTrans.append(estado + " & ");
 			for (char simbolo : problema.simbolos()) {
 				if (simbolo != '$')
-					fTrans.append(problema.mueve(estado, simbolo)
-							+ " & ");
+					fTrans.append(problema.mueve(estado, simbolo) + " & ");
 			}
 			for (int posicion : problema.estado(estado))
 				fTrans.append(posicion + " ");
 			fTrans.append("\\\\ \\hline\n");
 		}
 		fTrans.append("\\end{tabular}");
-		
+
 		String expresion = problema.problema();
 		expresion = expresion.replace("|", "\\textbar ");
 		expresion = expresion.replace("\u2027", "·");
@@ -119,29 +119,46 @@ public class TraductorLatex extends Traductor {
 		expresionAumentada = expresionAumentada.replace("$", "\\$");
 		expresionAumentada = expresionAumentada.replace("|", "\\textbar ");
 		expresionAumentada = expresionAumentada.replace("\u2027", "·");
-		expresionAumentada = expresionAumentada.replace("\u03B5", "$\\epsilon$");
+		expresionAumentada = expresionAumentada
+				.replace("\u03B5", "$\\epsilon$");
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				expresion, expresionAumentada,
-				stePos.toString(), fTrans.toString());
+		plantilla = MessageFormat.format(plantilla, "<%0%>", expresion,
+				expresionAumentada, stePos.toString(), fTrans.toString());
 		plantilla = formatoFinal(plantilla);
-		
+
 		return plantilla;
 	}
 
 	/**
-	 * Traduce un problema de tipo construcción de subconjuntos a formato Latex.
+	 * Traduce un problema de tipo AhoSethiUllman subtipo árbol a formato Latex.
+	 * 
+	 * @param problema
+	 *            Problema AhoSethiUllman.
+	 * @return Problema traducido a Latex.
+	 */
+	@Override
+	public String traduceASUArbol(AhoSethiUllman problema) {
+		log.info(
+				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresion {}, formato árbol",
+				problema.problema());
+
+		return traduceASUCompleto(problema); // TODO
+	}
+
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos subtipo
+	 * expresión a formato Latex.
 	 * 
 	 * @param problema
 	 *            Problema de construcción de subconjuntos.
 	 * @return Problema traducido a Latex.
 	 */
 	@Override
-	public String traduce(ConstruccionSubconjuntos problema) {
+	public String traduceCSExpresion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresion {}",
+				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresion {}, formato expresión",
 				problema.problema());
-		
+
 		StringBuilder fTrans = new StringBuilder();
 
 		String plantilla = formatoIntermedio(plantilla("plantillaCS.tex"));
@@ -164,39 +181,41 @@ public class TraductorLatex extends Traductor {
 				fTrans.append(estado + " & ");
 			for (char simbolo : problema.simbolos()) {
 				if (simbolo != '$')
-					fTrans.append(problema.mueve(estado, simbolo)
-							+ " & ");
+					fTrans.append(problema.mueve(estado, simbolo) + " & ");
 			}
 			for (int posicion : problema.posiciones(estado))
 				fTrans.append(posicion + " ");
 			fTrans.append("\\\\ \\hline\n");
 		}
 		fTrans.append("\\end{tabular}");
-		
+
 		String expresion = problema.problema();
 		expresion = expresion.replace("|", "\\textbar ");
 		expresion = expresion.replace("\u2027", "·");
 		expresion = expresion.replace("\u03B5", "$\\epsilon$");
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>", expresion, fTrans.toString());
+		plantilla = MessageFormat.format(plantilla, "<%0%>", expresion,
+				fTrans.toString());
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
 	}
 
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos subtipo autómata
+	 * a formato Latex.
+	 * 
+	 * @param problema
+	 *            Problema de construcción de subconjuntos.
+	 * @return Problema traducido a Latex.
+	 */
 	@Override
-	public String traduceASU(AhoSethiUllman problema) {
-		return traduce(problema);
-	}
+	public String traduceCSAutomata(ConstruccionSubconjuntos problema) {
+		log.info(
+				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresion {}, formato autómata",
+				problema.problema());
 
-	@Override
-	public String traduceCS_Expresion(ConstruccionSubconjuntos problema) {
-		return traduce(problema);
-	}
-
-	@Override
-	public String traduceCS_Automata(ConstruccionSubconjuntos problema) {
-		return traduce(problema);
+		return traduceCSExpresion(problema);
 	}
 
 }

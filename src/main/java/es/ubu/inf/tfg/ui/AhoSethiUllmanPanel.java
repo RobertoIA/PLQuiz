@@ -157,7 +157,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 	}
 
 	void problema(AhoSethiUllman problema) {
-		Problema<AhoSethiUllman> asuProblema = Problema.ASU(problema);
+		Problema<AhoSethiUllman> asuProblema = Problema.ASUCompleto(problema);
 		if (problemaActual != null) {
 			if (!problema.equals(problemaActual))
 				documento.sustituirProblema(problemaActual, asuProblema);
@@ -205,18 +205,22 @@ public class AhoSethiUllmanPanel extends JPanel {
 	private class BotonResolverActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			String expresion = expresionText.getText();
-			
+
 			if (expresion.length() > 0) {
 				if (problemaActual != null) {
-					if (!expresion.equals(problemaActual.getProblema().problema())) {
+					if (!expresion.equals(problemaActual.getProblema()
+							.problema())) {
 						AhoSethiUllman problema = new AhoSethiUllman(expresion);
-						Problema<AhoSethiUllman> asuProblema = Problema.ASU(problema);
-						documento.sustituirProblema(problemaActual, asuProblema);
+						Problema<AhoSethiUllman> asuProblema = Problema
+								.ASUCompleto(problema);
+						documento
+								.sustituirProblema(problemaActual, asuProblema);
 						problemaActual = asuProblema;
 					}
 				} else {
 					AhoSethiUllman problema = new AhoSethiUllman(expresion);
-					Problema<AhoSethiUllman> asuProblema = Problema.ASU(problema);
+					Problema<AhoSethiUllman> asuProblema = Problema
+							.ASUCompleto(problema);
 					documento.añadirProblema(asuProblema);
 					problemaActual = asuProblema;
 				}
@@ -258,7 +262,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 			Problema<AhoSethiUllman> asuProblema = null;
 			try {
 				problema = get();
-				asuProblema = Problema.ASU(problema);
+				asuProblema = Problema.ASUCompleto(problema);
 
 				if (problemaActual != null)
 					documento.sustituirProblema(problemaActual, asuProblema);
