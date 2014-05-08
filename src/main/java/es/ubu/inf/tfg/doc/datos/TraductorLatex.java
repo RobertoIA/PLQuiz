@@ -161,7 +161,7 @@ public class TraductorLatex extends Traductor {
 
 		StringBuilder fTrans = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaCS.tex"));
+		String plantilla = formatoIntermedio(plantilla("plantillaCSExpresion.tex"));
 
 		// Función de transición
 		fTrans.append("\\begin{tabular} {| c | ");
@@ -215,7 +215,47 @@ public class TraductorLatex extends Traductor {
 				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresion {}, formato autómata",
 				problema.problema());
 
-		return traduceCSExpresion(problema);
+		String imagen = "" + problema.automata().hashCode();
+		StringBuilder fTrans = new StringBuilder();
+
+		String plantilla = formatoIntermedio(plantilla("plantillaCSAutomata.tex"));
+
+		// Función de transición
+		fTrans.append("\\begin{tabular} {| c | ");
+		for (char simbolo : problema.simbolos())
+			if (simbolo != '$')
+				fTrans.append("c |");
+		fTrans.append(" l |}\n\\hline \n& ");
+		for (char simbolo : problema.simbolos())
+			if (simbolo != '$')
+				fTrans.append(simbolo + " & ");
+		fTrans.append("\\\\ \\hline\n");
+
+		for (char estado : problema.estados()) {
+			if (problema.esFinal(estado))
+				fTrans.append("(" + estado + ") & ");
+			else
+				fTrans.append(estado + " & ");
+			for (char simbolo : problema.simbolos()) {
+				if (simbolo != '$')
+					fTrans.append(problema.mueve(estado, simbolo) + " & ");
+			}
+			for (int posicion : problema.posiciones(estado))
+				fTrans.append(posicion + " ");
+			fTrans.append("\\\\ \\hline\n");
+		}
+		fTrans.append("\\end{tabular}");
+
+		String expresion = problema.problema();
+		expresion = expresion.replace("|", "\\textbar ");
+		expresion = expresion.replace("\u2027", "·");
+		expresion = expresion.replace("\u03B5", "$\\epsilon$");
+
+		plantilla = MessageFormat.format(plantilla, "<%0%>", imagen,
+				fTrans.toString());
+		plantilla = formatoFinal(plantilla);
+
+		return plantilla;
 	}
 
 }
