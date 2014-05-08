@@ -184,14 +184,39 @@ public class TraductorHTML extends Traductor {
 
 		String url = "http:\\" + problema.automata().hashCode() + ".jpg";
 		StringBuilder imagen = new StringBuilder();
+		StringBuilder fTrans = new StringBuilder();
 
 		String plantilla = formatoIntermedio(plantilla("plantillaCS.html"));
 
 		// Imagen
 		imagen.append("<p><img src=\"" + url + "\"></p>");
+		
+		// Función de transición
+				fTrans.append("<table><tr><th></th>");
+				for (char simbolo : problema.simbolos())
+					if (simbolo != '$')
+						fTrans.append("<th>" + simbolo + "</th>");
+				fTrans.append("<th></th></tr>");
+
+				for (char estado : problema.estados()) {
+					if (problema.esFinal(estado))
+						fTrans.append("<tr><td>(" + estado + ")</td>");
+					else
+						fTrans.append("<tr><td>" + estado + "</td>");
+					for (char simbolo : problema.simbolos()) {
+						if (simbolo != '$')
+							fTrans.append("<td>" + problema.mueve(estado, simbolo)
+									+ "</td>");
+					}
+					fTrans.append("<td>");
+					for (int posicion : problema.posiciones(estado))
+						fTrans.append(posicion + " ");
+					fTrans.append("</td></tr>");
+				}
+				fTrans.append("</table>");
 
 		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				problema.problema(), imagen.toString());
+				imagen.toString(), fTrans.toString());
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
