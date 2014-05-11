@@ -87,11 +87,6 @@ public class DocumentoTest {
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-
 		assertEquals("Exportación de documento XML vacío erronea.", esperado,
 				encontrado);
 
@@ -138,9 +133,7 @@ public class DocumentoTest {
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
@@ -204,9 +197,7 @@ public class DocumentoTest {
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
@@ -270,9 +261,7 @@ public class DocumentoTest {
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
@@ -335,9 +324,7 @@ public class DocumentoTest {
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
@@ -389,9 +376,7 @@ public class DocumentoTest {
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
@@ -443,9 +428,7 @@ public class DocumentoTest {
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
@@ -484,11 +467,10 @@ public class DocumentoTest {
 		// Vista previa
 		esperado = toString("añadirCSAutomata.html");
 		encontrado = documento.vistaPrevia();
-		
-		esperado = esperado.replaceAll("<img src=\".*\">",
-				"<img src=\"\">");
-		encontrado = encontrado.replaceAll("<img src=\".*\">",
-				"<img src=\"\">");
+
+		esperado = esperado.replaceAll("<img src=\".*\">", "<img src=\"\">");
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
 
 		assertEquals(
 				"Añadido erróneo de problemas de construcción de subconjuntos subtipo automata a vista previa.",
@@ -501,18 +483,13 @@ public class DocumentoTest {
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		esperado = esperado.replaceAll("<img src=\"@@PLUGINFILE@@/.*.jpg\" alt=\"\" />",
-				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
-		esperado = esperado.replaceAll("<file name=[^<]*</file>",
-				"<file name=</file>");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("<img src=\"@@PLUGINFILE@@/.*.jpg\" alt=\"\" />",
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
 				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
 		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
 				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
 
 		assertEquals(
 				"Añadido erróneo de problemas de construcción de subconjuntos subtipo automata a documento XML exportado.",
@@ -524,12 +501,9 @@ public class DocumentoTest {
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
-		esperado = esperado.replaceAll("\\{.*.jpg\\}",
-				"{.jpg}");
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}",
-				"{.jpg}");
-		
+
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+
 		assertEquals(
 				"Añadido erróneo de problemas de construcción de subconjuntos subtipo automata a documento Latex exportado.",
 				esperado, encontrado);
@@ -557,11 +531,9 @@ public class DocumentoTest {
 
 		esperado = toString("eliminarCSAutomata.html");
 		encontrado = documento.vistaPrevia();
-		
-		esperado = esperado.replaceAll("<img src=\".*\">",
-				"<img src=\"\">");
-		encontrado = encontrado.replaceAll("<img src=\".*\">",
-				"<img src=\"\">");
+
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
 
 		assertEquals(
 				"Borrado erróneo de problemas de construcción de subconjuntos subtipo automata en vista previa.",
@@ -574,18 +546,13 @@ public class DocumentoTest {
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		esperado = esperado.replaceAll("<img src=\"@@PLUGINFILE@@/.*.jpg\" alt=\"\" />",
-				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
-		esperado = esperado.replaceAll("<file name=[^<]*</file>",
-				"<file name=</file>");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("<img src=\"@@PLUGINFILE@@/.*.jpg\" alt=\"\" />",
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
 				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
 		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
 				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
 
 		assertEquals(
 				"Borrado erróneo de problemas de construcción de subconjuntos subtipo automata en documento XML exportado.",
@@ -597,11 +564,8 @@ public class DocumentoTest {
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
-		esperado = esperado.replaceAll("\\{.*.jpg\\}",
-				"{.jpg}");
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}",
-				"{.jpg}");
+
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
 		assertEquals(
 				"Borrado erróneo de problemas de construcción de subconjuntos subtipo automata en documento XML exportado.",
 				esperado, encontrado);
@@ -629,11 +593,9 @@ public class DocumentoTest {
 
 		esperado = toString("sustituirCSAutomata.html");
 		encontrado = documento.vistaPrevia();
-		
-		esperado = esperado.replaceAll("<img src=\".*\">",
-				"<img src=\"\">");
-		encontrado = encontrado.replaceAll("<img src=\".*\">",
-				"<img src=\"\">");
+
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
 
 		assertEquals(
 				"Sustitución errónea de problemas de construcción de subconjuntos subtipo autoamta en vista previa.",
@@ -646,18 +608,13 @@ public class DocumentoTest {
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		esperado = esperado.replaceAll("<img src=\"@@PLUGINFILE@@/.*.jpg\" alt=\"\" />",
-				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
-		esperado = esperado.replaceAll("<file name=[^<]*</file>",
-				"<file name=</file>");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("<img src=\"@@PLUGINFILE@@/.*.jpg\" alt=\"\" />",
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
 				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
 		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
 				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
 
 		assertEquals(
 				"Sustitución errónea de problemas de construcción de subconjuntos subtipo automata en documento XML exportado.",
@@ -666,14 +623,11 @@ public class DocumentoTest {
 		// Fichero Latex
 		esperado = toString("sustituirCSAutomata.tex");
 		ficheroTemporal = ficheroTemporal("sustituir.tex");
-		
+
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
-		esperado = esperado.replaceAll("\\{.*.jpg\\}",
-				"{.jpg}");
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}",
-				"{.jpg}");
+
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
 		assertEquals(
 				"Sustitución errónea de problemas de construcción de subconjuntos subtipo automata en documento Latex exportado.",
 				esperado, encontrado);

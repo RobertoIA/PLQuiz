@@ -38,7 +38,7 @@ public class TraductorMoodleXMLTest {
 	 */
 	@Test
 	public void testDocumento() {
-		String esperado = toString("XMLTraductorVacio.xml");
+		String esperado = toString("TraductorVacio.xml");
 
 		assertEquals("Generación incorrecta de documento Moodle XML.",
 				esperado, traductor.documento(new ArrayList<String>()));
@@ -51,12 +51,10 @@ public class TraductorMoodleXMLTest {
 	@Test
 	public void testTraduceAhoSethiUllmanCompleto() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("XMLTraductorASUCompleto.xml");
+		String esperado = toString("TraductorASUCompleto.xml");
 		String encontrado = traductor.traduceASUCompleto(problema);
 
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
@@ -81,11 +79,9 @@ public class TraductorMoodleXMLTest {
 	public void testTraduceConstruccionSubconjuntosExpresion() {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
-		String esperado = toString("XMLTraductorCSExpresion.xml");
+		String esperado = toString("TraductorCSExpresion.xml");
 		String encontrado = traductor.traduceCSExpresion(problema);
 
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
 				"{1:MULTICHOICE:}");
 
@@ -102,18 +98,16 @@ public class TraductorMoodleXMLTest {
 	public void testTraduceConstruccionSubconjuntosAutomata() {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
-		String esperado = toString("XMLTraductorCSAutomata.xml");
+		String esperado = toString("TraductorCSAutomata.xml");
 		String encontrado = traductor.traduceCSAutomata(problema);
 
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
 		encontrado = encontrado.replaceAll(
-				"<img src=\"@@PLUGINFILE@@/.*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
 				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
 		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
 				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
 
 		assertEquals(
 				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos subtipo autómata.",

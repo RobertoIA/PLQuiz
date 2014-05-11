@@ -21,45 +21,45 @@
 	</tr>
 	<tr>
 	<td>A</td>
-	<td>{1:MULTICHOICE:%100%B~D~C~F}</td>
-	<td>{1:MULTICHOICE:%100%C~E~B~F}</td>
-	<td>{1:MULTICHOICE:%100%D~B~E~A}</td>
-	<td>{1:MULTICHOICE:%100%0, 1, 2, 4, 5, 7, 8, 9, 11, 13~0, 1, 2, 4, 5, 7, 8, 9, 10, 13~0, 1, 2, 4, 7, 8, 9, 11, 12, 13~0, 1, 4, 5, 6, 7, 8, 9, 11, 13}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>B</td>
-	<td>{1:MULTICHOICE:%100%E~D~F~B}</td>
-	<td>{1:MULTICHOICE:%100%F~E~D~B}</td>
-	<td>{1:MULTICHOICE:%100%D~C~E~A}</td>
-	<td>{1:MULTICHOICE:%100%3, 8, 9, 10, 11~3, 4, 9, 10, 11~1, 3, 8, 9, 11~3, 8, 9, 10, 13}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>C</td>
-	<td>{1:MULTICHOICE:%100%E~D~F~B}</td>
-	<td>{1:MULTICHOICE:%100%C~E~A~F}</td>
-	<td>{1:MULTICHOICE:%100%D~F~E~A}</td>
-	<td>{1:MULTICHOICE:%100%5, 6, 7, 8, 9, 11~1, 6, 7, 8, 9, 11~2, 5, 6, 8, 9, 11~2, 5, 7, 8, 9, 11}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>D</td>
-	<td>{1:MULTICHOICE:%100%B~D~C~E}</td>
-	<td>{1:MULTICHOICE:%100%C~D~E~F}</td>
-	<td>{1:MULTICHOICE:%100%D~B~F~A}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 4, 5, 7, 8, 9, 11, 12, 13~0, 1, 2, 5, 7, 8, 9, 11, 12, 13~1, 2, 4, 5, 6, 7, 8, 9, 11, 12~1, 2, 4, 5, 6, 7, 8, 11, 12, 13}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>E</td>
-	<td>{1:MULTICHOICE:%100%E~D~F~A}</td>
-	<td>{1:MULTICHOICE:%100%F~D~E~C}</td>
-	<td>{1:MULTICHOICE:%100%D~F~E~A}</td>
-	<td>{1:MULTICHOICE:%100%9, 10, 11~10, 11~9, 10~4, 10, 11}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>F</td>
-	<td>{1:MULTICHOICE:%100%F~D~E~C}</td>
-	<td>{1:MULTICHOICE:%100%F~D~E~A}</td>
-	<td>{1:MULTICHOICE:%100%F~D~E~B}</td>
-	<td>{1:MULTICHOICE:%100%Cjto. vacío~11~7~2}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 				</tbody>
 				</table>
@@ -75,7 +75,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: {1:MULTICHOICE:%100%A, D~A, C, D~A, E~D, F}</p>
+				<p>Los estados finales son: {1:MULTICHOICE:}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>
@@ -102,57 +102,57 @@
 	</tr>
 	<tr>
 	<td>A</td>
-	<td>{1:MULTICHOICE:%100%B~C~A~I}</td>
-	<td>{1:MULTICHOICE:%100%C~E~B~G}</td>
-	<td>{1:MULTICHOICE:%100%0, 1, 2, 4, 7~0, 1, 2, 4, 10~1, 2, 4, 7, 12~0, 1, 2, 3, 4}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>B</td>
-	<td>{1:MULTICHOICE:%100%D~E~C~H}</td>
-	<td>{1:MULTICHOICE:%100%E~D~G~I}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 6, 7, 8, 9, 11~1, 2, 3, 4, 6, 7, 8, 9~1, 3, 4, 6, 7, 8, 9, 11, 14~1, 2, 3, 4, 6, 7, 8, 9, 11, 13}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>C</td>
-	<td>{1:MULTICHOICE:%100%B~A~D~I}</td>
-	<td>{1:MULTICHOICE:%100%C~B~A~F}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 4, 5, 6, 7~1, 4, 5, 6, 7, 15~0, 1, 2, 5, 6, 7~1, 2, 4, 5, 6, 9}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>D</td>
-	<td>{1:MULTICHOICE:%100%F~D~E~C}</td>
-	<td>{1:MULTICHOICE:%100%G~H~F~D}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 13, 14, 16~1, 2, 3, 4, 6, 7, 9, 10, 11, 13, 14, 16, 18~1, 2, 3, 4, 6, 7, 8, 9, 10, 13, 14, 16~1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>E</td>
-	<td>{1:MULTICHOICE:%100%H~I~F~A}</td>
-	<td>{1:MULTICHOICE:%100%I~H~G~C}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 4, 5, 6, 7, 12, 13, 14, 16~1, 2, 4, 5, 6, 7, 12, 14, 16~1, 4, 5, 6, 7, 12, 13, 14, 16, 17~1, 4, 5, 6, 7, 12, 13, 14, 15, 16}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>F</td>
-	<td>{1:MULTICHOICE:%100%F~E~D~I}</td>
-	<td>{1:MULTICHOICE:%100%G~H~E~D}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18~1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 13, 14, 15, 16, 18~1, 2, 3, 4, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 18~1, 3, 4, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>G</td>
-	<td>{1:MULTICHOICE:%100%H~F~G~A}</td>
-	<td>{1:MULTICHOICE:%100%I~G~H~C}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 4, 5, 6, 7, 12, 13, 14, 16, 17, 18~1, 2, 4, 5, 6, 7, 9, 12, 13, 14, 16, 17~2, 4, 5, 6, 7, 10, 12, 13, 14, 16, 17, 18~0, 2, 4, 5, 6, 7, 12, 13, 14, 16, 17, 18}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>H</td>
-	<td>{1:MULTICHOICE:%100%D~B~F~G}</td>
-	<td>{1:MULTICHOICE:%100%E~F~D~A}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 6, 7, 8, 9, 11, 15, 18~1, 2, 3, 4, 6, 7, 9, 11, 15, 16, 18~0, 1, 2, 3, 4, 6, 7, 8, 9, 11, 18~1, 2, 3, 4, 6, 7, 9, 11, 15, 18}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>I</td>
-	<td>{1:MULTICHOICE:%100%B~C~A~G}</td>
-	<td>{1:MULTICHOICE:%100%C~D~B~H}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 4, 5, 6, 7, 17, 18~1, 2, 4, 6, 7, 17, 18~2, 4, 5, 6, 7, 17, 18~2, 4, 5, 6, 7, 11, 17, 18}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 				</tbody>
 				</table>
@@ -168,7 +168,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: {1:MULTICHOICE:%100%F, G, H, I~D, F, G, H, I~A, G, H, I~C, F, G, H}</p>
+				<p>Los estados finales son: {1:MULTICHOICE:}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>

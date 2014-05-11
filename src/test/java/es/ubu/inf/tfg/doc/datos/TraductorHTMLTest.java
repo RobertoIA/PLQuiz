@@ -38,7 +38,7 @@ public class TraductorHTMLTest {
 	 */
 	@Test
 	public void testDocumento() {
-		String esperado = toString("HTMLTraductorVacio.html");
+		String esperado = toString("TraductorVacio.html");
 
 		assertEquals("Generación incorrecta de documento HTML.", esperado,
 				traductor.documento(new ArrayList<String>()));
@@ -51,7 +51,7 @@ public class TraductorHTMLTest {
 	@Test
 	public void testTraduceAhoSethiUllmanCompleto() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("HTMLTraductorASUCompleto.html");
+		String esperado = toString("TraductorASUCompleto.html");
 
 		assertEquals(
 				"Traducción HTML incorrecta de problema AhoSethiUllman subtipo completo.",
@@ -74,7 +74,7 @@ public class TraductorHTMLTest {
 	public void testTraduceConstruccionSubconjuntosExpresion() {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
-		String esperado = toString("HTMLTraductorCSExpresion.html");
+		String esperado = toString("TraductorCSExpresion.html");
 
 		assertEquals(
 				"Traducción HTML incorrecta de problema de construcción de subconjuntos subtipo expresión.",
@@ -89,7 +89,7 @@ public class TraductorHTMLTest {
 	public void testTraduceConstruccionSubconjuntosAutomata() {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
-		String esperado = toString("HTMLTraductorCSAutomata.html");
+		String esperado = toString("TraductorCSAutomata.html");
 		String encontrado = traductor.traduceCSAutomata(problema);
 		
 		encontrado = encontrado.replaceAll("<img src=\".*\">",

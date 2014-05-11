@@ -15,7 +15,7 @@
 							<th>n</th>
 							<th>stePos(n)</th>
 						</tr>
-						<tr><td>1</td><td>{1:MULTICHOICE:%100%3, 4~4~1, 2, 5}</td></tr><tr><td>2</td><td>{1:MULTICHOICE:%100%2, 3, 4~2, 4~1, 5}</td></tr><tr><td>3</td><td>{1:MULTICHOICE:%100%3, 4~3~1, 2, 5}</td></tr><tr><td>4</td><td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5~1, 2, 3, 5~Cjto. vacío}</td></tr><tr><td>5</td><td>{1:MULTICHOICE:%100%Cjto. vacío~1, 2, 3, 4, 5}</td></tr>
+						<tr><td>1</td><td>{1:MULTICHOICE:}</td></tr><tr><td>2</td><td>{1:MULTICHOICE:}</td></tr><tr><td>3</td><td>{1:MULTICHOICE:}</td></tr><tr><td>4</td><td>{1:MULTICHOICE:}</td></tr><tr><td>5</td><td>{1:MULTICHOICE:}</td></tr>
 					</table>
 				</p>
 				<p>
@@ -30,31 +30,31 @@
 	</tr>
 	<tr>
 	<td>A</td>
-	<td>{1:MULTICHOICE:%100%B~C~D~A}</td>
-	<td>{1:MULTICHOICE:%100%C~A~B~D}</td>
-	<td>{1:MULTICHOICE:%100%A~B~C~D}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3, 4, 5~1, 2, 4, 5~Cjto. vacío}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>B</td>
-	<td>{1:MULTICHOICE:%100%B~A~C~D}</td>
-	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
-	<td>{1:MULTICHOICE:%100%A~C~B~D}</td>
-	<td>{1:MULTICHOICE:%100%3, 4~3~1, 2, 5}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>C</td>
-	<td>{1:MULTICHOICE:%100%B~C~D~A}</td>
-	<td>{1:MULTICHOICE:%100%C~D~B~A}</td>
-	<td>{1:MULTICHOICE:%100%A~C~B~D}</td>
-	<td>{1:MULTICHOICE:%100%2, 3, 4~2, 3~1, 5}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>D</td>
-	<td>{1:MULTICHOICE:%100%D~C~B~A}</td>
-	<td>{1:MULTICHOICE:%100%D~C~B~A}</td>
-	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
-	<td>{1:MULTICHOICE:%100%Cjto. vacío~1, 2, 3, 4, 5}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 						</tbody>
 					</table>
@@ -71,7 +71,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: {1:MULTICHOICE:%100%A~A, B~A, D~Cjto. vacío}</p>
+				<p>Los estados finales son: {1:MULTICHOICE:}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>
@@ -93,7 +93,7 @@
 							<th>n</th>
 							<th>stePos(n)</th>
 						</tr>
-						<tr><td>1</td><td>{1:MULTICHOICE:%100%3, 4~3~1, 2, 5}</td></tr><tr><td>2</td><td>{1:MULTICHOICE:%100%2, 3, 4~2, 4~1, 5}</td></tr><tr><td>3</td><td>{1:MULTICHOICE:%100%3, 4~3~1, 2, 5}</td></tr><tr><td>4</td><td>{1:MULTICHOICE:%100%5~Cjto. vacío~1, 2, 3, 4}</td></tr><tr><td>5</td><td>{1:MULTICHOICE:%100%Cjto. vacío~1, 2, 3, 4, 5}</td></tr>
+						<tr><td>1</td><td>{1:MULTICHOICE:}</td></tr><tr><td>2</td><td>{1:MULTICHOICE:}</td></tr><tr><td>3</td><td>{1:MULTICHOICE:}</td></tr><tr><td>4</td><td>{1:MULTICHOICE:}</td></tr><tr><td>5</td><td>{1:MULTICHOICE:}</td></tr>
 					</table>
 				</p>
 				<p>
@@ -108,45 +108,45 @@
 	</tr>
 	<tr>
 	<td>A</td>
-	<td>{1:MULTICHOICE:%100%B~C~A~F}</td>
-	<td>{1:MULTICHOICE:%100%C~E~D~F}</td>
-	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
-	<td>{1:MULTICHOICE:%100%1, 2, 3, 4~2, 3, 4~5}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>B</td>
-	<td>{1:MULTICHOICE:%100%E~F~D~B}</td>
-	<td>{1:MULTICHOICE:%100%F~D~E~B}</td>
-	<td>{1:MULTICHOICE:%100%D~B~C~A}</td>
-	<td>{1:MULTICHOICE:%100%3, 4, 5~3, 4~1, 2}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>C</td>
-	<td>{1:MULTICHOICE:%100%E~D~C~A}</td>
-	<td>{1:MULTICHOICE:%100%C~A~B~F}</td>
-	<td>{1:MULTICHOICE:%100%D~B~F~A}</td>
-	<td>{1:MULTICHOICE:%100%2, 3, 4~2, 4~1, 5}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>D</td>
-	<td>{1:MULTICHOICE:%100%E~F~C~B}</td>
-	<td>{1:MULTICHOICE:%100%F~D~E~B}</td>
-	<td>{1:MULTICHOICE:%100%D~B~F~A}</td>
-	<td>{1:MULTICHOICE:%100%3, 4~4~1, 2, 5}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>E</td>
-	<td>{1:MULTICHOICE:%100%F~D~E~B}</td>
-	<td>{1:MULTICHOICE:%100%F~E~D~A}</td>
-	<td>{1:MULTICHOICE:%100%F~E~D~C}</td>
-	<td>{1:MULTICHOICE:%100%5~Cjto. vacío~1, 2, 3, 4}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 	<tr>
 	<td>F</td>
-	<td>{1:MULTICHOICE:%100%F~E~D~A}</td>
-	<td>{1:MULTICHOICE:%100%F~E~D~C}</td>
-	<td>{1:MULTICHOICE:%100%F~D~E~B}</td>
-	<td>{1:MULTICHOICE:%100%Cjto. vacío~1, 2, 3, 4, 5}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
 	</tr>
 						</tbody>
 					</table>
@@ -163,7 +163,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: {1:MULTICHOICE:%100%B, E~B, E, F~B, F~C, E}</p>
+				<p>Los estados finales son: {1:MULTICHOICE:}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>

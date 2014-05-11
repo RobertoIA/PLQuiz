@@ -38,7 +38,7 @@ public class TraductorLatexTest {
 	 */
 	@Test
 	public void testDocumento() {
-		String esperado = toString("LatexTraductorVacio.tex");
+		String esperado = toString("TraductorVacio.tex");
 
 		assertEquals("Generación incorrecta de documento Latex.", esperado,
 				traductor.documento(new ArrayList<String>()));
@@ -51,7 +51,7 @@ public class TraductorLatexTest {
 	@Test
 	public void testTraduceAhoSethiUllmanCompleto() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("LatexTraductorASUCompleto.tex");
+		String esperado = toString("TraductorASUCompleto.tex");
 
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo completo.",
@@ -75,7 +75,7 @@ public class TraductorLatexTest {
 	public void testTraduceConstruccionSubconjuntosExpresion() {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
-		String esperado = toString("LatexTraductorCSExpresion.tex");
+		String esperado = toString("TraductorCSExpresion.tex");
 
 		assertEquals(
 				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo expresión.",
@@ -90,7 +90,7 @@ public class TraductorLatexTest {
 	public void testTraduceConstruccionSubconjuntosAutomata() {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
-		String esperado = toString("LatexTraductorCSAutomata.tex");
+		String esperado = toString("TraductorCSAutomata.tex");
 		String encontrado = traductor.traduceCSAutomata(problema);
 
 		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
