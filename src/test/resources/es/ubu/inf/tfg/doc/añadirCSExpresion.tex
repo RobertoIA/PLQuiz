@@ -2,6 +2,7 @@
 \usepackage[spanish]{babel}
 \selectlanguage{spanish}
 \usepackage[utf8]{inputenc}
+\usepackage{graphicx}
 \begin{document}
 \paragraph{}
 
@@ -29,6 +30,21 @@ C & E & C & D & 4 5 6 7 8 10 \\ \hline
 D & E & F & D & 8 9 10 \\ \hline
 (E) & F & F & F & 11 \\ \hline
 F & F & F & F & \\ \hline
+\end{tabular}\paragraph{}
+\textbf{3.-} Aplicar el algoritmo de construcción de subconjuntos para obtener el AFD capaz de reconocer el lenguaje definido por la siguiente expresión regular: \textbf{(a\textbar b)*a(a\textbar b)(a\textbar b)} \\
+
+\begin{tabular} {| c | c |c | l |}
+\hline 
+& a & b & \\ \hline
+A & B & C & 0 1 2 4 7 \\ \hline
+B & D & E & 1 2 3 4 6 7 8 9 11 \\ \hline
+C & B & C & 1 2 4 5 6 7 \\ \hline
+D & F & G & 1 2 3 4 6 7 8 9 10 11 13 14 16 \\ \hline
+E & H & I & 1 2 4 5 6 7 12 13 14 16 \\ \hline
+(F) & F & G & 1 2 3 4 6 7 8 9 10 11 13 14 15 16 18 \\ \hline
+(G) & H & I & 1 2 4 5 6 7 12 13 14 16 17 18 \\ \hline
+(H) & D & E & 1 2 3 4 6 7 8 9 11 15 18 \\ \hline
+(I) & B & C & 1 2 4 5 6 7 17 18 \\ \hline
 \end{tabular}
 
 \end{document}

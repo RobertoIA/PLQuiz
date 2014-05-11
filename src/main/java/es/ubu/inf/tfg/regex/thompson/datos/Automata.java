@@ -12,9 +12,6 @@ import java.util.stream.Collectors;
 
 import javax.swing.SwingConstants;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.mxgraph.layout.mxParallelEdgeLayout;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.swing.mxGraphComponent;
@@ -33,8 +30,6 @@ import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
  * 
  */
 public class Automata {
-
-	private static final Logger log = LoggerFactory.getLogger(Automata.class);
 
 	private Nodo nodoInicial;
 	private Nodo nodoFinal;
@@ -224,7 +219,6 @@ public class Automata {
 			try {
 				actual = nodoInicial;
 				do {
-					log.info("actual: {}", actual.posicion());
 					gActual = gNodos.get(actual.posicion());
 					if (gActual == null) { // Primer nodo
 						gActual = graph.insertVertex(parent, null,

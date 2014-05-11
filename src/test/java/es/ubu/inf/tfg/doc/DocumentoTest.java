@@ -86,10 +86,12 @@ public class DocumentoTest {
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
-		
+
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+
 		assertEquals("Exportación de documento XML vacío erronea.", esperado,
 				encontrado);
 
@@ -104,108 +106,139 @@ public class DocumentoTest {
 	}
 
 	/**
-	 * Commprueba que se añaden problemas Aho-Sethi-Ullman correctamente.
+	 * Commprueba que se añaden problemas Aho-Sethi-Ullman subtipo completo
+	 * correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testAñadirASU() throws IOException {
+	public void testAñadirASUCompleto() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
 		String encontrado;
 
-		documento.añadirProblema(asuProblemaA);
-		documento.añadirProblema(asuProblemaB);
-		documento.añadirProblema(asuProblemaC);
+		documento.añadirProblema(Problema.ASUCompleto(asuProblemaA));
+		documento.añadirProblema(Problema.ASUCompleto(asuProblemaB));
+		documento.añadirProblema(Problema.ASUCompleto(asuProblemaC));
 
 		// Vista previa
-		esperado = toString("añadirASU.html");
+		esperado = toString("añadirASUCompleto.html");
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
-				"Añadido erróneo de problemas Aho-Sethi-Ullman a vista previa.",
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo completo a vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("añadirASU.xml");
+		esperado = toString("añadirASUCompleto.xml");
 		ficheroTemporal = ficheroTemporal("añadir.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
-		
+
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+
 		assertEquals(
-				"Añadido erróneo de problemas Aho-Sethi-Ullman a documento XML exportado.",
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo completo a documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("añadirASU.tex");
+		esperado = toString("añadirASUCompleto.tex");
 		ficheroTemporal = ficheroTemporal("añadir.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
-				"Añadido erróneo de problemas Aho-Sethi-Ullman a documento Latex exportado.",
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo completo a documento Latex exportado.",
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba que se eliminan problemas Aho-Sethi-Ullman correctamente.
+	 * Commprueba que se añaden problemas Aho-Sethi-Ullman subtipo árbol
+	 * correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testEliminarASU() throws IOException {
+	public void testAñadirASUArbol() throws IOException {
+		// TODO
+	}
+
+	/**
+	 * Comprueba que se eliminan problemas Aho-Sethi-Ullman subtipo completo
+	 * correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testEliminarASUCompleto() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(asuProblemaA);
-		documento.añadirProblema(asuProblemaB);
-		documento.añadirProblema(asuProblemaC);
-		documento.eliminarProblema(asuProblemaC);
+		documento.añadirProblema(Problema.ASUCompleto(asuProblemaA));
+		documento.añadirProblema(Problema.ASUCompleto(asuProblemaB));
+		documento.añadirProblema(Problema.ASUCompleto(asuProblemaC));
+		documento.eliminarProblema(Problema.ASUCompleto(asuProblemaC));
 
-		esperado = toString("eliminarASU.html");
+		esperado = toString("eliminarASUCompleto.html");
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
-				"Borrado erróneo de problemas Aho-Sethi-Ullman en vista previa.",
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo completo en vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("eliminarASU.xml");
+		esperado = toString("eliminarASUCompleto.xml");
 		ficheroTemporal = ficheroTemporal("eliminar.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
-		
+
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+
 		assertEquals(
-				"Borrado erróneo de problemas Aho-Sethi-Ullman en documento XML exportado.",
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo completo en documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("eliminarASU.tex");
+		esperado = toString("eliminarASUCompleto.tex");
 		ficheroTemporal = ficheroTemporal("eliminar.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
-				"Borrado erróneo de problemas Aho-Sethi-Ullman en documento Latex exportado.",
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo completo en documento Latex exportado.",
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba que se sustituyen problemas Aho-Sethi-Ullman correctamente.
+	 * Comprueba que se eliminan problemas Aho-Sethi-Ullman subtipo árbol
+	 * correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testEliminarASUArbol() throws IOException {
+		// TODO
+	}
+
+	/**
+	 * Comprueba que se sustituyen problemas Aho-Sethi-Ullman subtipo completo
+	 * correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
@@ -218,193 +251,431 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(asuProblemaA);
-		documento.añadirProblema(asuProblemaB);
-		documento.sustituirProblema(asuProblemaB, asuProblemaC);
+		documento.añadirProblema(Problema.ASUCompleto(asuProblemaA));
+		documento.añadirProblema(Problema.ASUCompleto(asuProblemaB));
+		documento.sustituirProblema(Problema.ASUCompleto(asuProblemaB),
+				Problema.ASUCompleto(asuProblemaC));
 
-		esperado = toString("sustituirASU.html");
+		esperado = toString("sustituirASUCompleto.html");
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
-				"Sustitución errónea de problemas Aho-Sethi-Ullman en vista previa.",
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo completo en vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("sustituirASU.xml");
+		esperado = toString("sustituirASUCompleto.xml");
 		ficheroTemporal = ficheroTemporal("sustituir.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
-		
+
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+
 		assertEquals(
-				"Sustitución errónea de problemas Aho-Sethi-Ullman en documento XML exportado.",
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo completo en documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("sustituirASU.tex");
+		esperado = toString("sustituirASUCompleto.tex");
 		ficheroTemporal = ficheroTemporal("sustituir.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
-				"Sustitución errónea de problemas Aho-Sethi-Ullman en documento Latex exportado.",
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo completo en documento Latex exportado.",
 				esperado, encontrado);
 	}
 
 	/**
-	 * Commprueba que se añaden problemas de construcción de subconjuntos
+	 * Comprueba que se sustituyen problemas Aho-Sethi-Ullman subtipo árbol
 	 * correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testAñadirCS() throws IOException {
+	public void testSustituirASUArbol() throws IOException {
+		// TODO
+	}
+
+	/**
+	 * Commprueba que se añaden problemas de construcción de subconjuntos
+	 * subtipo expresion correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testAñadirCSExpresion() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
 		String encontrado;
 
-		documento.añadirProblema(csProblemaA);
-		documento.añadirProblema(csProblemaB);
-		documento.añadirProblema(csProblemaC);
+		documento.añadirProblema(Problema.CSExpresion(csProblemaA));
+		documento.añadirProblema(Problema.CSExpresion(csProblemaB));
+		documento.añadirProblema(Problema.CSExpresion(csProblemaC));
 
 		// Vista previa
-		esperado = toString("añadirCS.html");
+		esperado = toString("añadirCSExpresion.html");
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
-				"Añadido erróneo de problemas de construcción de subconjuntos a vista previa.",
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo expresion a vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("añadirCS.xml");
+		esperado = toString("añadirCSExpresion.xml");
 		ficheroTemporal = ficheroTemporal("añadir.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
-		
+
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+
 		assertEquals(
-				"Añadido erróneo de problemas de construcción de subconjuntos a documento XML exportado.",
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo expresion a documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("añadirCS.tex");
+		esperado = toString("añadirCSExpresion.tex");
 		ficheroTemporal = ficheroTemporal("añadir.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
-				"Añadido erróneo de problemas de construcción de subconjuntos a documento Latex exportado.",
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo expresion a documento Latex exportado.",
 				esperado, encontrado);
 	}
 
 	/**
 	 * Comprueba que se eliminan problemas de construcción de subconjuntos
-	 * correctamente.
+	 * subtipo expresion correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testEliminarCS() throws IOException {
+	public void testEliminarCSExpresion() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(csProblemaA);
-		documento.añadirProblema(csProblemaB);
-		documento.añadirProblema(csProblemaC);
-		documento.eliminarProblema(csProblemaC);
+		documento.añadirProblema(Problema.CSExpresion(csProblemaA));
+		documento.añadirProblema(Problema.CSExpresion(csProblemaB));
+		documento.añadirProblema(Problema.CSExpresion(csProblemaC));
+		documento.eliminarProblema(Problema.CSExpresion(csProblemaC));
 
-		esperado = toString("eliminarCS.html");
+		esperado = toString("eliminarCSExpresion.html");
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
-				"Borrado erróneo de problemas de construcción de subconjuntos en vista previa.",
+				"Borrado erróneo de problemas de construcción de subconjuntos subtipo expresion en vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("eliminarCS.xml");
+		esperado = toString("eliminarCSExpresion.xml");
 		ficheroTemporal = ficheroTemporal("eliminar.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
-		
+
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+
 		assertEquals(
-				"Borrado erróneo de problemas de construcción de subconjuntos en documento XML exportado.",
+				"Borrado erróneo de problemas de construcción de subconjuntos subtipo expresion en documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("eliminarCS.tex");
+		esperado = toString("eliminarCSExpresion.tex");
 		ficheroTemporal = ficheroTemporal("eliminar.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
-				"Borrado erróneo de problemas de construcción de subconjuntos en documento XML exportado.",
+				"Borrado erróneo de problemas de construcción de subconjuntos subtipo expresion en documento XML exportado.",
 				esperado, encontrado);
 	}
 
 	/**
 	 * Comprueba que se sustituyen problemas de construcción de subconjuntos
-	 * correctamente.
+	 * subtipo expresion correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testSustituirCS() throws IOException {
+	public void testSustituirCSExpresion() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(csProblemaA);
-		documento.añadirProblema(csProblemaB);
-		documento.sustituirProblema(csProblemaB, csProblemaC);
+		documento.añadirProblema(Problema.CSExpresion(csProblemaA));
+		documento.añadirProblema(Problema.CSExpresion(csProblemaB));
+		documento.sustituirProblema(Problema.CSExpresion(csProblemaB),
+				Problema.CSExpresion(csProblemaC));
 
-		esperado = toString("sustituirCS.html");
+		esperado = toString("sustituirCSExpresion.html");
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
-				"Sustitución errónea de problemas de construcción de subconjuntos en vista previa.",
+				"Sustitución errónea de problemas de construcción de subconjuntos subtipo expresion en vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("sustituirCS.xml");
+		esperado = toString("sustituirCSExpresion.xml");
 		ficheroTemporal = ficheroTemporal("sustituir.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
-		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", "{1:MULTICHOICE:}");
-		
+
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+
 		assertEquals(
-				"Sustitución errónea de problemas de construcción de subconjuntos en documento XML exportado.",
+				"Sustitución errónea de problemas de construcción de subconjuntos subtipo expresion en documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("sustituirCS.tex");
+		esperado = toString("sustituirCSExpresion.tex");
 		ficheroTemporal = ficheroTemporal("sustituir.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
-				"Sustitución errónea de problemas de construcción de subconjuntos en documento Latex exportado.",
+				"Sustitución errónea de problemas de construcción de subconjuntos subtipo expresion en documento Latex exportado.",
+				esperado, encontrado);
+	}
+
+	/**
+	 * Commprueba que se añaden problemas de construcción de subconjuntos
+	 * subtipo automata correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testAñadirCSAutomata() throws IOException {
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		documento.añadirProblema(Problema.CSAutomata(csProblemaA));
+		documento.añadirProblema(Problema.CSAutomata(csProblemaB));
+		documento.añadirProblema(Problema.CSAutomata(csProblemaC));
+
+		// Vista previa
+		esperado = toString("añadirCSAutomata.html");
+		encontrado = documento.vistaPrevia();
+		
+		esperado = esperado.replaceAll("<img src=\".*\">",
+				"<img src=\"\">");
+		encontrado = encontrado.replaceAll("<img src=\".*\">",
+				"<img src=\"\">");
+
+		assertEquals(
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo automata a vista previa.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("añadirCSAutomata.xml");
+		ficheroTemporal = ficheroTemporal("añadir.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		esperado = esperado.replaceAll("<img src=\"@@PLUGINFILE@@/.*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		esperado = esperado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("<img src=\"@@PLUGINFILE@@/.*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+
+		assertEquals(
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo automata a documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("añadirCSAutomata.tex");
+		ficheroTemporal = ficheroTemporal("añadir.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		
+		esperado = esperado.replaceAll("\\{.*.jpg\\}",
+				"{.jpg}");
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}",
+				"{.jpg}");
+		
+		assertEquals(
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo automata a documento Latex exportado.",
+				esperado, encontrado);
+	}
+
+	/**
+	 * Comprueba que se eliminan problemas de construcción de subconjuntos
+	 * subtipo automata correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testEliminarCSAutomata() throws IOException {
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		// Vista previa
+		documento.añadirProblema(Problema.CSAutomata(csProblemaA));
+		documento.añadirProblema(Problema.CSAutomata(csProblemaB));
+		documento.añadirProblema(Problema.CSAutomata(csProblemaC));
+		documento.eliminarProblema(Problema.CSAutomata(csProblemaC));
+
+		esperado = toString("eliminarCSAutomata.html");
+		encontrado = documento.vistaPrevia();
+		
+		esperado = esperado.replaceAll("<img src=\".*\">",
+				"<img src=\"\">");
+		encontrado = encontrado.replaceAll("<img src=\".*\">",
+				"<img src=\"\">");
+
+		assertEquals(
+				"Borrado erróneo de problemas de construcción de subconjuntos subtipo automata en vista previa.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("eliminarCSAutomata.xml");
+		ficheroTemporal = ficheroTemporal("eliminar.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		esperado = esperado.replaceAll("<img src=\"@@PLUGINFILE@@/.*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		esperado = esperado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("<img src=\"@@PLUGINFILE@@/.*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+
+		assertEquals(
+				"Borrado erróneo de problemas de construcción de subconjuntos subtipo automata en documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("eliminarCSAutomata.tex");
+		ficheroTemporal = ficheroTemporal("eliminar.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		
+		esperado = esperado.replaceAll("\\{.*.jpg\\}",
+				"{.jpg}");
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}",
+				"{.jpg}");
+		assertEquals(
+				"Borrado erróneo de problemas de construcción de subconjuntos subtipo automata en documento XML exportado.",
+				esperado, encontrado);
+	}
+
+	/**
+	 * Comprueba que se sustituyen problemas de construcción de subconjuntos
+	 * subtipo automata correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testSustituirCSAutomata() throws IOException {
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		// Vista previa
+		documento.añadirProblema(Problema.CSAutomata(csProblemaA));
+		documento.añadirProblema(Problema.CSAutomata(csProblemaB));
+		documento.sustituirProblema(Problema.CSAutomata(csProblemaB),
+				Problema.CSAutomata(csProblemaC));
+
+		esperado = toString("sustituirCSAutomata.html");
+		encontrado = documento.vistaPrevia();
+		
+		esperado = esperado.replaceAll("<img src=\".*\">",
+				"<img src=\"\">");
+		encontrado = encontrado.replaceAll("<img src=\".*\">",
+				"<img src=\"\">");
+
+		assertEquals(
+				"Sustitución errónea de problemas de construcción de subconjuntos subtipo autoamta en vista previa.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("sustituirCSAutomata.xml");
+		ficheroTemporal = ficheroTemporal("sustituir.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		esperado = esperado.replaceAll("<img src=\"@@PLUGINFILE@@/.*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		esperado = esperado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("<img src=\"@@PLUGINFILE@@/.*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+
+		assertEquals(
+				"Sustitución errónea de problemas de construcción de subconjuntos subtipo automata en documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("sustituirCSAutomata.tex");
+		ficheroTemporal = ficheroTemporal("sustituir.tex");
+		
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		
+		esperado = esperado.replaceAll("\\{.*.jpg\\}",
+				"{.jpg}");
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}",
+				"{.jpg}");
+		assertEquals(
+				"Sustitución errónea de problemas de construcción de subconjuntos subtipo automata en documento Latex exportado.",
 				esperado, encontrado);
 	}
 

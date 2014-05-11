@@ -45,29 +45,59 @@ public class TraductorHTMLTest {
 	}
 
 	/**
-	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman.
+	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
+	 * subtipo completo.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllman() {
+	public void testTraduceAhoSethiUllmanCompleto() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("HTMLTraductorASU.html");
+		String esperado = toString("HTMLTraductorASUCompleto.html");
 
-		assertEquals("Traducción HTML incorrecta de problema AhoSethiUllman.",
-				esperado, traductor.traduce(problema));
+		assertEquals(
+				"Traducción HTML incorrecta de problema AhoSethiUllman subtipo completo.",
+				esperado, traductor.traduceASUCompleto(problema));
+	}	
+	/**
+	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
+	 * subtipo árbol.
+	 */
+	@Test
+	public void testTraduceAhoSethiUllmanArbol() {
+		// TODO
 	}
 
 	/**
 	 * Comprueba la correcta traducción de un problema de construcción de
-	 * subconjuntos.
+	 * subconjuntos subtipo expresion.
 	 */
 	@Test
-	public void testTraduceConstruccionSubconjuntos() {
-		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos("((a|b*)a*c)*");
-		String esperado = toString("HTMLTraductorCS.html");
+	public void testTraduceConstruccionSubconjuntosExpresion() {
+		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
+				"((a|b*)a*c)*");
+		String esperado = toString("HTMLTraductorCSExpresion.html");
 
 		assertEquals(
-				"Traducción HTML incorrecta de problema de construcción de subconjuntos.",
-				esperado, traductor.traduce(problema));
+				"Traducción HTML incorrecta de problema de construcción de subconjuntos subtipo expresión.",
+				esperado, traductor.traduceCSExpresion(problema));
+	}
+
+	/**
+	 * Comprueba la correcta traducción de un problema de construcción de
+	 * subconjuntos subtipo autómata.
+	 */
+	@Test
+	public void testTraduceConstruccionSubconjuntosAutomata() {
+		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
+				"((a|b*)a*c)*");
+		String esperado = toString("HTMLTraductorCSAutomata.html");
+		String encontrado = traductor.traduceCSAutomata(problema);
+		
+		encontrado = encontrado.replaceAll("<img src=\".*\">",
+				"<img src=\"\">");
+
+		assertEquals(
+				"Traducción HTML incorrecta de problema de construcción de subconjuntos subtipo autómata.",
+				esperado, encontrado);
 	}
 
 	/**

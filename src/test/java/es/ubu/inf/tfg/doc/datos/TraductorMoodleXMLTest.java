@@ -45,13 +45,14 @@ public class TraductorMoodleXMLTest {
 	}
 
 	/**
-	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman.
+	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
+	 * subtipo completo.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllman() {
+	public void testTraduceAhoSethiUllmanCompleto() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("XMLTraductorASU.xml");
-		String encontrado = traductor.traduce(problema);
+		String esperado = toString("XMLTraductorASUCompleto.xml");
+		String encontrado = traductor.traduceASUCompleto(problema);
 
 		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
 				"{1:MULTICHOICE:}");
@@ -59,28 +60,63 @@ public class TraductorMoodleXMLTest {
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
-				"Traducción Moodle XML incorrecta de problema AhoSethiUllman.",
+				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo completo.",
+				esperado, encontrado);
+	}
+
+	/**
+	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
+	 * subtipo árbol.
+	 */
+	@Test
+	public void testTraduceAhoSethiUllmanArbol() {
+		// TODO
+	}
+
+	/**
+	 * Comprueba la correcta traducción de un problema de construcción de
+	 * subconjuntos subtipo expresión.
+	 */
+	@Test
+	public void testTraduceConstruccionSubconjuntosExpresion() {
+		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
+				"((a|b*)a*c)*");
+		String esperado = toString("XMLTraductorCSExpresion.xml");
+		String encontrado = traductor.traduceCSExpresion(problema);
+
+		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos subtipo expresión.",
 				esperado, encontrado);
 	}
 
 	/**
 	 * Comprueba la correcta traducción de un problema de construcción de
-	 * subconjuntos.
+	 * subconjuntos subtipo autómata.
 	 */
 	@Test
-	public void testTraduceConstruccionSubconjuntos() {
+	public void testTraduceConstruccionSubconjuntosAutomata() {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
-		String esperado = toString("XMLTraductorCS.xml");
-		String encontrado = traductor.traduce(problema);
+		String esperado = toString("XMLTraductorCSAutomata.xml");
+		String encontrado = traductor.traduceCSAutomata(problema);
 
 		esperado = esperado.replaceAll("\\{1:MULTICHOICE:.*\\}",
 				"{1:MULTICHOICE:}");
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
 				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/.*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
 
 		assertEquals(
-				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos.",
+				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos subtipo autómata.",
 				esperado, encontrado);
 	}
 

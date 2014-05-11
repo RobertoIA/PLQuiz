@@ -21,7 +21,7 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 public class TraductorLatexTest {
 
 	Traductor traductor;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		traductor = new TraductorLatex();
@@ -45,29 +45,59 @@ public class TraductorLatexTest {
 	}
 
 	/**
-	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman.
+	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
+	 * subtipo completo.
+	 */
+	@Test
+	public void testTraduceAhoSethiUllmanCompleto() {
+		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
+		String esperado = toString("LatexTraductorASUCompleto.tex");
+
+		assertEquals(
+				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo completo.",
+				esperado, traductor.traduceASUCompleto(problema));
+	}
+
+	/**
+	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
+	 * subtipo árbol.
 	 */
 	@Test
 	public void testTraduceAhoSethiUllman() {
-		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("LatexTraductorASU.tex");
-
-		assertEquals("Traducción Latex incorrecta de problema AhoSethiUllman.",
-				esperado, traductor.traduce(problema));
+		// TODO
 	}
 
 	/**
 	 * Comprueba la correcta traducción de un problema de construcción de
-	 * subconjuntos.
+	 * subconjuntos subtipo expresión.
 	 */
 	@Test
-	public void testTraduceConstruccionSubconjuntos() {
-		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos("((a|b*)a*c)*");
-		String esperado = toString("LatexTraductorCS.tex");
+	public void testTraduceConstruccionSubconjuntosExpresion() {
+		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
+				"((a|b*)a*c)*");
+		String esperado = toString("LatexTraductorCSExpresion.tex");
 
 		assertEquals(
-				"Traducción Latex incorrecta de problema de construcción de subconjuntos.",
-				esperado, traductor.traduce(problema));
+				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo expresión.",
+				esperado, traductor.traduceCSExpresion(problema));
+	}
+
+	/**
+	 * Comprueba la correcta traducción de un problema de construcción de
+	 * subconjuntos subtipo autómata.
+	 */
+	@Test
+	public void testTraduceConstruccionSubconjuntosAutomata() {
+		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
+				"((a|b*)a*c)*");
+		String esperado = toString("LatexTraductorCSAutomata.tex");
+		String encontrado = traductor.traduceCSAutomata(problema);
+
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+
+		assertEquals(
+				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo autómata.",
+				esperado, encontrado);
 	}
 
 	/**
