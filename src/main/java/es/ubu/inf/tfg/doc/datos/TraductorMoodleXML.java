@@ -78,7 +78,7 @@ public class TraductorMoodleXML extends Traductor {
 		StringBuilder fTrans = new StringBuilder();
 		StringBuilder eFinales = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaASU.xml"));
+		String plantilla = formatoIntermedio(plantilla("plantillaASUCompleto.xml"));
 
 		// siguiente-pos
 		for (int n : problema.posiciones()) {

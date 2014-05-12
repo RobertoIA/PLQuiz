@@ -64,7 +64,7 @@ public class TraductorLatex extends Traductor {
 		StringBuilder stePos = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaASU.tex"));
+		String plantilla = formatoIntermedio(plantilla("plantillaASUCompleto.tex"));
 
 		// siguiente-pos
 		stePos.append("\\begin{tabular} {| c | l |}\n\\hline\nn & stePos(n) \\\\ \\hline\n");

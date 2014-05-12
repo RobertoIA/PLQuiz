@@ -64,7 +64,7 @@ public class TraductorHTML extends Traductor {
 		StringBuilder stePos = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaASU.html"));
+		String plantilla = formatoIntermedio(plantilla("plantillaASUCompleto.html"));
 
 		// siguiente-pos
 		stePos.append("<p><table>");

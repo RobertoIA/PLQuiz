@@ -1,0 +1,23 @@
+	<!-- question: <%0%>  -->
+	<question type="cloze">
+		<name>
+			<text>PLQuiz: Construcción de subconjuntos</text>
+		</name>
+		<questiontext>
+			<text><![CDATA[
+				<p>Completa el árbol sintáctico siguiente el algoritmo de Aho-Sethi-Ullman para la expresión regular <%1%>
+					<img src="@@PLUGINFILE@@/<%2%>" alt="" /></p>
+
+				<table border="1" cellspacing="0" align="left">
+				<tbody>
+				<%3%>
+				</tbody>
+				</table>
+			]]></text>
+			<file name="<%2%>" encoding="base64"><%4%></file> 
+		</questiontext>
+		<generalfeedback>
+			<text></text>
+		</generalfeedback>
+		<shuffleanswers>0</shuffleanswers>
+	</question>
