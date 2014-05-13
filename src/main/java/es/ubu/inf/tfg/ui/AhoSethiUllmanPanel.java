@@ -5,15 +5,19 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
@@ -65,6 +69,10 @@ public class AhoSethiUllmanPanel extends JPanel {
 	private JLabel estadosEstadoLabel;
 	private JPanel progresoPanel;
 	private JProgressBar progresoBar;
+	private JPanel modoPanel;
+	private JRadioButton modoCompletoButton;
+	private JRadioButton modoArbolButton;
+	private final ButtonGroup modoGroup = new ButtonGroup();
 
 	public AhoSethiUllmanPanel(Main main, JPanel contenedor, Documento documento) {
 
@@ -90,6 +98,19 @@ public class AhoSethiUllmanPanel extends JPanel {
 		this.expresionText.addActionListener(new BotonResolverActionListener());
 		this.expresionPanel.add(this.expresionText);
 		this.expresionText.setColumns(40);
+
+		this.modoPanel = new JPanel();
+		add(this.modoPanel);
+
+		this.modoCompletoButton = new JRadioButton("Resolver completo");
+		this.modoCompletoButton.setSelected(true);
+		modoGroup.add(this.modoCompletoButton);
+		this.modoPanel.add(this.modoCompletoButton);
+
+		this.modoArbolButton = new JRadioButton("Completar \u00E1rbol");
+		this.modoArbolButton.addItemListener(new ModoButtonChangeListener());
+		modoGroup.add(this.modoArbolButton);
+		this.modoPanel.add(this.modoArbolButton);
 
 		this.botonesPanel = new JPanel();
 		add(this.botonesPanel);
@@ -211,17 +232,23 @@ public class AhoSethiUllmanPanel extends JPanel {
 					if (!expresion.equals(problemaActual.getProblema()
 							.problema())) {
 						AhoSethiUllman problema = new AhoSethiUllman(expresion);
-						Problema<AhoSethiUllman> asuProblema = Problema
-								.ASUCompleto(problema);
+						Problema<AhoSethiUllman> asuProblema = modoCompletoButton
+								.isSelected() ? Problema.ASUCompleto(problema)
+								: Problema.ASUArbol(problema);
 						documento
 								.sustituirProblema(problemaActual, asuProblema);
+						main.eliminaImagen(problemaActual.getProblema()
+								.arbolVacío());
+						main.añadeImagen(problema.arbolVacío());
 						problemaActual = asuProblema;
 					}
 				} else {
 					AhoSethiUllman problema = new AhoSethiUllman(expresion);
-					Problema<AhoSethiUllman> asuProblema = Problema
-							.ASUCompleto(problema);
+					Problema<AhoSethiUllman> asuProblema = modoCompletoButton
+							.isSelected() ? Problema.ASUCompleto(problema)
+							: Problema.ASUArbol(problema);
 					documento.añadirProblema(asuProblema);
+					main.añadeImagen(problema.arbolVacío());
 					problemaActual = asuProblema;
 				}
 				main.actualizaVistaPrevia();
@@ -262,12 +289,18 @@ public class AhoSethiUllmanPanel extends JPanel {
 			Problema<AhoSethiUllman> asuProblema = null;
 			try {
 				problema = get();
-				asuProblema = Problema.ASUCompleto(problema);
+				asuProblema = modoCompletoButton.isSelected() ? Problema
+						.ASUCompleto(problema) : Problema.ASUArbol(problema);
 
-				if (problemaActual != null)
+				if (problemaActual != null) {
+					main.eliminaImagen(problemaActual.getProblema()
+							.arbolVacío());
+					main.añadeImagen(problema.arbolVacío());
 					documento.sustituirProblema(problemaActual, asuProblema);
-				else
+				} else {
+					main.añadeImagen(problema.arbolVacío());
 					documento.añadirProblema(asuProblema);
+				}
 
 				problemaActual = asuProblema;
 				expresionText.setText(problema.problema());
@@ -285,6 +318,32 @@ public class AhoSethiUllmanPanel extends JPanel {
 		public void cancel() {
 			log.info("Cancelando generación de problema AhoSethiUllman.");
 			generador.cancelar();
+		}
+	}
+
+	private class ModoButtonChangeListener implements ItemListener {
+		public void itemStateChanged(ItemEvent e) {
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				log.info("Seleccionado modo árbol en problema de Aho-Sethi-Ullman.");
+				if (problemaActual != null) {
+					AhoSethiUllman problema = problemaActual.getProblema();
+					Problema<AhoSethiUllman> asuProblema = Problema
+							.ASUArbol(problema);
+					documento.sustituirProblema(problemaActual, asuProblema);
+					problemaActual = asuProblema;
+					main.actualizaVistaPrevia();
+				}
+			} else if (e.getStateChange() == ItemEvent.DESELECTED) {
+				log.info("Seleccionado modo completo en problema de Aho-Sethi-Ullman.");
+				if (problemaActual != null) {
+					AhoSethiUllman problema = problemaActual.getProblema();
+					Problema<AhoSethiUllman> asuProblema = Problema
+							.ASUCompleto(problema);
+					documento.sustituirProblema(problemaActual, asuProblema);
+					problemaActual = asuProblema;
+					main.actualizaVistaPrevia();
+				}
+			}
 		}
 	}
 }

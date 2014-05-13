@@ -1,5 +1,6 @@
 package es.ubu.inf.tfg.regex.asu;
 
+import java.awt.image.BufferedImage;
 import java.io.StringReader;
 import java.util.Set;
 import java.util.TreeSet;
@@ -19,8 +20,8 @@ import es.ubu.inf.tfg.regex.parser.TokenMgrError;
  * a partir de una expresión regular. Es capaz de trabajar tanto con una cadena
  * de caracteres como con una ExpresionRegular ya construida.
  * <p>
- * Asimismo actua como fachada del subsistema es.ubu.inf.tfg.regex.asu, junto con
- * AhoSethiUllmanGenetico, evitando dependencias con los tipos de datos
+ * Asimismo actua como fachada del subsistema es.ubu.inf.tfg.regex.asu, junto
+ * con AhoSethiUllmanGenetico, evitando dependencias con los tipos de datos
  * internos. Todas las salidas se codifican en tipos de datos estandar.
  * 
  * @author Roberto Izquierdo Amo
@@ -272,5 +273,15 @@ public class AhoSethiUllman {
 		// Solo hay una posición final por expresión.
 		int posicionfinal = posiciones('$').iterator().next();
 		return this.estados.get(estado).contains(posicionfinal);
+	}
+
+	/**
+	 * Devuelve una imagen representando el árbol de expresión regular asociado
+	 * a este problema, sin completar y con los nodos etiquetados.
+	 * 
+	 * @return Imagen del árbol vacío.
+	 */
+	public BufferedImage arbolVacío() {
+		return null;
 	}
 }
