@@ -1,7 +1,21 @@
 package es.ubu.inf.tfg.regex.asu.datos;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+
+import javax.swing.SwingConstants;
+
+import com.mxgraph.layout.mxParallelEdgeLayout;
+import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
+import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.util.mxCellRenderer;
+import com.mxgraph.view.mxGraph;
 
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
 
@@ -34,6 +48,8 @@ public class Nodo {
 
 	private MapaPosiciones<Character> simbolos;
 	private MapaPosiciones<Integer> siguientePos;
+
+	private BufferedImage imagen;
 
 	/**
 	 * Calcula los atributos de un nodo ExpresionRegular a partir de los de sus
@@ -217,5 +233,85 @@ public class Nodo {
 	 */
 	public MapaPosiciones<Integer> siguientePos() {
 		return MapaPosiciones.copia(this.siguientePos);
+	}
+
+	/**
+	 * Genera una imagen representando la estrucutra del árbol de la expresión,
+	 * con los nodos marcados pero vacíos. La imagen generada se cachea al ser
+	 * solicitada por primera vez para evitar realizar los cálculos repetidas
+	 * veces.
+	 * 
+	 * @return Imagen conteniendo el árbol que representa a la expresión.
+	 */
+	public BufferedImage imagen() {
+		if (this.imagen == null) {
+			mxGraph graph = new mxGraph();
+			Object parent = graph.getDefaultParent();
+			Map<Nodo, Object> gNodos = new HashMap<>();
+			Nodo actual;
+			Object gNodo, gActual;
+			List<Nodo> siguientes = new ArrayList<>();
+			boolean tieneHijoIzquierdo, tieneHijoDerecho;
+			char actualLetra = 'a';
+
+			String estiloVertex = "shape=ellipse;fillColor=white;strokeColor=black;fontColor=black;";
+			String estiloEdge = "strokeColor=black;fontColor=black;labelBackgroundColor=white;rounded=true;";
+
+			graph.getModel().beginUpdate();
+			try {
+				siguientes.add(this.hijoIzquierdo());
+
+				while (!siguientes.isEmpty()) {
+					actual = siguientes.get(0);
+
+					if (!gNodos.containsKey(actual)) {
+						gActual = graph.insertVertex(parent, null,
+								actualLetra++, 0, 0, 30, 30, estiloVertex);
+						gNodos.put(actual, gActual);
+					} else {
+						gActual = gNodos.get(actual);
+					}
+
+					tieneHijoIzquierdo = !actual.expresion().esSimbolo()
+							&& !actual.expresion().esVacio();
+					tieneHijoDerecho = tieneHijoIzquierdo
+							&& !actual.expresion().esCierre();
+
+					if (tieneHijoIzquierdo) {
+						siguientes.add(actual.hijoIzquierdo());
+						gNodo = graph.insertVertex(parent, null, actualLetra++,
+								0, 0, 30, 30, estiloVertex);
+						graph.insertEdge(parent, null, "", gActual, gNodo,
+								estiloEdge);
+						gNodos.put(actual.hijoIzquierdo(), gNodo);
+					}
+
+					if (tieneHijoDerecho) {
+						siguientes.add(actual.hijoDerecho());
+						gNodo = graph.insertVertex(parent, null, actualLetra++,
+								0, 0, 30, 30, estiloVertex);
+						graph.insertEdge(parent, null, "", gActual, gNodo,
+								estiloEdge);
+						gNodos.put(actual.hijoDerecho(), gNodo);
+					}
+					
+					siguientes.remove(actual);
+				}
+			} finally {
+				graph.getModel().endUpdate();
+
+				mxGraphComponent graphComponent = new mxGraphComponent(graph);
+
+				new mxHierarchicalLayout(graph, SwingConstants.NORTH)
+						.execute(parent);
+				new mxParallelEdgeLayout(graph).execute(parent);
+
+				this.imagen = mxCellRenderer.createBufferedImage(graph, null,
+						1, Color.WHITE, graphComponent.isAntiAlias(), null,
+						graphComponent.getCanvas());
+			}
+		}
+
+		return this.imagen;
 	}
 }
