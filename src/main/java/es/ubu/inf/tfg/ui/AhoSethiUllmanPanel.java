@@ -238,8 +238,8 @@ public class AhoSethiUllmanPanel extends JPanel {
 						documento
 								.sustituirProblema(problemaActual, asuProblema);
 						main.eliminaImagen(problemaActual.getProblema()
-								.arbolVacío());
-						main.añadeImagen(problema.arbolVacío());
+								.arbolVacio());
+						main.añadeImagen(problema.arbolVacio());
 						problemaActual = asuProblema;
 					}
 				} else {
@@ -248,7 +248,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 							.isSelected() ? Problema.ASUCompleto(problema)
 							: Problema.ASUArbol(problema);
 					documento.añadirProblema(asuProblema);
-					main.añadeImagen(problema.arbolVacío());
+					main.añadeImagen(problema.arbolVacio());
 					problemaActual = asuProblema;
 				}
 				main.actualizaVistaPrevia();
@@ -294,11 +294,11 @@ public class AhoSethiUllmanPanel extends JPanel {
 
 				if (problemaActual != null) {
 					main.eliminaImagen(problemaActual.getProblema()
-							.arbolVacío());
-					main.añadeImagen(problema.arbolVacío());
+							.arbolVacio());
+					main.añadeImagen(problema.arbolVacio());
 					documento.sustituirProblema(problemaActual, asuProblema);
 				} else {
-					main.añadeImagen(problema.arbolVacío());
+					main.añadeImagen(problema.arbolVacio());
 					documento.añadirProblema(asuProblema);
 				}
 

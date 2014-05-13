@@ -281,7 +281,7 @@ public class AhoSethiUllman {
 	 * 
 	 * @return Imagen del árbol vacío.
 	 */
-	public BufferedImage arbolVacío() {
-		return null;
+	public BufferedImage arbolVacio() {
+		return this.solucion.imagen();
 	}
 }

@@ -131,8 +131,15 @@ public class TraductorHTML extends Traductor {
 		log.info(
 				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato árbol",
 				problema.problema());
-
-		return traduceASUCompleto(problema); // TODO
+		
+		String url = "http:\\" + problema.arbolVacio().hashCode() + ".jpg";
+		String plantilla = formatoIntermedio(plantilla("plantillaASUArbol.html"));
+		String soluciones = ""; // TODO
+		
+		plantilla = MessageFormat.format(plantilla, "<%0%>", problema.problema(), url, soluciones);
+		plantilla = formatoFinal(plantilla);
+		
+		return plantilla;
 	}
 
 	/**

@@ -162,11 +162,15 @@ public class Documento {
 
 		for (Problema<?> problema : this.problemas) {
 			switch (problema.getTipo()) {
-			case "AhoSethiUllmanArbol": // TODO
-			case "AhoSethiUllmanCompleto":
-				AhoSethiUllman asuProblema = (AhoSethiUllman) problema
+			case "AhoSethiUllmanArbol":
+				AhoSethiUllman asuProblemaArbol = (AhoSethiUllman) problema
 						.getProblema();
-				problemas.add(traductor.traduceASUCompleto(asuProblema));
+				problemas.add(traductor.traduceASUArbol(asuProblemaArbol));
+				break;
+			case "AhoSethiUllmanCompleto":
+				AhoSethiUllman asuProblemaCompleto = (AhoSethiUllman) problema
+						.getProblema();
+				problemas.add(traductor.traduceASUCompleto(asuProblemaCompleto));
 				break;
 			case "ConstruccionSubconjuntosExpresion":
 				ConstruccionSubconjuntos csProblemaExpresion = (ConstruccionSubconjuntos) problema
