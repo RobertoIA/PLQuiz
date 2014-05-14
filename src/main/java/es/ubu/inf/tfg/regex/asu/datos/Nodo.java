@@ -252,10 +252,10 @@ public class Nodo {
 			Object gNodo, gActual;
 			List<Nodo> siguientes = new ArrayList<>();
 			boolean tieneHijoIzquierdo, tieneHijoDerecho;
-			char actualLetra = 'a';
+			char actualLetra = 'A';
 
 			String estiloVertex = "shape=ellipse;fillColor=white;strokeColor=black;fontColor=black;";
-			String estiloEdge = "strokeColor=black;fontColor=black;labelBackgroundColor=white;rounded=true;";
+			String estiloEdge = "strokeColor=black;fontColor=black;labelBackgroundColor=white;endArrow=open;";
 
 			graph.getModel().beginUpdate();
 			try {
