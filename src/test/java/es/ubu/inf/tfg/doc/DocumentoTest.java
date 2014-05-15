@@ -161,6 +161,7 @@ public class DocumentoTest {
 	@Test
 	public void testAñadirASUArbol() throws IOException {
 		// TODO
+		fail();
 	}
 
 	/**
@@ -225,6 +226,7 @@ public class DocumentoTest {
 	@Test
 	public void testEliminarASUArbol() throws IOException {
 		// TODO
+		fail();
 	}
 
 	/**
@@ -289,6 +291,7 @@ public class DocumentoTest {
 	@Test
 	public void testSustituirASUArbol() throws IOException {
 		// TODO
+		fail();
 	}
 
 	/**

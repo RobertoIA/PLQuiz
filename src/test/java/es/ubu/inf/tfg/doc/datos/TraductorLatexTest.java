@@ -63,8 +63,9 @@ public class TraductorLatexTest {
 	 * subtipo árbol.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllman() {
+	public void testTraduceAhoSethiUllmanArbol() {
 		// TODO
+		fail();
 	}
 
 	/**

@@ -69,6 +69,7 @@ public class TraductorMoodleXMLTest {
 	@Test
 	public void testTraduceAhoSethiUllmanArbol() {
 		// TODO
+		fail();
 	}
 
 	/**

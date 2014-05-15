@@ -64,6 +64,7 @@ public class TraductorHTMLTest {
 	@Test
 	public void testTraduceAhoSethiUllmanArbol() {
 		// TODO
+		fail();
 	}
 
 	/**
