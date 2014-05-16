@@ -134,9 +134,16 @@ public class TraductorHTML extends Traductor {
 		
 		String url = "http:\\" + problema.arbolVacio().hashCode() + ".jpg";
 		String plantilla = formatoIntermedio(plantilla("plantillaASUArbol.html"));
-		String soluciones = ""; // TODO
+		StringBuilder soluciones = new StringBuilder();
 		
-		plantilla = MessageFormat.format(plantilla, "<%0%>", problema.problema(), url, soluciones);
+		// cabecera
+		soluciones.append("<table><tr><th></th><th>tipo</th><th>primera-pos</th><th>última-pos</th>");
+		// contenido
+		
+		// cierre
+		soluciones.append("</table>");
+		
+		plantilla = MessageFormat.format(plantilla, "<%0%>", problema.problema(), url, soluciones.toString());
 		plantilla = formatoFinal(plantilla);
 		
 		return plantilla;
