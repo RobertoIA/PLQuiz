@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.swing.SwingConstants;
@@ -44,7 +45,9 @@ public class Nodo {
 
 	private boolean esAnulable;
 	private Set<Integer> primeraPos;
+	private Map<Character, Set<Integer>> primerasPos;
 	private Set<Integer> ultimaPos;
+	private Map<Character, Set<Integer>> ultimasPos;
 
 	private MapaPosiciones<Character> simbolos;
 	private MapaPosiciones<Integer> siguientePos;
@@ -139,6 +142,9 @@ public class Nodo {
 			throw new IllegalArgumentException(
 					"Expresion regular de tipo desconocido.");
 		}
+		
+		this.primerasPos = new TreeMap<>();
+		this.ultimasPos = new TreeMap<>();
 	}
 
 	/**
@@ -208,12 +214,38 @@ public class Nodo {
 	}
 
 	/**
+	 * Obtiene el conjunto de posiciones que definen la primera-pos de uno de
+	 * los nodos hijos del árbol, definidos con un caracter comenzando por 'A',
+	 * y etiquetando cada nivel de izquierda a derecha.
+	 * 
+	 * @param simbolo
+	 *            Etiqueta del nodo.
+	 * @return primera-pos del nodo.
+	 */
+	public Set<Integer> primeraPos(char simbolo) {
+		return primerasPos.get(simbolo);
+	}
+
+	/**
 	 * Obtiene el conjunto de posiciones que definen la última-pos del nodo.
 	 * 
 	 * @return última-pos del nodo.
 	 */
 	public Set<Integer> ultimaPos() {
 		return new TreeSet<>(this.ultimaPos);
+	}
+
+	/**
+	 * Obtiene el conjunto de posiciones que definen la última-pos de uno de los
+	 * nodos hijos del árbol, definidos con un caracter comenzando por 'A', y
+	 * etiquetando cada nivel de izquierda a derecha.
+	 * 
+	 * @param simbolo
+	 *            Etiqueta del nodo.
+	 * @return última-pos del nodo.
+	 */
+	public Set<Integer> ultimaPos(char simbolo) {
+		return ultimasPos.get(simbolo);
 	}
 
 	/**
@@ -259,15 +291,18 @@ public class Nodo {
 
 			graph.getModel().beginUpdate();
 			try {
-				siguientes.add(this.hijoIzquierdo());
+				siguientes.add(this);
 
 				while (!siguientes.isEmpty()) {
 					actual = siguientes.get(0);
-
+					
 					if (!gNodos.containsKey(actual)) {
 						gActual = graph.insertVertex(parent, null,
 								actualLetra++, 0, 0, 30, 30, estiloVertex);
 						gNodos.put(actual, gActual);
+						
+						primerasPos.put((char)(actualLetra - 1), actual.primeraPos());
+						ultimasPos.put((char)(actualLetra - 1), actual.ultimaPos());
 					} else {
 						gActual = gNodos.get(actual);
 					}
@@ -284,6 +319,9 @@ public class Nodo {
 						graph.insertEdge(parent, null, "", gActual, gNodo,
 								estiloEdge);
 						gNodos.put(actual.hijoIzquierdo(), gNodo);
+						
+						primerasPos.put((char)(actualLetra - 1), actual.hijoIzquierdo().primeraPos());
+						ultimasPos.put((char)(actualLetra - 1), actual.hijoIzquierdo().ultimaPos());
 					}
 
 					if (tieneHijoDerecho) {
@@ -293,8 +331,11 @@ public class Nodo {
 						graph.insertEdge(parent, null, "", gActual, gNodo,
 								estiloEdge);
 						gNodos.put(actual.hijoDerecho(), gNodo);
+						
+						primerasPos.put((char)(actualLetra - 1), actual.hijoDerecho().primeraPos());
+						ultimasPos.put((char)(actualLetra - 1), actual.hijoDerecho().ultimaPos());
 					}
-					
+
 					siguientes.remove(actual);
 				}
 			} finally {

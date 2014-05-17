@@ -131,21 +131,35 @@ public class TraductorHTML extends Traductor {
 		log.info(
 				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato árbol",
 				problema.problema());
-		
+
 		String url = "http:\\" + problema.arbolVacio().hashCode() + ".jpg";
 		String plantilla = formatoIntermedio(plantilla("plantillaASUArbol.html"));
 		StringBuilder soluciones = new StringBuilder();
-		
+
 		// cabecera
-		soluciones.append("<table><tr><th></th><th>tipo</th><th>primera-pos</th><th>última-pos</th>");
+		soluciones
+				.append("<table><tr><th></th><th>tipo</th><th>primera-pos</th><th>última-pos</th>");
 		// contenido
-		
+		char simboloActual = 'A';
+		while (problema.primeraPos(simboloActual) != null) {
+			soluciones.append("<tr><td>" + simboloActual + "</td>");
+			soluciones.append("<td></td>"); // TODO tipo
+			soluciones.append("<td>" + problema.primeraPos(simboloActual)
+					+ "</td>");
+			soluciones.append("<td>" + problema.ultimaPos(simboloActual)
+					+ "</td>");
+			soluciones.append("</tr>");
+
+			simboloActual++;
+		}
+
 		// cierre
 		soluciones.append("</table>");
-		
-		plantilla = MessageFormat.format(plantilla, "<%0%>", problema.problema(), url, soluciones.toString());
+
+		plantilla = MessageFormat.format(plantilla, "<%0%>",
+				problema.problema(), url, soluciones.toString());
 		plantilla = formatoFinal(plantilla);
-		
+
 		return plantilla;
 	}
 

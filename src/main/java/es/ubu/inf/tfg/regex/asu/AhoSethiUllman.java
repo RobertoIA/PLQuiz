@@ -274,6 +274,32 @@ public class AhoSethiUllman {
 		int posicionfinal = posiciones('$').iterator().next();
 		return this.estados.get(estado).contains(posicionfinal);
 	}
+	
+	/**
+	 * Obtiene el conjunto de posiciones que definen la última-pos de uno de los
+	 * nodos del árbol, definidos con un caracter comenzando por 'A', y
+	 * etiquetando cada nivel de izquierda a derecha.
+	 * 
+	 * @param simbolo
+	 *            Etiqueta del nodo.
+	 * @return última-pos del nodo.
+	 */
+	public Set<Integer> primeraPos(char simbolo) {
+		return solucion.primeraPos(simbolo);
+	}
+
+	/**
+	 * Obtiene el conjunto de posiciones que definen la última-pos de uno de los
+	 * nodos del árbol, definidos con un caracter comenzando por 'A', y
+	 * etiquetando cada nivel de izquierda a derecha.
+	 * 
+	 * @param simbolo
+	 *            Etiqueta del nodo.
+	 * @return última-pos del nodo.
+	 */
+	public Set<Integer> ultimaPos(char simbolo) {
+		return solucion.ultimaPos(simbolo);
+	}
 
 	/**
 	 * Devuelve una imagen representando el árbol de expresión regular asociado
