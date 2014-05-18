@@ -274,7 +274,7 @@ public class AhoSethiUllman {
 		int posicionfinal = posiciones('$').iterator().next();
 		return this.estados.get(estado).contains(posicionfinal);
 	}
-	
+
 	/**
 	 * Obtiene el conjunto de posiciones que definen la última-pos de uno de los
 	 * nodos del árbol, definidos con un caracter comenzando por 'A', y
@@ -299,6 +299,19 @@ public class AhoSethiUllman {
 	 */
 	public Set<Integer> ultimaPos(char simbolo) {
 		return solucion.ultimaPos(simbolo);
+	}
+
+	/**
+	 * Obtiene el conjunto de posiciones que definen la primera-pos de uno de
+	 * los nodos del árbol, definidos con un caracter comenzando por 'A', y
+	 * etiquetando cada nivel de izquierda a derecha.
+	 * 
+	 * @param simbolo
+	 *            Etiqueta del nodo.
+	 * @return primera-pos del nodo.
+	 */
+	public String tipo(char simbolo) {
+		return solucion.tipo(simbolo);
 	}
 
 	/**

@@ -48,6 +48,7 @@ public class Nodo {
 	private Map<Character, Set<Integer>> primerasPos;
 	private Set<Integer> ultimaPos;
 	private Map<Character, Set<Integer>> ultimasPos;
+	private Map<Character, String> tipos;
 
 	private MapaPosiciones<Character> simbolos;
 	private MapaPosiciones<Integer> siguientePos;
@@ -142,9 +143,10 @@ public class Nodo {
 			throw new IllegalArgumentException(
 					"Expresion regular de tipo desconocido.");
 		}
-		
+
 		this.primerasPos = new TreeMap<>();
 		this.ultimasPos = new TreeMap<>();
+		this.tipos = new TreeMap<>();
 	}
 
 	/**
@@ -249,6 +251,19 @@ public class Nodo {
 	}
 
 	/**
+	 * Obtiene la cadena representando el símbolo de uno de los nodos hijos del
+	 * árbol, definidos con un caracter comenzando por 'A', y etiquetando cada
+	 * nivel de izquierda a derecha.
+	 * 
+	 * @param simbolo
+	 *            Etiqueta del nodo.
+	 * @return Tipo del nodo.
+	 */
+	public String tipo(char simbolo) {
+		return tipos.get(simbolo);
+	}
+
+	/**
 	 * Devuelve un diccionario de los símbolos encontrados en la expresión, y
 	 * sus posiciones.
 	 * 
@@ -295,14 +310,17 @@ public class Nodo {
 
 				while (!siguientes.isEmpty()) {
 					actual = siguientes.get(0);
-					
+
 					if (!gNodos.containsKey(actual)) {
 						gActual = graph.insertVertex(parent, null,
 								actualLetra++, 0, 0, 30, 30, estiloVertex);
 						gNodos.put(actual, gActual);
-						
-						primerasPos.put((char)(actualLetra - 1), actual.primeraPos());
-						ultimasPos.put((char)(actualLetra - 1), actual.ultimaPos());
+
+						primerasPos.put((char) (actualLetra - 1),
+								actual.primeraPos());
+						ultimasPos.put((char) (actualLetra - 1),
+								actual.ultimaPos());
+						tipos.put((char) (actualLetra - 1), actual.tipo());
 					} else {
 						gActual = gNodos.get(actual);
 					}
@@ -319,9 +337,13 @@ public class Nodo {
 						graph.insertEdge(parent, null, "", gActual, gNodo,
 								estiloEdge);
 						gNodos.put(actual.hijoIzquierdo(), gNodo);
-						
-						primerasPos.put((char)(actualLetra - 1), actual.hijoIzquierdo().primeraPos());
-						ultimasPos.put((char)(actualLetra - 1), actual.hijoIzquierdo().ultimaPos());
+
+						primerasPos.put((char) (actualLetra - 1), actual
+								.hijoIzquierdo().primeraPos());
+						ultimasPos.put((char) (actualLetra - 1), actual
+								.hijoIzquierdo().ultimaPos());
+						tipos.put((char) (actualLetra - 1), actual
+								.hijoIzquierdo().tipo());
 					}
 
 					if (tieneHijoDerecho) {
@@ -331,9 +353,13 @@ public class Nodo {
 						graph.insertEdge(parent, null, "", gActual, gNodo,
 								estiloEdge);
 						gNodos.put(actual.hijoDerecho(), gNodo);
-						
-						primerasPos.put((char)(actualLetra - 1), actual.hijoDerecho().primeraPos());
-						ultimasPos.put((char)(actualLetra - 1), actual.hijoDerecho().ultimaPos());
+
+						primerasPos.put((char) (actualLetra - 1), actual
+								.hijoDerecho().primeraPos());
+						ultimasPos.put((char) (actualLetra - 1), actual
+								.hijoDerecho().ultimaPos());
+						tipos.put((char) (actualLetra - 1), actual
+								.hijoDerecho().tipo());
 					}
 
 					siguientes.remove(actual);
@@ -354,5 +380,25 @@ public class Nodo {
 		}
 
 		return this.imagen;
+	}
+
+	/**
+	 * Devuelve una cadena describiendo el tipo del nodo de la expresión regular
+	 * asociada a este nodo.
+	 * 
+	 * @return Tipo del nodo.
+	 */
+	String tipo() {
+		if (expresion.esCierre())
+			return "*";
+		else if (expresion.esConcat())
+			return "\u2027";
+		else if (expresion.esSimbolo())
+			return "" + expresion.simbolo();
+		else if (expresion.esUnion())
+			return "|";
+		else
+			// vacío
+			return "\u03B5";
 	}
 }

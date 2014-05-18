@@ -143,7 +143,7 @@ public class TraductorHTML extends Traductor {
 		char simboloActual = 'A';
 		while (problema.primeraPos(simboloActual) != null) {
 			soluciones.append("<tr><td>" + simboloActual + "</td>");
-			soluciones.append("<td></td>"); // TODO tipo
+			soluciones.append("<td>" + problema.tipo(simboloActual) + "</td>");
 			soluciones.append("<td>" + problema.primeraPos(simboloActual)
 					+ "</td>");
 			soluciones.append("<td>" + problema.ultimaPos(simboloActual)
