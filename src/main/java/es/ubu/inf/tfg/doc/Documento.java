@@ -136,12 +136,16 @@ public class Documento {
 			ruta += ".tex";
 
 		List<BufferedImage> imagenes = new ArrayList<>();
-		;
+		
 		for (Problema<?> problema : problemas) {
 			if (problema.getTipo().equals("ConstruccionSubconjuntosAutomata")) {
 				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
 						.getProblema();
 				imagenes.add(p.automata());
+			} else if (problema.getTipo().equals("AhoSethiUllmanArbol")) {
+				AhoSethiUllman p = (AhoSethiUllman) problema
+						.getProblema();
+				imagenes.add(p.arbolVacio());
 			}
 		}
 
