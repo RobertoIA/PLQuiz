@@ -1,7 +1,7 @@
 	<!-- question: <%0%>  -->
 	<question type="cloze">
 		<name>
-			<text>PLQuiz: Construcción de subconjuntos</text>
+			<text>PLQuiz: Aho-Sethi-Ullman</text>
 		</name>
 		<questiontext>
 			<text><![CDATA[
@@ -10,6 +10,12 @@
 
 				<table border="1" cellspacing="0" align="left">
 				<tbody>
+				<tr>
+					<th></th>
+					<th>tipo</th>
+					<th>primera-pos</th>
+					<th>última-pos</th>
+				</tr>
 				<%3%>
 				</tbody>
 				</table>

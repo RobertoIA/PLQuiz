@@ -144,7 +144,38 @@ public class TraductorMoodleXML extends Traductor {
 				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato árbol",
 				problema.problema());
 
-		return traduceASUCompleto(problema); // TODO
+		String url = problema.arbolVacio().hashCode() + ".jpg";
+		String plantilla = formatoIntermedio(plantilla("plantillaASUArbol.xml"));
+		StringBuilder soluciones = new StringBuilder();
+
+		// cabecera
+		soluciones
+				.append("");
+		// contenido
+		char simboloActual = 'A';
+		while (problema.primeraPos(simboloActual) != null) {
+			soluciones.append("<tr><td>" + simboloActual + "</td>");
+			soluciones.append("<td>" + problema.tipo(simboloActual) + "</td>");
+			soluciones.append("<td>" + problema.primeraPos(simboloActual)
+					+ "</td>");
+			soluciones.append("<td>" + problema.ultimaPos(simboloActual)
+					+ "</td>");
+			soluciones.append("</tr>");
+
+			simboloActual++;
+		}
+		
+		String solucionesXML = soluciones.toString();
+		solucionesXML = solucionesXML.replace("\u2027", "·");
+		String expresion = problema.problema();
+		expresion = expresion.replace("\u2027", "·");
+
+		plantilla = MessageFormat.format(plantilla, "<%0%>",
+				expresion, url, solucionesXML,
+				imageToBase64(problema.arbolVacio()));
+		plantilla = formatoFinal(plantilla);
+
+		return plantilla;
 	}
 
 	/**
@@ -255,8 +286,9 @@ public class TraductorMoodleXML extends Traductor {
 		}
 		eFinales.append(opcionesFinales(finales, problema.estados()));
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>", url, fTrans.toString(),
-				eFinales.toString(), imageToBase64(problema.automata()));
+		plantilla = MessageFormat.format(plantilla, "<%0%>", url,
+				fTrans.toString(), eFinales.toString(),
+				imageToBase64(problema.automata()));
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
