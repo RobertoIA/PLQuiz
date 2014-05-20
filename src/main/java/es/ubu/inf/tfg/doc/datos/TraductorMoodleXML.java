@@ -149,30 +149,33 @@ public class TraductorMoodleXML extends Traductor {
 		StringBuilder soluciones = new StringBuilder();
 
 		// cabecera
-		soluciones
-				.append("");
+		soluciones.append("");
 		// contenido
 		char simboloActual = 'A';
+		Set<Character> simbolos = problema.simbolos();
 		while (problema.primeraPos(simboloActual) != null) {
 			soluciones.append("<tr><td>" + simboloActual + "</td>");
-			soluciones.append("<td>" + problema.tipo(simboloActual) + "</td>");
-			soluciones.append("<td>" + problema.primeraPos(simboloActual)
+			soluciones.append("<td>"
+					+ opcionesTipos(problema.tipo(simboloActual), simbolos)
 					+ "</td>");
-			soluciones.append("<td>" + problema.ultimaPos(simboloActual)
-					+ "</td>");
+			soluciones.append("<td>"
+					+ opcionesPosiciones(problema.primeraPos(simboloActual),
+							problema.posiciones()) + "</td>");
+			soluciones.append("<td>"
+					+ opcionesPosiciones(problema.ultimaPos(simboloActual),
+							problema.posiciones()) + "</td>");
 			soluciones.append("</tr>");
 
 			simboloActual++;
 		}
-		
+
 		String solucionesXML = soluciones.toString();
 		solucionesXML = solucionesXML.replace("\u2027", "·");
 		String expresion = problema.problema();
 		expresion = expresion.replace("\u2027", "·");
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				expresion, url, solucionesXML,
-				imageToBase64(problema.arbolVacio()));
+		plantilla = MessageFormat.format(plantilla, "<%0%>", expresion, url,
+				solucionesXML, imageToBase64(problema.arbolVacio()));
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
@@ -470,6 +473,40 @@ public class TraductorMoodleXML extends Traductor {
 		opciones.append("~" + listToString(complementarios));
 
 		opciones.append("}");
+		return opciones.toString();
+	}
+
+	/**
+	 * 
+	 * @param solucion
+	 * @param simbolos
+	 * @return
+	 */
+	private String opcionesTipos(String solucion, Set<Character> simbolos) {
+		log.debug(
+				"Generando opciones para tipos con solucion {} y simbolos {}",
+				solucion, simbolos);
+
+		StringBuilder opciones = new StringBuilder();
+		List<String> tipos = new ArrayList<>();
+		for (char simbolo : simbolos)
+			tipos.add("" + simbolo);
+		tipos.add("*");
+		tipos.add("\u2027");
+		tipos.add("|");
+		tipos.remove(solucion);
+		
+		opciones.append("{1:MULTICHOICE:%100%");
+		opciones.append(solucion);
+		
+		int index;
+		for(int i = 0; i < 3; i++) {
+			index = random.nextInt(tipos.size());
+			log.debug("Añadiendo opción {}", tipos.get(index));
+			opciones.append("~" + tipos.remove(index));
+		}
+		opciones.append("}");
+
 		return opciones.toString();
 	}
 
