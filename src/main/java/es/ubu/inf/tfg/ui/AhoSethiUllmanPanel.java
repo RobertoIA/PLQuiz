@@ -177,17 +177,20 @@ public class AhoSethiUllmanPanel extends JPanel {
 		this.progresoPanel.add(this.progresoBar, BorderLayout.CENTER);
 	}
 
-	void problema(AhoSethiUllman problema) {
-		Problema<AhoSethiUllman> asuProblema = Problema.ASUCompleto(problema);
+	void problema(Problema<AhoSethiUllman> problema) {
 		if (problemaActual != null) {
-			if (!problema.equals(problemaActual))
-				documento.sustituirProblema(problemaActual, asuProblema);
+			if (!problema.getProblema().equals(problemaActual))
+				main.eliminaImagen(problemaActual.getProblema()
+						.arbolVacio());
+				main.añadeImagen(problema.getProblema().arbolVacio());
+				documento.sustituirProblema(problemaActual, problema);
 		} else {
-			documento.añadirProblema(asuProblema);
+			documento.añadirProblema(problema);
+			main.añadeImagen(problema.getProblema().arbolVacio());
 		}
 
-		problemaActual = asuProblema;
-		expresionText.setText(problema.problema());
+		problemaActual = problema;
+		expresionText.setText(problema.getProblema().problema());
 	}
 
 	private class SliderChangeListener implements ChangeListener {

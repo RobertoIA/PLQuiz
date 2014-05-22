@@ -34,6 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import es.ubu.inf.tfg.doc.Documento;
+import es.ubu.inf.tfg.doc.Problema;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
@@ -186,7 +187,7 @@ public class Main {
 		this.vistaPreviaScroll.setViewportView(this.vistaPreviaText);
 	}
 
-	void añadeAhoSethiUllman(AhoSethiUllman problema) {
+	void añadeAhoSethiUllman(Problema<AhoSethiUllman> problema) {
 		AhoSethiUllmanPanel panel = new AhoSethiUllmanPanel(this,
 				contenedorPanel, documento);
 
@@ -197,7 +198,7 @@ public class Main {
 		contenedorPanel.revalidate();
 	}
 
-	void añadeConstruccionSubconjuntos(ConstruccionSubconjuntos problema) {
+	void añadeConstruccionSubconjuntos(Problema<ConstruccionSubconjuntos> problema) {
 		ConstruccionSubconjuntosPanel panel = new ConstruccionSubconjuntosPanel(
 				this, contenedorPanel, documento);
 
@@ -212,7 +213,7 @@ public class Main {
 	void actualizaVistaPrevia() {
 		vistaPreviaText.setText(documento.vistaPrevia());
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	void añadeImagen(BufferedImage imagen) {
 		try {
@@ -228,9 +229,9 @@ public class Main {
 			log.error("Error al añadir imagen.", e);
 		}
 	}
-	
+
 	void eliminaImagen(BufferedImage imagen) {
-		
+
 	}
 
 	private class AddButtonActionListener implements ActionListener {

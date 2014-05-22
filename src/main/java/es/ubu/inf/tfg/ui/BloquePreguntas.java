@@ -14,12 +14,14 @@ import java.util.concurrent.ExecutionException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
+import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
@@ -32,6 +34,7 @@ import javax.swing.border.TitledBorder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.ubu.inf.tfg.doc.Problema;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllmanGenerador;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
@@ -94,6 +97,14 @@ public class BloquePreguntas extends JDialog {
 	private Component asuVacioGlue;
 	private Component csVacioGlue;
 	private Component controlesStrut;
+	private JPanel asuModoPanel;
+	private JRadioButton csModoAutomataButton;
+	private JRadioButton asuModoArbolButton;
+	private JPanel csModoPanel;
+	private JRadioButton csModoExpresionButton;
+	private JRadioButton asuModoCompletoButton;
+	private final ButtonGroup asuModo = new ButtonGroup();
+	private final ButtonGroup csModo = new ButtonGroup();
 
 	/**
 	 * Create the dialog.
@@ -105,7 +116,7 @@ public class BloquePreguntas extends JDialog {
 		setResizable(false);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
-		setBounds(100, 100, 300, 373);
+		setBounds(100, 100, 300, 435);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		this.mainPanel = new JPanel();
@@ -139,6 +150,18 @@ public class BloquePreguntas extends JDialog {
 		this.asuNumSpinner = new JSpinner();
 		this.asuNumSpinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		this.asuNumPanel.add(this.asuNumSpinner);
+
+		this.asuModoPanel = new JPanel();
+		this.asuPanel.add(this.asuModoPanel);
+
+		this.asuModoCompletoButton = new JRadioButton("Resolver completo");
+		this.asuModoCompletoButton.setSelected(true);
+		asuModo.add(this.asuModoCompletoButton);
+		this.asuModoPanel.add(this.asuModoCompletoButton);
+
+		this.asuModoArbolButton = new JRadioButton("Completar \u00E1rbol");
+		asuModo.add(this.asuModoArbolButton);
+		this.asuModoPanel.add(this.asuModoArbolButton);
 
 		this.asuVacioPanel = new JPanel();
 		this.asuVacioPanel.setBorder(new EmptyBorder(0, 5, 5, 5));
@@ -222,6 +245,18 @@ public class BloquePreguntas extends JDialog {
 		this.csNumSpinner = new JSpinner();
 		this.csNumSpinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		this.csNumPanel.add(this.csNumSpinner);
+
+		this.csModoPanel = new JPanel();
+		this.csPanel.add(this.csModoPanel);
+
+		this.csModoExpresionButton = new JRadioButton("Resolver expresi\u00F3n");
+		this.csModoExpresionButton.setSelected(true);
+		csModo.add(this.csModoExpresionButton);
+		this.csModoPanel.add(this.csModoExpresionButton);
+
+		this.csModoAutomataButton = new JRadioButton("Resolver aut\u00F3mata");
+		csModo.add(this.csModoAutomataButton);
+		this.csModoPanel.add(this.csModoAutomataButton);
 
 		this.csVacioPanel = new JPanel();
 		this.csVacioPanel.setBorder(new EmptyBorder(0, 5, 5, 5));
@@ -404,14 +439,24 @@ public class BloquePreguntas extends JDialog {
 				List<Object> problemas = get();
 
 				for (Object problema : problemas) {
-					if (problema instanceof AhoSethiUllman)
-						main.añadeAhoSethiUllman((AhoSethiUllman) problema);
-					else if (problema instanceof ConstruccionSubconjuntos)
-						main.añadeConstruccionSubconjuntos((ConstruccionSubconjuntos) problema);
-					else
+					if (problema instanceof AhoSethiUllman) {
+						Problema<AhoSethiUllman> p;
+						if (asuModoCompletoButton.isSelected())
+							p = Problema.ASUCompleto((AhoSethiUllman) problema);
+						else
+							p = Problema.ASUArbol((AhoSethiUllman) problema);
+						main.añadeAhoSethiUllman(p);
+					} else if (problema instanceof ConstruccionSubconjuntos) {
+						Problema<ConstruccionSubconjuntos> p;
+						if(csModoExpresionButton.isSelected())
+							p = Problema.CSExpresion((ConstruccionSubconjuntos) problema);
+						else
+							p = Problema.CSAutomata((ConstruccionSubconjuntos) problema);
+						main.añadeConstruccionSubconjuntos(p);
+					} else
 						log.error("Generado problema de tipo desconocido.");
 				}
-				
+
 				main.actualizaVistaPrevia();
 
 			} catch (InterruptedException | ExecutionException

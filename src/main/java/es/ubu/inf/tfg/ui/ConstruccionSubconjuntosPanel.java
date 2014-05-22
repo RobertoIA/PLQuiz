@@ -179,19 +179,21 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		this.progresoPanel.add(this.progresoBar);
 	}
 
-	void problema(ConstruccionSubconjuntos problema) {
-		Problema<ConstruccionSubconjuntos> csProblema = modoExpresionButton
-				.isSelected() ? Problema.CSExpresion(problema) : Problema
-				.CSAutomata(problema);
+	void problema(Problema<ConstruccionSubconjuntos> problema) {
 		if (problemaActual != null) {
-			if (!problema.equals(problemaActual))
-				documento.sustituirProblema(problemaActual, csProblema);
+			if (!problema.getProblema().equals(problemaActual)) {
+				main.eliminaImagen(problemaActual.getProblema()
+						.automata());
+				main.añadeImagen(problema.getProblema().automata());
+				documento.sustituirProblema(problemaActual, problema);
+			}
 		} else {
-			documento.añadirProblema(csProblema);
+			documento.añadirProblema(problema);
+			main.añadeImagen(problema.getProblema().automata());
 		}
 
-		problemaActual = csProblema;
-		expresionText.setText(problema.problema());
+		problemaActual = problema;
+		expresionText.setText(problema.getProblema().problema());
 	}
 
 	private class SliderChangeListener implements ChangeListener {
