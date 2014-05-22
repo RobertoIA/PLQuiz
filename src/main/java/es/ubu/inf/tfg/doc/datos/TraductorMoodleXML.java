@@ -155,15 +155,15 @@ public class TraductorMoodleXML extends Traductor {
 		Set<Character> simbolos = problema.simbolos();
 		while (problema.primeraPos(simboloActual) != null) {
 			soluciones.append("<tr><td>" + simboloActual + "</td>");
-			soluciones.append("<td>"
+			soluciones.append("<td>\n"
 					+ opcionesTipos(problema.tipo(simboloActual), simbolos)
-					+ "</td>");
-			soluciones.append("<td>"
+					+ "\n</td>");
+			soluciones.append("<td>\n"
 					+ opcionesPosiciones(problema.primeraPos(simboloActual),
-							problema.posiciones()) + "</td>");
-			soluciones.append("<td>"
+							problema.posiciones()) + "\n</td>");
+			soluciones.append("<td>\n"
 					+ opcionesPosiciones(problema.ultimaPos(simboloActual),
-							problema.posiciones()) + "</td>");
+							problema.posiciones()) + "\n</td>");
 			soluciones.append("</tr>");
 
 			simboloActual++;

@@ -160,8 +160,57 @@ public class DocumentoTest {
 	 */
 	@Test
 	public void testAñadirASUArbol() throws IOException {
-		// TODO
-		fail();
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		documento.añadirProblema(Problema.ASUArbol(asuProblemaA));
+		documento.añadirProblema(Problema.ASUArbol(asuProblemaB));
+		documento.añadirProblema(Problema.ASUArbol(asuProblemaC));
+
+		// Vista previa
+		esperado = toString("añadirASUArbol.html");
+		encontrado = documento.vistaPrevia();
+		
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+
+		assertEquals(
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo árbol a vista previa.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("añadirASUArbol.xml");
+		ficheroTemporal = ficheroTemporal("añadir.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo árbol a documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("añadirASUArbol.tex");
+		ficheroTemporal = ficheroTemporal("añadir.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		
+		assertEquals(
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo árbol a documento Latex exportado.",
+				esperado, encontrado);
 	}
 
 	/**
@@ -225,8 +274,58 @@ public class DocumentoTest {
 	 */
 	@Test
 	public void testEliminarASUArbol() throws IOException {
-		// TODO
-		fail();
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		// Vista previa
+		documento.añadirProblema(Problema.ASUArbol(asuProblemaA));
+		documento.añadirProblema(Problema.ASUArbol(asuProblemaB));
+		documento.añadirProblema(Problema.ASUArbol(asuProblemaC));
+		documento.eliminarProblema(Problema.ASUArbol(asuProblemaC));
+
+		esperado = toString("eliminarASUArbol.html");
+		encontrado = documento.vistaPrevia();
+		
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+
+		assertEquals(
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo árbol en vista previa.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("eliminarASUArbol.xml");
+		ficheroTemporal = ficheroTemporal("eliminar.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo árbol en documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("eliminarASUArbol.tex");
+		ficheroTemporal = ficheroTemporal("eliminar.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		
+		assertEquals(
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo árbol en documento Latex exportado.",
+				esperado, encontrado);
 	}
 
 	/**
@@ -237,7 +336,7 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testSustituirASU() throws IOException {
+	public void testSustituirASUCompleto() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -290,8 +389,58 @@ public class DocumentoTest {
 	 */
 	@Test
 	public void testSustituirASUArbol() throws IOException {
-		// TODO
-		fail();
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		// Vista previa
+		documento.añadirProblema(Problema.ASUArbol(asuProblemaA));
+		documento.añadirProblema(Problema.ASUArbol(asuProblemaB));
+		documento.sustituirProblema(Problema.ASUArbol(asuProblemaB),
+				Problema.ASUArbol(asuProblemaC));
+
+		esperado = toString("sustituirASUArbol.html");
+		encontrado = documento.vistaPrevia();
+		
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+
+		assertEquals(
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo árbol en vista previa.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("sustituirASUArbol.xml");
+		ficheroTemporal = ficheroTemporal("sustituir.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo árbol en documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("sustituirASUArbol.tex");
+		ficheroTemporal = ficheroTemporal("sustituir.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		
+		assertEquals(
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo árbol en documento Latex exportado.",
+				esperado, encontrado);
 	}
 
 	/**
@@ -471,7 +620,6 @@ public class DocumentoTest {
 		esperado = toString("añadirCSAutomata.html");
 		encontrado = documento.vistaPrevia();
 
-		esperado = esperado.replaceAll("<img src=\".*\">", "<img src=\"\">");
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
 

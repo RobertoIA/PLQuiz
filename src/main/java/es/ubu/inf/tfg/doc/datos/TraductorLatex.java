@@ -2,6 +2,7 @@ package es.ubu.inf.tfg.doc.datos;
 
 import java.text.MessageFormat;
 import java.util.List;
+import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -152,8 +153,8 @@ public class TraductorLatex extends Traductor {
 		while (problema.primeraPos(simboloActual) != null) {
 			soluciones.append(simboloActual + " & ");
 			soluciones.append(problema.tipo(simboloActual) + " & ");
-			soluciones.append(problema.primeraPos(simboloActual) + " & ");
-			soluciones.append(problema.ultimaPos(simboloActual) + "\\\\ \\hline\n");
+			soluciones.append(setToString(problema.primeraPos(simboloActual)) + " & ");
+			soluciones.append(setToString(problema.ultimaPos(simboloActual)) + "\\\\ \\hline\n");
 			
 			simboloActual++;
 		}
@@ -291,4 +292,27 @@ public class TraductorLatex extends Traductor {
 		return plantilla;
 	}
 
+	/**
+	 * Devuelve una representación de un conjunto de elementos separados con
+	 * comas.
+	 * 
+	 * @param lista
+	 *            Conjunto de elementos.
+	 * @return Representación del conjunto como elementos separados por comas.
+	 */
+	private String setToString(Set<?> lista) {
+		StringBuilder setToString = new StringBuilder();
+
+		if (lista.size() > 0) {
+			String prefijo = "";
+			for (Object elemento : lista) {
+				setToString.append(prefijo);
+				prefijo = ", ";
+				setToString.append(elemento.toString());
+			}
+		} else {
+			setToString.append("Cjto. vacío");
+		}
+		return setToString.toString();
+	}
 }
