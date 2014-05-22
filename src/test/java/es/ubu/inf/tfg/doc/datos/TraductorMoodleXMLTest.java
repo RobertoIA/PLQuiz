@@ -68,8 +68,21 @@ public class TraductorMoodleXMLTest {
 	 */
 	@Test
 	public void testTraduceAhoSethiUllmanArbol() {
-		// TODO
-		fail();
+		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
+		String esperado = toString("TraductorASUArbol.xml");
+		String encontrado = traductor.traduceASUArbol(problema);
+
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo árbol.",
+				esperado, encontrado);
 	}
 
 	/**

@@ -63,8 +63,16 @@ public class TraductorHTMLTest {
 	 */
 	@Test
 	public void testTraduceAhoSethiUllmanArbol() {
-		// TODO
-		fail();
+		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
+		String esperado = toString("TraductorASUArbol.html");
+		String encontrado = traductor.traduceASUArbol(problema);
+		
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+
+		assertEquals(
+				"Traducción HTML incorrecta de problema AhoSethiUllman subtipo árbol.",
+				esperado, encontrado);
 	}
 
 	/**
