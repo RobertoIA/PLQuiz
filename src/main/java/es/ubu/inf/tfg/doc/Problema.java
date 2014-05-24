@@ -5,8 +5,9 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
 public class Problema<T> {
 	private enum Tipo {
-		AHOSETHIULLMAN_COMPLETO, // Aho-Sethi-Ullman normal
-		AHOSETHIULLMAN_ARBOL, // Aho-Sethi-Ullman construcción de árbol
+		AHOSETHIULLMAN_CONSTRUCCION, // Aho-Sethi-Ullman construcción de árbol
+		AHOSETHIULLMAN_ETIQUETADO, // Aho-Sethi-Ullman etiquetado de árbol
+		AHOSETHIULLMAN_TABLAS, // Aho-Sethi-Ullman tablas stePos y transición
 		CONSTRUCCIONSUBCONJUNTOS_EXPRESION, // Subconjuntos desde expresión
 		CONSTRUCCIONSUBCONJUNTOS_AUTOMATA, // Subconjuntos desde autómata
 		THOMPSON // Thompson
@@ -18,16 +19,22 @@ public class Problema<T> {
 	private Problema(T problema) {
 		this.problema = problema;
 	}
-
-	public static Problema<AhoSethiUllman> ASUCompleto(AhoSethiUllman problema) {
+	
+	public static Problema<AhoSethiUllman> asuConstruccion(AhoSethiUllman problema) {
 		Problema<AhoSethiUllman> asuProblema = new Problema<>(problema);
-		asuProblema.tipo = Tipo.AHOSETHIULLMAN_COMPLETO;
+		asuProblema.tipo = Tipo.AHOSETHIULLMAN_CONSTRUCCION;
 		return asuProblema;
 	}
 
-	public static Problema<AhoSethiUllman> ASUArbol(AhoSethiUllman problema) {
+	public static Problema<AhoSethiUllman> asuEtiquetado(AhoSethiUllman problema) {
 		Problema<AhoSethiUllman> asuProblema = new Problema<>(problema);
-		asuProblema.tipo = Tipo.AHOSETHIULLMAN_ARBOL;
+		asuProblema.tipo = Tipo.AHOSETHIULLMAN_ETIQUETADO;
+		return asuProblema;
+	}
+
+	public static Problema<AhoSethiUllman> asuTablas(AhoSethiUllman problema) {
+		Problema<AhoSethiUllman> asuProblema = new Problema<>(problema);
+		asuProblema.tipo = Tipo.AHOSETHIULLMAN_TABLAS;
 		return asuProblema;
 	}
 
@@ -51,10 +58,12 @@ public class Problema<T> {
 
 	public String getTipo() {
 		switch (tipo) {
-		case AHOSETHIULLMAN_COMPLETO:
-			return "AhoSethiUllmanCompleto";
-		case AHOSETHIULLMAN_ARBOL:
-			return "AhoSethiUllmanArbol";
+		case AHOSETHIULLMAN_CONSTRUCCION:
+			return "AhoSethiUllmanConstruccion";
+		case AHOSETHIULLMAN_ETIQUETADO:
+			return "AhoSethiUllmanEtiquetado";
+		case AHOSETHIULLMAN_TABLAS:
+			return "AhoSethiUllmanTablas";
 		case CONSTRUCCIONSUBCONJUNTOS_EXPRESION:
 			return "ConstruccionSubconjuntosExpresion";
 		case CONSTRUCCIONSUBCONJUNTOS_AUTOMATA:
@@ -82,8 +91,9 @@ public class Problema<T> {
 		String estaExpresion, otraExpresion;
 
 		switch (tipo) {
-		case AHOSETHIULLMAN_COMPLETO:
-		case AHOSETHIULLMAN_ARBOL:
+		case AHOSETHIULLMAN_CONSTRUCCION:
+		case AHOSETHIULLMAN_ETIQUETADO:
+		case AHOSETHIULLMAN_TABLAS:
 			estaExpresion = ((AhoSethiUllman) problema).problema();
 			otraExpresion = ((Problema<AhoSethiUllman>) o).getProblema()
 					.problema();

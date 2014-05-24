@@ -46,20 +46,12 @@ public class TraductorMoodleXMLTest {
 
 	/**
 	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
-	 * subtipo completo.
+	 * subtipo construcción.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanCompleto() {
-		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("TraductorASUCompleto.xml");
-		String encontrado = traductor.traduceASUCompleto(problema);
-
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
-				"{1:MULTICHOICE:}");
-
-		assertEquals(
-				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo completo.",
-				esperado, encontrado);
+	public void testTraduceAhoSethiUllmanConstruccion() {
+		// TODO
+		fail();
 	}
 
 	/**
@@ -67,10 +59,10 @@ public class TraductorMoodleXMLTest {
 	 * subtipo árbol.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanArbol() {
+	public void testTraduceAhoSethiUllmanEtiquetado() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("TraductorASUArbol.xml");
-		String encontrado = traductor.traduceASUArbol(problema);
+		String esperado = toString("TraductorASUEtiquetado.xml");
+		String encontrado = traductor.traduceASUEtiquetado(problema);
 
 		encontrado = encontrado.replaceAll(
 				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
@@ -81,7 +73,25 @@ public class TraductorMoodleXMLTest {
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
-				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo árbol.",
+				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo etiquetado.",
+				esperado, encontrado);
+	}
+
+	/**
+	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
+	 * subtipo tablas.
+	 */
+	@Test
+	public void testTraduceAhoSethiUllmanTablas() {
+		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
+		String esperado = toString("TraductorASUTablas.xml");
+		String encontrado = traductor.traduceASUTablas(problema);
+
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo tablas.",
 				esperado, encontrado);
 	}
 

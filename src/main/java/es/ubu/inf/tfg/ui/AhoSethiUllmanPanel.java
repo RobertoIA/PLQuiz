@@ -236,8 +236,8 @@ public class AhoSethiUllmanPanel extends JPanel {
 							.problema())) {
 						AhoSethiUllman problema = new AhoSethiUllman(expresion);
 						Problema<AhoSethiUllman> asuProblema = modoCompletoButton
-								.isSelected() ? Problema.ASUCompleto(problema)
-								: Problema.ASUArbol(problema);
+								.isSelected() ? Problema.asuTablas(problema)
+								: Problema.asuEtiquetado(problema);
 						documento
 								.sustituirProblema(problemaActual, asuProblema);
 						main.eliminaImagen(problemaActual.getProblema()
@@ -248,8 +248,8 @@ public class AhoSethiUllmanPanel extends JPanel {
 				} else {
 					AhoSethiUllman problema = new AhoSethiUllman(expresion);
 					Problema<AhoSethiUllman> asuProblema = modoCompletoButton
-							.isSelected() ? Problema.ASUCompleto(problema)
-							: Problema.ASUArbol(problema);
+							.isSelected() ? Problema.asuTablas(problema)
+							: Problema.asuEtiquetado(problema);
 					documento.añadirProblema(asuProblema);
 					main.añadeImagen(problema.arbolVacio());
 					problemaActual = asuProblema;
@@ -293,7 +293,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 			try {
 				problema = get();
 				asuProblema = modoCompletoButton.isSelected() ? Problema
-						.ASUCompleto(problema) : Problema.ASUArbol(problema);
+						.asuTablas(problema) : Problema.asuEtiquetado(problema);
 
 				if (problemaActual != null) {
 					main.eliminaImagen(problemaActual.getProblema()
@@ -331,7 +331,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 				if (problemaActual != null) {
 					AhoSethiUllman problema = problemaActual.getProblema();
 					Problema<AhoSethiUllman> asuProblema = Problema
-							.ASUArbol(problema);
+							.asuEtiquetado(problema);
 					documento.sustituirProblema(problemaActual, asuProblema);
 					problemaActual = asuProblema;
 					main.actualizaVistaPrevia();
@@ -341,7 +341,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 				if (problemaActual != null) {
 					AhoSethiUllman problema = problemaActual.getProblema();
 					Problema<AhoSethiUllman> asuProblema = Problema
-							.ASUCompleto(problema);
+							.asuTablas(problema);
 					documento.sustituirProblema(problemaActual, asuProblema);
 					problemaActual = asuProblema;
 					main.actualizaVistaPrevia();

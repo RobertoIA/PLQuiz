@@ -101,92 +101,54 @@ public class DocumentoTest {
 	}
 
 	/**
-	 * Commprueba que se añaden problemas Aho-Sethi-Ullman subtipo completo
+	 * Commprueba que se añaden problemas Aho-Sethi-Ullman subtipo construcción
 	 * correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testAñadirASUCompleto() throws IOException {
-		File ficheroTemporal;
-
-		String esperado;
-		String encontrado;
-
-		documento.añadirProblema(Problema.ASUCompleto(asuProblemaA));
-		documento.añadirProblema(Problema.ASUCompleto(asuProblemaB));
-		documento.añadirProblema(Problema.ASUCompleto(asuProblemaC));
-
-		// Vista previa
-		esperado = toString("añadirASUCompleto.html");
-		encontrado = documento.vistaPrevia();
-
-		assertEquals(
-				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo completo a vista previa.",
-				esperado, encontrado);
-
-		// Fichero XML
-		esperado = toString("añadirASUCompleto.xml");
-		ficheroTemporal = ficheroTemporal("añadir.xml");
-
-		documento.exportaXML(ficheroTemporal);
-		encontrado = toString(ficheroTemporal);
-
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
-				"{1:MULTICHOICE:}");
-
-		assertEquals(
-				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo completo a documento XML exportado.",
-				esperado, encontrado);
-
-		// Fichero Latex
-		esperado = toString("añadirASUCompleto.tex");
-		ficheroTemporal = ficheroTemporal("añadir.tex");
-
-		documento.exportaLatex(ficheroTemporal);
-		encontrado = toString(ficheroTemporal);
-		assertEquals(
-				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo completo a documento Latex exportado.",
-				esperado, encontrado);
+	public void testAñadirASUConstruccion() throws IOException {
+		// TODO
+		fail();
 	}
 
 	/**
-	 * Commprueba que se añaden problemas Aho-Sethi-Ullman subtipo árbol
+	 * Commprueba que se añaden problemas Aho-Sethi-Ullman subtipo etiquetado
 	 * correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testAñadirASUArbol() throws IOException {
+	public void testAñadirASUEtiquetado() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
 		String encontrado;
 
-		documento.añadirProblema(Problema.ASUArbol(asuProblemaA));
-		documento.añadirProblema(Problema.ASUArbol(asuProblemaB));
-		documento.añadirProblema(Problema.ASUArbol(asuProblemaC));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaC));
 
 		// Vista previa
-		esperado = toString("añadirASUArbol.html");
+		esperado = toString("añadirASUEtiquetado.html");
 		encontrado = documento.vistaPrevia();
-		
+
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
 
 		assertEquals(
-				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo árbol a vista previa.",
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado a vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("añadirASUArbol.xml");
+		esperado = toString("añadirASUEtiquetado.xml");
 		ficheroTemporal = ficheroTemporal("añadir.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
+
 		encontrado = encontrado.replaceAll(
 				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
 				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
@@ -196,53 +158,52 @@ public class DocumentoTest {
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
-				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo árbol a documento XML exportado.",
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado a documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("añadirASUArbol.tex");
+		esperado = toString("añadirASUEtiquetado.tex");
 		ficheroTemporal = ficheroTemporal("añadir.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
+
 		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
-		
+
 		assertEquals(
-				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo árbol a documento Latex exportado.",
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado a documento Latex exportado.",
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba que se eliminan problemas Aho-Sethi-Ullman subtipo completo
+	 * Commprueba que se añaden problemas Aho-Sethi-Ullman subtipo tablas
 	 * correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testEliminarASUCompleto() throws IOException {
+	public void testAñadirASUTablas() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
 		String encontrado;
 
-		// Vista previa
-		documento.añadirProblema(Problema.ASUCompleto(asuProblemaA));
-		documento.añadirProblema(Problema.ASUCompleto(asuProblemaB));
-		documento.añadirProblema(Problema.ASUCompleto(asuProblemaC));
-		documento.eliminarProblema(Problema.ASUCompleto(asuProblemaC));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaA));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaB));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaC));
 
-		esperado = toString("eliminarASUCompleto.html");
+		// Vista previa
+		esperado = toString("añadirASUTablas.html");
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
-				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo completo en vista previa.",
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo tablas a vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("eliminarASUCompleto.xml");
-		ficheroTemporal = ficheroTemporal("eliminar.xml");
+		esperado = toString("añadirASUTablas.xml");
+		ficheroTemporal = ficheroTemporal("añadir.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
@@ -251,52 +212,65 @@ public class DocumentoTest {
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
-				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo completo en documento XML exportado.",
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo tablas a documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("eliminarASUCompleto.tex");
-		ficheroTemporal = ficheroTemporal("eliminar.tex");
+		esperado = toString("añadirASUTablas.tex");
+		ficheroTemporal = ficheroTemporal("añadir.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
-				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo completo en documento Latex exportado.",
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo tablas a documento Latex exportado.",
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba que se eliminan problemas Aho-Sethi-Ullman subtipo árbol
+	 * Comprueba que se eliminan problemas Aho-Sethi-Ullman subtipo construcción
 	 * correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testEliminarASUArbol() throws IOException {
+	public void testEliminarASUConstruccion() throws IOException {
+		// TODO
+		fail();
+	}
+
+	/**
+	 * Comprueba que se eliminan problemas Aho-Sethi-Ullman subtipo etiquetado
+	 * correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testEliminarASUEtiquetado() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.ASUArbol(asuProblemaA));
-		documento.añadirProblema(Problema.ASUArbol(asuProblemaB));
-		documento.añadirProblema(Problema.ASUArbol(asuProblemaC));
-		documento.eliminarProblema(Problema.ASUArbol(asuProblemaC));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaC));
+		documento.eliminarProblema(Problema.asuEtiquetado(asuProblemaC));
 
-		esperado = toString("eliminarASUArbol.html");
+		esperado = toString("eliminarASUEtiquetado.html");
 		encontrado = documento.vistaPrevia();
-		
+
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
 
 		assertEquals(
-				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo árbol en vista previa.",
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado en vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("eliminarASUArbol.xml");
+		esperado = toString("eliminarASUEtiquetado.xml");
 		ficheroTemporal = ficheroTemporal("eliminar.xml");
 
 		documento.exportaXML(ficheroTemporal);
@@ -311,53 +285,53 @@ public class DocumentoTest {
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
-				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo árbol en documento XML exportado.",
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado en documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("eliminarASUArbol.tex");
+		esperado = toString("eliminarASUEtiquetado.tex");
 		ficheroTemporal = ficheroTemporal("eliminar.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
+
 		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
-		
+
 		assertEquals(
-				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo árbol en documento Latex exportado.",
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado en documento Latex exportado.",
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba que se sustituyen problemas Aho-Sethi-Ullman subtipo completo
+	 * Comprueba que se eliminan problemas Aho-Sethi-Ullman subtipo tablas
 	 * correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testSustituirASUCompleto() throws IOException {
+	public void testEliminarASUTablas() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.ASUCompleto(asuProblemaA));
-		documento.añadirProblema(Problema.ASUCompleto(asuProblemaB));
-		documento.sustituirProblema(Problema.ASUCompleto(asuProblemaB),
-				Problema.ASUCompleto(asuProblemaC));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaA));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaB));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaC));
+		documento.eliminarProblema(Problema.asuTablas(asuProblemaC));
 
-		esperado = toString("sustituirASUCompleto.html");
+		esperado = toString("eliminarASUTablas.html");
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
-				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo completo en vista previa.",
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo tablas en vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("sustituirASUCompleto.xml");
-		ficheroTemporal = ficheroTemporal("sustituir.xml");
+		esperado = toString("eliminarASUTablas.xml");
+		ficheroTemporal = ficheroTemporal("eliminar.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
@@ -366,57 +340,70 @@ public class DocumentoTest {
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
-				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo completo en documento XML exportado.",
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo tablas en documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("sustituirASUCompleto.tex");
-		ficheroTemporal = ficheroTemporal("sustituir.tex");
+		esperado = toString("eliminarASUTablas.tex");
+		ficheroTemporal = ficheroTemporal("eliminar.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
-				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo completo en documento Latex exportado.",
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo tablas en documento Latex exportado.",
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba que se sustituyen problemas Aho-Sethi-Ullman subtipo árbol
+	 * Comprueba que se sustituyen problemas Aho-Sethi-Ullman subtipo
+	 * construcción correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testSustituirASUConstrucción() throws IOException {
+		// TODO
+		fail();
+	}
+
+	/**
+	 * Comprueba que se sustituyen problemas Aho-Sethi-Ullman subtipo etiquetado
 	 * correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testSustituirASUArbol() throws IOException {
+	public void testSustituirASUEtiquetado() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.ASUArbol(asuProblemaA));
-		documento.añadirProblema(Problema.ASUArbol(asuProblemaB));
-		documento.sustituirProblema(Problema.ASUArbol(asuProblemaB),
-				Problema.ASUArbol(asuProblemaC));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB));
+		documento.sustituirProblema(Problema.asuEtiquetado(asuProblemaB),
+				Problema.asuEtiquetado(asuProblemaC));
 
-		esperado = toString("sustituirASUArbol.html");
+		esperado = toString("sustituirASUEtiquetado.html");
 		encontrado = documento.vistaPrevia();
-		
+
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
 
 		assertEquals(
-				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo árbol en vista previa.",
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo etiquetado en vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("sustituirASUArbol.xml");
+		esperado = toString("sustituirASUEtiquetado.xml");
 		ficheroTemporal = ficheroTemporal("sustituir.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
+
 		encontrado = encontrado.replaceAll(
 				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
 				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
@@ -426,20 +413,72 @@ public class DocumentoTest {
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
-				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo árbol en documento XML exportado.",
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo etiquetado en documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("sustituirASUArbol.tex");
+		esperado = toString("sustituirASUEtiquetado.tex");
 		ficheroTemporal = ficheroTemporal("sustituir.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
+
 		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
-		
+
 		assertEquals(
-				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo árbol en documento Latex exportado.",
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo etiquetado en documento Latex exportado.",
+				esperado, encontrado);
+	}
+
+	/**
+	 * Comprueba que se sustituyen problemas Aho-Sethi-Ullman subtipo tablas
+	 * correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testSustituirASUTablas() throws IOException {
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		// Vista previa
+		documento.añadirProblema(Problema.asuTablas(asuProblemaA));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaB));
+		documento.sustituirProblema(Problema.asuTablas(asuProblemaB),
+				Problema.asuTablas(asuProblemaC));
+
+		esperado = toString("sustituirASUTablas.html");
+		encontrado = documento.vistaPrevia();
+
+		assertEquals(
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo tablas en vista previa.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("sustituirASUTablas.xml");
+		ficheroTemporal = ficheroTemporal("sustituir.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo tablas en documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("sustituirASUTablas.tex");
+		ficheroTemporal = ficheroTemporal("sustituir.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+		assertEquals(
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo tablas en documento Latex exportado.",
 				esperado, encontrado);
 	}
 

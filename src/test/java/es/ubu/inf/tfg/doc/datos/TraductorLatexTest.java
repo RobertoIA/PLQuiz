@@ -46,33 +46,43 @@ public class TraductorLatexTest {
 
 	/**
 	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
-	 * subtipo completo.
+	 * subtipo construcción.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanCompleto() {
-		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("TraductorASUCompleto.tex");
-
-		assertEquals(
-				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo completo.",
-				esperado, traductor.traduceASUCompleto(problema));
+	public void testTraduceAhoSethiUllmanConstruccion() {
+		// TODO
+		fail();
 	}
 
 	/**
 	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
-	 * subtipo árbol.
+	 * subtipo etiquetado.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanArbol() {
+	public void testTraduceAhoSethiUllmanEtiquetado() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("TraductorASUArbol.tex");
-		String encontrado = traductor.traduceASUArbol(problema);
+		String esperado = toString("TraductorASUEtiquetado.tex");
+		String encontrado = traductor.traduceASUEtiquetado(problema);
 
 		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
-		
+
 		assertEquals(
-				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo completo.",
+				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo etiquetado.",
 				esperado, encontrado);
+	}
+
+	/**
+	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
+	 * subtipo tablas.
+	 */
+	@Test
+	public void testTraduceAhoSethiUllmanTablas() {
+		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
+		String esperado = toString("TraductorASUTablas.tex");
+
+		assertEquals(
+				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo tablas.",
+				esperado, traductor.traduceASUTablas(problema));
 	}
 
 	/**

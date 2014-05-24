@@ -142,7 +142,7 @@ public class Documento {
 				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
 						.getProblema();
 				imagenes.add(p.automata());
-			} else if (problema.getTipo().equals("AhoSethiUllmanArbol")) {
+			} else if (problema.getTipo().equals("AhoSethiUllmanEtiquetado")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema
 						.getProblema();
 				imagenes.add(p.arbolVacio());
@@ -166,15 +166,17 @@ public class Documento {
 
 		for (Problema<?> problema : this.problemas) {
 			switch (problema.getTipo()) {
-			case "AhoSethiUllmanArbol":
-				AhoSethiUllman asuProblemaArbol = (AhoSethiUllman) problema
+			case "AhoSethiUllmanConstruccion":
+				//TODO
+			case "AhoSethiUllmanEtiquetado":
+				AhoSethiUllman asuProblemaEtiquetado = (AhoSethiUllman) problema
 						.getProblema();
-				problemas.add(traductor.traduceASUArbol(asuProblemaArbol));
+				problemas.add(traductor.traduceASUEtiquetado(asuProblemaEtiquetado));
 				break;
-			case "AhoSethiUllmanCompleto":
-				AhoSethiUllman asuProblemaCompleto = (AhoSethiUllman) problema
+			case "AhoSethiUllmanTablas":
+				AhoSethiUllman asuProblemaTablas = (AhoSethiUllman) problema
 						.getProblema();
-				problemas.add(traductor.traduceASUCompleto(asuProblemaCompleto));
+				problemas.add(traductor.traduceASUTablas(asuProblemaTablas));
 				break;
 			case "ConstruccionSubconjuntosExpresion":
 				ConstruccionSubconjuntos csProblemaExpresion = (ConstruccionSubconjuntos) problema

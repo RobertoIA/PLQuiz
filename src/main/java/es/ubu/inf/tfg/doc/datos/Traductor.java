@@ -35,24 +35,35 @@ public abstract class Traductor {
 	public abstract String documento(List<String> problemas);
 
 	/**
-	 * Traduce un problema de tipo AhoSethiUllman subtipo completo a un formato
+	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a un formato
 	 * concreto.
 	 * 
 	 * @param problema
 	 *            Problema AhoSethiUllman.
 	 * @return Problema traducido.
 	 */
-	public abstract String traduceASUCompleto(AhoSethiUllman problema);
+	public abstract String traduceASUConstruccion(AhoSethiUllman problema);
+	
+	/**
+	 * Traduce un problema de tipo AhoSethiUllman subtipo etiquetado a un formato
+	 * concreto.
+	 * 
+	 * @param problema
+	 *            Problema AhoSethiUllman.
+	 * @return Problema traducido.
+	 */
+	public abstract String traduceASUEtiquetado(AhoSethiUllman problema);
 
 	/**
-	 * Traduce un problema de tipo AhoSethiUllman subtipo árbol a un formato
+	 * Traduce un problema de tipo AhoSethiUllman subtipo tablas a un formato
 	 * concreto.
 	 * 
 	 * @param problema
 	 *            Problema AhoSethiUllman.
 	 * @return Problema traducido.
 	 */
-	public abstract String traduceASUArbol(AhoSethiUllman problema);
+	public abstract String traduceASUTablas(AhoSethiUllman problema);
+
 
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo

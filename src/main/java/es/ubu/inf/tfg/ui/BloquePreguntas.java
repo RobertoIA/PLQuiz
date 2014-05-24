@@ -442,9 +442,9 @@ public class BloquePreguntas extends JDialog {
 					if (problema instanceof AhoSethiUllman) {
 						Problema<AhoSethiUllman> p;
 						if (asuModoCompletoButton.isSelected())
-							p = Problema.ASUCompleto((AhoSethiUllman) problema);
+							p = Problema.asuTablas((AhoSethiUllman) problema);
 						else
-							p = Problema.ASUArbol((AhoSethiUllman) problema);
+							p = Problema.asuEtiquetado((AhoSethiUllman) problema);
 						main.añadeAhoSethiUllman(p);
 					} else if (problema instanceof ConstruccionSubconjuntos) {
 						Problema<ConstruccionSubconjuntos> p;

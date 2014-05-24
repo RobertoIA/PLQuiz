@@ -46,33 +46,44 @@ public class TraductorHTMLTest {
 
 	/**
 	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
-	 * subtipo completo.
+	 * subtipo construcción.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanCompleto() {
-		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("TraductorASUCompleto.html");
+	public void testTraduceAhoSethiUllmanConstruccion() {
+		// TODO
+		fail();
+	}
 
-		assertEquals(
-				"Traducción HTML incorrecta de problema AhoSethiUllman subtipo completo.",
-				esperado, traductor.traduceASUCompleto(problema));
-	}	
 	/**
 	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
-	 * subtipo árbol.
+	 * subtipo etiquetado.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanArbol() {
+	public void testTraduceAhoSethiUllmanEtiquetado() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("TraductorASUArbol.html");
-		String encontrado = traductor.traduceASUArbol(problema);
-		
+		String esperado = toString("TraductorASUEtiquetado.html");
+		String encontrado = traductor.traduceASUEtiquetado(problema);
+
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
 
 		assertEquals(
-				"Traducción HTML incorrecta de problema AhoSethiUllman subtipo árbol.",
+				"Traducción HTML incorrecta de problema AhoSethiUllman subtipo etiquetado.",
 				esperado, encontrado);
+	}
+
+	/**
+	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
+	 * subtipo tablas.
+	 */
+	@Test
+	public void testTraduceAhoSethiUllmanTablas() {
+		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
+		String esperado = toString("TraductorASUTablas.html");
+
+		assertEquals(
+				"Traducción HTML incorrecta de problema AhoSethiUllman subtipo tablas.",
+				esperado, traductor.traduceASUTablas(problema));
 	}
 
 	/**
@@ -100,9 +111,9 @@ public class TraductorHTMLTest {
 				"((a|b*)a*c)*");
 		String esperado = toString("TraductorCSAutomata.html");
 		String encontrado = traductor.traduceCSAutomata(problema);
-		
-		encontrado = encontrado.replaceAll("<img src=\".*\">",
-				"<img src=\"\">");
+
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
 
 		assertEquals(
 				"Traducción HTML incorrecta de problema de construcción de subconjuntos subtipo autómata.",

@@ -49,7 +49,7 @@ public class TraductorHTML extends Traductor {
 	}
 
 	/**
-	 * Traduce un problema de tipo AhoSethiUllman subtipo completo a formato
+	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a formato
 	 * HTML.
 	 * 
 	 * @param problema
@@ -57,15 +57,75 @@ public class TraductorHTML extends Traductor {
 	 * @return Problema traducido a HTML.
 	 */
 	@Override
-	public String traduceASUCompleto(AhoSethiUllman problema) {
+	public String traduceASUConstruccion(AhoSethiUllman problema) {
+		// TODO
+		return "";
+	}
+
+	/**
+	 * Traduce un problema de tipo AhoSethiUllman subtipo etiquetado a formato
+	 * HTML.
+	 * 
+	 * @param problema
+	 *            Problema AhoSethiUllman.
+	 * @return Problema traducido a HTML.
+	 */
+	@Override
+	public String traduceASUEtiquetado(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato completo",
+				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato etiquetado",
+				problema.problema());
+
+		String url = "http:\\" + problema.arbolVacio().hashCode() + ".jpg";
+		String plantilla = formatoIntermedio(plantilla("plantillaASUEtiquetado.html"));
+		StringBuilder soluciones = new StringBuilder();
+
+		// cabecera
+		soluciones
+				.append("<table><tr><th></th><th>tipo</th><th>primera-pos</th><th>última-pos</th>");
+		// contenido
+		char simboloActual = 'A';
+		while (problema.primeraPos(simboloActual) != null) {
+			soluciones.append("<tr><td>" + simboloActual + "</td>");
+			soluciones.append("<td>" + problema.tipo(simboloActual) + "</td>");
+			soluciones
+					.append("<td>"
+							+ setToString(problema.primeraPos(simboloActual))
+							+ "</td>");
+			soluciones.append("<td>"
+					+ setToString(problema.ultimaPos(simboloActual)) + "</td>");
+			soluciones.append("</tr>");
+
+			simboloActual++;
+		}
+
+		// cierre
+		soluciones.append("</table>");
+
+		plantilla = MessageFormat.format(plantilla, "<%0%>",
+				problema.problema(), url, soluciones.toString());
+		plantilla = formatoFinal(plantilla);
+
+		return plantilla;
+	}
+
+	/**
+	 * Traduce un problema de tipo AhoSethiUllman subtipo tablas a formato HTML.
+	 * 
+	 * @param problema
+	 *            Problema AhoSethiUllman.
+	 * @return Problema traducido a HTML.
+	 */
+	@Override
+	public String traduceASUTablas(AhoSethiUllman problema) {
+		log.info(
+				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato tablas",
 				problema.problema());
 
 		StringBuilder stePos = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaASUCompleto.html"));
+		String plantilla = formatoIntermedio(plantilla("plantillaASUTablas.html"));
 
 		// siguiente-pos
 		stePos.append("<p><table>");
@@ -115,50 +175,6 @@ public class TraductorHTML extends Traductor {
 		plantilla = MessageFormat.format(plantilla, "<%0%>",
 				problema.problema(), problema.expresionAumentada(),
 				stePos.toString(), fTrans.toString());
-		plantilla = formatoFinal(plantilla);
-
-		return plantilla;
-	}
-
-	/**
-	 * Traduce un problema de tipo AhoSethiUllman subtipo árbol a formato HTML.
-	 * 
-	 * @param problema
-	 *            Problema AhoSethiUllman.
-	 * @return Problema traducido a HTML.
-	 */
-	@Override
-	public String traduceASUArbol(AhoSethiUllman problema) {
-		log.info(
-				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato árbol",
-				problema.problema());
-
-		String url = "http:\\" + problema.arbolVacio().hashCode() + ".jpg";
-		String plantilla = formatoIntermedio(plantilla("plantillaASUArbol.html"));
-		StringBuilder soluciones = new StringBuilder();
-
-		// cabecera
-		soluciones
-				.append("<table><tr><th></th><th>tipo</th><th>primera-pos</th><th>última-pos</th>");
-		// contenido
-		char simboloActual = 'A';
-		while (problema.primeraPos(simboloActual) != null) {
-			soluciones.append("<tr><td>" + simboloActual + "</td>");
-			soluciones.append("<td>" + problema.tipo(simboloActual) + "</td>");
-			soluciones.append("<td>" + setToString(problema.primeraPos(simboloActual))
-					+ "</td>");
-			soluciones.append("<td>" + setToString(problema.ultimaPos(simboloActual))
-					+ "</td>");
-			soluciones.append("</tr>");
-
-			simboloActual++;
-		}
-
-		// cierre
-		soluciones.append("</table>");
-
-		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				problema.problema(), url, soluciones.toString());
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
@@ -262,7 +278,7 @@ public class TraductorHTML extends Traductor {
 
 		return plantilla;
 	}
-	
+
 	/**
 	 * Devuelve una representación de un conjunto de elementos separados con
 	 * comas.

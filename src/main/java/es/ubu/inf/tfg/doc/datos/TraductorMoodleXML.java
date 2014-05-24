@@ -60,7 +60,21 @@ public class TraductorMoodleXML extends Traductor {
 	}
 
 	/**
-	 * Traduce un problema de tipo AhoSethiUllman subtipo completo a formato
+	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a formato
+	 * Moodle XML.
+	 * 
+	 * @param problema
+	 *            Problema AhoSethiUllman.
+	 * @return Problema traducido a Moodle XML.
+	 */
+	@Override
+	public String traduceASUConstruccion(AhoSethiUllman problema) {
+		// TODO
+		return "";
+	}
+
+	/**
+	 * Traduce un problema de tipo AhoSethiUllman subtipo etiquetado a formato
 	 * Moodle XML.
 	 * 
 	 * @param problema
@@ -69,16 +83,68 @@ public class TraductorMoodleXML extends Traductor {
 	 */
 
 	@Override
-	public String traduceASUCompleto(AhoSethiUllman problema) {
+	public String traduceASUEtiquetado(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato completo",
+				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato etiquetado",
+				problema.problema());
+
+		String url = problema.arbolVacio().hashCode() + ".jpg";
+		String plantilla = formatoIntermedio(plantilla("plantillaASUEtiquetado.xml"));
+		StringBuilder soluciones = new StringBuilder();
+
+		// cabecera
+		soluciones.append("");
+		// contenido
+		char simboloActual = 'A';
+		Set<Character> simbolos = problema.simbolos();
+		while (problema.primeraPos(simboloActual) != null) {
+			soluciones.append("<tr><td>" + simboloActual + "</td>");
+			soluciones.append("<td>\n"
+					+ opcionesTipos(problema.tipo(simboloActual), simbolos)
+					+ "\n</td>");
+			soluciones.append("<td>\n"
+					+ opcionesPosiciones(problema.primeraPos(simboloActual),
+							problema.posiciones()) + "\n</td>");
+			soluciones.append("<td>\n"
+					+ opcionesPosiciones(problema.ultimaPos(simboloActual),
+							problema.posiciones()) + "\n</td>");
+			soluciones.append("</tr>");
+
+			simboloActual++;
+		}
+
+		String solucionesXML = soluciones.toString();
+		solucionesXML = solucionesXML.replace("\u2027", "·");
+		String expresion = problema.problema();
+		expresion = expresion.replace("\u2027", "·");
+
+		plantilla = MessageFormat.format(plantilla, "<%0%>", expresion, url,
+				solucionesXML, imageToBase64(problema.arbolVacio()));
+		plantilla = formatoFinal(plantilla);
+
+		return plantilla;
+	}
+
+	/**
+	 * Traduce un problema de tipo AhoSethiUllman subtipo tablas a formato
+	 * Moodle XML.
+	 * 
+	 * @param problema
+	 *            Problema AhoSethiUllman.
+	 * @return Problema traducido a Moodle XML.
+	 */
+
+	@Override
+	public String traduceASUTablas(AhoSethiUllman problema) {
+		log.info(
+				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato tablas",
 				problema.problema());
 
 		StringBuilder stePos = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 		StringBuilder eFinales = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaASUCompleto.xml"));
+		String plantilla = formatoIntermedio(plantilla("plantillaASUTablas.xml"));
 
 		// siguiente-pos
 		for (int n : problema.posiciones()) {
@@ -124,58 +190,6 @@ public class TraductorMoodleXML extends Traductor {
 		plantilla = MessageFormat.format(plantilla, "<%0%>",
 				problema.problema(), stePos.toString(), fTrans.toString(),
 				eFinales.toString());
-		plantilla = formatoFinal(plantilla);
-
-		return plantilla;
-	}
-
-	/**
-	 * Traduce un problema de tipo AhoSethiUllman subtipo árbol a formato Moodle
-	 * XML.
-	 * 
-	 * @param problema
-	 *            Problema AhoSethiUllman.
-	 * @return Problema traducido a Moodle XML.
-	 */
-
-	@Override
-	public String traduceASUArbol(AhoSethiUllman problema) {
-		log.info(
-				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato árbol",
-				problema.problema());
-
-		String url = problema.arbolVacio().hashCode() + ".jpg";
-		String plantilla = formatoIntermedio(plantilla("plantillaASUArbol.xml"));
-		StringBuilder soluciones = new StringBuilder();
-
-		// cabecera
-		soluciones.append("");
-		// contenido
-		char simboloActual = 'A';
-		Set<Character> simbolos = problema.simbolos();
-		while (problema.primeraPos(simboloActual) != null) {
-			soluciones.append("<tr><td>" + simboloActual + "</td>");
-			soluciones.append("<td>\n"
-					+ opcionesTipos(problema.tipo(simboloActual), simbolos)
-					+ "\n</td>");
-			soluciones.append("<td>\n"
-					+ opcionesPosiciones(problema.primeraPos(simboloActual),
-							problema.posiciones()) + "\n</td>");
-			soluciones.append("<td>\n"
-					+ opcionesPosiciones(problema.ultimaPos(simboloActual),
-							problema.posiciones()) + "\n</td>");
-			soluciones.append("</tr>");
-
-			simboloActual++;
-		}
-
-		String solucionesXML = soluciones.toString();
-		solucionesXML = solucionesXML.replace("\u2027", "·");
-		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "·");
-
-		plantilla = MessageFormat.format(plantilla, "<%0%>", expresion, url,
-				solucionesXML, imageToBase64(problema.arbolVacio()));
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
@@ -495,12 +509,12 @@ public class TraductorMoodleXML extends Traductor {
 		tipos.add("\u2027");
 		tipos.add("|");
 		tipos.remove(solucion);
-		
+
 		opciones.append("{1:MULTICHOICE:%100%");
 		opciones.append(solucion);
-		
+
 		int index;
-		for(int i = 0; i < 3; i++) {
+		for (int i = 0; i < 3; i++) {
 			index = random.nextInt(tipos.size());
 			log.debug("Añadiendo opción {}", tipos.get(index));
 			opciones.append("~" + tipos.remove(index));

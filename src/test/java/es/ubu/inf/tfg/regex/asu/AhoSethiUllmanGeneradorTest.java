@@ -75,6 +75,7 @@ public class AhoSethiUllmanGeneradorTest {
 	 * los parámetros pedidos. Debe generar el problema pedido en al menos un
 	 * 90% de los casos.
 	 */
+	@Ignore
 	@Test
 	public void testNuevoNoVacio() {
 		AhoSethiUllman problema;
@@ -106,6 +107,7 @@ public class AhoSethiUllmanGeneradorTest {
 	 * los parámetros pedidos o similares. Debe generar el problema pedido en al
 	 * menos un 90% de los casos.
 	 */
+	@Ignore
 	@Test
 	public void testNuevoVacio() {
 		AhoSethiUllman problema;

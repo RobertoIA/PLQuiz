@@ -7,6 +7,7 @@ import java.util.Random;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ConstruccionSubconjuntosGeneradorTest {
@@ -34,6 +35,7 @@ public class ConstruccionSubconjuntosGeneradorTest {
 	 * en uno en como máximo uno de los parámetros en al menos un 80% de los
 	 * casos.
 	 */
+	@Ignore
 	@Test
 	public void testNuevoNoVacio() {
 		ConstruccionSubconjuntos problema;
@@ -65,6 +67,7 @@ public class ConstruccionSubconjuntosGeneradorTest {
 	 * diferir de el en uno en como máximo uno de los parámetros en al menos un
 	 * 80% de los casos.
 	 */
+	@Ignore
 	@Test
 	public void testNuevoVacio() {
 		ConstruccionSubconjuntos problema;

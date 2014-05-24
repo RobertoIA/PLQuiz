@@ -8,30 +8,44 @@ import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
 public class ProblemaTest {
+	
 	/**
-	 * Comprueba que los problemas de tipo Aho-Sethi-Ullman subtipo completo se
+	 * Comprueba que los problemas de tipo Aho-Sethi-Ullman subtipo construcción se
 	 * crean correctamente.
 	 */
 	@Test
-	public void testASUCompleto() {
+	public void testASUConstruccion() {
 		AhoSethiUllman asu = new AhoSethiUllman("a*");
-		Problema<AhoSethiUllman> problema = Problema.ASUCompleto(asu);
+		Problema<AhoSethiUllman> problema = Problema.asuConstruccion(asu);
+		
+		assertEquals("Error recuperando problema original tipo AhoSethiUllman subtipo construcción",  asu, problema.getProblema());
+		assertEquals("Error identificando problema tipo AhoSethiUllman subtipo construcción", "AhoSethiUllmanConstruccion", problema.getTipo());
+	}
+	
+	/**
+	 * Comprueba que los problemas de tipo Aho-Sethi-Ullman subtipo etiquetado se
+	 * crean correctamente.
+	 */
+	@Test
+	public void testASUEtiquetado() {
+		AhoSethiUllman asu = new AhoSethiUllman("a*");
+		Problema<AhoSethiUllman> problema = Problema.asuEtiquetado(asu);
+		
+		assertEquals("Error recuperando problema original tipo AhoSethiUllman subtipo etiquetado",  asu, problema.getProblema());
+		assertEquals("Error identificando problema tipo AhoSethiUllman subtipo etiquetado", "AhoSethiUllmanEtiquetado", problema.getTipo());
+	}
+	
+	/**
+	 * Comprueba que los problemas de tipo Aho-Sethi-Ullman subtipo tablas se
+	 * crean correctamente.
+	 */
+	@Test
+	public void testASUTablas() {
+		AhoSethiUllman asu = new AhoSethiUllman("a*");
+		Problema<AhoSethiUllman> problema = Problema.asuTablas(asu);
 		
 		assertEquals("Error recuperando problema original tipo AhoSethiUllman subtipo completo",  asu, problema.getProblema());
-		assertEquals("Error identificando problema tipo AhoSethiUllman subtipo completo", "AhoSethiUllmanCompleto", problema.getTipo());
-	}
-
-	/**
-	 * Comprueba que los problemas de tipo Aho-Sethi-Ullman subtipo árbol se
-	 * crean correctamente.
-	 */
-	@Test
-	public void testASUArbol() {
-		AhoSethiUllman asu = new AhoSethiUllman("a*");
-		Problema<AhoSethiUllman> problema = Problema.ASUArbol(asu);
-		
-		assertEquals("Error recuperando problema original tipo AhoSethiUllman subtipo árbol",  asu, problema.getProblema());
-		assertEquals("Error identificando problema tipo AhoSethiUllman subtipo árbol", "AhoSethiUllmanArbol", problema.getTipo());
+		assertEquals("Error identificando problema tipo AhoSethiUllman subtipo completo", "AhoSethiUllmanTablas", problema.getTipo());
 	}
 
 	/**
