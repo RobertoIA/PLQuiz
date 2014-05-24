@@ -39,6 +39,7 @@ import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllmanGenerador;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntosGenerador;
+import java.awt.FlowLayout;
 
 @SuppressWarnings("serial")
 public class BloquePreguntas extends JDialog {
@@ -97,14 +98,16 @@ public class BloquePreguntas extends JDialog {
 	private Component asuVacioGlue;
 	private Component csVacioGlue;
 	private Component controlesStrut;
-	private JPanel asuModoPanel;
+	private JPanel asuModoPanelA;
 	private JRadioButton csModoAutomataButton;
-	private JRadioButton asuModoArbolButton;
+	private JRadioButton asuModoEtiquetadoButton;
 	private JPanel csModoPanel;
 	private JRadioButton csModoExpresionButton;
-	private JRadioButton asuModoCompletoButton;
+	private JRadioButton asuModoTablasButton;
 	private final ButtonGroup asuModo = new ButtonGroup();
 	private final ButtonGroup csModo = new ButtonGroup();
+	private JRadioButton asuModoConstruccionButton;
+	private JPanel asuModoPanelB;
 
 	/**
 	 * Create the dialog.
@@ -116,7 +119,7 @@ public class BloquePreguntas extends JDialog {
 		setResizable(false);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
-		setBounds(100, 100, 300, 435);
+		setBounds(100, 100, 300, 472);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		this.mainPanel = new JPanel();
@@ -151,17 +154,25 @@ public class BloquePreguntas extends JDialog {
 		this.asuNumSpinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		this.asuNumPanel.add(this.asuNumSpinner);
 
-		this.asuModoPanel = new JPanel();
-		this.asuPanel.add(this.asuModoPanel);
+		this.asuModoPanelA = new JPanel();
+		this.asuPanel.add(this.asuModoPanelA);
+		this.asuModoPanelA.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		this.asuModoConstruccionButton = new JRadioButton("Construcci\u00F3n de \u00E1rbol");
+		asuModo.add(this.asuModoConstruccionButton);
+		this.asuModoPanelA.add(this.asuModoConstruccionButton);
 
-		this.asuModoCompletoButton = new JRadioButton("Resolver completo");
-		this.asuModoCompletoButton.setSelected(true);
-		asuModo.add(this.asuModoCompletoButton);
-		this.asuModoPanel.add(this.asuModoCompletoButton);
-
-		this.asuModoArbolButton = new JRadioButton("Completar \u00E1rbol");
-		asuModo.add(this.asuModoArbolButton);
-		this.asuModoPanel.add(this.asuModoArbolButton);
+		this.asuModoEtiquetadoButton = new JRadioButton("Etiquetado de \u00E1rbol");
+		asuModo.add(this.asuModoEtiquetadoButton);
+		this.asuModoPanelA.add(this.asuModoEtiquetadoButton);
+		
+		this.asuModoPanelB = new JPanel();
+		this.asuPanel.add(this.asuModoPanelB);
+		
+				this.asuModoTablasButton = new JRadioButton("Construcci\u00F3n de tablas");
+				asuModo.add(this.asuModoTablasButton);
+				this.asuModoPanelB.add(this.asuModoTablasButton);
+				this.asuModoTablasButton.setSelected(true);
 
 		this.asuVacioPanel = new JPanel();
 		this.asuVacioPanel.setBorder(new EmptyBorder(0, 5, 5, 5));
@@ -441,10 +452,12 @@ public class BloquePreguntas extends JDialog {
 				for (Object problema : problemas) {
 					if (problema instanceof AhoSethiUllman) {
 						Problema<AhoSethiUllman> p;
-						if (asuModoCompletoButton.isSelected())
+						if (asuModoTablasButton.isSelected())
 							p = Problema.asuTablas((AhoSethiUllman) problema);
-						else
+						else if (asuModoEtiquetadoButton.isSelected())
 							p = Problema.asuEtiquetado((AhoSethiUllman) problema);
+						else
+							p = Problema.asuConstruccion((AhoSethiUllman) problema);
 						main.añadeAhoSethiUllman(p);
 					} else if (problema instanceof ConstruccionSubconjuntos) {
 						Problema<ConstruccionSubconjuntos> p;

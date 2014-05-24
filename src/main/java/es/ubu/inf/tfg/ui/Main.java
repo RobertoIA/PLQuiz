@@ -231,7 +231,7 @@ public class Main {
 	}
 
 	void eliminaImagen(BufferedImage imagen) {
-
+		// TODO
 	}
 
 	private class AddButtonActionListener implements ActionListener {

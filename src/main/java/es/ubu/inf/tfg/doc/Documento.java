@@ -136,16 +136,18 @@ public class Documento {
 			ruta += ".tex";
 
 		List<BufferedImage> imagenes = new ArrayList<>();
-		
+
 		for (Problema<?> problema : problemas) {
 			if (problema.getTipo().equals("ConstruccionSubconjuntosAutomata")) {
 				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
 						.getProblema();
 				imagenes.add(p.automata());
 			} else if (problema.getTipo().equals("AhoSethiUllmanEtiquetado")) {
-				AhoSethiUllman p = (AhoSethiUllman) problema
-						.getProblema();
+				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
 				imagenes.add(p.arbolVacio());
+			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
+				// AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
+				// TODO imagenes.add();
 			}
 		}
 
@@ -167,11 +169,16 @@ public class Documento {
 		for (Problema<?> problema : this.problemas) {
 			switch (problema.getTipo()) {
 			case "AhoSethiUllmanConstruccion":
-				//TODO
+				AhoSethiUllman asuProblemaConstruccion = (AhoSethiUllman) problema
+						.getProblema();
+				problemas.add(traductor
+						.traduceASUConstruccion(asuProblemaConstruccion));
+				break;
 			case "AhoSethiUllmanEtiquetado":
 				AhoSethiUllman asuProblemaEtiquetado = (AhoSethiUllman) problema
 						.getProblema();
-				problemas.add(traductor.traduceASUEtiquetado(asuProblemaEtiquetado));
+				problemas.add(traductor
+						.traduceASUEtiquetado(asuProblemaEtiquetado));
 				break;
 			case "AhoSethiUllmanTablas":
 				AhoSethiUllman asuProblemaTablas = (AhoSethiUllman) problema

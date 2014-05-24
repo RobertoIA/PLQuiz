@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
@@ -70,9 +68,10 @@ public class AhoSethiUllmanPanel extends JPanel {
 	private JPanel progresoPanel;
 	private JProgressBar progresoBar;
 	private JPanel modoPanel;
-	private JRadioButton modoCompletoButton;
-	private JRadioButton modoArbolButton;
+	private JRadioButton modoTablasButton;
+	private JRadioButton modoEtiquetadoButton;
 	private final ButtonGroup modoGroup = new ButtonGroup();
+	private JRadioButton modoConstruccionButton;
 
 	public AhoSethiUllmanPanel(Main main, JPanel contenedor, Documento documento) {
 
@@ -102,15 +101,22 @@ public class AhoSethiUllmanPanel extends JPanel {
 		this.modoPanel = new JPanel();
 		add(this.modoPanel);
 
-		this.modoCompletoButton = new JRadioButton("Resolver completo");
-		this.modoCompletoButton.setSelected(true);
-		modoGroup.add(this.modoCompletoButton);
-		this.modoPanel.add(this.modoCompletoButton);
+		this.modoConstruccionButton = new JRadioButton(
+				"Construcci\u00F3n de \u00E1rbol");
+		this.modoConstruccionButton.addActionListener(new ModoButtonChangeListener());
+		modoGroup.add(this.modoConstruccionButton);
+		this.modoPanel.add(this.modoConstruccionButton);
 
-		this.modoArbolButton = new JRadioButton("Completar \u00E1rbol");
-		this.modoArbolButton.addItemListener(new ModoButtonChangeListener());
-		modoGroup.add(this.modoArbolButton);
-		this.modoPanel.add(this.modoArbolButton);
+		this.modoEtiquetadoButton = new JRadioButton("Etiquetado de \u00E1rbol");
+		this.modoEtiquetadoButton.addActionListener(new ModoButtonChangeListener());
+		modoGroup.add(this.modoEtiquetadoButton);
+		this.modoPanel.add(this.modoEtiquetadoButton);
+
+		this.modoTablasButton = new JRadioButton("Construcci\u00F3n de tablas");
+		this.modoTablasButton.addActionListener(new ModoButtonChangeListener());
+		this.modoTablasButton.setSelected(true);
+		modoGroup.add(this.modoTablasButton);
+		this.modoPanel.add(this.modoTablasButton);
 
 		this.botonesPanel = new JPanel();
 		add(this.botonesPanel);
@@ -180,10 +186,9 @@ public class AhoSethiUllmanPanel extends JPanel {
 	void problema(Problema<AhoSethiUllman> problema) {
 		if (problemaActual != null) {
 			if (!problema.getProblema().equals(problemaActual))
-				main.eliminaImagen(problemaActual.getProblema()
-						.arbolVacio());
-				main.añadeImagen(problema.getProblema().arbolVacio());
-				documento.sustituirProblema(problemaActual, problema);
+				main.eliminaImagen(problemaActual.getProblema().arbolVacio());
+			main.añadeImagen(problema.getProblema().arbolVacio());
+			documento.sustituirProblema(problemaActual, problema);
 		} else {
 			documento.añadirProblema(problema);
 			main.añadeImagen(problema.getProblema().arbolVacio());
@@ -235,9 +240,15 @@ public class AhoSethiUllmanPanel extends JPanel {
 					if (!expresion.equals(problemaActual.getProblema()
 							.problema())) {
 						AhoSethiUllman problema = new AhoSethiUllman(expresion);
-						Problema<AhoSethiUllman> asuProblema = modoCompletoButton
-								.isSelected() ? Problema.asuTablas(problema)
-								: Problema.asuEtiquetado(problema);
+						Problema<AhoSethiUllman> asuProblema;
+
+						if (modoTablasButton.isSelected())
+							asuProblema = Problema.asuTablas(problema);
+						else if (modoEtiquetadoButton.isSelected())
+							asuProblema = Problema.asuEtiquetado(problema);
+						else
+							asuProblema = Problema.asuConstruccion(problema);
+
 						documento
 								.sustituirProblema(problemaActual, asuProblema);
 						main.eliminaImagen(problemaActual.getProblema()
@@ -247,9 +258,15 @@ public class AhoSethiUllmanPanel extends JPanel {
 					}
 				} else {
 					AhoSethiUllman problema = new AhoSethiUllman(expresion);
-					Problema<AhoSethiUllman> asuProblema = modoCompletoButton
-							.isSelected() ? Problema.asuTablas(problema)
-							: Problema.asuEtiquetado(problema);
+					Problema<AhoSethiUllman> asuProblema;
+
+					if (modoTablasButton.isSelected())
+						asuProblema = Problema.asuTablas(problema);
+					else if (modoEtiquetadoButton.isSelected())
+						asuProblema = Problema.asuEtiquetado(problema);
+					else
+						asuProblema = Problema.asuConstruccion(problema);
+
 					documento.añadirProblema(asuProblema);
 					main.añadeImagen(problema.arbolVacio());
 					problemaActual = asuProblema;
@@ -292,8 +309,12 @@ public class AhoSethiUllmanPanel extends JPanel {
 			Problema<AhoSethiUllman> asuProblema = null;
 			try {
 				problema = get();
-				asuProblema = modoCompletoButton.isSelected() ? Problema
-						.asuTablas(problema) : Problema.asuEtiquetado(problema);
+				if (modoTablasButton.isSelected())
+					asuProblema = Problema.asuTablas(problema);
+				else if (modoEtiquetadoButton.isSelected())
+					asuProblema = Problema.asuEtiquetado(problema);
+				else
+					asuProblema = Problema.asuConstruccion(problema);
 
 				if (problemaActual != null) {
 					main.eliminaImagen(problemaActual.getProblema()
@@ -324,10 +345,12 @@ public class AhoSethiUllmanPanel extends JPanel {
 		}
 	}
 
-	private class ModoButtonChangeListener implements ItemListener {
-		public void itemStateChanged(ItemEvent e) {
-			if (e.getStateChange() == ItemEvent.SELECTED) {
-				log.info("Seleccionado modo árbol en problema de Aho-Sethi-Ullman.");
+	private class ModoButtonChangeListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			JRadioButton modoButton = (JRadioButton) e.getSource();
+			
+			if (modoEtiquetadoButton == modoButton) {
+				log.info("Seleccionado modo etiquetado en problema de Aho-Sethi-Ullman.");
 				if (problemaActual != null) {
 					AhoSethiUllman problema = problemaActual.getProblema();
 					Problema<AhoSethiUllman> asuProblema = Problema
@@ -336,12 +359,22 @@ public class AhoSethiUllmanPanel extends JPanel {
 					problemaActual = asuProblema;
 					main.actualizaVistaPrevia();
 				}
-			} else if (e.getStateChange() == ItemEvent.DESELECTED) {
-				log.info("Seleccionado modo completo en problema de Aho-Sethi-Ullman.");
+			} else if (modoTablasButton == modoButton) {
+				log.info("Seleccionado modo tablas en problema de Aho-Sethi-Ullman.");
 				if (problemaActual != null) {
 					AhoSethiUllman problema = problemaActual.getProblema();
 					Problema<AhoSethiUllman> asuProblema = Problema
 							.asuTablas(problema);
+					documento.sustituirProblema(problemaActual, asuProblema);
+					problemaActual = asuProblema;
+					main.actualizaVistaPrevia();
+				}
+			} else {
+				log.info("Seleccionado modo construcción en problema de Aho-Sethi-Ullman.");
+				if (problemaActual != null) {
+					AhoSethiUllman problema = problemaActual.getProblema();
+					Problema<AhoSethiUllman> asuProblema = Problema
+							.asuConstruccion(problema);
 					documento.sustituirProblema(problemaActual, asuProblema);
 					problemaActual = asuProblema;
 					main.actualizaVistaPrevia();
