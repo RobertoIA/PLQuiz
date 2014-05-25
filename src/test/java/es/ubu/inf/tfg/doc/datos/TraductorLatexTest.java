@@ -50,8 +50,15 @@ public class TraductorLatexTest {
 	 */
 	@Test
 	public void testTraduceAhoSethiUllmanConstruccion() {
-		// TODO
-		fail();
+		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
+		String esperado = toString("TraductorASUConstruccion.tex");
+		String encontrado = traductor.traduceASUConstruccion(problema);
+
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+
+		assertEquals(
+				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo construccion.",
+				esperado, encontrado);
 	}
 
 	/**

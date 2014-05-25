@@ -50,8 +50,21 @@ public class TraductorMoodleXMLTest {
 	 */
 	@Test
 	public void testTraduceAhoSethiUllmanConstruccion() {
-		// TODO
-		fail();
+		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
+		String esperado = toString("TraductorASUConstruccion.xml");
+		String encontrado = traductor.traduceASUConstruccion(problema);
+
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo construcción.",
+				esperado, encontrado);
 	}
 
 	/**
