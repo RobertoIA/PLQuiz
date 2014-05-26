@@ -8,6 +8,7 @@ import java.util.TreeSet;
 import es.ubu.inf.tfg.regex.asu.datos.MapaPosiciones;
 import es.ubu.inf.tfg.regex.asu.datos.Nodo;
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
+import es.ubu.inf.tfg.regex.datos.Generador;
 import es.ubu.inf.tfg.regex.datos.MapaEstados;
 import es.ubu.inf.tfg.regex.parser.CharStream;
 import es.ubu.inf.tfg.regex.parser.ExpresionRegularParser;
@@ -34,6 +35,7 @@ public class AhoSethiUllman {
 	private Nodo solucion;
 	private MapaPosiciones<Character> estados;
 	private MapaEstados transiciones;
+	private BufferedImage[] alternativas;
 
 	/**
 	 * Resuelve un problema de construcción de AFD a partir de una expresión
@@ -322,5 +324,28 @@ public class AhoSethiUllman {
 	 */
 	public BufferedImage arbolVacio() {
 		return this.solucion.imagen();
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public BufferedImage[] alternativas() {
+		if (this.alternativas == null) {
+			int nSimbolos = simbolos().size();
+			boolean usaVacio = simbolos().contains("\u0000");
+			if (usaVacio)
+				nSimbolos--;
+			Generador generador = new Generador(nSimbolos, usaVacio, true);
+
+			// TODO asegurarse de que no aparecen repetidas.
+			for (int i = 0; i < 3; i++) {
+				AhoSethiUllman problema = new AhoSethiUllman(
+						generador.mutacion(expresion));
+				alternativas[i] = problema.arbolVacio();
+			}
+		}
+
+		return alternativas;
 	}
 }
