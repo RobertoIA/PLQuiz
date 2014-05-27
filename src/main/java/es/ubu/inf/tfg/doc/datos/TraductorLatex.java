@@ -58,12 +58,20 @@ public class TraductorLatex extends Traductor {
 	 */
 	@Override
 	public String traduceASUConstruccion(AhoSethiUllman problema) {
+		log.info(
+				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresion {}, formato construcción",
+				problema.problema());
+
+		String plantilla = formatoIntermedio(plantilla("plantillaASUConstruccion.tex"));
+
 		// TODO
-		return "";
+
+		return plantilla;
 	}
 
 	/**
-	 * Traduce un problema de tipo AhoSethiUllman subtipo etiquetado a formato Latex.
+	 * Traduce un problema de tipo AhoSethiUllman subtipo etiquetado a formato
+	 * Latex.
 	 * 
 	 * @param problema
 	 *            Problema AhoSethiUllman.
@@ -74,43 +82,47 @@ public class TraductorLatex extends Traductor {
 		log.info(
 				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresion {}, formato etiquetado",
 				problema.problema());
-		
+
 		String imagen = "" + problema.arbolVacio().hashCode();
 		String plantilla = formatoIntermedio(plantilla("plantillaASUEtiquetado.tex"));
 		StringBuilder soluciones = new StringBuilder();
-		
+
 		soluciones.append(" & tipo & primera-pos & última-pos");
 		soluciones.append("\\\\ \\hline\n");
 		char simboloActual = 'A';
 		while (problema.primeraPos(simboloActual) != null) {
 			soluciones.append(simboloActual + " & ");
 			soluciones.append(problema.tipo(simboloActual) + " & ");
-			soluciones.append(setToString(problema.primeraPos(simboloActual)) + " & ");
-			soluciones.append(setToString(problema.ultimaPos(simboloActual)) + "\\\\ \\hline\n");
-			
+			soluciones.append(setToString(problema.primeraPos(simboloActual))
+					+ " & ");
+			soluciones.append(setToString(problema.ultimaPos(simboloActual))
+					+ "\\\\ \\hline\n");
+
 			simboloActual++;
 		}
 		soluciones.append("\\end{tabular}");
-		
+
 		String solucionesL = soluciones.toString();
 		solucionesL = solucionesL.replace("|", "\\textbar ");
 		solucionesL = solucionesL.replace("\u2027", "·");
 		solucionesL = solucionesL.replace("\u03B5", "$\\epsilon$");
 		solucionesL = solucionesL.replace("$", "\\$");
-		
-		solucionesL = "\\begin{tabular} {| c | c | c | c |}\\hline\n" + solucionesL;
-		
+
+		solucionesL = "\\begin{tabular} {| c | c | c | c |}\\hline\n"
+				+ solucionesL;
+
 		String expresion = problema.problema();
 		expresion = expresion.replace("|", "\\textbar ");
 		expresion = expresion.replace("\u2027", "·");
 		expresion = expresion.replace("\u03B5", "$\\epsilon$");
-		
-		plantilla = MessageFormat.format(plantilla, "<%0%>", expresion, imagen, solucionesL);
+
+		plantilla = MessageFormat.format(plantilla, "<%0%>", expresion, imagen,
+				solucionesL);
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
 	}
-	
+
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo tablas a formato
 	 * Latex.
@@ -192,7 +204,6 @@ public class TraductorLatex extends Traductor {
 
 		return plantilla;
 	}
-
 
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo

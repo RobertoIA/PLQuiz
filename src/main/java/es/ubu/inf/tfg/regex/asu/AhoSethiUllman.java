@@ -327,18 +327,22 @@ public class AhoSethiUllman {
 	}
 
 	/**
+	 * Genera una serie de tres imagenes correspondientes con mutaciones de la
+	 * expresión regular del problema, como alternativas en un problema de
+	 * construcción de árbol.
 	 * 
-	 * @return
+	 * @return Array de tres imagenes alternativas a la generada en arbolVacio()
 	 */
 	public BufferedImage[] alternativas() {
 		if (this.alternativas == null) {
 			int nSimbolos = simbolos().size();
-			boolean usaVacio = simbolos().contains("\u0000");
+			boolean usaVacio = simbolos().contains('\u0000');
 			if (usaVacio)
 				nSimbolos--;
 			Generador generador = new Generador(nSimbolos, usaVacio, true);
 
 			// TODO asegurarse de que no aparecen repetidas.
+			alternativas = new BufferedImage[3];
 			for (int i = 0; i < 3; i++) {
 				AhoSethiUllman problema = new AhoSethiUllman(
 						generador.mutacion(expresion));

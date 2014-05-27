@@ -58,8 +58,27 @@ public class TraductorHTML extends Traductor {
 	 */
 	@Override
 	public String traduceASUConstruccion(AhoSethiUllman problema) {
-		// TODO
-		return "";
+		log.info(
+				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato construcción",
+				problema.problema());
+
+		String plantilla = formatoIntermedio(plantilla("plantillaASUConstruccion.html"));
+		String[] imagenes = new String[4];
+		// TODO mezclar
+		imagenes[0] = "http:\\" + problema.arbolVacio().hashCode() + ".jpg";
+		imagenes[1] = "http:\\" + problema.alternativas()[0].hashCode()
+				+ ".jpg";
+		imagenes[2] = "http:\\" + problema.alternativas()[1].hashCode()
+				+ ".jpg";
+		imagenes[3] = "http:\\" + problema.alternativas()[2].hashCode()
+				+ ".jpg";
+
+		plantilla = MessageFormat.format(plantilla, "<%0%>",
+				problema.problema(), imagenes[0], imagenes[1], imagenes[2],
+				imagenes[3], "a)");
+		plantilla = formatoFinal(plantilla);
+
+		return plantilla;
 	}
 
 	/**

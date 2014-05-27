@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
@@ -253,7 +254,11 @@ public class AhoSethiUllmanPanel extends JPanel {
 								.sustituirProblema(problemaActual, asuProblema);
 						main.eliminaImagen(problemaActual.getProblema()
 								.arbolVacio());
+						for(BufferedImage imagen : problemaActual.getProblema().alternativas())
+							main.eliminaImagen(imagen);
 						main.añadeImagen(problema.arbolVacio());
+						for(BufferedImage imagen : problema.alternativas())
+							main.añadeImagen(imagen);
 						problemaActual = asuProblema;
 					}
 				} else {
@@ -269,6 +274,8 @@ public class AhoSethiUllmanPanel extends JPanel {
 
 					documento.añadirProblema(asuProblema);
 					main.añadeImagen(problema.arbolVacio());
+					for(BufferedImage imagen : problema.alternativas())
+						main.añadeImagen(imagen);
 					problemaActual = asuProblema;
 				}
 				main.actualizaVistaPrevia();
@@ -320,9 +327,13 @@ public class AhoSethiUllmanPanel extends JPanel {
 					main.eliminaImagen(problemaActual.getProblema()
 							.arbolVacio());
 					main.añadeImagen(problema.arbolVacio());
+					for(BufferedImage imagen : problema.alternativas())
+						main.añadeImagen(imagen);
 					documento.sustituirProblema(problemaActual, asuProblema);
 				} else {
 					main.añadeImagen(problema.arbolVacio());
+					for(BufferedImage imagen : problema.alternativas())
+						main.añadeImagen(imagen);
 					documento.añadirProblema(asuProblema);
 				}
 

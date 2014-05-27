@@ -69,8 +69,15 @@ public class TraductorMoodleXML extends Traductor {
 	 */
 	@Override
 	public String traduceASUConstruccion(AhoSethiUllman problema) {
+		log.info(
+				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato construcción",
+				problema.problema());
+
+		String plantilla = formatoIntermedio(plantilla("plantillaASUConstruccion.xml"));
+		
 		// TODO
-		return "";
+		
+		return plantilla;
 	}
 
 	/**
