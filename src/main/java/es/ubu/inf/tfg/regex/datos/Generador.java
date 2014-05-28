@@ -34,7 +34,7 @@ public class Generador {
 
 	private final int nSimbolos;
 	private final boolean usaVacio;
-	private final boolean esAumentada;
+	private boolean esAumentada;
 
 	/**
 	 * Operador implementa un tipo enumerado que contiene los tipos de
@@ -125,9 +125,12 @@ public class Generador {
 				// .filter(e -> e.profundidad() < 2)
 				.collect(Collectors.toList());
 		ExpresionRegular nodo = nodos.get(random.nextInt(nodos.size()));
+		log.debug("Nodo: {}", nodo);
 		// ExpresionRegular nuevo = arbol(nodo.profundidad());
+		this.esAumentada = false;
 		ExpresionRegular nuevo = arbol(nodo.profundidad() + random.nextInt(3)
 				- 1);
+		this.esAumentada = esAumentada;
 
 		posicion = 0;
 		ExpresionRegular mutante = sustituir(expresion, nodo, nuevo);
