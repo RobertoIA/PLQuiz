@@ -1,6 +1,8 @@
 package es.ubu.inf.tfg.doc.datos;
 
+import java.awt.image.BufferedImage;
 import java.text.MessageFormat;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -64,18 +66,16 @@ public class TraductorHTML extends Traductor {
 
 		String plantilla = formatoIntermedio(plantilla("plantillaASUConstruccion.html"));
 		String[] imagenes = new String[4];
-		// TODO mezclar
-		imagenes[0] = "http:\\" + problema.arbolVacio().hashCode() + ".jpg";
-		imagenes[1] = "http:\\" + problema.alternativas()[0].hashCode()
-				+ ".jpg";
-		imagenes[2] = "http:\\" + problema.alternativas()[1].hashCode()
-				+ ".jpg";
-		imagenes[3] = "http:\\" + problema.alternativas()[2].hashCode()
-				+ ".jpg";
+		List<BufferedImage> alternativas = problema.alternativas();
+		Collections.shuffle(alternativas);
+		
+		for(int i = 0; i < 4; i++)
+			imagenes[i] = "http:\\" + alternativas.get(i).hashCode()
+					+ ".jpg";
 
 		plantilla = MessageFormat.format(plantilla, "<%0%>",
 				problema.problema(), imagenes[0], imagenes[1], imagenes[2],
-				imagenes[3], "a)");
+				imagenes[3], (char) ('a' + alternativas.indexOf(problema.alternativas().get(0))));
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;

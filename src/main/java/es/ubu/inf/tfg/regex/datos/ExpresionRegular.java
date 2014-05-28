@@ -1,8 +1,20 @@
 package es.ubu.inf.tfg.regex.datos;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
+
+import javax.swing.SwingConstants;
+
+import com.mxgraph.layout.mxParallelEdgeLayout;
+import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
+import com.mxgraph.swing.mxGraphComponent;
+import com.mxgraph.util.mxCellRenderer;
+import com.mxgraph.view.mxGraph;
 
 /**
  * ExpresionRegular implementa un nodo de una expresión regular en forma de
@@ -37,6 +49,8 @@ public class ExpresionRegular {
 
 	private ExpresionRegular hijoIzquierdo;
 	private ExpresionRegular hijoDerecho;
+	
+	private BufferedImage imagen;
 
 	private ExpresionRegular(Tipo tipo, int posicion, char simbolo,
 			ExpresionRegular hijoDerecho, ExpresionRegular hijoIzquierdo) {
@@ -286,6 +300,103 @@ public class ExpresionRegular {
 		else
 			return Math.max(this.hijoIzquierdo.profundidad() + 1,
 					this.hijoDerecho.profundidad() + 1);
+	}
+
+	/**
+	 * Dibuja el árbol de la expresión regular como grafo.
+	 * 
+	 * @return Imagen representando el árbol de la expresión regular.
+	 */
+	public BufferedImage imagen() {
+		if (this.imagen == null) {
+			mxGraph graph = new mxGraph();
+			Object parent = graph.getDefaultParent();
+			Map<ExpresionRegular, Object> gNodos = new HashMap<>();
+			ExpresionRegular actual;
+			Object gNodo, gActual;
+			List<ExpresionRegular> siguientes = new ArrayList<>();
+			boolean tieneHijoIzquierdo, tieneHijoDerecho;
+
+			String estiloVertex = "shape=ellipse;fillColor=white;strokeColor=black;fontColor=black;";
+			String estiloEdge = "strokeColor=black;fontColor=black;labelBackgroundColor=white;endArrow=open;";
+
+			graph.getModel().beginUpdate();
+			try {
+				siguientes.add(this);
+
+				while (!siguientes.isEmpty()) {
+					actual = siguientes.get(0);
+
+					if (!gNodos.containsKey(actual)) {
+						gActual = graph.insertVertex(parent, null,
+								actual.tipo(), 0, 0, 30, 30, estiloVertex);
+						gNodos.put(actual, gActual);
+					} else {
+						gActual = gNodos.get(actual);
+					}
+
+					tieneHijoIzquierdo = !actual.esSimbolo()
+							&& !actual.esVacio();
+					tieneHijoDerecho = tieneHijoIzquierdo
+							&& !actual.esCierre();
+
+					if (tieneHijoIzquierdo) {
+						siguientes.add(actual.hijoIzquierdo());
+						gNodo = graph.insertVertex(parent, null, actual.hijoIzquierdo().tipo(),
+								0, 0, 30, 30, estiloVertex);
+						graph.insertEdge(parent, null, "", gActual, gNodo,
+								estiloEdge);
+						gNodos.put(actual.hijoIzquierdo(), gNodo);
+					}
+
+					if (tieneHijoDerecho) {
+						siguientes.add(actual.hijoDerecho());
+						gNodo = graph.insertVertex(parent, null, actual.hijoDerecho().tipo(),
+								0, 0, 30, 30, estiloVertex);
+						graph.insertEdge(parent, null, "", gActual, gNodo,
+								estiloEdge);
+						gNodos.put(actual.hijoDerecho(), gNodo);
+					}
+
+					siguientes.remove(actual);
+				}
+			} finally {
+				graph.getModel().endUpdate();
+
+				mxGraphComponent graphComponent = new mxGraphComponent(graph);
+
+				new mxHierarchicalLayout(graph, SwingConstants.NORTH)
+						.execute(parent);
+				new mxParallelEdgeLayout(graph).execute(parent);
+
+				this.imagen = mxCellRenderer.createBufferedImage(graph, null,
+						1, Color.WHITE, graphComponent.isAntiAlias(), null,
+						graphComponent.getCanvas());
+			}
+		}
+
+		return this.imagen;
+	}
+	
+	/**
+	 * Devuelve el tipo del nodo como una cadena de caracteres.
+	 * @return Representación del nodo en caracteres.
+	 */
+	private String tipo() {
+		switch(this.tipo) {
+		case SIMBOLO:
+			return simbolo() + "";
+		case CIERRE:
+			return "*";
+		case CONCAT:
+			return "\u2027";
+		case UNION:
+			return "|";
+		case VACIO:
+			return "\u03B5";
+		default:
+			return "";
+		}
 	}
 
 	/**

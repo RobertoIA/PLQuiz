@@ -2,6 +2,9 @@ package es.ubu.inf.tfg.regex.asu;
 
 import java.awt.image.BufferedImage;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -35,7 +38,7 @@ public class AhoSethiUllman {
 	private Nodo solucion;
 	private MapaPosiciones<Character> estados;
 	private MapaEstados transiciones;
-	private BufferedImage[] alternativas;
+	private List<BufferedImage> alternativas;
 
 	/**
 	 * Resuelve un problema de construcción de AFD a partir de una expresión
@@ -327,13 +330,14 @@ public class AhoSethiUllman {
 	}
 
 	/**
-	 * Genera una serie de tres imagenes correspondientes con mutaciones de la
-	 * expresión regular del problema, como alternativas en un problema de
-	 * construcción de árbol.
+	 * Genera una serie de cuatro imagenes correspondientes la expresión regular
+	 * original del problema y cuatro mutaciones de la misma, como alternativas
+	 * en un problema de construcción de árbol.
 	 * 
-	 * @return Array de tres imagenes alternativas a la generada en arbolVacio()
+	 * @return Array de cuatro imágenes representando árboles de expresión
+	 *         regular, una correspondiente al del problema y tres alternativas.
 	 */
-	public BufferedImage[] alternativas() {
+	public List<BufferedImage> alternativas() {
 		if (this.alternativas == null) {
 			int nSimbolos = simbolos().size();
 			boolean usaVacio = simbolos().contains('\u0000');
@@ -341,15 +345,22 @@ public class AhoSethiUllman {
 				nSimbolos--;
 			Generador generador = new Generador(nSimbolos, usaVacio, true);
 
-			// TODO asegurarse de que no aparecen repetidas.
-			alternativas = new BufferedImage[3];
-			for (int i = 0; i < 3; i++) {
-				AhoSethiUllman problema = new AhoSethiUllman(
-						generador.mutacion(expresion));
-				alternativas[i] = problema.arbolVacio();
+			alternativas = new ArrayList<>();
+			alternativas.add(expresion.imagen());
+
+			Set<ExpresionRegular> expresiones = new HashSet<>();
+			ExpresionRegular alternativa;
+			while (expresiones.size() < 3) {
+				alternativa = generador.mutacion(expresion);
+				if (!expresiones.contains(alternativa))
+					expresiones.add(alternativa);
 			}
+
+			for (ExpresionRegular expresion : expresiones)
+				alternativas.add(expresion.imagen());
+
 		}
 
-		return alternativas;
+		return new ArrayList<>(alternativas);
 	}
 }
