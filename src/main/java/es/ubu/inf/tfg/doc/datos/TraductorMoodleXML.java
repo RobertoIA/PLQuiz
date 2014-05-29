@@ -5,7 +5,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -74,9 +76,30 @@ public class TraductorMoodleXML extends Traductor {
 				problema.problema());
 
 		String plantilla = formatoIntermedio(plantilla("plantillaASUConstruccion.xml"));
+		String[] imagenes = new String[4];
+		List<BufferedImage> alternativas = problema.alternativas();
+		Collections.shuffle(alternativas);
+		String[] alternativasBase64 = new String[4];
+
+		for (int i = 0; i < 4; i++) {
+			imagenes[i] = alternativas.get(i).hashCode() + ".jpg";
+			alternativasBase64[i] = imageToBase64(alternativas.get(i));
+		}
+
+		char solucion = (char) ('a' + alternativas.indexOf(problema
+				.alternativas().get(0)));
+		Set<Character> opciones = new HashSet<>();
+		opciones.add('a'); opciones.add('b'); opciones.add('c'); opciones.add('d');
 		
-		// TODO
-		
+
+		plantilla = MessageFormat.format(plantilla, "<%0%>",
+				problema.problema(), imagenes[0], imagenes[1], imagenes[2],
+				imagenes[3], alternativasBase64[0],
+				alternativasBase64[1],
+				alternativasBase64[2],
+				alternativasBase64[3], opcionesTransicion(solucion, opciones));
+		plantilla = formatoFinal(plantilla);
+
 		return plantilla;
 	}
 

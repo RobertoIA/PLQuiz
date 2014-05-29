@@ -49,7 +49,7 @@ public class ExpresionRegular {
 
 	private ExpresionRegular hijoIzquierdo;
 	private ExpresionRegular hijoDerecho;
-	
+
 	private BufferedImage imagen;
 
 	private ExpresionRegular(Tipo tipo, int posicion, char simbolo,
@@ -337,13 +337,13 @@ public class ExpresionRegular {
 
 					tieneHijoIzquierdo = !actual.esSimbolo()
 							&& !actual.esVacio();
-					tieneHijoDerecho = tieneHijoIzquierdo
-							&& !actual.esCierre();
+					tieneHijoDerecho = tieneHijoIzquierdo && !actual.esCierre();
 
 					if (tieneHijoIzquierdo) {
 						siguientes.add(actual.hijoIzquierdo());
-						gNodo = graph.insertVertex(parent, null, actual.hijoIzquierdo().tipo(),
-								0, 0, 30, 30, estiloVertex);
+						gNodo = graph.insertVertex(parent, null, actual
+								.hijoIzquierdo().tipo(), 0, 0, 30, 30,
+								estiloVertex);
 						graph.insertEdge(parent, null, "", gActual, gNodo,
 								estiloEdge);
 						gNodos.put(actual.hijoIzquierdo(), gNodo);
@@ -351,8 +351,9 @@ public class ExpresionRegular {
 
 					if (tieneHijoDerecho) {
 						siguientes.add(actual.hijoDerecho());
-						gNodo = graph.insertVertex(parent, null, actual.hijoDerecho().tipo(),
-								0, 0, 30, 30, estiloVertex);
+						gNodo = graph.insertVertex(parent, null, actual
+								.hijoDerecho().tipo(), 0, 0, 30, 30,
+								estiloVertex);
 						graph.insertEdge(parent, null, "", gActual, gNodo,
 								estiloEdge);
 						gNodos.put(actual.hijoDerecho(), gNodo);
@@ -377,13 +378,14 @@ public class ExpresionRegular {
 
 		return this.imagen;
 	}
-	
+
 	/**
 	 * Devuelve el tipo del nodo como una cadena de caracteres.
+	 * 
 	 * @return Representación del nodo en caracteres.
 	 */
 	private String tipo() {
-		switch(this.tipo) {
+		switch (this.tipo) {
 		case SIMBOLO:
 			return simbolo() + "";
 		case CIERRE:
@@ -456,5 +458,38 @@ public class ExpresionRegular {
 			return false;
 
 		return true;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = 17;
+
+		switch (tipo) {
+		case CIERRE:
+			result = result * 31;
+			break;
+		case CONCAT:
+			result = result * 31 + 1;
+			break;
+		case SIMBOLO:
+			result = result * 31 + 2;
+			break;
+		case UNION:
+			result = result * 31 + 3;
+			break;
+		case VACIO:
+			result = result * 31 + 4;
+			break;
+		}
+
+//		result = result * 31 + posicion;
+		result = result * 31 + simbolo;
+
+		result = result * 31
+				+ (hijoIzquierdo != null ? hijoIzquierdo.hashCode() : 0);
+		result = result * 31
+				+ (hijoDerecho != null ? hijoDerecho.hashCode() : 0);
+
+		return result;
 	}
 }

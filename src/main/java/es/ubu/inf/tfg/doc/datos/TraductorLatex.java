@@ -50,7 +50,8 @@ public class TraductorLatex extends Traductor {
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a formato
-	 * Latex.
+	 * Latex. En latex el problema de construcción consiste en dibujar el árbol,
+	 * no en identificar el correcto.
 	 * 
 	 * @param problema
 	 *            Problema AhoSethiUllman.
@@ -63,8 +64,27 @@ public class TraductorLatex extends Traductor {
 				problema.problema());
 
 		String plantilla = formatoIntermedio(plantilla("plantillaASUConstruccion.tex"));
-
-		// TODO
+		String imagen = problema.alternativas().get(0).hashCode() + "";
+		// String[] imagenes = new String[4];
+		// List<BufferedImage> alternativas = problema.alternativas();
+		// Collections.shuffle(alternativas);
+		//
+		// for(int i = 0; i < 4; i++)
+		// imagenes[i] = "" + alternativas.get(i).hashCode();
+		//
+		 String expresion = problema.problema();
+		 expresion = expresion.replace("|", "\\textbar ");
+		 expresion = expresion.replace("\u2027", "·");
+		 expresion = expresion.replace("\u03B5", "$\\epsilon$");
+		 expresion = expresion.replace("$", "\\$");
+		//
+		// plantilla = MessageFormat.format(plantilla, "<%0%>",
+		// expresion, imagenes[0], imagenes[1], imagenes[2],
+		// imagenes[3], (char) ('a' +
+		// alternativas.indexOf(problema.alternativas().get(0))));
+		 
+		 plantilla = MessageFormat.format(plantilla, "<%0%>", expresion, imagen);
+		 plantilla = formatoFinal(plantilla);
 
 		return plantilla;
 	}

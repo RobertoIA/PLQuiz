@@ -147,9 +147,7 @@ public class Documento {
 				imagenes.add(p.arbolVacio());
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
-				imagenes.add(p.arbolVacio());
-				for(BufferedImage imagen : p.alternativas())
-					imagenes.add(imagen);
+				imagenes.add(p.alternativas().get(0));
 			}
 		}
 

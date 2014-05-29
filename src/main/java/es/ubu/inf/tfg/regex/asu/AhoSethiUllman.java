@@ -346,14 +346,13 @@ public class AhoSethiUllman {
 			Generador generador = new Generador(nSimbolos, usaVacio, true);
 
 			alternativas = new ArrayList<>();
-			alternativas.add(expresion.imagen());
-
 			Set<ExpresionRegular> expresiones = new HashSet<>();
+			expresiones.add(expresion);
+			System.out.println(expresion);
 			ExpresionRegular alternativa;
-			while (expresiones.size() < 3) {
+			while (expresiones.size() < 4) {
 				alternativa = generador.mutacion(expresion);
-				if (!expresiones.contains(alternativa))
-					expresiones.add(alternativa);
+				expresiones.add(alternativa);
 			}
 
 			for (ExpresionRegular expresion : expresiones)

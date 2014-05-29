@@ -1,0 +1,42 @@
+	<!-- question: <%0%>  -->
+	<question type="cloze">
+		<name>
+			<text>PLQuiz: Aho-Sethi-Ullman</text>
+		</name>
+		<questiontext>
+			<text><![CDATA[
+				<p>Selecciona el árbol sintáctico correspondiente a la siguiente expresión regular <%1%>. Ten en cuenta que el árbol corresponderá con la expresión aumentada.</p>
+
+				<table>
+					<tr>
+						<td>
+						<h2>a)</h2><p><img src="@@PLUGINFILE@@/<%2%>" alt="" /></p>
+						</td>
+						<td>
+							<h2>b)</h2><p><img src="@@PLUGINFILE@@/<%3%>" alt="" /></p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h2>c)</h2><p><img src="@@PLUGINFILE@@/<%4%>" alt="" /></p>
+						</td>
+						<td>
+							<h2>d)</h2><p><img src="@@PLUGINFILE@@/<%5%>" alt="" /></p>
+						</td>
+					</tr>
+				</table>
+
+				<p>
+					Solución: <%10%>
+				</p>
+			]]></text>
+			<file name="<%2%>" encoding="base64"><%6%></file> 
+			<file name="<%3%>" encoding="base64"><%7%></file> 
+			<file name="<%4%>" encoding="base64"><%8%></file> 
+			<file name="<%5%>" encoding="base64"><%9%></file> 
+		</questiontext>
+		<generalfeedback>
+			<text></text>
+		</generalfeedback>
+		<shuffleanswers>0</shuffleanswers>
+	</question>
