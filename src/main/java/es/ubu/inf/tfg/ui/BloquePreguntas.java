@@ -222,7 +222,7 @@ public class BloquePreguntas extends JDialog {
 		this.asuSimbolosPanel.add(this.asuSimbolosStrut);
 
 		this.asuSimbolosSpinner = new JSpinner();
-		this.asuSimbolosSpinner.setModel(new SpinnerNumberModel(2, 2, 6, 1));
+		this.asuSimbolosSpinner.setModel(new SpinnerNumberModel(5, 3, 6, 1));
 		this.asuSimbolosPanel.add(this.asuSimbolosSpinner);
 
 		this.asuSimbolosVarLabel = new JLabel(" +/- ");

@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.ubu.inf.tfg.regex.asu.datos.MapaPosiciones;
 import es.ubu.inf.tfg.regex.asu.datos.Nodo;
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
@@ -32,6 +35,9 @@ import es.ubu.inf.tfg.regex.parser.TokenMgrError;
  * 
  */
 public class AhoSethiUllman {
+	
+	private static final Logger log = LoggerFactory
+			.getLogger(AhoSethiUllman.class);
 
 	private String problema;
 	private ExpresionRegular expresion;
@@ -339,6 +345,8 @@ public class AhoSethiUllman {
 	 */
 	public List<BufferedImage> alternativas() {
 		if (this.alternativas == null) {
+			log.info("Generando imagenes alternativas");
+			
 			int nSimbolos = simbolos().size();
 			boolean usaVacio = simbolos().contains('\u0000');
 			if (usaVacio)
@@ -348,10 +356,10 @@ public class AhoSethiUllman {
 			alternativas = new ArrayList<>();
 			Set<ExpresionRegular> expresiones = new HashSet<>();
 			expresiones.add(expresion);
-			System.out.println(expresion);
 			ExpresionRegular alternativa;
 			while (expresiones.size() < 4) {
 				alternativa = generador.mutacion(expresion);
+				log.debug("Generada expresión alternativa {}", alternativa);
 				expresiones.add(alternativa);
 			}
 
