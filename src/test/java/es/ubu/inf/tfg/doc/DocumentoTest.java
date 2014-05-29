@@ -109,8 +109,59 @@ public class DocumentoTest {
 	 */
 	@Test
 	public void testAñadirASUConstruccion() throws IOException {
-		// TODO
-		fail();
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaC));
+
+		// Vista previa
+		esperado = toString("añadirASUConstruccion.html");
+		encontrado = documento.vistaPrevia();
+
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+		encontrado = encontrado
+				.replaceAll("<p>Solución:[^<]*</p>", "<p>Solución:</p>");
+
+		assertEquals(
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo construccion a vista previa.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("añadirASUConstruccion.xml");
+		ficheroTemporal = ficheroTemporal("añadir.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo construccion a documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("añadirASUConstruccion.tex");
+		ficheroTemporal = ficheroTemporal("añadir.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+
+		assertEquals(
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo construccion a documento Latex exportado.",
+				esperado, encontrado);
 	}
 
 	/**
@@ -235,8 +286,60 @@ public class DocumentoTest {
 	 */
 	@Test
 	public void testEliminarASUConstruccion() throws IOException {
-		// TODO
-		fail();
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		// Vista previa
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaC));
+		documento.eliminarProblema(Problema.asuEtiquetado(asuProblemaC));
+
+		esperado = toString("eliminarASUConstruccion.html");
+		encontrado = documento.vistaPrevia();
+
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+		encontrado = encontrado
+				.replaceAll("<p>Solución:[^<]*</p>", "<p>Solución:</p>");
+
+		assertEquals(
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo construcción en vista previa.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("eliminarASUConstruccion.xml");
+		ficheroTemporal = ficheroTemporal("eliminar.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo construcción en documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("eliminarASUConstruccion.tex");
+		ficheroTemporal = ficheroTemporal("eliminar.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+
+		assertEquals(
+				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo construcción en documento Latex exportado.",
+				esperado, encontrado);
 	}
 
 	/**
@@ -363,8 +466,60 @@ public class DocumentoTest {
 	 */
 	@Test
 	public void testSustituirASUConstrucción() throws IOException {
-		// TODO
-		fail();
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		// Vista previa
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB));
+		documento.sustituirProblema(Problema.asuEtiquetado(asuProblemaB),
+				Problema.asuEtiquetado(asuProblemaC));
+
+		esperado = toString("sustituirASUConstruccion.html");
+		encontrado = documento.vistaPrevia();
+
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+		encontrado = encontrado
+				.replaceAll("<p>Solución:[^<]*</p>", "<p>Solución:</p>");
+
+		assertEquals(
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo construcción en vista previa.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("sustituirASUConstruccion.xml");
+		ficheroTemporal = ficheroTemporal("sustituir.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo construcción en documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("sustituirASUConstruccion.tex");
+		ficheroTemporal = ficheroTemporal("sustituir.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+
+		assertEquals(
+				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo construcción en documento Latex exportado.",
+				esperado, encontrado);
 	}
 
 	/**

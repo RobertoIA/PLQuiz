@@ -56,6 +56,8 @@ public class TraductorHTMLTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+		encontrado = encontrado
+				.replaceAll("<p>Solución:[^<]*</p>", "<p>Solución:</p>");
 
 		assertEquals(
 				"Traducción HTML incorrecta de problema AhoSethiUllman subtipo construcción.",
