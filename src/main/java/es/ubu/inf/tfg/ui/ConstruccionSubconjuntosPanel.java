@@ -191,6 +191,19 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 			documento.añadirProblema(problema);
 			main.añadeImagen(problema.getProblema().automata());
 		}
+		
+		switch (problema.getTipo()) {
+		case "ConstruccionSubconjuntosExpresion":
+			modoExpresionButton.setSelected(true);
+			break;
+		case "ConstruccionSubconjuntosAutomata":
+			modoAutomataButton.setSelected(true);
+			break;
+		default:
+			log.error(
+					"Error identificando tipo de problema construcción de subconjuntos, definido como {}",
+					problema.getTipo());
+		}
 
 		problemaActual = problema;
 		expresionText.setText(problema.getProblema().problema());

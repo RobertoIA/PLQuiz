@@ -194,6 +194,22 @@ public class AhoSethiUllmanPanel extends JPanel {
 			documento.añadirProblema(problema);
 			main.añadeImagen(problema.getProblema().arbolVacio());
 		}
+		
+		switch (problema.getTipo()) {
+		case "AhoSethiUllmanConstruccion":
+			modoConstruccionButton.setSelected(true);
+			break;
+		case "AhoSethiUllmanEtiquetado":
+			modoEtiquetadoButton.setSelected(true);
+			break;
+		case "AhoSethiUllmanTablas":
+			modoTablasButton.setSelected(true);
+			break;
+		default:
+			log.error(
+					"Error identificando tipo de problema Aho-Sethi-Ullman, definido como {}",
+					problema.getTipo());
+		}
 
 		problemaActual = problema;
 		expresionText.setText(problema.getProblema().problema());

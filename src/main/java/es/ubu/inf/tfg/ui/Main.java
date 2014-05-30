@@ -194,7 +194,7 @@ public class Main {
 		if (problema != null)
 			panel.problema(problema);
 
-		switch (problema.getTipo()) { // TODO seleccionar radioButton
+		switch (problema.getTipo()) {
 		case "AhoSethiUllmanConstruccion":
 			for (BufferedImage imagen : problema.getProblema().alternativas())
 				main.añadeImagen(imagen);
