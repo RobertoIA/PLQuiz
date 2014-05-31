@@ -184,12 +184,10 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 			if (!problema.getProblema().equals(problemaActual)) {
 				main.eliminaImagen(problemaActual.getProblema()
 						.automata());
-				main.añadeImagen(problema.getProblema().automata());
 				documento.sustituirProblema(problemaActual, problema);
 			}
 		} else {
 			documento.añadirProblema(problema);
-			main.añadeImagen(problema.getProblema().automata());
 		}
 		
 		switch (problema.getTipo()) {
@@ -197,6 +195,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 			modoExpresionButton.setSelected(true);
 			break;
 		case "ConstruccionSubconjuntosAutomata":
+			main.añadeImagen(problema.getProblema().automata());
 			modoAutomataButton.setSelected(true);
 			break;
 		default:

@@ -194,22 +194,6 @@ public class Main {
 		if (problema != null)
 			panel.problema(problema);
 
-		switch (problema.getTipo()) {
-		case "AhoSethiUllmanConstruccion":
-			for (BufferedImage imagen : problema.getProblema().alternativas())
-				main.añadeImagen(imagen);
-			break;
-		case "AhoSethiUllmanEtiquetado":
-			main.añadeImagen(problema.getProblema().arbolVacio());
-			break;
-		case "AhoSethiUllmanTablas":
-			break;
-		default:
-			log.error(
-					"Error identificando tipo de problema Aho-Sethi-Ullman, definido como {}",
-					problema.getTipo());
-		}
-
 		contenedorPanel.add(panel);
 		contenedorPanel.revalidate();
 	}
@@ -219,20 +203,8 @@ public class Main {
 		ConstruccionSubconjuntosPanel panel = new ConstruccionSubconjuntosPanel(
 				this, contenedorPanel, documento);
 
-		if (problema != null) {
+		if (problema != null)
 			panel.problema(problema);
-		}
-
-		switch (problema.getTipo()) { // TODO seleccionar radioButton
-		case "ConstruccionSubconjuntosExpresion":
-			break;
-		case "ConstruccionSubconjuntosAutomata":
-			break;
-		default:
-			log.error(
-					"Error identificando tipo de problema de construcción de subconjuntos, definido como {}",
-					problema.getTipo());
-		}
 
 		contenedorPanel.add(panel);
 		contenedorPanel.revalidate();

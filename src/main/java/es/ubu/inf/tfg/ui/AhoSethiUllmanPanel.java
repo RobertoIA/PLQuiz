@@ -188,18 +188,19 @@ public class AhoSethiUllmanPanel extends JPanel {
 		if (problemaActual != null) {
 			if (!problema.getProblema().equals(problemaActual))
 				main.eliminaImagen(problemaActual.getProblema().arbolVacio());
-			main.añadeImagen(problema.getProblema().arbolVacio());
 			documento.sustituirProblema(problemaActual, problema);
 		} else {
 			documento.añadirProblema(problema);
-			main.añadeImagen(problema.getProblema().arbolVacio());
 		}
 		
 		switch (problema.getTipo()) {
 		case "AhoSethiUllmanConstruccion":
+			for (BufferedImage imagen : problema.getProblema().alternativas())
+				main.añadeImagen(imagen);
 			modoConstruccionButton.setSelected(true);
 			break;
 		case "AhoSethiUllmanEtiquetado":
+			main.añadeImagen(problema.getProblema().arbolVacio());
 			modoEtiquetadoButton.setSelected(true);
 			break;
 		case "AhoSethiUllmanTablas":
