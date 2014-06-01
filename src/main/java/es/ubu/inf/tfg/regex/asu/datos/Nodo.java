@@ -313,7 +313,8 @@ public class Nodo {
 
 					if (!gNodos.containsKey(actual)) {
 						gActual = graph.insertVertex(parent, null,
-								actualLetra++, 0, 0, 30, 30, estiloVertex);
+								actualLetra++ + "\n" + actual.tipo(), 0, 0,
+								30, 30, estiloVertex);
 						gNodos.put(actual, gActual);
 
 						primerasPos.put((char) (actualLetra - 1),
@@ -332,8 +333,9 @@ public class Nodo {
 
 					if (tieneHijoIzquierdo) {
 						siguientes.add(actual.hijoIzquierdo());
-						gNodo = graph.insertVertex(parent, null, actualLetra++,
-								0, 0, 30, 30, estiloVertex);
+						gNodo = graph.insertVertex(parent, null, actualLetra++
+								+ " \n" + actual.hijoIzquierdo().tipo(), 0, 0,
+								30, 30, estiloVertex);
 						graph.insertEdge(parent, null, "", gActual, gNodo,
 								estiloEdge);
 						gNodos.put(actual.hijoIzquierdo(), gNodo);
@@ -348,8 +350,9 @@ public class Nodo {
 
 					if (tieneHijoDerecho) {
 						siguientes.add(actual.hijoDerecho());
-						gNodo = graph.insertVertex(parent, null, actualLetra++,
-								0, 0, 30, 30, estiloVertex);
+						gNodo = graph.insertVertex(parent, null, actualLetra++
+								+ "\n" + actual.hijoDerecho().tipo(), 0, 0,
+								30, 30, estiloVertex);
 						graph.insertEdge(parent, null, "", gActual, gNodo,
 								estiloEdge);
 						gNodos.put(actual.hijoDerecho(), gNodo);
