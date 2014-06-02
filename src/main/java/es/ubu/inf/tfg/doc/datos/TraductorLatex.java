@@ -72,19 +72,19 @@ public class TraductorLatex extends Traductor {
 		// for(int i = 0; i < 4; i++)
 		// imagenes[i] = "" + alternativas.get(i).hashCode();
 		//
-		 String expresion = problema.problema();
-		 expresion = expresion.replace("|", "\\textbar ");
-		 expresion = expresion.replace("\u2027", "·");
-		 expresion = expresion.replace("\u03B5", "$\\epsilon$");
-		 expresion = expresion.replace("$", "\\$");
+		String expresion = problema.problema();
+		expresion = expresion.replace("|", "\\textbar ");
+		expresion = expresion.replace("\u2027", "·");
+		expresion = expresion.replace("\u03B5", "$\\epsilon$");
+		expresion = expresion.replace("$", "\\$");
 		//
 		// plantilla = MessageFormat.format(plantilla, "<%0%>",
 		// expresion, imagenes[0], imagenes[1], imagenes[2],
 		// imagenes[3], (char) ('a' +
 		// alternativas.indexOf(problema.alternativas().get(0))));
-		 
-		 plantilla = MessageFormat.format(plantilla, "<%0%>", expresion, imagen);
-		 plantilla = formatoFinal(plantilla);
+
+		plantilla = MessageFormat.format(plantilla, "<%0%>", expresion, imagen);
+		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
 	}
@@ -107,12 +107,12 @@ public class TraductorLatex extends Traductor {
 		String plantilla = formatoIntermedio(plantilla("plantillaASUEtiquetado.tex"));
 		StringBuilder soluciones = new StringBuilder();
 
-		soluciones.append(" & tipo & primera-pos & última-pos");
+		soluciones.append(" & anulable? & primera-pos & última-pos");
 		soluciones.append("\\\\ \\hline\n");
 		char simboloActual = 'A';
 		while (problema.primeraPos(simboloActual) != null) {
 			soluciones.append(simboloActual + " & ");
-			soluciones.append(problema.tipo(simboloActual) + " & ");
+			soluciones.append((problema.esAnulable(simboloActual) ? "Si" : "No") + " & ");
 			soluciones.append(setToString(problema.primeraPos(simboloActual))
 					+ " & ");
 			soluciones.append(setToString(problema.ultimaPos(simboloActual))
@@ -361,4 +361,5 @@ public class TraductorLatex extends Traductor {
 		}
 		return setToString.toString();
 	}
+
 }

@@ -48,7 +48,8 @@ public class Nodo {
 	private Map<Character, Set<Integer>> primerasPos;
 	private Set<Integer> ultimaPos;
 	private Map<Character, Set<Integer>> ultimasPos;
-	private Map<Character, String> tipos;
+	// private Map<Character, String> tipos;
+	private Map<Character, Boolean> anulables;
 
 	private MapaPosiciones<Character> simbolos;
 	private MapaPosiciones<Integer> siguientePos;
@@ -146,7 +147,8 @@ public class Nodo {
 
 		this.primerasPos = new TreeMap<>();
 		this.ultimasPos = new TreeMap<>();
-		this.tipos = new TreeMap<>();
+		// this.tipos = new TreeMap<>();
+		this.anulables = new TreeMap<>();
 	}
 
 	/**
@@ -251,16 +253,16 @@ public class Nodo {
 	}
 
 	/**
-	 * Obtiene la cadena representando el símbolo de uno de los nodos hijos del
-	 * árbol, definidos con un caracter comenzando por 'A', y etiquetando cada
-	 * nivel de izquierda a derecha.
+	 * Comprueba si uno de los nodos hijos del árbol es anulable, definidos con
+	 * un caracter comenzando por 'A', y etiquetando cada nivel de izquierda a
+	 * derecha.
 	 * 
 	 * @param simbolo
 	 *            Etiqueta del nodo.
-	 * @return Tipo del nodo.
+	 * @return <code>true</code> si es anulable, <code>false</code> si no.
 	 */
-	public String tipo(char simbolo) {
-		return tipos.get(simbolo);
+	public boolean esAnulable(char simbolo) {
+		return anulables.get(simbolo);
 	}
 
 	/**
@@ -313,15 +315,16 @@ public class Nodo {
 
 					if (!gNodos.containsKey(actual)) {
 						gActual = graph.insertVertex(parent, null,
-								actualLetra++ + "\n" + actual.tipo(), 0, 0,
-								30, 30, estiloVertex);
+								actualLetra++ + "\n" + actual.tipo(), 0, 0, 30,
+								30, estiloVertex);
 						gNodos.put(actual, gActual);
 
 						primerasPos.put((char) (actualLetra - 1),
 								actual.primeraPos());
 						ultimasPos.put((char) (actualLetra - 1),
 								actual.ultimaPos());
-						tipos.put((char) (actualLetra - 1), actual.tipo());
+						anulables.put((char) (actualLetra - 1),
+								actual.esAnulable());
 					} else {
 						gActual = gNodos.get(actual);
 					}
@@ -344,15 +347,15 @@ public class Nodo {
 								.hijoIzquierdo().primeraPos());
 						ultimasPos.put((char) (actualLetra - 1), actual
 								.hijoIzquierdo().ultimaPos());
-						tipos.put((char) (actualLetra - 1), actual
-								.hijoIzquierdo().tipo());
+						anulables.put((char) (actualLetra - 1), actual
+								.hijoIzquierdo().esAnulable());
 					}
 
 					if (tieneHijoDerecho) {
 						siguientes.add(actual.hijoDerecho());
 						gNodo = graph.insertVertex(parent, null, actualLetra++
-								+ "\n" + actual.hijoDerecho().tipo(), 0, 0,
-								30, 30, estiloVertex);
+								+ "\n" + actual.hijoDerecho().tipo(), 0, 0, 30,
+								30, estiloVertex);
 						graph.insertEdge(parent, null, "", gActual, gNodo,
 								estiloEdge);
 						gNodos.put(actual.hijoDerecho(), gNodo);
@@ -361,8 +364,8 @@ public class Nodo {
 								.hijoDerecho().primeraPos());
 						ultimasPos.put((char) (actualLetra - 1), actual
 								.hijoDerecho().ultimaPos());
-						tipos.put((char) (actualLetra - 1), actual
-								.hijoDerecho().tipo());
+						anulables.put((char) (actualLetra - 1), actual
+								.hijoDerecho().esAnulable());
 					}
 
 					siguientes.remove(actual);

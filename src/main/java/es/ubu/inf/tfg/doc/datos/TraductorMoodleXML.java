@@ -89,15 +89,16 @@ public class TraductorMoodleXML extends Traductor {
 		char solucion = (char) ('a' + alternativas.indexOf(problema
 				.alternativas().get(0)));
 		Set<Character> opciones = new HashSet<>();
-		opciones.add('a'); opciones.add('b'); opciones.add('c'); opciones.add('d');
-		
+		opciones.add('a');
+		opciones.add('b');
+		opciones.add('c');
+		opciones.add('d');
 
 		plantilla = MessageFormat.format(plantilla, "<%0%>",
 				problema.problema(), imagenes[0], imagenes[1], imagenes[2],
-				imagenes[3], alternativasBase64[0],
-				alternativasBase64[1],
-				alternativasBase64[2],
-				alternativasBase64[3], opcionesTransicion(solucion, opciones));
+				imagenes[3], alternativasBase64[0], alternativasBase64[1],
+				alternativasBase64[2], alternativasBase64[3],
+				opcionesTransicion(solucion, opciones));
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
@@ -126,11 +127,10 @@ public class TraductorMoodleXML extends Traductor {
 		soluciones.append("");
 		// contenido
 		char simboloActual = 'A';
-		Set<Character> simbolos = problema.simbolos();
 		while (problema.primeraPos(simboloActual) != null) {
 			soluciones.append("<tr><td>" + simboloActual + "</td>");
 			soluciones.append("<td>\n"
-					+ opcionesTipos(problema.tipo(simboloActual), simbolos)
+					+ opcionesAnulables(problema.esAnulable(simboloActual))
 					+ "\n</td>");
 			soluciones.append("<td>\n"
 					+ opcionesPosiciones(problema.primeraPos(simboloActual),
@@ -521,34 +521,23 @@ public class TraductorMoodleXML extends Traductor {
 	}
 
 	/**
+	 * Genera opciones para decidir si un nodo es anulable o no (Si/No),
+	 * recibiendo la opción correcta como parámetro booleano (<code>true</code>
+	 * para sí, <code>false</code> para no).
 	 * 
-	 * @param solucion
-	 * @param simbolos
-	 * @return
+	 * @param esAnulable
+	 *            Opción correcta.
+	 * @return Cadena de caracteres en formato Moodle XML representando las
+	 *         opciones.
 	 */
-	private String opcionesTipos(String solucion, Set<Character> simbolos) {
-		log.debug(
-				"Generando opciones para tipos con solucion {} y simbolos {}",
-				solucion, simbolos);
+	private String opcionesAnulables(boolean esAnulable) {
+		log.debug("Generando opciones para anulable {}", esAnulable);
 
 		StringBuilder opciones = new StringBuilder();
-		List<String> tipos = new ArrayList<>();
-		for (char simbolo : simbolos)
-			tipos.add("" + simbolo);
-		tipos.add("*");
-		tipos.add("\u2027");
-		tipos.add("|");
-		tipos.remove(solucion);
-
 		opciones.append("{1:MULTICHOICE:%100%");
-		opciones.append(solucion);
-
-		int index;
-		for (int i = 0; i < 3; i++) {
-			index = random.nextInt(tipos.size());
-			log.debug("Añadiendo opción {}", tipos.get(index));
-			opciones.append("~" + tipos.remove(index));
-		}
+		opciones.append((esAnulable ? "Si" : "No"));
+		opciones.append("~");
+		opciones.append((esAnulable ? "No" : "Si"));
 		opciones.append("}");
 
 		return opciones.toString();

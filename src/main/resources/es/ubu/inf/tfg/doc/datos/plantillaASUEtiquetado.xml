@@ -12,7 +12,7 @@
 				<tbody>
 				<tr>
 					<th></th>
-					<th>tipo</th>
+					<th>anulable?</th>
 					<th>primera-pos</th>
 					<th>última-pos</th>
 				</tr>

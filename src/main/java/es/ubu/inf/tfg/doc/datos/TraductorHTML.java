@@ -68,14 +68,20 @@ public class TraductorHTML extends Traductor {
 		String[] imagenes = new String[4];
 		List<BufferedImage> alternativas = problema.alternativas();
 		Collections.shuffle(alternativas);
-		
-		for(int i = 0; i < 4; i++)
-			imagenes[i] = "http:\\" + alternativas.get(i).hashCode()
-					+ ".jpg";
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				problema.problema(), imagenes[0], imagenes[1], imagenes[2],
-				imagenes[3], (char) ('a' + alternativas.indexOf(problema.alternativas().get(0))));
+		for (int i = 0; i < 4; i++)
+			imagenes[i] = "http:\\" + alternativas.get(i).hashCode() + ".jpg";
+
+		plantilla = MessageFormat.format(
+				plantilla,
+				"<%0%>",
+				problema.problema(),
+				imagenes[0],
+				imagenes[1],
+				imagenes[2],
+				imagenes[3],
+				(char) ('a' + alternativas.indexOf(problema.alternativas().get(
+						0))));
 		plantilla = formatoFinal(plantilla);
 
 		return plantilla;
@@ -101,12 +107,14 @@ public class TraductorHTML extends Traductor {
 
 		// cabecera
 		soluciones
-				.append("<table><tr><th></th><th>tipo</th><th>primera-pos</th><th>última-pos</th>");
+				.append("<table><tr><th></th><th>anulable?</th><th>primera-pos</th><th>última-pos</th>");
 		// contenido
 		char simboloActual = 'A';
 		while (problema.primeraPos(simboloActual) != null) {
 			soluciones.append("<tr><td>" + simboloActual + "</td>");
-			soluciones.append("<td>" + problema.tipo(simboloActual) + "</td>");
+			soluciones.append("<td>"
+					+ (problema.esAnulable(simboloActual) ? "Si" : "No")
+					+ "</td>");
 			soluciones
 					.append("<td>"
 							+ setToString(problema.primeraPos(simboloActual))

@@ -35,7 +35,7 @@ import es.ubu.inf.tfg.regex.parser.TokenMgrError;
  * 
  */
 public class AhoSethiUllman {
-	
+
 	private static final Logger log = LoggerFactory
 			.getLogger(AhoSethiUllman.class);
 
@@ -313,16 +313,16 @@ public class AhoSethiUllman {
 	}
 
 	/**
-	 * Obtiene el conjunto de posiciones que definen la primera-pos de uno de
-	 * los nodos del árbol, definidos con un caracter comenzando por 'A', y
-	 * etiquetando cada nivel de izquierda a derecha.
+	 * Comprueba si uno de los nodos hijos del árbol es anulable, definidos con
+	 * un caracter comenzando por 'A', y etiquetando cada nivel de izquierda a
+	 * derecha.
 	 * 
 	 * @param simbolo
 	 *            Etiqueta del nodo.
-	 * @return primera-pos del nodo.
+	 * @return <code>true</code> si es anulable, <code>false</code> si no.
 	 */
-	public String tipo(char simbolo) {
-		return solucion.tipo(simbolo);
+	public boolean esAnulable(char simbolo) {
+		return solucion.esAnulable(simbolo);
 	}
 
 	/**
@@ -346,7 +346,7 @@ public class AhoSethiUllman {
 	public List<BufferedImage> alternativas() {
 		if (this.alternativas == null) {
 			log.info("Generando imagenes alternativas");
-			
+
 			int nSimbolos = simbolos().size();
 			boolean usaVacio = simbolos().contains('\u0000');
 			if (usaVacio)

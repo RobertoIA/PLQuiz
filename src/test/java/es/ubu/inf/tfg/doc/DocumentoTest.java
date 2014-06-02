@@ -114,9 +114,9 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA));
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB));
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaC));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaC));
 
 		// Vista previa
 		esperado = toString("añadirASUConstruccion.html");

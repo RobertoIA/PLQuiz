@@ -14,19 +14,19 @@
 \end{figure}
 
 \begin{tabular} {| c | c | c | c |}\hline
- & tipo & primera-pos & última-pos\\ \hline
-A & · & 1, 2, 3, 4, 5 & 5\\ \hline
-B & * & 1, 2, 3, 4 & 4\\ \hline
-C & \$ & 5 & 5\\ \hline
-D & · & 1, 2, 3, 4 & 4\\ \hline
-E & · & 1, 2, 3 & 1, 2, 3\\ \hline
-F & c & 4 & 4\\ \hline
-G & \textbar  & 1, 2 & 1, 2\\ \hline
-H & * & 3 & 3\\ \hline
-I & a & 1 & 1\\ \hline
-J & * & 2 & 2\\ \hline
-K & a & 3 & 3\\ \hline
-L & b & 2 & 2\\ \hline
+ & anulable? & primera-pos & última-pos\\ \hline
+A & No & 1, 2, 3, 4, 5 & 5\\ \hline
+B & Si & 1, 2, 3, 4 & 4\\ \hline
+C & No & 5 & 5\\ \hline
+D & No & 1, 2, 3, 4 & 4\\ \hline
+E & Si & 1, 2, 3 & 1, 2, 3\\ \hline
+F & No & 4 & 4\\ \hline
+G & Si & 1, 2 & 1, 2\\ \hline
+H & Si & 3 & 3\\ \hline
+I & No & 1 & 1\\ \hline
+J & Si & 2 & 2\\ \hline
+K & No & 3 & 3\\ \hline
+L & No & 2 & 2\\ \hline
 \end{tabular}\paragraph{}
 \textbf{2.-} Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular (a\textbar b*)c*a
 \begin{figure}[ht!]
@@ -35,18 +35,18 @@ L & b & 2 & 2\\ \hline
 \end{figure}
 
 \begin{tabular} {| c | c | c | c |}\hline
- & tipo & primera-pos & última-pos\\ \hline
-A & · & 1, 2, 3, 4 & 5\\ \hline
-B & · & 1, 2, 3, 4 & 4\\ \hline
-C & \$ & 5 & 5\\ \hline
-D & · & 1, 2, 3 & 1, 2, 3\\ \hline
-E & a & 4 & 4\\ \hline
-F & \textbar  & 1, 2 & 1, 2\\ \hline
-G & * & 3 & 3\\ \hline
-H & a & 1 & 1\\ \hline
-I & * & 2 & 2\\ \hline
-J & c & 3 & 3\\ \hline
-K & b & 2 & 2\\ \hline
+ & anulable? & primera-pos & última-pos\\ \hline
+A & No & 1, 2, 3, 4 & 5\\ \hline
+B & No & 1, 2, 3, 4 & 4\\ \hline
+C & No & 5 & 5\\ \hline
+D & Si & 1, 2, 3 & 1, 2, 3\\ \hline
+E & No & 4 & 4\\ \hline
+F & Si & 1, 2 & 1, 2\\ \hline
+G & Si & 3 & 3\\ \hline
+H & No & 1 & 1\\ \hline
+I & Si & 2 & 2\\ \hline
+J & No & 3 & 3\\ \hline
+K & No & 2 & 2\\ \hline
 \end{tabular}
 
 \end{document}
