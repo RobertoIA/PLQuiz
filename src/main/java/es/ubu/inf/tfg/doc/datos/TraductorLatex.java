@@ -7,6 +7,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.ubu.inf.tfg.doc.Plantilla;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
@@ -41,11 +42,10 @@ public class TraductorLatex extends Traductor {
 			documento.append(MessageFormat.format(formatoIntermedio(problema),
 					n++));
 
-		String plantilla = formatoIntermedio(plantilla("plantilla.tex"));
-		plantilla = MessageFormat.format(plantilla, documento.toString());
-		plantilla = formatoFinal(plantilla);
+		Plantilla plantilla = new Plantilla("plantilla.tex");
+		plantilla.set("documento", documento.toString());
 
-		return plantilla;
+		return plantilla.toString();
 	}
 
 	/**
