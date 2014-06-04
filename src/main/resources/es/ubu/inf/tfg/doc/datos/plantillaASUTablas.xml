@@ -1,11 +1,11 @@
-	<!-- question: <%0%>  -->
+	<!-- question: {numero}  -->
 	<question type="cloze">
 		<name>
 			<text>PLQuiz: Aho-Sethi-Ullman</text>
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa la tabla de la función de transición del AFD que se obtendría de aplicar el método de Aho-Sethi-Ullman a la expresión regular <%1%></p>
+				<p>Completa la tabla de la función de transición del AFD que se obtendría de aplicar el método de Aho-Sethi-Ullman a la expresión regular {expresion}</p>
 
 				<p>
 					<table border="1" cellspacing="0" align="left">
@@ -13,13 +13,13 @@
 							<th>n</th>
 							<th>stePos(n)</th>
 						</tr>
-						<%2%>
+						{siguientePos}
 					</table>
 				</p>
 				<p>
 					<table border="1" cellspacing="0" align="left">
 						<tbody>
-							<%3%>
+							{transicion}
 						</tbody>
 					</table>
 				</p>
@@ -35,7 +35,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: <%4%></p>
+				<p>Los estados finales son: {finales}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>

@@ -1,12 +1,12 @@
-	<!-- question: <%0%>  -->
+	<!-- question: {numero}  -->
 	<question type="cloze">
 		<name>
 			<text>PLQuiz: Aho-Sethi-Ullman</text>
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular <%1%></p>
-				<p><img src="@@PLUGINFILE@@/<%2%>" alt="" /></p>
+				<p>Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular {expresion}</p>
+				<p><img src="@@PLUGINFILE@@/{url}" alt="" /></p>
 
 				<table border="1" cellspacing="0" align="left">
 				<tbody>
@@ -16,11 +16,11 @@
 					<th>primera-pos</th>
 					<th>última-pos</th>
 				</tr>
-				<%3%>
+				{tabla}
 				</tbody>
 				</table>
 			]]></text>
-			<file name="<%2%>" encoding="base64"><%4%></file> 
+			<file name="{url}" encoding="base64">{imagen}</file> 
 		</questiontext>
 		<generalfeedback>
 			<text></text>

@@ -32,7 +32,7 @@ public abstract class Traductor {
 	 *            Lista de problemas traducidos.
 	 * @return Documento completo.
 	 */
-	public abstract String documento(List<String> problemas);
+	public abstract String documento(List<Plantilla> problemas);
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a un formato
@@ -42,7 +42,7 @@ public abstract class Traductor {
 	 *            Problema AhoSethiUllman.
 	 * @return Problema traducido.
 	 */
-	public abstract String traduceASUConstruccion(AhoSethiUllman problema);
+	public abstract Plantilla traduceASUConstruccion(AhoSethiUllman problema);
 	
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo etiquetado a un formato
@@ -52,7 +52,7 @@ public abstract class Traductor {
 	 *            Problema AhoSethiUllman.
 	 * @return Problema traducido.
 	 */
-	public abstract String traduceASUEtiquetado(AhoSethiUllman problema);
+	public abstract Plantilla traduceASUEtiquetado(AhoSethiUllman problema);
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo tablas a un formato
@@ -62,7 +62,7 @@ public abstract class Traductor {
 	 *            Problema AhoSethiUllman.
 	 * @return Problema traducido.
 	 */
-	public abstract String traduceASUTablas(AhoSethiUllman problema);
+	public abstract Plantilla traduceASUTablas(AhoSethiUllman problema);
 
 
 	/**
@@ -73,7 +73,7 @@ public abstract class Traductor {
 	 *            Problema construcción de subconjuntos.
 	 * @return Problema traducido.
 	 */
-	public abstract String traduceCSExpresion(ConstruccionSubconjuntos problema);
+	public abstract Plantilla traduceCSExpresion(ConstruccionSubconjuntos problema);
 
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo autómata
@@ -83,7 +83,7 @@ public abstract class Traductor {
 	 *            Problema construcción de subconjuntos.
 	 * @return Problema traducido.
 	 */
-	public abstract String traduceCSAutomata(ConstruccionSubconjuntos problema);
+	public abstract Plantilla traduceCSAutomata(ConstruccionSubconjuntos problema);
 
 	/**
 	 * Carga el contenido de una plantilla y lo devuelve como cadena de
@@ -128,6 +128,7 @@ public abstract class Traductor {
 	 *            Plantilla original.
 	 * @return Plantilla en forma intermedia.
 	 */
+	@Deprecated
 	String formatoIntermedio(String plantilla) {
 		plantilla = plantilla.replace("{", "\\'{\\'");
 		plantilla = plantilla.replace("}", "\\'}\\'");
@@ -145,6 +146,7 @@ public abstract class Traductor {
 	 *            Plantilla en formato intermedio.
 	 * @return Plantilla en formato final.
 	 */
+	@Deprecated
 	String formatoFinal(String plantilla) {
 		plantilla = plantilla.replace("\\{\\", "{");
 		plantilla = plantilla.replace("\\}\\", "}");

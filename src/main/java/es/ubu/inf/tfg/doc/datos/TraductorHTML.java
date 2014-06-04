@@ -1,7 +1,6 @@
 package es.ubu.inf.tfg.doc.datos;
 
 import java.awt.image.BufferedImage;
-import java.text.MessageFormat;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -9,7 +8,6 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import es.ubu.inf.tfg.doc.Plantilla;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
@@ -33,17 +31,18 @@ public class TraductorHTML extends Traductor {
 	 * @return Documento HTML completo.
 	 */
 	@Override
-	public String documento(List<String> problemas) {
+	public String documento(List<Plantilla> problemas) {
 		log.info("Generando documento HTML a partir de {} problemas.",
 				problemas.size());
 
 		StringBuilder documento = new StringBuilder();
 
 		int n = 1;
-		for (String problema : problemas)
-			documento.append(MessageFormat.format(formatoIntermedio(problema),
-					n++));
-		
+		for (Plantilla problema : problemas) {
+			problema.set("numero", "" + n++);
+			documento.append(problema.toString());
+		}
+
 		Plantilla plantilla = new Plantilla("plantilla.html");
 		plantilla.set("documento", documento.toString());
 
@@ -59,12 +58,12 @@ public class TraductorHTML extends Traductor {
 	 * @return Problema traducido a HTML.
 	 */
 	@Override
-	public String traduceASUConstruccion(AhoSethiUllman problema) {
+	public Plantilla traduceASUConstruccion(AhoSethiUllman problema) {
 		log.info(
 				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato construcción",
 				problema.problema());
 
-		String plantilla = formatoIntermedio(plantilla("plantillaASUConstruccion.html"));
+		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.html");
 		String[] imagenes = new String[4];
 		List<BufferedImage> alternativas = problema.alternativas();
 		Collections.shuffle(alternativas);
@@ -72,17 +71,15 @@ public class TraductorHTML extends Traductor {
 		for (int i = 0; i < 4; i++)
 			imagenes[i] = "http:\\" + alternativas.get(i).hashCode() + ".jpg";
 
-		plantilla = MessageFormat.format(
-				plantilla,
-				"<%0%>",
-				problema.problema(),
-				imagenes[0],
-				imagenes[1],
-				imagenes[2],
-				imagenes[3],
-				(char) ('a' + alternativas.indexOf(problema.alternativas().get(
-						0))));
-		plantilla = formatoFinal(plantilla);
+		int index = alternativas.indexOf(problema.alternativas().get(0));
+		String solucion = "" + (char) ('a' + index);
+
+		plantilla.set("expresion", problema.problema());
+		plantilla.set("opcionA", imagenes[0]);
+		plantilla.set("opcionB", imagenes[1]);
+		plantilla.set("opcionC", imagenes[2]);
+		plantilla.set("opcionD", imagenes[3]);
+		plantilla.set("solucion", solucion);
 
 		return plantilla;
 	}
@@ -96,13 +93,13 @@ public class TraductorHTML extends Traductor {
 	 * @return Problema traducido a HTML.
 	 */
 	@Override
-	public String traduceASUEtiquetado(AhoSethiUllman problema) {
+	public Plantilla traduceASUEtiquetado(AhoSethiUllman problema) {
 		log.info(
 				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato etiquetado",
 				problema.problema());
 
 		String url = "http:\\" + problema.arbolVacio().hashCode() + ".jpg";
-		String plantilla = formatoIntermedio(plantilla("plantillaASUEtiquetado.html"));
+		Plantilla plantilla = new Plantilla("plantillaASUEtiquetado.html");
 		StringBuilder soluciones = new StringBuilder();
 
 		// cabecera
@@ -129,9 +126,9 @@ public class TraductorHTML extends Traductor {
 		// cierre
 		soluciones.append("</table>");
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				problema.problema(), url, soluciones.toString());
-		plantilla = formatoFinal(plantilla);
+		plantilla.set("expresion", problema.problema());
+		plantilla.set("imagen", url);
+		plantilla.set("tabla", soluciones.toString());
 
 		return plantilla;
 	}
@@ -144,7 +141,7 @@ public class TraductorHTML extends Traductor {
 	 * @return Problema traducido a HTML.
 	 */
 	@Override
-	public String traduceASUTablas(AhoSethiUllman problema) {
+	public Plantilla traduceASUTablas(AhoSethiUllman problema) {
 		log.info(
 				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato tablas",
 				problema.problema());
@@ -152,7 +149,7 @@ public class TraductorHTML extends Traductor {
 		StringBuilder stePos = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaASUTablas.html"));
+		Plantilla plantilla = new Plantilla("plantillaASUTablas.html");
 
 		// siguiente-pos
 		stePos.append("<p><table>");
@@ -199,10 +196,10 @@ public class TraductorHTML extends Traductor {
 		}
 		fTrans.append("</table>");
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				problema.problema(), problema.expresionAumentada(),
-				stePos.toString(), fTrans.toString());
-		plantilla = formatoFinal(plantilla);
+		plantilla.set("expresion", problema.problema());
+		plantilla.set("aumentada", problema.expresionAumentada());
+		plantilla.set("siguientePos", stePos.toString());
+		plantilla.set("transicion", fTrans.toString());
 
 		return plantilla;
 	}
@@ -216,14 +213,14 @@ public class TraductorHTML extends Traductor {
 	 * @return Problema traducido a HTML.
 	 */
 	@Override
-	public String traduceCSExpresion(ConstruccionSubconjuntos problema) {
+	public Plantilla traduceCSExpresion(ConstruccionSubconjuntos problema) {
 		log.info(
 				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresion {}, formato expresión",
 				problema.problema());
 
 		StringBuilder fTrans = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaCSExpresion.html"));
+		Plantilla plantilla = new Plantilla("plantillaCSExpresion.html");
 
 		// Función de transición
 		fTrans.append("<table><tr><th></th>");
@@ -249,9 +246,8 @@ public class TraductorHTML extends Traductor {
 		}
 		fTrans.append("</table>");
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				problema.problema(), fTrans.toString());
-		plantilla = formatoFinal(plantilla);
+		plantilla.set("expresion", problema.problema());
+		plantilla.set("transicion", fTrans.toString());
 
 		return plantilla;
 	}
@@ -265,7 +261,7 @@ public class TraductorHTML extends Traductor {
 	 * @return Problema traducido a HTML.
 	 */
 	@Override
-	public String traduceCSAutomata(ConstruccionSubconjuntos problema) {
+	public Plantilla traduceCSAutomata(ConstruccionSubconjuntos problema) {
 		log.info(
 				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresion {}, formato autómata",
 				problema.problema());
@@ -273,7 +269,7 @@ public class TraductorHTML extends Traductor {
 		String url = "http:\\" + problema.automata().hashCode() + ".jpg";
 		StringBuilder fTrans = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaCSAutomata.html"));
+		Plantilla plantilla = new Plantilla("plantillaCSAutomata.html");
 
 		// Función de transición
 		fTrans.append("<table><tr><th></th>");
@@ -298,10 +294,9 @@ public class TraductorHTML extends Traductor {
 			fTrans.append("</td></tr>");
 		}
 		fTrans.append("</table>");
-
-		plantilla = MessageFormat.format(plantilla, "<%0%>", url,
-				fTrans.toString());
-		plantilla = formatoFinal(plantilla);
+		
+		plantilla.set("imagen", url);
+		plantilla.set("transicion", fTrans.toString());
 
 		return plantilla;
 	}

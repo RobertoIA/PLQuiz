@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import es.ubu.inf.tfg.doc.datos.Plantilla;
 import es.ubu.inf.tfg.doc.datos.Traductor;
 import es.ubu.inf.tfg.doc.datos.TraductorHTML;
 import es.ubu.inf.tfg.doc.datos.TraductorLatex;
@@ -164,7 +165,7 @@ public class Documento {
 	 * @return Documento traducido como cadena de caracteres.
 	 */
 	private String traduce(Traductor traductor) {
-		List<String> problemas = new ArrayList<>();
+		List<Plantilla> problemas = new ArrayList<>();
 
 		for (Problema<?> problema : this.problemas) {
 			switch (problema.getTipo()) {

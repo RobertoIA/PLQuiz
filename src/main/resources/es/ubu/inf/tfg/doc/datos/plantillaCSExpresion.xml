@@ -1,15 +1,15 @@
-	<!-- question: <%0%>  -->
+	<!-- question: {numero}  -->
 	<question type="cloze">
 		<name>
 			<text>PLQuiz: Construcción de subconjuntos</text>
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa la tabla de la función de transición para el AFD que se obtendría al aplicar el método de construcción de subconjuntos al AFND de la expresión regular <%1%></p>
+				<p>Completa la tabla de la función de transición para el AFD que se obtendría al aplicar el método de construcción de subconjuntos al AFND de la expresión regular {expresion}</p>
 
 				<table border="1" cellspacing="0" align="left">
 				<tbody>
-				<%2%>
+				{transicion}
 				</tbody>
 				</table>
 
@@ -24,7 +24,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: <%3%></p>
+				<p>Los estados finales son: {finales}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>

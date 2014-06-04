@@ -3,7 +3,6 @@ package es.ubu.inf.tfg.doc.datos;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -19,7 +18,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import sun.misc.BASE64Encoder;
-import es.ubu.inf.tfg.doc.Plantilla;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
@@ -44,16 +42,17 @@ public class TraductorMoodleXML extends Traductor {
 	 * @return Documento Moodle XML completo.
 	 */
 	@Override
-	public String documento(List<String> problemas) {
+	public String documento(List<Plantilla> problemas) {
 		log.info("Generando documento Moodle XML a partir de {} problemas.",
 				problemas.size());
 
 		StringBuilder documento = new StringBuilder();
 
 		int n = 1;
-		for (String problema : problemas)
-			documento.append(MessageFormat.format(formatoIntermedio(problema),
-					n++));
+		for (Plantilla problema : problemas) {
+			problema.set("numero", "" + n++);
+			documento.append(problema.toString());
+		}
 
 		Plantilla plantilla = new Plantilla("plantilla.xml");
 		plantilla.set("documento", documento.toString());
@@ -70,12 +69,12 @@ public class TraductorMoodleXML extends Traductor {
 	 * @return Problema traducido a Moodle XML.
 	 */
 	@Override
-	public String traduceASUConstruccion(AhoSethiUllman problema) {
+	public Plantilla traduceASUConstruccion(AhoSethiUllman problema) {
 		log.info(
 				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato construcción",
 				problema.problema());
 
-		String plantilla = formatoIntermedio(plantilla("plantillaASUConstruccion.xml"));
+		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.xml");
 		String[] imagenes = new String[4];
 		List<BufferedImage> alternativas = problema.alternativas();
 		Collections.shuffle(alternativas);
@@ -94,12 +93,16 @@ public class TraductorMoodleXML extends Traductor {
 		opciones.add('c');
 		opciones.add('d');
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				problema.problema(), imagenes[0], imagenes[1], imagenes[2],
-				imagenes[3], alternativasBase64[0], alternativasBase64[1],
-				alternativasBase64[2], alternativasBase64[3],
-				opcionesTransicion(solucion, opciones));
-		plantilla = formatoFinal(plantilla);
+		plantilla.set("expresion", problema.problema());
+		plantilla.set("urlA", imagenes[0]);
+		plantilla.set("urlB", imagenes[1]);
+		plantilla.set("urlC", imagenes[2]);
+		plantilla.set("urlD", imagenes[3]);
+		plantilla.set("imagenA", alternativasBase64[0]);
+		plantilla.set("imagenB", alternativasBase64[1]);
+		plantilla.set("imagenC", alternativasBase64[2]);
+		plantilla.set("imagenD", alternativasBase64[3]);
+		plantilla.set("solucion", opcionesTransicion(solucion, opciones));
 
 		return plantilla;
 	}
@@ -114,13 +117,13 @@ public class TraductorMoodleXML extends Traductor {
 	 */
 
 	@Override
-	public String traduceASUEtiquetado(AhoSethiUllman problema) {
+	public Plantilla traduceASUEtiquetado(AhoSethiUllman problema) {
 		log.info(
 				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato etiquetado",
 				problema.problema());
 
 		String url = problema.arbolVacio().hashCode() + ".jpg";
-		String plantilla = formatoIntermedio(plantilla("plantillaASUEtiquetado.xml"));
+		Plantilla plantilla = new Plantilla("plantillaASUEtiquetado.xml");
 		StringBuilder soluciones = new StringBuilder();
 
 		// cabecera
@@ -148,9 +151,10 @@ public class TraductorMoodleXML extends Traductor {
 		String expresion = problema.problema();
 		expresion = expresion.replace("\u2027", "·");
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>", expresion, url,
-				solucionesXML, imageToBase64(problema.arbolVacio()));
-		plantilla = formatoFinal(plantilla);
+		plantilla.set("expresion", expresion);
+		plantilla.set("url", url);
+		plantilla.set("imagen", imageToBase64(problema.arbolVacio()));
+		plantilla.set("tabla", solucionesXML);
 
 		return plantilla;
 	}
@@ -165,7 +169,7 @@ public class TraductorMoodleXML extends Traductor {
 	 */
 
 	@Override
-	public String traduceASUTablas(AhoSethiUllman problema) {
+	public Plantilla traduceASUTablas(AhoSethiUllman problema) {
 		log.info(
 				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato tablas",
 				problema.problema());
@@ -174,7 +178,7 @@ public class TraductorMoodleXML extends Traductor {
 		StringBuilder fTrans = new StringBuilder();
 		StringBuilder eFinales = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaASUTablas.xml"));
+		Plantilla plantilla = new Plantilla("plantillaASUTablas.xml");
 
 		// siguiente-pos
 		for (int n : problema.posiciones()) {
@@ -217,10 +221,10 @@ public class TraductorMoodleXML extends Traductor {
 		}
 		eFinales.append(opcionesFinales(finales, problema.estados()));
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				problema.problema(), stePos.toString(), fTrans.toString(),
-				eFinales.toString());
-		plantilla = formatoFinal(plantilla);
+		plantilla.set("expresion", problema.problema());
+		plantilla.set("siguientePos", stePos.toString());
+		plantilla.set("transicion", fTrans.toString());
+		plantilla.set("finales", eFinales.toString());
 
 		return plantilla;
 	}
@@ -234,7 +238,7 @@ public class TraductorMoodleXML extends Traductor {
 	 * @return Problema traducido a Moodle XML.
 	 */
 	@Override
-	public String traduceCSExpresion(ConstruccionSubconjuntos problema) {
+	public Plantilla traduceCSExpresion(ConstruccionSubconjuntos problema) {
 		log.info(
 				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {, formato expresión}",
 				problema.problema());
@@ -242,7 +246,7 @@ public class TraductorMoodleXML extends Traductor {
 		StringBuilder fTrans = new StringBuilder();
 		StringBuilder eFinales = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaCSExpresion.xml"));
+		Plantilla plantilla = new Plantilla("plantillaCSExpresion.xml");
 
 		// Función de transición
 		fTrans.append("\n\t<tr>\n\t<th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
@@ -275,9 +279,9 @@ public class TraductorMoodleXML extends Traductor {
 		}
 		eFinales.append(opcionesFinales(finales, problema.estados()));
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>",
-				problema.problema(), fTrans.toString(), eFinales.toString());
-		plantilla = formatoFinal(plantilla);
+		plantilla.set("expresion", problema.problema());
+		plantilla.set("transicion", fTrans.toString());
+		plantilla.set("finales", eFinales.toString());
 
 		return plantilla;
 	}
@@ -291,7 +295,7 @@ public class TraductorMoodleXML extends Traductor {
 	 * @return Problema traducido a Moodle XML.
 	 */
 	@Override
-	public String traduceCSAutomata(ConstruccionSubconjuntos problema) {
+	public Plantilla traduceCSAutomata(ConstruccionSubconjuntos problema) {
 		log.info(
 				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {}, formato autómata",
 				problema.problema());
@@ -300,7 +304,7 @@ public class TraductorMoodleXML extends Traductor {
 		StringBuilder fTrans = new StringBuilder();
 		StringBuilder eFinales = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaCSAutomata.xml"));
+		Plantilla plantilla = new Plantilla("plantillaCSAutomata.xml");
 
 		// Función de transición
 		fTrans.append("\n\t<tr>\n\t<th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
@@ -333,10 +337,10 @@ public class TraductorMoodleXML extends Traductor {
 		}
 		eFinales.append(opcionesFinales(finales, problema.estados()));
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>", url,
-				fTrans.toString(), eFinales.toString(),
-				imageToBase64(problema.automata()));
-		plantilla = formatoFinal(plantilla);
+		plantilla.set("url", url);
+		plantilla.set("imagen", imageToBase64(problema.automata()));
+		plantilla.set("transicion", fTrans.toString());
+		plantilla.set("finales", eFinales.toString());
 
 		return plantilla;
 	}

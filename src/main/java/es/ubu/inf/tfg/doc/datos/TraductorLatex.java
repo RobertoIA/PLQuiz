@@ -1,13 +1,11 @@
 package es.ubu.inf.tfg.doc.datos;
 
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import es.ubu.inf.tfg.doc.Plantilla;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
@@ -31,16 +29,17 @@ public class TraductorLatex extends Traductor {
 	 * @return Documento Latex completo.
 	 */
 	@Override
-	public String documento(List<String> problemas) {
+	public String documento(List<Plantilla> problemas) {
 		log.info("Generando documento Latex a partir de {} problemas.",
 				problemas.size());
 
 		StringBuilder documento = new StringBuilder();
 
 		int n = 1;
-		for (String problema : problemas)
-			documento.append(MessageFormat.format(formatoIntermedio(problema),
-					n++));
+		for (Plantilla problema : problemas) {
+			problema.set("numero", "" + n++);
+			documento.append(problema.toString());
+		}
 
 		Plantilla plantilla = new Plantilla("plantilla.tex");
 		plantilla.set("documento", documento.toString());
@@ -58,33 +57,22 @@ public class TraductorLatex extends Traductor {
 	 * @return Problema traducido a Latex.
 	 */
 	@Override
-	public String traduceASUConstruccion(AhoSethiUllman problema) {
+	public Plantilla traduceASUConstruccion(AhoSethiUllman problema) {
 		log.info(
 				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresion {}, formato construcción",
 				problema.problema());
 
-		String plantilla = formatoIntermedio(plantilla("plantillaASUConstruccion.tex"));
+		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.tex");
 		String imagen = problema.alternativas().get(0).hashCode() + "";
-		// String[] imagenes = new String[4];
-		// List<BufferedImage> alternativas = problema.alternativas();
-		// Collections.shuffle(alternativas);
-		//
-		// for(int i = 0; i < 4; i++)
-		// imagenes[i] = "" + alternativas.get(i).hashCode();
-		//
+		
 		String expresion = problema.problema();
 		expresion = expresion.replace("|", "\\textbar ");
 		expresion = expresion.replace("\u2027", "·");
 		expresion = expresion.replace("\u03B5", "$\\epsilon$");
 		expresion = expresion.replace("$", "\\$");
-		//
-		// plantilla = MessageFormat.format(plantilla, "<%0%>",
-		// expresion, imagenes[0], imagenes[1], imagenes[2],
-		// imagenes[3], (char) ('a' +
-		// alternativas.indexOf(problema.alternativas().get(0))));
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>", expresion, imagen);
-		plantilla = formatoFinal(plantilla);
+		plantilla.set("expresion", expresion);
+		plantilla.set("imagen", imagen);
 
 		return plantilla;
 	}
@@ -98,13 +86,13 @@ public class TraductorLatex extends Traductor {
 	 * @return Problema traducido a Latex.
 	 */
 	@Override
-	public String traduceASUEtiquetado(AhoSethiUllman problema) {
+	public Plantilla traduceASUEtiquetado(AhoSethiUllman problema) {
 		log.info(
 				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresion {}, formato etiquetado",
 				problema.problema());
 
 		String imagen = "" + problema.arbolVacio().hashCode();
-		String plantilla = formatoIntermedio(plantilla("plantillaASUEtiquetado.tex"));
+		Plantilla plantilla = new Plantilla("plantillaASUEtiquetado.tex");
 		StringBuilder soluciones = new StringBuilder();
 
 		soluciones.append(" & anulable? & primera-pos & última-pos");
@@ -136,9 +124,9 @@ public class TraductorLatex extends Traductor {
 		expresion = expresion.replace("\u2027", "·");
 		expresion = expresion.replace("\u03B5", "$\\epsilon$");
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>", expresion, imagen,
-				solucionesL);
-		plantilla = formatoFinal(plantilla);
+		plantilla.set("expresion", expresion);
+		plantilla.set("iamgen", imagen);
+		plantilla.set("tabla", solucionesL);
 
 		return plantilla;
 	}
@@ -152,7 +140,7 @@ public class TraductorLatex extends Traductor {
 	 * @return Problema traducido a Latex.
 	 */
 	@Override
-	public String traduceASUTablas(AhoSethiUllman problema) {
+	public Plantilla traduceASUTablas(AhoSethiUllman problema) {
 		log.info(
 				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresion {}, formato tablas",
 				problema.problema());
@@ -160,7 +148,7 @@ public class TraductorLatex extends Traductor {
 		StringBuilder stePos = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaASUTablas.tex"));
+		Plantilla plantilla = new Plantilla("plantillaASUTablas.tex");
 
 		// siguiente-pos
 		stePos.append("\\begin{tabular} {| c | l |}\n\\hline\nn & stePos(n) \\\\ \\hline\n");
@@ -218,9 +206,10 @@ public class TraductorLatex extends Traductor {
 		expresionAumentada = expresionAumentada
 				.replace("\u03B5", "$\\epsilon$");
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>", expresion,
-				expresionAumentada, stePos.toString(), fTrans.toString());
-		plantilla = formatoFinal(plantilla);
+		plantilla.set("expresion", expresion);
+		plantilla.set("aumentada", expresionAumentada);
+		plantilla.set("siguientePos", stePos.toString());
+		plantilla.set("transicion", fTrans.toString());
 
 		return plantilla;
 	}
@@ -234,14 +223,14 @@ public class TraductorLatex extends Traductor {
 	 * @return Problema traducido a Latex.
 	 */
 	@Override
-	public String traduceCSExpresion(ConstruccionSubconjuntos problema) {
+	public Plantilla traduceCSExpresion(ConstruccionSubconjuntos problema) {
 		log.info(
 				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresion {}, formato expresión",
 				problema.problema());
 
 		StringBuilder fTrans = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaCSExpresion.tex"));
+		Plantilla plantilla = new Plantilla("plantillaCSExpresion.tex");
 
 		// Función de transición
 		fTrans.append("\\begin{tabular} {| c | ");
@@ -274,9 +263,8 @@ public class TraductorLatex extends Traductor {
 		expresion = expresion.replace("\u2027", "·");
 		expresion = expresion.replace("\u03B5", "$\\epsilon$");
 
-		plantilla = MessageFormat.format(plantilla, "<%0%>", expresion,
-				fTrans.toString());
-		plantilla = formatoFinal(plantilla);
+		plantilla.set("expresion", expresion);
+		plantilla.set("transicion", fTrans.toString());
 
 		return plantilla;
 	}
@@ -290,7 +278,7 @@ public class TraductorLatex extends Traductor {
 	 * @return Problema traducido a Latex.
 	 */
 	@Override
-	public String traduceCSAutomata(ConstruccionSubconjuntos problema) {
+	public Plantilla traduceCSAutomata(ConstruccionSubconjuntos problema) {
 		log.info(
 				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresion {}, formato autómata",
 				problema.problema());
@@ -298,7 +286,7 @@ public class TraductorLatex extends Traductor {
 		String imagen = "" + problema.automata().hashCode();
 		StringBuilder fTrans = new StringBuilder();
 
-		String plantilla = formatoIntermedio(plantilla("plantillaCSAutomata.tex"));
+		Plantilla plantilla = new Plantilla("plantillaCSAutomata.tex");
 
 		// Función de transición
 		fTrans.append("\\begin{tabular} {| c | ");
@@ -326,14 +314,8 @@ public class TraductorLatex extends Traductor {
 		}
 		fTrans.append("\\end{tabular}");
 
-		String expresion = problema.problema();
-		expresion = expresion.replace("|", "\\textbar ");
-		expresion = expresion.replace("\u2027", "·");
-		expresion = expresion.replace("\u03B5", "$\\epsilon$");
-
-		plantilla = MessageFormat.format(plantilla, "<%0%>", imagen,
-				fTrans.toString());
-		plantilla = formatoFinal(plantilla);
+		plantilla.set("imagen", imagen);
+		plantilla.set("transicion", fTrans.toString());
 
 		return plantilla;
 	}

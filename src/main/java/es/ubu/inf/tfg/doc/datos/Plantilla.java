@@ -1,4 +1,4 @@
-package es.ubu.inf.tfg.doc;
+package es.ubu.inf.tfg.doc.datos;
 
 import java.io.BufferedReader;
 import java.io.IOException;
