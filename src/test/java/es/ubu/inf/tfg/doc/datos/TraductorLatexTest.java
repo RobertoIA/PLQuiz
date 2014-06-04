@@ -41,7 +41,7 @@ public class TraductorLatexTest {
 		String esperado = toString("TraductorVacio.tex");
 
 		assertEquals("Generación incorrecta de documento Latex.", esperado,
-				traductor.documento(new ArrayList<String>()));
+				traductor.documento(new ArrayList<Plantilla>()));
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class TraductorLatexTest {
 	public void testTraduceAhoSethiUllmanConstruccion() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUConstruccion.tex");
-		String encontrado = traductor.traduceASUConstruccion(problema);
+		String encontrado = traductor.traduceASUConstruccion(problema).toString();
 
 		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
 
@@ -69,7 +69,7 @@ public class TraductorLatexTest {
 	public void testTraduceAhoSethiUllmanEtiquetado() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUEtiquetado.tex");
-		String encontrado = traductor.traduceASUEtiquetado(problema);
+		String encontrado = traductor.traduceASUEtiquetado(problema).toString();
 
 		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
 
@@ -89,7 +89,7 @@ public class TraductorLatexTest {
 
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo tablas.",
-				esperado, traductor.traduceASUTablas(problema));
+				esperado, traductor.traduceASUTablas(problema).toString());
 	}
 
 	/**
@@ -104,7 +104,7 @@ public class TraductorLatexTest {
 
 		assertEquals(
 				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo expresión.",
-				esperado, traductor.traduceCSExpresion(problema));
+				esperado, traductor.traduceCSExpresion(problema).toString());
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class TraductorLatexTest {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
 		String esperado = toString("TraductorCSAutomata.tex");
-		String encontrado = traductor.traduceCSAutomata(problema);
+		String encontrado = traductor.traduceCSAutomata(problema).toString();
 
 		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
 

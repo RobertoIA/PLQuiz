@@ -1,4 +1,4 @@
-	<!-- question: <%0%>  -->
+	<!-- question: {numero}  -->
 	<question type="cloze">
 		<name>
 			<text>PLQuiz: Construcción de subconjuntos</text>

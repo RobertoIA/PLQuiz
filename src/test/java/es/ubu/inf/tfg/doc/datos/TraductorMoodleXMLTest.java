@@ -41,7 +41,7 @@ public class TraductorMoodleXMLTest {
 		String esperado = toString("TraductorVacio.xml");
 
 		assertEquals("Generación incorrecta de documento Moodle XML.",
-				esperado, traductor.documento(new ArrayList<String>()));
+				esperado, traductor.documento(new ArrayList<Plantilla>()));
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class TraductorMoodleXMLTest {
 	public void testTraduceAhoSethiUllmanConstruccion() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUConstruccion.xml");
-		String encontrado = traductor.traduceASUConstruccion(problema);
+		String encontrado = traductor.traduceASUConstruccion(problema).toString();
 
 		encontrado = encontrado.replaceAll(
 				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
@@ -75,7 +75,7 @@ public class TraductorMoodleXMLTest {
 	public void testTraduceAhoSethiUllmanEtiquetado() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUEtiquetado.xml");
-		String encontrado = traductor.traduceASUEtiquetado(problema);
+		String encontrado = traductor.traduceASUEtiquetado(problema).toString();
 
 		encontrado = encontrado.replaceAll(
 				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
@@ -98,7 +98,7 @@ public class TraductorMoodleXMLTest {
 	public void testTraduceAhoSethiUllmanTablas() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUTablas.xml");
-		String encontrado = traductor.traduceASUTablas(problema);
+		String encontrado = traductor.traduceASUTablas(problema).toString();
 
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
@@ -117,7 +117,7 @@ public class TraductorMoodleXMLTest {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
 		String esperado = toString("TraductorCSExpresion.xml");
-		String encontrado = traductor.traduceCSExpresion(problema);
+		String encontrado = traductor.traduceCSExpresion(problema).toString();
 
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
 				"{1:MULTICHOICE:}");
@@ -136,7 +136,7 @@ public class TraductorMoodleXMLTest {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
 		String esperado = toString("TraductorCSAutomata.xml");
-		String encontrado = traductor.traduceCSAutomata(problema);
+		String encontrado = traductor.traduceCSAutomata(problema).toString();
 
 		encontrado = encontrado.replaceAll(
 				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",

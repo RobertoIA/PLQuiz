@@ -41,7 +41,7 @@ public class TraductorHTMLTest {
 		String esperado = toString("TraductorVacio.html");
 
 		assertEquals("Generación incorrecta de documento HTML.", esperado,
-				traductor.documento(new ArrayList<String>()));
+				traductor.documento(new ArrayList<Plantilla>()));
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class TraductorHTMLTest {
 	public void testTraduceAhoSethiUllmanConstruccion() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUConstruccion.html");
-		String encontrado = traductor.traduceASUConstruccion(problema);
+		String encontrado = traductor.traduceASUConstruccion(problema).toString();
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
@@ -72,7 +72,7 @@ public class TraductorHTMLTest {
 	public void testTraduceAhoSethiUllmanEtiquetado() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUEtiquetado.html");
-		String encontrado = traductor.traduceASUEtiquetado(problema);
+		String encontrado = traductor.traduceASUEtiquetado(problema).toString();
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
@@ -93,7 +93,7 @@ public class TraductorHTMLTest {
 
 		assertEquals(
 				"Traducción HTML incorrecta de problema AhoSethiUllman subtipo tablas.",
-				esperado, traductor.traduceASUTablas(problema));
+				esperado, traductor.traduceASUTablas(problema).toString());
 	}
 
 	/**
@@ -108,7 +108,7 @@ public class TraductorHTMLTest {
 
 		assertEquals(
 				"Traducción HTML incorrecta de problema de construcción de subconjuntos subtipo expresión.",
-				esperado, traductor.traduceCSExpresion(problema));
+				esperado, traductor.traduceCSExpresion(problema).toString());
 	}
 
 	/**
@@ -120,7 +120,7 @@ public class TraductorHTMLTest {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
 		String esperado = toString("TraductorCSAutomata.html");
-		String encontrado = traductor.traduceCSAutomata(problema);
+		String encontrado = traductor.traduceCSAutomata(problema).toString();
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
