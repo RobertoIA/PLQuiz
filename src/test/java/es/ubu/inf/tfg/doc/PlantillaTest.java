@@ -1,24 +1,31 @@
 package es.ubu.inf.tfg.doc;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
+import es.ubu.inf.tfg.doc.datos.Plantilla;
+
 public class PlantillaTest {
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
+	
+	@Test
+	public void testPlantilla() {
+		Plantilla plantilla = new Plantilla("Plantilla.txt");
+		String esperado = "{1}{2}{3}{4}";
+		
+		assertEquals("Incorrecto recuperado de plantilla.", esperado, plantilla.toString());
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testSet() {
+		Plantilla plantilla = new Plantilla("Plantilla.txt");
+		String esperado = "1234";
+		
+		plantilla.set("1", "1");
+		plantilla.set("2", "2");
+		plantilla.set("3", "3");
+		plantilla.set("4", "4");
+		
+		assertEquals("Incorrecto modificado de plantilla.", esperado, plantilla.toString());
 	}
-
 }
