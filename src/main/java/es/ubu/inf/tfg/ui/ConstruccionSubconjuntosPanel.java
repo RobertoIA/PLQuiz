@@ -36,7 +36,6 @@ import es.ubu.inf.tfg.doc.Problema;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntosGenerador;
 
-// TODO añadir imagen solo en los formatos en que vaya a utilizarse
 public class ConstruccionSubconjuntosPanel extends JPanel {
 
 	private static final Logger log = LoggerFactory
