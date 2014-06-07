@@ -1,0 +1,76 @@
+\documentclass[a4paper,10pt,oneside]{memoir}
+
+% Castellano
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+\usepackage[utf8]{inputenc}
+
+% Opciones de formato
+\chapterstyle{bianchi}
+
+% Formato de portada
+\makeatletter
+\def\maketitle{
+  \null
+  \thispagestyle{empty}
+  \vfill
+  \begin{center}\leavevmode
+    \normalfont
+    {\LARGE \@author\par}
+    \hrulefill\par
+    {\huge \@title\par}
+    \vskip 1cm
+  \end{center}
+  \vfill
+  \null
+  \cleardoublepage
+  }
+\makeatother
+
+% Datos de portada
+\title{Trabajo Fin de Grado: PLQuiz}
+\author{Roberto Izquierdo Amo}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\frontmatter
+
+% Abstract en castellano
+
+\renewcommand*\abstractname{Resumen}
+\begin{abstract}
+
+\end{abstract}
+
+\renewcommand*\abstractname{Descriptores}
+\begin{abstract}
+
+\end{abstract}
+
+\clearpage
+
+% Abstract en inglés
+
+\renewcommand*\abstractname{Abstract}
+\begin{abstract}
+
+\end{abstract}
+
+\renewcommand*\abstractname{Keywords}
+\begin{abstract}
+
+\end{abstract}
+
+\mainmatter
+
+\include{./tex/1_Objetivos_del_proyecto}
+\include{./tex/2_Conceptos_teoricos}
+\include{./tex/3_Tecnicas_y_herramientas}
+\include{./tex/4_Aspectos_relevantes_del_desarrollo_del_proyecto}
+\include{./tex/5_Trabajos_relacionados}
+\include{./tex/6_Conclusiones_y_lineas_de_trabajo_futuras}
+
+\end{document}
