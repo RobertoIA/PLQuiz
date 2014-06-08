@@ -15,8 +15,14 @@
 	\end{figure}
 }
 
-% Opciones de formato
+% Capítulos
 \chapterstyle{bianchi}
+\newcommand{\capitulo}[2]{
+	\setcounter{chapter}{#1}
+	\setcounter{section}{0}
+	\chapter*{#2}
+	\addcontentsline{toc}{chapter}{#2}
+}
 
 % Formato de portada
 \makeatletter
@@ -49,7 +55,6 @@
 \frontmatter
 
 % Abstract en castellano
-
 \renewcommand*\abstractname{Resumen}
 \begin{abstract}
 
@@ -63,7 +68,6 @@
 \clearpage
 
 % Abstract en inglés
-
 \renewcommand*\abstractname{Abstract}
 \begin{abstract}
 
@@ -73,6 +77,19 @@
 \begin{abstract}
 
 \end{abstract}
+
+\clearpage
+
+% Indices
+\tableofcontents
+
+\clearpage
+
+\listoffigures
+
+\clearpage
+
+\listoftables
 
 \mainmatter
 
