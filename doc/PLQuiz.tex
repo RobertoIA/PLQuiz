@@ -5,6 +5,16 @@
 \selectlanguage{spanish}
 \usepackage[utf8]{inputenc}
 
+% Imagenes
+\usepackage{graphicx}
+\newcommand{\imagen}[2]{
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=0.9\textwidth]{#1}
+		\caption{#2}
+	\end{figure}
+}
+
 % Opciones de formato
 \chapterstyle{bianchi}
 
