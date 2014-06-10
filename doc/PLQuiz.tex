@@ -22,6 +22,7 @@
 	\setcounter{section}{0}
 	\chapter*{#2}
 	\addcontentsline{toc}{chapter}{#2}
+	\markboth{#2}{#2}
 }
 
 % Formato de portada
@@ -93,6 +94,8 @@ Question generation, lexical analysis, regular expresions, finite automata.
 
 \listoftables
 
+\clearpage
+
 \mainmatter
 
 \include{./tex/1_Objetivos_del_proyecto}
@@ -101,5 +104,8 @@ Question generation, lexical analysis, regular expresions, finite automata.
 \include{./tex/4_Aspectos_relevantes_del_desarrollo_del_proyecto}
 \include{./tex/5_Trabajos_relacionados}
 \include{./tex/6_Conclusiones_y_lineas_de_trabajo_futuras}
+
+\bibliographystyle{plain}
+\bibliography{PLQuiz}
 
 \end{document}
