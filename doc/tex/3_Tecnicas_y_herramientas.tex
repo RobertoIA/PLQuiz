@@ -58,5 +58,18 @@ Este fichero define la construcción, emisión documentación, empaquetado, prue
 Maven se estructura en torno a un núcleo central de tamaño mínimo, que puede ser extendido mediante plugins.
 Este núcleo es el encargado de descargar los plugins que añaden la funcionalidad pedida desde sus repositorios remotos.
 
+\subsection{SLF4J}
 
-% log4j y slf4j con \cite{website:githubTOP}
+SLF4J (Simple Logging Facade for Java) sirve como interfaz para varias herramientas de logging, permitiendo al usuario cambiar entre una y otra sin realizar modificaciones en el código.
+Se establece como única dependencia obligatoria, encargándose por si misma de buscar una implementación compatible \cite{website:slf4j}.
+\\
+Esta herramienta permite trabajar con, por ejemplo, java.util.logging, logback o log4j.
+
+\subsection{Logback}
+
+Logback es una herramienta de logging para Java que se establece como sucesor de Log4J.
+Utiliza el API de SLF4J, por lo cuál puede ser libremente intercambiado por cualquier otro módulo de logging compatible.
+\\
+La configuración de Logback se realiza mediante un pequeño fichero XML, en el cual se especifican los canales de salida, sean archivos o consola.
+Siguiendo la estructura de Apache Maven, Logback permite establecer ficheros de configuración distintos para las etapas de desarrollo y para el producto final.
+Logback refresca la configuración en tiempo de ejecución, permitiendo realizar cambios 'en caliente' \cite{website:logback}.
