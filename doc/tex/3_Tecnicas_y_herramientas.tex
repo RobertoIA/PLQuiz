@@ -18,7 +18,7 @@ Por lo tanto, el código Java sigue la filosofía 'write once, run anywhere', si
 Java es un lenguaje de relativo alto nivel, en el sentido de que los detalles de representación no son accesibles al programador.
 Incluye una administración automática del almacenamiento de datos en forma del recolector de basura, diseñado para evitar los problemas relacionados con la liberación manual de memoria.
 \cite{jls8}
-El lenguaje Java es, a fecha de 2014, uno de los lenguajes de programación más populares del mundo \cite{tiobe}.
+El lenguaje Java es, a fecha de 2014, uno de los lenguajes de programación más populares del mundo \cite{website:tiobe}.
 
 \subsubsection{Java 8}
 
@@ -33,5 +33,30 @@ Esto significa que el uso de las nuevas características - expresiones lambda, r
 
 \subsubsection{Eclipse}
 
-Eclipse es un entorno de desarrollo integrado (IDE) escrito principalmente en Java y compatible con una amplia variedad de lenguajes.
+El Eclipse Software Development Kit (Eclipse SDK) es tanto un entorno de desarrollo integrado (IDE) para Java como una base para productos basados en Eclipse Platform.
+\\
+Eclipse aparece como una herramienta propietaria de IBM que pretendía unificar los entornos de desarrollo ofrecidos a sus clientes y posibilitar la reutilización de componentes entre los mismos.
+El proyecto de código abierto surge en 2001, con la fundación del Eclipse Consortium, que se encarga del desarrollo y administración del proyecto en la actualidad. \cite{website:eclipseFAQ}
+\\
+Uno de los puntos fuertes de Eclipse es su capacidad para integrar una variedad de componentes mediante su sistema de plugins, lo cual permite trabajar con una variedad de lenguajes y herramientas.
 
+\subsection{JUnit 4}
+
+JUnit es un sistema software utilizado para realizar pruebas sobre código Java, formando parte de la familia de herramientas de pruebas xUnit.
+Es una de las librerías Java más utilizadas en proyectos de código abierto \cite{website:githubTOP}.
+\\
+La versión 4 de JUnit extiende y simplifica la funcionalidad de anteriores versiones, haciendo un uso extensivo del sistema de anotaciones de Java.
+
+\subsection{Apache Maven}
+
+Maven es una herramienta de administración y construcción de proyectos usada principalmente con Java.
+Similar en ciertos aspectos a Apache Ant, pero con un modelo de configuración más simple, y con el objetivo establecer una serie de 'buenas prácticas' mediante sus configuraciones por defecto ('Convention over configuration').
+\\
+Su funcionamiento se basa en la existencia de un fichero de configuración XML, el POM (Project Object Model).
+Este fichero define la construcción, emisión documentación, empaquetado, pruebas, manejo de dependencias y múltiples otras tareas de manera centralizada\cite{mvnEx}.
+\\
+Maven se estructura en torno a un núcleo central de tamaño mínimo, que puede ser extendido mediante plugins.
+Este núcleo es el encargado de descargar los plugins que añaden la funcionalidad pedida desde sus repositorios remotos.
+
+
+% log4j y slf4j con \cite{website:githubTOP}
