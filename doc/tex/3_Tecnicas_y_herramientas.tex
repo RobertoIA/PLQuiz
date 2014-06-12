@@ -64,6 +64,8 @@ SLF4J (Simple Logging Facade for Java) sirve como interfaz para varias herramien
 Se establece como única dependencia obligatoria, encargándose por si misma de buscar una implementación compatible \cite{website:slf4j}.
 \\
 Esta herramienta permite trabajar con, por ejemplo, java.util.logging, logback o log4j.
+\\
+Es una de las librerías más utilizadas en proyectos de código abierto \cite{website:githubTOP}.
 
 \subsection{Logback}
 
@@ -73,3 +75,21 @@ Utiliza el API de SLF4J, por lo cuál puede ser libremente intercambiado por cua
 La configuración de Logback se realiza mediante un pequeño fichero XML, en el cual se especifican los canales de salida, sean archivos o consola.
 Siguiendo la estructura de Apache Maven, Logback permite establecer ficheros de configuración distintos para las etapas de desarrollo y para el producto final.
 Logback refresca la configuración en tiempo de ejecución, permitiendo realizar cambios 'en caliente' \cite{website:logback}.
+\\
+Es la herramienta de logging más utilizada en proyectos de código abierto \cite{website:githubTOP}.
+
+\subsection{JavaCC}
+
+JavaCC (Java Compiler Compiler) es un generador de analizadores sintácticos Java.
+Funciona mediante la especificación de una gramática en un formato propio.
+A partir de este fichero, la herramienta genera un programa Java capaz de procesar texto y reconocer coincidencias con la gramática.
+\\
+Además de generador en sí, JavaCC proporciona una serie de herramientas relacionadas, como un constructor de árboles (JJTree) \cite{website:javacc}.
+
+\subsection{JGraphX}
+
+JGraphX es una biblioteca de visualización de gráficos para Java de código abierto, derivada de la implementación comercial en JavaScript (mxGraph).
+En las versiones anteriores la herramienta se conocía como JGraph \cite{website:jgraphx}.
+\\
+Implementa una serie de funcionalidades básicas para trabajar con grafos, incluyendo visualización e interacción con los mismos.
+De cara a aplicaciones Java, es compatible con Swing y permite exportar las imágenes generadas.
