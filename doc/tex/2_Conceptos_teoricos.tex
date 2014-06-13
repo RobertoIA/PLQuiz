@@ -1,1 +1,38 @@
 \capitulo{2}{Conceptos teóricos}
+
+\section{Generación de expresiones regulares}
+
+% Descripción del algoritmo de generación de expresiones.
+
+Realizaremos un análisis a partir de una muestra apreciable de expresiones regulares generadas al azar, para profundidades del árbol sintáctico de entre 1 y 6.
+
+\subsection{Regiones aceptables}
+
+Consideramos expresiones 'útiles' aquellas que contienen entre 2 y 6 símbolos distintos (sin incluir el vacío), y entre 3 y 15 estados distintos al generar a partir de la expresión un problema de tipo Aho-Sethi-Ullman o de construcción de subconjuntos.
+Estos rangos corresponden con los problemas que consideramos apropiados para resolver de manera manual, y con lo permitido por la interfaz.
+El generador es capaz de trabajar con rangos arbitrarios.
+\\
+El conocimiento de que profundidades de árbol corresponden con más expresiones generadas dentro de los rangos deseados nos permite establecer los límites óptimos para utilizar con los generadores de problemas.
+\\
+Este análisis pretende determinar cuantas de las expresiones regulares generadas aleatoriamente encajan dentro de los rangos deseados, y en que medida depende de la profundidad del árbol sintáctico.
+La intuición nos dice que los árboles más profundos corresponderán con las expresiones más complejas (más símbolos y/o estados).
+
+\subsubsection{Aho-Sethi-Ullman}
+
+Para realizar las pruebas generaremos 100.000 expresiones regulares de cada tipo (conteniendo el símbolo vacío y sin contenerlo) para cada profundidad de entre 1 y 6.
+Con cada una de las expresiones construiremos un problema de tipo Aho-Sethi-Ullman y comprobaremos cuantas de las expresiones generadas entran dentro de los rangos de símbolos y estados.
+
+\imagen{ASU-NV}{Aho-Sethi-Ullman (no vacío)}
+\imagen{ASU-V}{Aho-Sethi-Ullman (vacío)}
+
+% Estudio de tiempos. Profundidad 7+ aumenta el tiempo de generación de los árboles.
+
+Los resultados muestran que los árboles de profundidad 4 generan el mayor número de expresiones en la zona deseada.
+También podemos ver claramente que las expresiones con árbol sintáctico de profundidad entre 4 y 6 generan una mayoría de expresiones regulares aceptables, tanto si incluimos el símbolo vacío como si no.
+
+\subsubsection{Construcción de subconjuntos}
+
+Para el análisis de problemas de construcción de subconjuntos 
+
+\imagen{CS-NV}{Construcción de subconjuntos (no vacío)}
+\imagen{CS-V}{Construcción de subconjuntos (vacío)}
