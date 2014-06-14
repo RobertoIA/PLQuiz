@@ -1,8 +1,6 @@
 package es.ubu.inf.tfg.regex.datos;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -17,8 +15,8 @@ public class GeneradorTest {
 	private static final Logger log = LoggerFactory
 			.getLogger(GeneradorTest.class);
 
-	private final int ITERACIONES = 100_000;
-	private final int MAX_PROFUNDIDAD = 6;
+	private final int ITERACIONES = 10_000;
+	private final int MAX_PROFUNDIDAD = 8;
 
 	/**
 	 * Comprueba que el generador produce árboles de la profundidad correcta,
@@ -165,6 +163,32 @@ public class GeneradorTest {
 				profundidad--;
 			}
 			break;
+		}
+	}
+
+	/**
+	 * Realiza un muestrario de tiempos de generación de expresiones, tomando la
+	 * media de una serie de expresiones aleatorias para cada profundidad.
+	 */
+	@Test
+	public void testGeneracionTiempos() {
+		long t, t0;
+		Generador generador = new Generador(28, false, false);
+		ExpresionRegular exp = null;
+
+		for (int p = 0; p <= MAX_PROFUNDIDAD; p++) {
+			t = 0;
+			for (int i = 0; i < ITERACIONES; i++) {
+				t0 = System.nanoTime();
+				exp = generador.arbol(p);
+				
+				if(exp.profundidad() != p) fail();
+				
+				t += System.nanoTime() - t0;
+			}
+			t /= ITERACIONES;
+			log.info("{}", exp);
+			log.info("profundidad {}, {}", p, t);
 		}
 	}
 }
