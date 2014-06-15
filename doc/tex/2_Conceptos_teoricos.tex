@@ -2,9 +2,40 @@
 
 \section{Generación de expresiones regulares}
 
-% Descripción del algoritmo de generación de expresiones.
+El procesado de expresiones regulares dentro de la aplicación implica su transformación de cadena de caracteres a forma de árbol.
+Los algoritmos de generación de árboles son un tema muy estudiado dentro de la programación genética, lo cuál nos permite generar la expresión directamente en forma de árbol implementando un algoritmo ya conocido.
+\\
+El algoritmo concreto implementado es el del método "full" \cite{koza92}.
+Este método involucra la creación de árboles cuya profundidad viene definida por la longitud del camino entre un extremo cualquiera y la raíz.
+De esta manera generamos árboles binarios en cada cada nodo tiene de 0 a 2 hijos, y en el que todas las hojas se encuentran a la misma profundidad.
+\\
+El algoritmo funciona restringiendo la selección de etiquetas para los nodos generados en función de su profundidad.
+Por ejemplo, un nodo símbolo solo estará permitido en la profundidad máxima, mientras que un nodo cerradura estará permitido en cualquier profundidad excepto la máxima.
+Tomaremos consideraciones adicionales a la hora de generar los hijos de un nodo, ya que el número de los mismos variará en función de la operación que contenga el padre.
 
-Realizaremos un análisis a partir de una muestra apreciable de expresiones regulares generadas al azar, para profundidades del árbol sintáctico de entre 1 y 6.
+\subsection{Generación de problemas}
+
+Las características de un problema depende completamente de la expresión regular a partir de la que se construye, independientemente de la manera en que la utilicemos.
+La generación de problemas consistirá, por lo tanto, en generar una expresión regular y construir un problema con ella.
+\\
+Siendo el objetivo la generación de problemas con unas características determinadas, deben determinarse los algoritmos de búsqueda a utilizar y los parámetros óptimos para los mismos.
+
+% Expandir
+
+\subsection{Coste de generación}
+
+Dado que los árboles de expresión son árboles binarios, sabemos que el número máximo de nodos está acotado superiormente por la expresión
+\[
+n\acute{u}mero \; de \; nodos \; \leq \; 2^{\;profundidad} - 1
+\]
+La generación de una expresión regular crea los nodos del árbol de la expresión uno a uno, por lo tanto el coste de generar una expresión crecerá con el número de nodos de la misma.
+\\
+Para comprobar estos datos de manera experimental obtendremos los tiempos medios de generación de 100.000 expresiones regulares para cada profundidad entre 0 y 8, y comparamos su crecimiento con el número máximo de nodos asociado a cada profundidad.
+
+\imagen{profundidad}{Tiempo de generación de expresiones y número de nodos}
+
+Podemos ver como el tiempo de generación de una expresión regular depende del número de nodos que contenta y, por lo tanto, de la profundidad.
+Por lo tanto será preferible generar expresiones lo menos profundas posible, en concreto limitándonos a una profundidad máxima de 6.
 
 \subsection{Regiones aceptables}
 
@@ -25,14 +56,24 @@ Con cada una de las expresiones construiremos un problema de tipo Aho-Sethi-Ullm
 \imagen{ASU-NV}{Aho-Sethi-Ullman (no vacío)}
 \imagen{ASU-V}{Aho-Sethi-Ullman (vacío)}
 
-% Estudio de tiempos. Profundidad 7+ aumenta el tiempo de generación de los árboles.
-
 Los resultados muestran que los árboles de profundidad 4 generan el mayor número de expresiones en la zona deseada.
-También podemos ver claramente que las expresiones con árbol sintáctico de profundidad entre 4 y 6 generan una mayoría de expresiones regulares aceptables, tanto si incluimos el símbolo vacío como si no.
+También podemos ver claramente que las expresiones con árbol sintáctico de profundidad entre 3 y 6 generan una mayoría de expresiones regulares aceptables, tanto si incluimos el símbolo vacío como si no.
+\\
+Por lo tanto el método de búsqueda para problemas de Aho-Sethi-Ullman utilizará expresiones de profundidad entre 3 y 6.
 
 \subsubsection{Construcción de subconjuntos}
 
-Para el análisis de problemas de construcción de subconjuntos 
+Para el análisis de problemas de construcción de subconjuntos repetimos el mismo proceso, generando expresiones regulares y construyendo problemas de construcción de subconjuntos con ellas.
 
 \imagen{CS-NV}{Construcción de subconjuntos (no vacío)}
 \imagen{CS-V}{Construcción de subconjuntos (vacío)}
+
+Según los resultados podemos ver que las expresiones dentro del rango tienen profundidades de entre 1 y 5, y que las expresiones de profundidad 6 están completamente fuera del rango.
+\\
+Por lo tanto el método de búsqueda para problemas de construcción de subconjuntos utilizará expresiones de profundidad entre 1 y 5.
+
+% Regiones aceptables (rangos de trabajo, explicar busqueda de límite óptimos)
+% 	ASU - generadas aceptables
+%	CS - generadas aceptables
+% Distribución de expresiones generadas aceptables
+% Conclusiones
