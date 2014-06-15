@@ -34,8 +34,8 @@ public class ConstruccionSubconjuntosGenerador {
 	private static final Random random = new Random(new Date().getTime());
 
 	private static final int MAX_ITERACIONES = 500; // Integer.MAX_VALUE;
-	private static final int MAX_PROFUNDIDAD = 6;
-	private static final int MIN_PROFUNDIDAD = 2;
+	private static final int MAX_PROFUNDIDAD = 5;
+	private static final int MIN_PROFUNDIDAD = 1;
 
 	private static final int ELITISMO = 2;
 	private static final int MUTACION = 2;

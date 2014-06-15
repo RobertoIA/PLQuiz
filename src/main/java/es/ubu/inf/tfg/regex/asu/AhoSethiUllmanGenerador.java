@@ -25,8 +25,8 @@ public class AhoSethiUllmanGenerador {
 			.getLogger(AhoSethiUllmanGenerador.class);
 
 	private static final int MAX_ITERACIONES = 3000;
-	private static final int MAX_PROFUNDIDAD = 4;
-	private static final int MIN_PROFUNDIDAD = 1;
+	private static final int MAX_PROFUNDIDAD = 6;
+	private static final int MIN_PROFUNDIDAD = 3;
 
 	private Generador generador;
 	private AtomicBoolean cancelar = new AtomicBoolean();
