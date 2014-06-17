@@ -2,25 +2,33 @@
 
 \section{Generación de expresiones regulares}
 
-El procesado de expresiones regulares dentro de la aplicación implica su transformación de cadena de caracteres a forma de árbol.
+Trabajar con una expresión regular dentro de la aplicación implica traducirla a una estructura de datos adecuada.
+Contando con que la expresión es introducida como una cadena de caracteres, utilizaremos un parser para convertirla en un árbol binario.
 Los algoritmos de generación de árboles son un tema muy estudiado dentro de la programación genética, lo cuál nos permite generar la expresión directamente en forma de árbol implementando un algoritmo ya conocido.
 \\
 El algoritmo concreto implementado es el del método "full" \cite{koza92}.
 Este método involucra la creación de árboles cuya profundidad viene definida por la longitud del camino entre un extremo cualquiera y la raíz.
-De esta manera generamos árboles binarios en cada cada nodo tiene de 0 a 2 hijos, y en el que todas las hojas se encuentran a la misma profundidad.
+Esto quiere decir que generaremos árboles binarios en los que cada cada nodo no hoja tiene 1 o 2 hijos, y en el que todas las hojas se encuentran a la misma profundidad.
 \\
 El algoritmo funciona restringiendo la selección de etiquetas para los nodos generados en función de su profundidad.
-Por ejemplo, un nodo símbolo solo estará permitido en la profundidad máxima, mientras que un nodo cerradura estará permitido en cualquier profundidad excepto la máxima.
+Un nodo símbolo, por ejemplo, solo estará permitido en la profundidad máxima, mientras que un nodo cerradura estará permitido en cualquier profundidad excepto la máxima.
 Tomaremos consideraciones adicionales a la hora de generar los hijos de un nodo, ya que el número de los mismos variará en función de la operación que contenga el padre.
+Un nodo cerradura, por ejemplo, tiene un solo hijo, mientras que un nodo concatenación tendrá dos.
 
 \subsection{Generación de problemas}
 
-Las características de un problema depende completamente de la expresión regular a partir de la que se construye, independientemente de la manera en que la utilicemos.
-La generación de problemas consistirá, por lo tanto, en generar una expresión regular y construir un problema con ella.
+A la hora de generar problemas tomamos tres criterios:
+\begin{itemize}
+	\item El número de símbolos presentes en la expresión regular (sin contar el vacío).
+	\item El número de estados en su función de transición.
+	\item La presencia o ausencia del símbolo vacío.
+\end{itemize}
+Tanto el número de símbolos como la presencia del símbolo vacío dependen directamente de la expresión regular a partir de la cual construimos el problema.
+El número de estados de la función de transición será el mismo para cualquier problema de un mismo tipo que comparta la misma expresión regular.
+Podemos decir, por lo tanto, que las características que buscamos en un problema dependen exclusivamente de la expresión regular con la cuál lo construimos.
 \\
-Siendo el objetivo la generación de problemas con unas características determinadas, deben determinarse los algoritmos de búsqueda a utilizar y los parámetros óptimos para los mismos.
-
-% Expandir
+La generación de problemas por lo tanto consistirá en generar expresiones regulares cuyo problema asociado cumpla las características pedidas.
+Siendo el objetivo la generación de problemas con unas características dadas, deben determinarse los algoritmos de búsqueda a utilizar y los parámetros óptimos para los mismos.
 
 \subsection{Coste de generación}
 
@@ -36,12 +44,15 @@ Para comprobar estos datos de manera experimental obtendremos los tiempos medios
 
 Podemos ver como el tiempo de generación de una expresión regular depende del número de nodos que contenta y, por lo tanto, de la profundidad.
 Por lo tanto será preferible generar expresiones lo menos profundas posible, en concreto limitándonos a una profundidad máxima de 6.
+\\
+Destacamos que los valores del tiempo dependen de la máquina en que se realizan las pruebas.
+Este análisis pretende analizar el crecimiento de la función tiempo, no sus valores exactos.
 
 \subsection{Regiones aceptables}
 
 Consideramos expresiones 'útiles' aquellas que contienen entre 2 y 6 símbolos distintos (sin incluir el vacío), y entre 3 y 15 estados distintos al generar a partir de la expresión un problema de tipo Aho-Sethi-Ullman o de construcción de subconjuntos.
 Estos rangos corresponden con los problemas que consideramos apropiados para resolver de manera manual, y con lo permitido por la interfaz.
-El generador es capaz de trabajar con rangos arbitrarios.
+El generador es capaz de trabajar con rangos arbitrarios, pero los problemas que se forman con expresiones fuera de estos rangos son o demasiado complejos para resolver de manera manual, o completamente triviales.
 \\
 El conocimiento de que profundidades de árbol corresponden con más expresiones generadas dentro de los rangos deseados nos permite establecer los límites óptimos para utilizar con los generadores de problemas.
 \\
@@ -50,8 +61,8 @@ La intuición nos dice que los árboles más profundos corresponderán con las e
 
 \subsubsection{Aho-Sethi-Ullman}
 
-Para realizar las pruebas generaremos 100.000 expresiones regulares de cada tipo (conteniendo el símbolo vacío y sin contenerlo) para cada profundidad de entre 1 y 6.
-Con cada una de las expresiones construiremos un problema de tipo Aho-Sethi-Ullman y comprobaremos cuantas de las expresiones generadas entran dentro de los rangos de símbolos y estados.
+Para realizar las pruebas generaremos 100.000 expresiones regulares conteniendo el símbolo vacío, y otras tantas sin contenerlo, para cada profundidad de árbol de entre 1 y 6.
+Con cada una de las expresiones construiremos un problema de tipo Aho-Sethi-Ullman y comprobaremos cuantas de las expresiones generadas entran dentro de los rangos de símbolos y estados que consideramos aceptables.
 
 \imagen{ASU-NV}{Aho-Sethi-Ullman (no vacío)}
 \imagen{ASU-V}{Aho-Sethi-Ullman (vacío)}
@@ -63,17 +74,31 @@ Por lo tanto el método de búsqueda para problemas de Aho-Sethi-Ullman utilizar
 
 \subsubsection{Construcción de subconjuntos}
 
-Para el análisis de problemas de construcción de subconjuntos repetimos el mismo proceso, generando expresiones regulares y construyendo problemas de construcción de subconjuntos con ellas.
+Para el análisis de problemas de construcción de subconjuntos repetimos el mismo proceso que en el apartado anterior, generando expresiones regulares para cada combinación de tipo y profundidad, y construyendo problemas de construcción de subconjuntos con ellas.
 
 \imagen{CS-NV}{Construcción de subconjuntos (no vacío)}
 \imagen{CS-V}{Construcción de subconjuntos (vacío)}
 
-Según los resultados podemos ver que las expresiones dentro del rango tienen profundidades de entre 1 y 5, y que las expresiones de profundidad 6 están completamente fuera del rango.
+Según los resultados podemos ver que las expresiones dentro del rango tienen mayoritariamente profundidades de entre 1 y 5, y que las expresiones de profundidad 6 están completamente fuera del rango.
 \\
 Por lo tanto el método de búsqueda para problemas de construcción de subconjuntos utilizará expresiones de profundidad entre 1 y 5.
 
-% Regiones aceptables (rangos de trabajo, explicar busqueda de límite óptimos)
-% 	ASU - generadas aceptables
-%	CS - generadas aceptables
-% Distribución de expresiones generadas aceptables
-% Conclusiones
+\subsection{Algoritmos de búsqueda}
+
+Una vez definidos los parámetros con los cuales vamos a generar las expresiones, queda pendiente encontrar un algoritmo de búsqueda que nos permita encontrar los problemas dados.
+\\
+Es probable que dos problemas generados a partir de expresiones regulares tengan características similares, pero no tenemos ninguna garantía al respecto.
+Es decir, es posible que dos expresiones vecinas tengan características bastante diferentes.
+Descartamos, por lo tanto, algoritmos de búsqueda como el recocido simulado, que se desplazan por el espacio de búsqueda de vecino a vecino.
+
+\subsubsection{Búsqueda aleatoria}
+
+El algoritmo de búsqueda aleatoria consiste en generar soluciones completamente al azar hasta encontrar la correcta. Lo tomamos como posibilidad dado que resulta muy sencillo de implementar, y de que resultará eficiente en el caso de búsquedas sencillas.
+
+% ASU, CS
+
+\subsubsection{Algoritmo genético}
+
+% ASU, CS, Reproducción o mutación
+
+\subsection{Conclusiones}
