@@ -64,8 +64,8 @@ La intuición nos dice que los árboles más profundos corresponderán con las e
 Para realizar las pruebas generaremos 100.000 expresiones regulares conteniendo el símbolo vacío, y otras tantas sin contenerlo, para cada profundidad de árbol de entre 1 y 6.
 Con cada una de las expresiones construiremos un problema de tipo Aho-Sethi-Ullman y comprobaremos cuantas de las expresiones generadas entran dentro de los rangos de símbolos y estados que consideramos aceptables.
 
-\imagen{ASU-NV}{Aho-Sethi-Ullman (no vacío)}
-\imagen{ASU-V}{Aho-Sethi-Ullman (vacío)}
+\imagen{prof-ASU-NV}{Aho-Sethi-Ullman (no vacío) aceptables según profundidad}
+\imagen{prof-ASU-V}{Aho-Sethi-Ullman (vacío) aceptables según profundidad}
 
 Los resultados muestran que los árboles de profundidad 4 generan el mayor número de expresiones en la zona deseada.
 También podemos ver claramente que las expresiones con árbol sintáctico de profundidad entre 3 y 6 generan una mayoría de expresiones regulares aceptables, tanto si incluimos el símbolo vacío como si no.
@@ -76,12 +76,51 @@ Por lo tanto el método de búsqueda para problemas de Aho-Sethi-Ullman utilizar
 
 Para el análisis de problemas de construcción de subconjuntos repetimos el mismo proceso que en el apartado anterior, generando expresiones regulares para cada combinación de tipo y profundidad, y construyendo problemas de construcción de subconjuntos con ellas.
 
-\imagen{CS-NV}{Construcción de subconjuntos (no vacío)}
-\imagen{CS-V}{Construcción de subconjuntos (vacío)}
+\imagen{prof-CS-NV}{Construcción de subconjuntos (no vacío) aceptables según profundidad}
+\imagen{prof-CS-V}{Construcción de subconjuntos (vacío) aceptables según profundidad}
 
 Según los resultados podemos ver que las expresiones dentro del rango tienen mayoritariamente profundidades de entre 1 y 5, y que las expresiones de profundidad 6 están completamente fuera del rango.
 \\
 Por lo tanto el método de búsqueda para problemas de construcción de subconjuntos utilizará expresiones de profundidad entre 1 y 5.
+
+\subsection{Distribución de resultados aceptables}
+
+Partiendo de los resultados que encontramos dentro de la región aceptable, es importante identificar como se distribuyen esos resultados.
+Asumimos que no todas las combinaciones de símbolo y estado van a aparecer con la misma frecuencia dentro de la región aceptable.
+\\
+Dado que la frecuencia de aparición de expresiones en la región aceptable varía según la profundidad, examinaremos cada profundidad utilizada por separado.
+De esta manera podremos determinar si ciertas combinaciones de símbolo y estado son más probables en ciertas profundidades.
+\\
+Los datos experimentales utilizados son los mismos que en los apartados anteriores.
+
+\subsubsection{Aho-Sethi-Ullman}
+
+Agrupando los datos según profundidades podemos ver nuevamente las agrupaciones según profundidad.
+Más interesante resulta que las expresiones generadas se agrupan, independientemente de la profundidad, alrededor de los mismos puntos.
+\\
+Es interesante notar que, aunque las agrupaciones no depende de la profundidad, las profundidades mayores parecen agruparse mas hacia la izquierda.
+Esto implicaría que las profundidades mayores generan problemas con menos estados y símbolos o, más probablemente, que nuestro rango aceptable es demasiado restringido para ver la perspectiva completa.
+
+\imagen{dist-ASU-NV}{Distribución de Aho-Sethi-Ullman (no vacío)}
+\imagen{dist-ASU-V}{Distribución de Aho-Sethi-Ullman (vacío)}
+
+Vemos que el comportamiento es similar entre expresiones que contienen el elemento vacío y aquellas que no.
+\\
+Esto indica, de manera bastante clara, que ciertas combinaciones de número de símbolos y estados son mucho más probables.
+O, por otra parte, que en las profundidades con las que estamos trabajando tienden a generarse expresiones con unas características especificas.
+\\
+Por ejemplo, es posible que la combinación de 3 símbolos y 8 a 14 estados se dé con alta probabilidad en profundidades de 6 o mayores, o que necesite expresiones regulares con árboles que tengan hojas a distintas profundidades.
+
+\subsubsection{Construcción de subconjuntos}
+
+En los problemas de construcción vemos los mismos problemas que en los de Aho-Sethi-Ullman.
+Las expresiones regulares se agrupan en torno a unas ciertas combinaciones de número de símbolos y estados, aunque en este caso las combinaciones son diferentes que en el apartado anterior.
+
+\imagen{dist-CS-NV}{Distribución de construcción de subconjuntos (no vacío)}
+\imagen{dist-CS-V}{Distribución de construcción de subconjuntos (vacío)}
+
+Es interesante remarcar que las agrupaciones parecen ampliarse hacia la derecha.
+Es decir, cuanto más elevado el número de símbolos, más variedad de estados generan los problemas.
 
 \subsection{Algoritmos de búsqueda}
 
@@ -102,3 +141,5 @@ El algoritmo de búsqueda aleatoria consiste en generar soluciones completamente
 % ASU, CS, Reproducción o mutación
 
 \subsection{Conclusiones}
+
+% puede ser que la forma de los árboles de expresiones (nodos hoja con misma profundidad) favorezcan ciertas combinaciones de simbolos / estados y desfavorezcan otras.
