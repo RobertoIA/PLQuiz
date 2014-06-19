@@ -336,6 +336,17 @@ public class AhoSethiUllman {
 	}
 
 	/**
+	 * Devuelve una programa en formato dot para generar la imagen representando
+	 * el árbol de expresión regular asociado a este problema, sin completar y
+	 * con los nodos etiquetados.
+	 * 
+	 * @return Programa formato dot para representar el árbol vacío.
+	 */
+	public String arbolVacioDot() {
+		return this.solucion.imagenDot();
+	}
+
+	/**
 	 * Genera una serie de cuatro imagenes correspondientes la expresión regular
 	 * original del problema y cuatro mutaciones de la misma, como alternativas
 	 * en un problema de construcción de árbol.

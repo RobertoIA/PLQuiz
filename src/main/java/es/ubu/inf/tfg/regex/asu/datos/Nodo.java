@@ -55,6 +55,7 @@ public class Nodo {
 	private MapaPosiciones<Integer> siguientePos;
 
 	private BufferedImage imagen;
+	private String imagenDot;
 
 	/**
 	 * Calcula los atributos de un nodo ExpresionRegular a partir de los de sus
@@ -285,7 +286,7 @@ public class Nodo {
 	}
 
 	/**
-	 * Genera una imagen representando la estrucutra del árbol de la expresión,
+	 * Genera una imagen representando la estructura del árbol de la expresión,
 	 * con los nodos marcados pero vacíos. La imagen generada se cachea al ser
 	 * solicitada por primera vez para evitar realizar los cálculos repetidas
 	 * veces.
@@ -386,6 +387,71 @@ public class Nodo {
 		}
 
 		return this.imagen;
+	}
+
+	/**
+	 * Genera el programa en formato dot para generar la imagen representando la
+	 * estructura del árbol de la expresión, con los nodos marcados pero vacíos.
+	 * El programa generado se cachea al ser solicitado por primera vez para
+	 * evitar realizar los cálculos repetidas veces.
+	 * 
+	 * @return Programa dot conteniendo el árbol que representa a la expresión.
+	 */
+	public String imagenDot() {
+		if (this.imagenDot == null) {
+			List<Nodo> siguientes = new ArrayList<>();
+			Nodo actual;
+			boolean tieneHijoIzquierdo, tieneHijoDerecho;
+			char actualLetra = 'A';
+			char preLetra, nuevaLetra;
+			Map<Nodo, Character> nodos = new HashMap<>();
+
+			this.imagenDot = "digraph {";
+
+			siguientes.add(this);
+			while (!siguientes.isEmpty()) {
+				actual = siguientes.get(0);
+
+				tieneHijoIzquierdo = !actual.expresion().esSimbolo()
+						&& !actual.expresion().esVacio();
+				tieneHijoDerecho = tieneHijoIzquierdo
+						&& !actual.expresion().esCierre();
+
+				if (!nodos.containsKey(actual)) {
+					preLetra = actualLetra;
+					imagenDot += "\n\t" + actualLetra + " [label=\""
+							+ actual.tipo() + "\"];";
+					nodos.put(actual, actualLetra);
+					actualLetra++;
+				} else {
+					preLetra = nodos.get(actual);
+				}
+
+				if (tieneHijoDerecho) {
+					nuevaLetra = (char) (actualLetra++);
+					siguientes.add(actual.hijoDerecho());
+					nodos.put(actual.hijoDerecho(), nuevaLetra);
+					imagenDot += "\n\t" + preLetra + " -> " + nuevaLetra;
+					imagenDot += "\n\t" + nuevaLetra + " [label=\""
+							+ actual.hijoDerecho().tipo() + "\"];";
+				}
+
+				if (tieneHijoIzquierdo) {
+					nuevaLetra = (char) (actualLetra++);
+					siguientes.add(actual.hijoIzquierdo());
+					nodos.put(actual.hijoIzquierdo(), nuevaLetra);
+					imagenDot += "\n\t" + preLetra + " -> " + nuevaLetra;
+					imagenDot += "\n\t" + nuevaLetra + " [label=\""
+							+ actual.hijoIzquierdo().tipo() + "\"];";
+				}
+
+				siguientes.remove(actual);
+			}
+
+			this.imagenDot += "\n}";
+		}
+
+		return this.imagenDot;
 	}
 
 	/**

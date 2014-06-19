@@ -135,9 +135,11 @@ public class Documento {
 		String ruta = fichero.toString();
 		if (!ruta.toLowerCase().endsWith(".tex"))
 			ruta += ".tex";
+		String carpeta = fichero.getParent().toString();
+		carpeta += File.separator;
 
-		List<BufferedImage> imagenes = new ArrayList<>();
-
+		List<BufferedImage> imagenes = new ArrayList<>();		
+		
 		for (Problema<?> problema : problemas) {
 			if (problema.getTipo().equals("ConstruccionSubconjuntosAutomata")) {
 				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
@@ -146,9 +148,11 @@ public class Documento {
 			} else if (problema.getTipo().equals("AhoSethiUllmanEtiquetado")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
 				imagenes.add(p.arbolVacio());
+				guardar(carpeta + p.arbolVacioDot().hashCode() + ".gv", p.arbolVacioDot());
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
 				imagenes.add(p.alternativas().get(0));
+				guardar(carpeta + p.arbolVacioDot().hashCode() + ".gv", p.arbolVacioDot()); // TODO alternativas dot
 			}
 		}
 
