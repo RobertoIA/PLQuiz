@@ -420,20 +420,11 @@ public class Nodo {
 				if (!nodos.containsKey(actual)) {
 					preLetra = actualLetra;
 					imagenDot += "\n\t" + actualLetra + " [label=\""
-							+ actual.tipo() + "\"];";
+							+ tipo(actual.tipo()) + "\"];";
 					nodos.put(actual, actualLetra);
 					actualLetra++;
 				} else {
 					preLetra = nodos.get(actual);
-				}
-
-				if (tieneHijoDerecho) {
-					nuevaLetra = (char) (actualLetra++);
-					siguientes.add(actual.hijoDerecho());
-					nodos.put(actual.hijoDerecho(), nuevaLetra);
-					imagenDot += "\n\t" + preLetra + " -> " + nuevaLetra;
-					imagenDot += "\n\t" + nuevaLetra + " [label=\""
-							+ actual.hijoDerecho().tipo() + "\"];";
 				}
 
 				if (tieneHijoIzquierdo) {
@@ -442,7 +433,16 @@ public class Nodo {
 					nodos.put(actual.hijoIzquierdo(), nuevaLetra);
 					imagenDot += "\n\t" + preLetra + " -> " + nuevaLetra;
 					imagenDot += "\n\t" + nuevaLetra + " [label=\""
-							+ actual.hijoIzquierdo().tipo() + "\"];";
+							+ tipo(actual.hijoIzquierdo().tipo()) + "\"];";
+				}
+
+				if (tieneHijoDerecho) {
+					nuevaLetra = (char) (actualLetra++);
+					siguientes.add(actual.hijoDerecho());
+					nodos.put(actual.hijoDerecho(), nuevaLetra);
+					imagenDot += "\n\t" + preLetra + " -> " + nuevaLetra;
+					imagenDot += "\n\t" + nuevaLetra + " [label=\""
+							+ tipo(actual.hijoDerecho().tipo()) + "\"];";
 				}
 
 				siguientes.remove(actual);
@@ -452,6 +452,24 @@ public class Nodo {
 		}
 
 		return this.imagenDot;
+	}
+
+	/**
+	 * Convierte una cadena al formato compatible con graphviz.
+	 * 
+	 * @param string
+	 *            Cadena original.
+	 * @return Cadena en formato compatible.
+	 */
+	private String tipo(String tipo) {
+		switch (tipo) {
+		case "\u03B5":
+			return "&#949;";
+		case "\u2027":
+			return "&#8226;";
+		default:
+			return tipo;
+		}
 	}
 
 	/**
