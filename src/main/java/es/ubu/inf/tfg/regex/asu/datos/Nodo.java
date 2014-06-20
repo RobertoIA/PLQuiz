@@ -391,9 +391,9 @@ public class Nodo {
 
 	/**
 	 * Genera el programa en formato dot para generar la imagen representando la
-	 * estructura del árbol de la expresión, con los nodos marcados pero vacíos.
-	 * El programa generado se cachea al ser solicitado por primera vez para
-	 * evitar realizar los cálculos repetidas veces.
+	 * estructura del árbol de la expresión. El programa generado se cachea al
+	 * ser solicitado por primera vez para evitar realizar los cálculos
+	 * repetidas veces.
 	 * 
 	 * @return Programa dot conteniendo el árbol que representa a la expresión.
 	 */

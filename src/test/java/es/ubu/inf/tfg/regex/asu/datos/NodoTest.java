@@ -234,6 +234,22 @@ public class NodoTest {
 	}
 
 	/**
+	 * Comprueba que los gráficos graphviz se generan correctamente.
+	 */
+	@Test
+	public void testImagenDot() {
+		String esperado = "digraph {\n\tA [label=\"&#8226;\"];\n\tA -> B\n\tB [label=\"*\"];\n\t"
+				+ "A -> C\n\tC [label=\"$\"];\n\tB -> D\n\tD [label=\"&#8226;\"];\n\t"
+				+ "D -> E\n\tE [label=\"&#8226;\"];\n\tD -> F\n\tF [label=\"c\"];\n\t"
+				+ "E -> G\n\tG [label=\"|\"];\n\tE -> H\n\tH [label=\"*\"];\n\tG -> I\n\t"
+				+ "I [label=\"a\"];\n\tG -> J\n\tJ [label=\"*\"];\n\tH -> K\n\tK [label=\"a\"];\n\t"
+				+ "J -> L\n\tL [label=\"b\"];\n}";
+
+		assertEquals("Error generando imagen de árbol en formato dot.",
+				esperado, nodo.imagenDot());
+	}
+
+	/**
 	 * Genera un set a partir de una lista de enteros de longitud variable.
 	 * 
 	 * @param ns
