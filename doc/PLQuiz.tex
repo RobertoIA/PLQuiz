@@ -29,6 +29,16 @@
 	\markboth{#2}{#2}
 }
 
+% Apéndices
+\renewcommand{\appendixname}{Apéndice}
+\renewcommand*\cftappendixname{\appendixname}
+
+\newcommand{\apendice}[1]{
+	\renewcommand\thechapter{}
+	\chapter{#1}
+	\renewcommand{\thechapter}{A}
+}
+
 % Formato de portada
 \makeatletter
 \def\maketitle{
@@ -103,11 +113,15 @@ Question generation, lexical analysis, regular expresions, finite automata.
 \mainmatter
 
 %\include{./tex/1_Objetivos_del_proyecto}
-\include{./tex/2_Conceptos_teoricos}
+%\include{./tex/2_Conceptos_teoricos}
 \include{./tex/3_Tecnicas_y_herramientas}
 %\include{./tex/4_Aspectos_relevantes_del_desarrollo_del_proyecto}
 %\include{./tex/5_Trabajos_relacionados}
 %\include{./tex/6_Conclusiones_y_lineas_de_trabajo_futuras}
+
+\appendix
+
+\include{./tex/A_Generacion_de_expresiones}
 
 \bibliographystyle{plain}
 \bibliography{PLQuiz}
