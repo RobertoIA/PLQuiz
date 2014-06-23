@@ -145,6 +145,7 @@ public class Documento {
 				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
 						.getProblema();
 				imagenes.add(p.automata());
+				guardar(carpeta + p.automataDot().hashCode() + ".gv", p.automataDot());
 			} else if (problema.getTipo().equals("AhoSethiUllmanEtiquetado")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
 				imagenes.add(p.arbolVacio());

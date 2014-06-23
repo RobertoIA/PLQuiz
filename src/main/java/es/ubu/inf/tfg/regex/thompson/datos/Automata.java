@@ -35,6 +35,7 @@ public class Automata {
 	private Nodo nodoFinal;
 	private Set<Character> simbolos;
 	private BufferedImage imagen;
+	private String imagenDot;
 
 	/**
 	 * Constructor. Define un automata finito no determinista a partir de un
@@ -276,5 +277,18 @@ public class Automata {
 		}
 
 		return this.imagen;
+	}
+
+	/**
+	 * Genera el programa en formato dot para generar la imagen representando el
+	 * autómata asociado a la expresión, con los nodos marcados pero vacíos. El
+	 * programa generado se cachea al ser solicitado por primera vez para evitar
+	 * realizar los cálculos repetidas veces.
+	 * 
+	 * @return Programa dot conteniendo el autómata que genera la expresión.
+	 */
+	public String imagenDot() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

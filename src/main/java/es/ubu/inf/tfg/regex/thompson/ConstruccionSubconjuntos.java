@@ -251,4 +251,14 @@ public class ConstruccionSubconjuntos {
 	public BufferedImage automata() {
 		return automata.imagen();
 	}
+	
+	/**
+	 * Devuelve una programa en formato dot para generar la imagen representando
+	 * el autómata asociado a este problema.
+	 * 
+	 * @return Programa formato dot para representar el autómata.
+	 */
+	public String automataDot() {
+		return automata.imagenDot();
+	}
 }
