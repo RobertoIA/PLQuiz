@@ -1,1 +1,50 @@
 \capitulo{2}{Conceptos teóricos}
+
+\section{Algoritmo de McNaughton-Yamada-Thompson}
+
+Utilizaremos el algoritmo de McNaughton-Yamada-Thompson \cite{dragon} para convertir una expresión regular cualquiera en un autómata finito determinista que defina el mismo lenguaje.
+Dicho algoritmo requiere una expresión regular en forma de árbol, que recorre resursivamente hacia arriba.
+De esta manera obtendremos un autómata para cada subexpresión.
+\\
+Para empezar realizamos un análisis de la expresión regular, dividiendola en las expresiones que la componen.
+Para construir el autómata final iremos construyendo autómatas para cada una de las subexpresiones, y uniendo los autómatas según las operaciones entre expresiones.
+
+\subsection{Expresión vacía}
+En el caso de que quisieramos generar un autómata para la expresión vacía:
+
+\imagen{thompson-vacio}{Autómata para una expresión vacía}
+
+Tenemos un estado de inicio, un estado final y una transición entre ambos.
+
+\subsection{Expresión para cadena de un solo símbolo}
+Tomamos una expresión cuyo lenguaje asociado solo reconoce cadenas de un símbolo, siendo el símbolo uno cualquiera.
+
+\imagen{thompson-simbolo}{Autómata para un solo símbolo}
+
+De nuevo encontramos un estado inicial, un estado de aceptación y una transición entre ambos.
+\\
+Una vez tenemos los autómatas de las subexpresiones mínimas pasamos a unirlos en autómatas mayores.
+La manera en que unimos subexpresiones depende de la operación que une las ramas del árbol donde se encuentran.
+
+\subsection{Operación de unión}
+Supongamos una operación de unión entre dos subexpresiones.
+En la nueva expresión contamos con un nuevo estado inicial con transiciones vacías hacia los estados iniciales de las subexpresiones.
+Vemos también un nuevo estado de aceptación hacia el que tienen transiciones los estados de aceptación de las subexpresiones.
+
+\imagen{thompson-union}{Autómata para la operación de unión}
+
+\subsection{Operación de concatenación}
+Supongamos una operación de concatenación entre dos subexpresiones.
+En primer lugar combinaremos el estado de aceptación de la primera con el estado de inicio de la segunda, dejando un único estado.
+\\
+Tomamos como estado inicial el estado inicial de la primera, y como estado de aceptación el estado de aceptación de la segunda.
+
+\imagen{thompson-concatenacion}{Autómata para la operación de concatenación}
+
+\subsection{Operación de cierre}
+El autómata más complejo se genera con las operaciones de cierre.
+Tomamos nuevos estados de inicio y de aceptación, con una transición vacía del uno al otro.
+Asimismo tendremos una transición vacía entre los estados de aceptación e inicio de la subexpresión.
+Como último paso uniremos el nuevo estado de inicio con el de inicio de la subexpresión, y el de aceptación de la subexpresión con el nuevo estado de aceptación.
+
+\imagen{thompson-cierre}{Autómata para la operación de cierre}
