@@ -41,26 +41,51 @@
 
 % Formato de portada
 \makeatletter
+\usepackage{xcolor}
+\newcommand{\tutor}[1]{\def\@tutor{#1}}
+\newcommand{\course}[1]{\def\@course{#1}}
+\definecolor{cpardoBox}{HTML}{E6E6FF}
 \def\maketitle{
   \null
   \thispagestyle{empty}
+  % Cabecera ----------------
+\noindent\includegraphics[width=\textwidth]{cabecera}\vspace{1cm}%
   \vfill
-  \begin{center}\leavevmode
-    \normalfont
-    {\LARGE \@author\par}
-    \hrulefill\par
-    {\huge \@title\par}
-    \vskip 1cm
-  \end{center}
+  % Título proyecto y escudo informática ----------------
+  \colorbox{cpardoBox}{%
+    \begin{minipage}{.8\textwidth}
+      \vspace{.5cm}\Large
+      \begin{center}
+      \textbf{TFG del Grado en Ingeniería Informática}\vspace{.6cm}\\
+      \textbf{\LARGE\@title{}}
+      \end{center}
+      \vspace{.2cm}
+    \end{minipage}
+
+  }%
+  \hfill\begin{minipage}{.20\textwidth}
+    \includegraphics[width=\textwidth]{escudoInfor}
+  \end{minipage}
   \vfill
+  % Datos de alumno, curso y tutores ------------------
+  \begin{center}%
+  {%
+    \noindent\LARGE
+    Presentado por \@author{}\\%
+    en Universidad de Burgos --- Curso \@course{}\\
+    Tutor: \@tutor{}
+  }\\%
+  \end{center}%
   \null
   \cleardoublepage
   }
 \makeatother
 
 % Datos de portada
-\title{Trabajo Fin de Grado: PLQuiz}
+\title{PLQuiz}
 \author{Roberto Izquierdo Amo}
+\tutor{Dr. César Ignacio García Osorio}
+\course{2013/2014}
 \date{}
 
 \begin{document}
@@ -115,7 +140,7 @@ Question generation, lexical analysis, regular expresions, finite automata.
 %\include{./tex/1_Objetivos_del_proyecto}
 \include{./tex/2_Conceptos_teoricos}
 \include{./tex/3_Tecnicas_y_herramientas}
-%\include{./tex/4_Aspectos_relevantes_del_desarrollo_del_proyecto}
+\include{./tex/4_Aspectos_relevantes_del_desarrollo_del_proyecto}
 %\include{./tex/5_Trabajos_relacionados}
 %\include{./tex/6_Conclusiones_y_lineas_de_trabajo_futuras}
 
