@@ -288,7 +288,17 @@ public class Automata {
 	 * @return Programa dot conteniendo el autómata que genera la expresión.
 	 */
 	public String imagenDot() {
-		// TODO Auto-generated method stub
-		return null;
+		if (this.imagenDot == null) {
+			List<Nodo> pendientes = new ArrayList<>();
+			List<Nodo> visitados = new ArrayList<>();
+			
+			this.imagenDot = "digraph {\n\trankdir=LR;";
+			
+			
+			
+			this.imagenDot += "\n}";
+		}
+
+		return this.imagenDot;
 	}
 }
