@@ -171,6 +171,7 @@ public class GeneradorTest {
 	 * media de una serie de expresiones aleatorias para cada profundidad.
 	 */
 	@Test
+	@Ignore
 	public void testGeneracionTiempos() {
 		long t, t0;
 		Generador generador = new Generador(28, false, false);
