@@ -101,14 +101,14 @@ public class DocumentoTest {
 	}
 
 	/**
-	 * Commprueba que se añaden problemas Aho-Sethi-Ullman subtipo construcción
+	 * Commprueba que se incorporan problemas Aho-Sethi-Ullman subtipo construcción
 	 * correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testAñadirASUConstruccion() throws IOException {
+	public void testIncorporarASUConstruccion() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -119,7 +119,7 @@ public class DocumentoTest {
 		documento.añadirProblema(Problema.asuConstruccion(asuProblemaC));
 
 		// Vista previa
-		esperado = toString("añadirASUConstruccion.html");
+		esperado = toString("incorporarASUConstruccion.html");
 		encontrado = documento.vistaPrevia();
 
 		encontrado = encontrado
@@ -132,8 +132,8 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("añadirASUConstruccion.xml");
-		ficheroTemporal = ficheroTemporal("añadir.xml");
+		esperado = toString("incorporarASUConstruccion.xml");
+		ficheroTemporal = ficheroTemporal("incorporar.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
@@ -151,8 +151,8 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("añadirASUConstruccion.tex");
-		ficheroTemporal = ficheroTemporal("añadir.tex");
+		esperado = toString("incorporarASUConstruccion.tex");
+		ficheroTemporal = ficheroTemporal("incorporar.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
@@ -165,14 +165,14 @@ public class DocumentoTest {
 	}
 
 	/**
-	 * Commprueba que se añaden problemas Aho-Sethi-Ullman subtipo etiquetado
+	 * Commprueba que se incorporan problemas Aho-Sethi-Ullman subtipo etiquetado
 	 * correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testAñadirASUEtiquetado() throws IOException {
+	public void testIncorporarASUEtiquetado() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -183,7 +183,7 @@ public class DocumentoTest {
 		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaC));
 
 		// Vista previa
-		esperado = toString("añadirASUEtiquetado.html");
+		esperado = toString("incorporarASUEtiquetado.html");
 		encontrado = documento.vistaPrevia();
 
 		encontrado = encontrado
@@ -194,8 +194,8 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("añadirASUEtiquetado.xml");
-		ficheroTemporal = ficheroTemporal("añadir.xml");
+		esperado = toString("incorporarASUEtiquetado.xml");
+		ficheroTemporal = ficheroTemporal("incorporar.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
@@ -213,8 +213,8 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("añadirASUEtiquetado.tex");
-		ficheroTemporal = ficheroTemporal("añadir.tex");
+		esperado = toString("incorporarASUEtiquetado.tex");
+		ficheroTemporal = ficheroTemporal("incorporar.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
@@ -227,14 +227,14 @@ public class DocumentoTest {
 	}
 
 	/**
-	 * Commprueba que se añaden problemas Aho-Sethi-Ullman subtipo tablas
+	 * Commprueba que se incorporan problemas Aho-Sethi-Ullman subtipo tablas
 	 * correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testAñadirASUTablas() throws IOException {
+	public void testIncorporarASUTablas() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -245,7 +245,7 @@ public class DocumentoTest {
 		documento.añadirProblema(Problema.asuTablas(asuProblemaC));
 
 		// Vista previa
-		esperado = toString("añadirASUTablas.html");
+		esperado = toString("incorporarASUTablas.html");
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
@@ -253,8 +253,8 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("añadirASUTablas.xml");
-		ficheroTemporal = ficheroTemporal("añadir.xml");
+		esperado = toString("incorporarASUTablas.xml");
+		ficheroTemporal = ficheroTemporal("incorporar.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
@@ -267,8 +267,8 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("añadirASUTablas.tex");
-		ficheroTemporal = ficheroTemporal("añadir.tex");
+		esperado = toString("incorporarASUTablas.tex");
+		ficheroTemporal = ficheroTemporal("incorporar.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
@@ -638,14 +638,14 @@ public class DocumentoTest {
 	}
 
 	/**
-	 * Commprueba que se añaden problemas de construcción de subconjuntos
+	 * Commprueba que se incorporan problemas de construcción de subconjuntos
 	 * subtipo expresion correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testAñadirCSExpresion() throws IOException {
+	public void testIncorporarCSExpresion() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -656,7 +656,7 @@ public class DocumentoTest {
 		documento.añadirProblema(Problema.CSExpresion(csProblemaC));
 
 		// Vista previa
-		esperado = toString("añadirCSExpresion.html");
+		esperado = toString("incorporarCSExpresion.html");
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
@@ -664,8 +664,8 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("añadirCSExpresion.xml");
-		ficheroTemporal = ficheroTemporal("añadir.xml");
+		esperado = toString("incorporarCSExpresion.xml");
+		ficheroTemporal = ficheroTemporal("incorporar.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
@@ -678,8 +678,8 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("añadirCSExpresion.tex");
-		ficheroTemporal = ficheroTemporal("añadir.tex");
+		esperado = toString("incorporarCSExpresion.tex");
+		ficheroTemporal = ficheroTemporal("incorporar.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
@@ -793,14 +793,14 @@ public class DocumentoTest {
 	}
 
 	/**
-	 * Commprueba que se añaden problemas de construcción de subconjuntos
+	 * Commprueba que se incorporan problemas de construcción de subconjuntos
 	 * subtipo automata correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testAñadirCSAutomata() throws IOException {
+	public void testIncorporarCSAutomata() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -811,7 +811,7 @@ public class DocumentoTest {
 		documento.añadirProblema(Problema.CSAutomata(csProblemaC));
 
 		// Vista previa
-		esperado = toString("añadirCSAutomata.html");
+		esperado = toString("incorporarCSAutomata.html");
 		encontrado = documento.vistaPrevia();
 
 		encontrado = encontrado
@@ -822,8 +822,8 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero XML
-		esperado = toString("añadirCSAutomata.xml");
-		ficheroTemporal = ficheroTemporal("añadir.xml");
+		esperado = toString("incorporarCSAutomata.xml");
+		ficheroTemporal = ficheroTemporal("incorporar.xml");
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
@@ -841,8 +841,8 @@ public class DocumentoTest {
 				esperado, encontrado);
 
 		// Fichero Latex
-		esperado = toString("añadirCSAutomata.tex");
-		ficheroTemporal = ficheroTemporal("añadir.tex");
+		esperado = toString("incorporarCSAutomata.tex");
+		ficheroTemporal = ficheroTemporal("incorporar.tex");
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
