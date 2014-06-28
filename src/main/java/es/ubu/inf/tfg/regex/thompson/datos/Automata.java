@@ -291,11 +291,37 @@ public class Automata {
 		if (this.imagenDot == null) {
 			List<Nodo> pendientes = new ArrayList<>();
 			List<Nodo> visitados = new ArrayList<>();
-			
+			Nodo actual;
+
 			this.imagenDot = "digraph {\n\trankdir=LR;";
-			
-			
-			
+			pendientes.add(this.nodoInicial);
+
+			while (!pendientes.isEmpty()) {
+				actual = pendientes.remove(0);
+
+				for (Nodo nodo : actual.transicionVacia()) {
+					this.imagenDot += "\n\t" + actual.posicion() + " -> "
+							+ nodo.posicion();
+					if (!visitados.contains(nodo) && !pendientes.contains(nodo))
+						pendientes.add(nodo);
+				}
+
+				Nodo nodo;
+				for (char simbolo : this.simbolos) {
+					nodo = actual.transicion(simbolo);
+					if (nodo != null) {
+						this.imagenDot += "\n\t" + actual.posicion() + " -> "
+								+ nodo.posicion();
+						this.imagenDot += "[label=\"" + simbolo + "\"];";
+						if (!visitados.contains(nodo)
+								&& !pendientes.contains(nodo))
+							pendientes.add(nodo);
+					}
+				}
+
+				visitados.add(actual);
+			}
+
 			this.imagenDot += "\n}";
 		}
 

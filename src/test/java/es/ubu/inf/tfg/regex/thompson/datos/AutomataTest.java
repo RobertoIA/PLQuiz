@@ -117,6 +117,22 @@ public class AutomataTest {
 	}
 
 	/**
+	 * Comprueba la correcta generación del programa dot que construye la imagen
+	 * del autómata.
+	 */
+	@Test
+	public void testAutomataDot() {
+		String esperado = "digraph {\n\trankdir=LR;\n\t0 -> 1\n\t0 -> 7\n\t"
+				+ "1 -> 2\n\t1 -> 4\n\t7 -> 8[label=\"a\"];\n\t"
+				+ "2 -> 3[label=\"a\"];\n\t4 -> 5[label=\"b\"];\n\t"
+				+ "8 -> 9[label=\"b\"];\n\t3 -> 6\n\t5 -> 6\n\t"
+				+ "9 -> 10[label=\"b\"];\n\t6 -> 1\n\t6 -> 7\n}";
+
+		assertEquals("Error generando imagen dot del autómata.", esperado,
+				automata.imagenDot());
+	}
+
+	/**
 	 * Genera un set a partir de una lista de nodos de longitud variable.
 	 * 
 	 * @param ns
