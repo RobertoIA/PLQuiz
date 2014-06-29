@@ -50,11 +50,11 @@ Como último paso uniremos el nuevo estado de inicio con el de inicio de la sube
 \imagen{thompson-cierre}{Autómata para la operación de cierre}
 
 \subsection{ejemplo}
-Tomamos como ejemplo la expresión regular (a|b)*, que define el lenguaje que contiene todas las palabras que contienen cualquier número de a y b.
+Tomamos como ejemplo la expresión regular (a\textbar b)*, que define el lenguaje que contiene todas las palabras que contienen cualquier número de a y b.
 \\
 A partir de la expresión regular definimos el siguiente árbol
 
-\imagen{thompson-ejemplo-arbol}{Árbol de la expresión regular (a|b)*}
+\imagen{thompson-ejemplo-arbol}{Árbol de la expresión regular (a\textbar b)*}
 
 Una vez hemos definido el árbol comenzamos por construir los autómatas de las subexpresiones más pequeñas, que serán las correspondientes a las expresiones (a) y (b).
 Las subexpresiones generan los siguientes autómatas separados
@@ -63,7 +63,12 @@ Las subexpresiones generan los siguientes autómatas separados
 
 Consultando el árbol de la expresión vemos que las dos subexpresiones cuelgan de un nodo unión, por lo que aplicamos las reglas ya conocidas y obtenemos el siguiente autómata
 
-\imagen{thompson-ejemplo-union}{Autómata para la expresión a|b}
+\imagen{thompson-ejemplo-union}{Autómata para la expresión a\textbar b}
+
+Finalmente generamos el autómata completo utilizando el autómata de la subexpresión anterior y añadiendo alrededor los nodos correspondientes a la operación de cierre.
+Con esto hemos conseguido el autómata capaz de reconocer el lenguaje definido por la expresión (a\textbar b)*
+
+\imagen{thompson-ejemplo-cierre}{Autómata para la expresión (a\textbar b)*}
 
 \section{Algoritmo de Aho-Sethi-Ullman}
 El algoritmo de Aho-Sethi-Ullman \cite{dragon} consiste en el cálculo de una serie de funciones a partir del árbol de la expresión regular, a partir de los cuales se genera la tabla de transición del autómata.
