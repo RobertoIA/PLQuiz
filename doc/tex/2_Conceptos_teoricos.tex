@@ -76,17 +76,17 @@ El algoritmo de Aho-Sethi-Ullman \cite{dragon} consiste en el cálculo de una se
 Las funciones calculadas son anulable, primera posición, ultima posición y siguiente posición.
 
 \subsection{Función anulable}
-La función anulable establece si un nodo dado del árbol sintáctico incluye el símbolo vacío \epsilon en su lenguaje.
+La función anulable establece si un nodo dado del árbol sintáctico incluye el símbolo vacío $ \epsilon $ en su lenguaje.
 Es decir, define el hecho de que una subexpresión pueda ser nula.
 \\
-Las hojas \epsilon y las operaciones de cierre son siempre anulables.
+Las hojas $ \epsilon $ y las operaciones de cierre son siempre anulables.
 Las operaciones de unión son anulables si uno de sus nodos hijo lo es, y las de concatenación si ambos nodos hijo son anulables.
 
 \subsection{Función de primera posición}
 La primera posición (o primerapos) de un nodo se compone del conjunto de posiciones del subárbol que corresponden con los primeros símbolos posibles para las cadenas que define.
 Es decir, los primeros símbolos posibles para las cadenas de la expresión.
 \\
-La primera posición de un nodo símbolo es su posición, a menos que el símbolo sea \epsilon, en cuyo caso su función primerapos es el conjunto vacío.
+La primera posición de un nodo símbolo es su posición, a menos que el símbolo sea $ \epsilon $, en cuyo caso su función primerapos es el conjunto vacío.
 Los nodos cierre heredan la primerapos de su nodo hijo.
 \\
 En el caso de los nodos unión tenemos que la primerapos del nodo es la unión de las funciones de sus nodos hijo.
@@ -96,7 +96,7 @@ Los nodos concatenación toman la primerapos de su hijo izquierdo, y si este es 
 La función de última posición (o ultimapos) corresponde con el conjunto de posiciones del subárbol que pueden estar en última posición de alguna de las cadenas posibles.
 Es el opuesto de la función primerapos.
 \\
-Al igual que en la función primerapos, los conjuntos ultimapos de los nodos hoja son la posición del nodo, o el conjunto vacío en los nodos \epsilon.
+Al igual que en la función primerapos, los conjuntos ultimapos de los nodos hoja son la posición del nodo, o el conjunto vacío en los nodos $ \epsilon $.
 Los nodos cierre también se comportan igual, heredando la ultimapos de su nodo hijo.
 \\
 En los nodos unión tenemos como ultimapos la unión de los conjuntos ultimapos de sus nodos hijo.
