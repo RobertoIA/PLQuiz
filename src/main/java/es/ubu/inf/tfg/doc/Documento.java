@@ -153,7 +153,8 @@ public class Documento {
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
 				imagenes.add(p.alternativas().get(0));
-				guardar(carpeta + p.arbolVacioDot().hashCode() + ".gv", p.arbolVacioDot()); // TODO alternativas dot
+				for(String alternativa : p.alternativasDot())
+					guardar(carpeta + alternativa.hashCode() + ".gv", alternativa);
 			}
 		}
 

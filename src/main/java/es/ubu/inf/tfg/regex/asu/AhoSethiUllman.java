@@ -45,6 +45,7 @@ public class AhoSethiUllman {
 	private MapaPosiciones<Character> estados;
 	private MapaEstados transiciones;
 	private List<BufferedImage> alternativas;
+	private List<String> alternativasDot;
 
 	/**
 	 * Resuelve un problema de construcción de AFD a partir de una expresión
@@ -356,29 +357,62 @@ public class AhoSethiUllman {
 	 */
 	public List<BufferedImage> alternativas() {
 		if (this.alternativas == null) {
-			log.info("Generando imagenes alternativas");
-
-			int nSimbolos = simbolos().size();
-			boolean usaVacio = simbolos().contains('\u0000');
-			if (usaVacio)
-				nSimbolos--;
-			Generador generador = new Generador(nSimbolos, usaVacio, true);
-
 			alternativas = new ArrayList<>();
-			Set<ExpresionRegular> expresiones = new HashSet<>();
-			expresiones.add(expresion);
-			ExpresionRegular alternativa;
-			while (expresiones.size() < 4) {
-				alternativa = generador.mutacion(expresion);
-				log.debug("Generada expresión alternativa {}", alternativa);
-				expresiones.add(alternativa);
-			}
-
-			for (ExpresionRegular expresion : expresiones)
+			
+			for (ExpresionRegular expresion : expresionesAlternativas())
 				alternativas.add(expresion.imagen());
-
 		}
 
 		return new ArrayList<>(alternativas);
+	}
+
+	/**
+	 * Genera una serie de cuatro programas dot con las imagenes
+	 * correspondientes la expresión regular original del problema y cuatro
+	 * mutaciones de la misma, como alternativas en un problema de construcción
+	 * de árbol.
+	 * 
+	 * @return Array de cuatro cadenas de caracteres conteniendo programas dot
+	 *         representando árboles de expresión regular, una correspondiente
+	 *         al del problema y tres alternativas.
+	 */
+	public List<String> alternativasDot() {
+		if (this.alternativasDot == null) {
+			alternativasDot = new ArrayList<>();
+			Nodo nodo;
+			for (ExpresionRegular expresion : expresionesAlternativas()) {
+				nodo = new Nodo(expresion);
+				alternativasDot.add(nodo.imagenDot());
+			}
+		}
+
+		return new ArrayList<>(alternativasDot);
+	}
+
+	/**
+	 * Genera un set de alternativas para una expresión regular, incluyendo la
+	 * original y tres otras.
+	 * 
+	 * @return Set completo de alternativas.
+	 */
+	public Set<ExpresionRegular> expresionesAlternativas() {
+		log.info("Generando imagenes alternativas");
+
+		int nSimbolos = simbolos().size();
+		boolean usaVacio = simbolos().contains('\u0000');
+		if (usaVacio)
+			nSimbolos--;
+		Generador generador = new Generador(nSimbolos, usaVacio, true);
+
+		Set<ExpresionRegular> expresiones = new HashSet<>();
+		expresiones.add(expresion);
+		ExpresionRegular alternativa;
+		while (expresiones.size() < 4) {
+			alternativa = generador.mutacion(expresion);
+			log.debug("Generada expresión alternativa {}", alternativa);
+			expresiones.add(alternativa);
+		}
+		
+		return expresiones;
 	}
 }
