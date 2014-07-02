@@ -47,6 +47,19 @@ public class ProblemaTest {
 		assertEquals("Error recuperando problema original tipo AhoSethiUllman subtipo completo",  asu, problema.getProblema());
 		assertEquals("Error identificando problema tipo AhoSethiUllman subtipo completo", "AhoSethiUllmanTablas", problema.getTipo());
 	}
+	
+	/**
+	 * Comprueba que los problemas de tipo construcción de subconjuntos subtipo
+	 * construcción se crean correctamente.
+	 */
+	@Test
+	public void testCSConstrucción() {
+		ConstruccionSubconjuntos cs = new ConstruccionSubconjuntos("a*");
+		Problema<ConstruccionSubconjuntos> problema = Problema.CSConstruccion(cs);
+		
+		assertEquals("Error recuperando problema original tipo ConstruccionSubconjuntos subtipo construcción",  cs, problema.getProblema());
+		assertEquals("Error identificando problema tipo ConstruccionSubconjuntos subtipo construcción", "ConstruccionSubconjuntosExpresion", problema.getTipo());
+	}
 
 	/**
 	 * Comprueba que los problemas de tipo construcción de subconjuntos subtipo
@@ -73,13 +86,4 @@ public class ProblemaTest {
 		assertEquals("Error recuperando problema original tipo ConstruccionSubconjuntos subtipo autómata",  cs, problema.getProblema());
 		assertEquals("Error identificando problema tipo ConstruccionSubconjuntos subtipo autómata", "ConstruccionSubconjuntosAutomata", problema.getTipo());
 	}
-
-	/**
-	 * Comprueba que los problemas de tipo thompson se crean correctamente.
-	 */
-	@Test
-	public void testThompson() {
-		// TODO
-	}
-
 }

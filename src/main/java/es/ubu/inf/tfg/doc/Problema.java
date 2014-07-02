@@ -8,9 +8,9 @@ public class Problema<T> {
 		AHOSETHIULLMAN_CONSTRUCCION, // Aho-Sethi-Ullman construcción de árbol
 		AHOSETHIULLMAN_ETIQUETADO, // Aho-Sethi-Ullman etiquetado de árbol
 		AHOSETHIULLMAN_TABLAS, // Aho-Sethi-Ullman tablas stePos y transición
+		CONSTRUCCIONSUBCONJUNTOS_CONSTRUCCION, // Construcción de autómata
 		CONSTRUCCIONSUBCONJUNTOS_EXPRESION, // Subconjuntos desde expresión
 		CONSTRUCCIONSUBCONJUNTOS_AUTOMATA, // Subconjuntos desde autómata
-		THOMPSON // Thompson
 	}
 
 	private Tipo tipo;
@@ -19,8 +19,9 @@ public class Problema<T> {
 	private Problema(T problema) {
 		this.problema = problema;
 	}
-	
-	public static Problema<AhoSethiUllman> asuConstruccion(AhoSethiUllman problema) {
+
+	public static Problema<AhoSethiUllman> asuConstruccion(
+			AhoSethiUllman problema) {
 		Problema<AhoSethiUllman> asuProblema = new Problema<>(problema);
 		asuProblema.tipo = Tipo.AHOSETHIULLMAN_CONSTRUCCION;
 		return asuProblema;
@@ -36,6 +37,13 @@ public class Problema<T> {
 		Problema<AhoSethiUllman> asuProblema = new Problema<>(problema);
 		asuProblema.tipo = Tipo.AHOSETHIULLMAN_TABLAS;
 		return asuProblema;
+	}
+	
+	public static Problema<ConstruccionSubconjuntos> CSConstruccion(
+			ConstruccionSubconjuntos problema) {
+		Problema<ConstruccionSubconjuntos> csProblema = new Problema<>(problema);
+		csProblema.tipo = Tipo.CONSTRUCCIONSUBCONJUNTOS_CONSTRUCCION;
+		return csProblema;
 	}
 
 	public static Problema<ConstruccionSubconjuntos> CSExpresion(
@@ -64,12 +72,12 @@ public class Problema<T> {
 			return "AhoSethiUllmanEtiquetado";
 		case AHOSETHIULLMAN_TABLAS:
 			return "AhoSethiUllmanTablas";
+		case CONSTRUCCIONSUBCONJUNTOS_CONSTRUCCION:
+			return "ConstruccionSubconjuntosConstruccion";
 		case CONSTRUCCIONSUBCONJUNTOS_EXPRESION:
 			return "ConstruccionSubconjuntosExpresion";
 		case CONSTRUCCIONSUBCONJUNTOS_AUTOMATA:
 			return "ConstruccionSubconjuntosAutomata";
-		case THOMPSON:
-			return "Thompson";
 		default:
 			throw new UnsupportedOperationException(
 					"Argumento tipo no soportado.");
@@ -98,13 +106,13 @@ public class Problema<T> {
 			otraExpresion = ((Problema<AhoSethiUllman>) o).getProblema()
 					.problema();
 			return estaExpresion.equals(otraExpresion);
+		case CONSTRUCCIONSUBCONJUNTOS_CONSTRUCCION:
 		case CONSTRUCCIONSUBCONJUNTOS_EXPRESION:
 		case CONSTRUCCIONSUBCONJUNTOS_AUTOMATA:
 			estaExpresion = ((ConstruccionSubconjuntos) problema).problema();
 			otraExpresion = ((Problema<ConstruccionSubconjuntos>) o)
 					.getProblema().problema();
 			return estaExpresion.equals(otraExpresion);
-		case THOMPSON:
 		default:
 			return false;
 		}

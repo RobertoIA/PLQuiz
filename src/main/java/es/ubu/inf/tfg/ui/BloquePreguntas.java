@@ -99,6 +99,7 @@ public class BloquePreguntas extends JDialog {
 	private Component csVacioGlue;
 	private Component controlesStrut;
 	private JPanel asuModoPanelA;
+	private JRadioButton csModoConstruccionButton;
 	private JRadioButton csModoAutomataButton;
 	private JRadioButton asuModoEtiquetadoButton;
 	private JPanel csModoPanel;
@@ -116,7 +117,7 @@ public class BloquePreguntas extends JDialog {
 		this.main = main;
 
 		setTitle("Genera bloque de preguntas");
-		setResizable(false);
+//		setResizable(false);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
 		setBounds(100, 100, 300, 472);
@@ -157,22 +158,25 @@ public class BloquePreguntas extends JDialog {
 		this.asuModoPanelA = new JPanel();
 		this.asuPanel.add(this.asuModoPanelA);
 		this.asuModoPanelA.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		this.asuModoConstruccionButton = new JRadioButton("Construcci\u00F3n de \u00E1rbol");
+
+		this.asuModoConstruccionButton = new JRadioButton(
+				"Construcci\u00F3n de \u00E1rbol");
 		asuModo.add(this.asuModoConstruccionButton);
 		this.asuModoPanelA.add(this.asuModoConstruccionButton);
 
-		this.asuModoEtiquetadoButton = new JRadioButton("Etiquetado de \u00E1rbol");
+		this.asuModoEtiquetadoButton = new JRadioButton(
+				"Etiquetado de \u00E1rbol");
 		asuModo.add(this.asuModoEtiquetadoButton);
 		this.asuModoPanelA.add(this.asuModoEtiquetadoButton);
-		
+
 		this.asuModoPanelB = new JPanel();
 		this.asuPanel.add(this.asuModoPanelB);
-		
-				this.asuModoTablasButton = new JRadioButton("Construcci\u00F3n de tablas");
-				asuModo.add(this.asuModoTablasButton);
-				this.asuModoPanelB.add(this.asuModoTablasButton);
-				this.asuModoTablasButton.setSelected(true);
+
+		this.asuModoTablasButton = new JRadioButton(
+				"Construcci\u00F3n de tablas");
+		asuModo.add(this.asuModoTablasButton);
+		this.asuModoPanelB.add(this.asuModoTablasButton);
+		this.asuModoTablasButton.setSelected(true);
 
 		this.asuVacioPanel = new JPanel();
 		this.asuVacioPanel.setBorder(new EmptyBorder(0, 5, 5, 5));
@@ -264,6 +268,11 @@ public class BloquePreguntas extends JDialog {
 		this.csModoExpresionButton.setSelected(true);
 		csModo.add(this.csModoExpresionButton);
 		this.csModoPanel.add(this.csModoExpresionButton);
+
+		this.csModoConstruccionButton = new JRadioButton(
+				"Resolver aut\u00F3mata");
+		csModo.add(this.csModoConstruccionButton);
+		this.csModoPanel.add(this.csModoConstruccionButton);
 
 		this.csModoAutomataButton = new JRadioButton("Resolver aut\u00F3mata");
 		csModo.add(this.csModoAutomataButton);
@@ -455,16 +464,23 @@ public class BloquePreguntas extends JDialog {
 						if (asuModoTablasButton.isSelected())
 							p = Problema.asuTablas((AhoSethiUllman) problema);
 						else if (asuModoEtiquetadoButton.isSelected())
-							p = Problema.asuEtiquetado((AhoSethiUllman) problema);
+							p = Problema
+									.asuEtiquetado((AhoSethiUllman) problema);
 						else
-							p = Problema.asuConstruccion((AhoSethiUllman) problema);
+							p = Problema
+									.asuConstruccion((AhoSethiUllman) problema);
 						main.añadeAhoSethiUllman(p);
 					} else if (problema instanceof ConstruccionSubconjuntos) {
 						Problema<ConstruccionSubconjuntos> p;
-						if(csModoExpresionButton.isSelected())
-							p = Problema.CSExpresion((ConstruccionSubconjuntos) problema);
+						if (csModoConstruccionButton.isSelected())
+							p = Problema
+									.CSConstruccion((ConstruccionSubconjuntos) problema);
+						else if (csModoExpresionButton.isSelected())
+							p = Problema
+									.CSExpresion((ConstruccionSubconjuntos) problema);
 						else
-							p = Problema.CSAutomata((ConstruccionSubconjuntos) problema);
+							p = Problema
+									.CSAutomata((ConstruccionSubconjuntos) problema);
 						main.añadeConstruccionSubconjuntos(p);
 					} else
 						log.error("Generado problema de tipo desconocido.");

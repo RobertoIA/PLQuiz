@@ -69,10 +69,10 @@ public class AhoSethiUllmanPanel extends JPanel {
 	private JPanel progresoPanel;
 	private JProgressBar progresoBar;
 	private JPanel modoPanel;
+	private JRadioButton modoConstruccionButton;
 	private JRadioButton modoTablasButton;
 	private JRadioButton modoEtiquetadoButton;
 	private final ButtonGroup modoGroup = new ButtonGroup();
-	private JRadioButton modoConstruccionButton;
 
 	public AhoSethiUllmanPanel(Main main, JPanel contenedor, Documento documento) {
 
