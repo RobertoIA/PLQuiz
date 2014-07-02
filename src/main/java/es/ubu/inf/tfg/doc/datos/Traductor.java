@@ -26,18 +26,18 @@ public abstract class Traductor {
 	public abstract String documento(List<Plantilla> problemas);
 
 	/**
-	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a un formato
-	 * concreto.
+	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a un
+	 * formato concreto.
 	 * 
 	 * @param problema
 	 *            Problema AhoSethiUllman.
 	 * @return Problema traducido.
 	 */
 	public abstract Plantilla traduceASUConstruccion(AhoSethiUllman problema);
-	
+
 	/**
-	 * Traduce un problema de tipo AhoSethiUllman subtipo etiquetado a un formato
-	 * concreto.
+	 * Traduce un problema de tipo AhoSethiUllman subtipo etiquetado a un
+	 * formato concreto.
 	 * 
 	 * @param problema
 	 *            Problema AhoSethiUllman.
@@ -55,6 +55,16 @@ public abstract class Traductor {
 	 */
 	public abstract Plantilla traduceASUTablas(AhoSethiUllman problema);
 
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos subtipo
+	 * construcción a un formato concreto.
+	 * 
+	 * @param problema
+	 *            Problema construcción de subconjuntos.
+	 * @return Problema traducido.
+	 */
+	public abstract Plantilla traduceCSConstruccion(
+			ConstruccionSubconjuntos problema);
 
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo
@@ -64,7 +74,8 @@ public abstract class Traductor {
 	 *            Problema construcción de subconjuntos.
 	 * @return Problema traducido.
 	 */
-	public abstract Plantilla traduceCSExpresion(ConstruccionSubconjuntos problema);
+	public abstract Plantilla traduceCSExpresion(
+			ConstruccionSubconjuntos problema);
 
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo autómata
@@ -74,5 +85,6 @@ public abstract class Traductor {
 	 *            Problema construcción de subconjuntos.
 	 * @return Problema traducido.
 	 */
-	public abstract Plantilla traduceCSAutomata(ConstruccionSubconjuntos problema);
+	public abstract Plantilla traduceCSAutomata(
+			ConstruccionSubconjuntos problema);
 }
