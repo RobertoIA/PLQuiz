@@ -138,23 +138,30 @@ public class Documento {
 		String carpeta = fichero.getParent().toString();
 		carpeta += File.separator;
 
-		List<BufferedImage> imagenes = new ArrayList<>();		
-		
+		List<BufferedImage> imagenes = new ArrayList<>();
+
 		for (Problema<?> problema : problemas) {
-			if (problema.getTipo().equals("ConstruccionSubconjuntosAutomata")) {
+			if (problema.getTipo().equals(
+					"ConstruccionSubconjuntosConstruccion")) {
+				// TODO guardado
+			} else if (problema.getTipo().equals(
+					"ConstruccionSubconjuntosAutomata")) {
 				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
 						.getProblema();
 				imagenes.add(p.automata());
-				guardar(carpeta + p.automataDot().hashCode() + ".gv", p.automataDot());
+				guardar(carpeta + p.automataDot().hashCode() + ".gv",
+						p.automataDot());
 			} else if (problema.getTipo().equals("AhoSethiUllmanEtiquetado")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
 				imagenes.add(p.arbolVacio());
-				guardar(carpeta + p.arbolVacioDot().hashCode() + ".gv", p.arbolVacioDot());
+				guardar(carpeta + p.arbolVacioDot().hashCode() + ".gv",
+						p.arbolVacioDot());
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
 				imagenes.add(p.alternativas().get(0));
-				for(String alternativa : p.alternativasDot())
-					guardar(carpeta + alternativa.hashCode() + ".gv", alternativa);
+				for (String alternativa : p.alternativasDot())
+					guardar(carpeta + alternativa.hashCode() + ".gv",
+							alternativa);
 			}
 		}
 
@@ -191,6 +198,11 @@ public class Documento {
 				AhoSethiUllman asuProblemaTablas = (AhoSethiUllman) problema
 						.getProblema();
 				problemas.add(traductor.traduceASUTablas(asuProblemaTablas));
+				break;
+			case "ConstruccionSubconjuntosConstruccion":
+				ConstruccionSubconjuntos csConstruccion = (ConstruccionSubconjuntos) problema
+						.getProblema();
+				problemas.add(traductor.traduceCSExpresion(csConstruccion));
 				break;
 			case "ConstruccionSubconjuntosExpresion":
 				ConstruccionSubconjuntos csProblemaExpresion = (ConstruccionSubconjuntos) problema

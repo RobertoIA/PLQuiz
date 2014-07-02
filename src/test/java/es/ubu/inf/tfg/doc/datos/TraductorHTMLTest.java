@@ -52,12 +52,13 @@ public class TraductorHTMLTest {
 	public void testTraduceAhoSethiUllmanConstruccion() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUConstruccion.html");
-		String encontrado = traductor.traduceASUConstruccion(problema).toString();
+		String encontrado = traductor.traduceASUConstruccion(problema)
+				.toString();
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado
-				.replaceAll("<p>Solución:[^<]*</p>", "<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
+				"<p>Solución:</p>");
 
 		assertEquals(
 				"Traducción HTML incorrecta de problema AhoSethiUllman subtipo construcción.",
@@ -94,6 +95,21 @@ public class TraductorHTMLTest {
 		assertEquals(
 				"Traducción HTML incorrecta de problema AhoSethiUllman subtipo tablas.",
 				esperado, traductor.traduceASUTablas(problema).toString());
+	}
+
+	/**
+	 * Comprueba la correcta traducción de un problema de construcción de
+	 * subconjuntos subtipo construcción.
+	 */
+	@Test
+	public void testTraduceConstruccionSubconjuntosConstrucción() {
+		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
+				"((a|b*)a*c)*");
+		String esperado = toString("TraductorCSConstruccion.html");
+
+		assertEquals(
+				"Traducción HTML incorrecta de problema de construcción de subconjuntos subtipo construcción.",
+				esperado, traductor.traduceCSConstruccion(problema).toString());
 	}
 
 	/**

@@ -52,7 +52,8 @@ public class TraductorMoodleXMLTest {
 	public void testTraduceAhoSethiUllmanConstruccion() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUConstruccion.xml");
-		String encontrado = traductor.traduceASUConstruccion(problema).toString();
+		String encontrado = traductor.traduceASUConstruccion(problema)
+				.toString();
 
 		encontrado = encontrado.replaceAll(
 				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
@@ -105,6 +106,26 @@ public class TraductorMoodleXMLTest {
 
 		assertEquals(
 				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo tablas.",
+				esperado, encontrado);
+	}
+
+	/**
+	 * Comprueba la correcta traducción de un problema de construcción de
+	 * subconjuntos subtipo construcción.
+	 */
+	@Test
+	public void testTraduceConstruccionSubconjuntosConstruccion() {
+		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
+				"((a|b*)a*c)*");
+		String esperado = toString("TraductorCSConstruccion.xml");
+		String encontrado = traductor.traduceCSConstruccion(problema)
+				.toString();
+
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos subtipo construcción.",
 				esperado, encontrado);
 	}
 

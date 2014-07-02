@@ -64,7 +64,7 @@ public class TraductorLatex extends Traductor {
 
 		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.tex");
 		String imagen = problema.alternativas().get(0).hashCode() + "";
-		
+
 		String expresion = problema.problema();
 		expresion = expresion.replace("|", "\\textbar ");
 		expresion = expresion.replace("\u2027", "·");
@@ -100,7 +100,9 @@ public class TraductorLatex extends Traductor {
 		char simboloActual = 'A';
 		while (problema.primeraPos(simboloActual) != null) {
 			soluciones.append(simboloActual + " & ");
-			soluciones.append((problema.esAnulable(simboloActual) ? "Si" : "No") + " & ");
+			soluciones
+					.append((problema.esAnulable(simboloActual) ? "Si" : "No")
+							+ " & ");
 			soluciones.append(setToString(problema.primeraPos(simboloActual))
 					+ " & ");
 			soluciones.append(setToString(problema.ultimaPos(simboloActual))
@@ -210,6 +212,27 @@ public class TraductorLatex extends Traductor {
 		plantilla.set("aumentada", expresionAumentada);
 		plantilla.set("siguientePos", stePos.toString());
 		plantilla.set("transicion", fTrans.toString());
+
+		return plantilla;
+	}
+
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos subtipo
+	 * construcción a formato Latex.
+	 * 
+	 * @param problema
+	 *            Problema de construcción de subconjuntos.
+	 * @return Problema traducido a Latex.
+	 */
+	@Override
+	public Plantilla traduceCSConstruccion(ConstruccionSubconjuntos problema) {
+		log.info(
+				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresion {}, formato construcción",
+				problema.problema());
+
+		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.tex");
+
+		// TODO traducción latex
 
 		return plantilla;
 	}

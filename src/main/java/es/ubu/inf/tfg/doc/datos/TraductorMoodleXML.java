@@ -231,6 +231,27 @@ public class TraductorMoodleXML extends Traductor {
 
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo
+	 * construcción a formato Moodle XML.
+	 * 
+	 * @param problema
+	 *            Problema de construcción de subconjuntos.
+	 * @return Problema traducido a Moodle XML.
+	 */
+	@Override
+	public Plantilla traduceCSConstruccion(ConstruccionSubconjuntos problema) {
+		log.info(
+				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {}, formato construcción",
+				problema.problema());
+
+		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.xml");
+
+		// TODO traducción xml
+
+		return plantilla;
+	}
+
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos subtipo
 	 * expresión a formato Moodle XML.
 	 * 
 	 * @param problema
@@ -240,7 +261,7 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public Plantilla traduceCSExpresion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {, formato expresión}",
+				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {}, formato expresión",
 				problema.problema());
 
 		StringBuilder fTrans = new StringBuilder();

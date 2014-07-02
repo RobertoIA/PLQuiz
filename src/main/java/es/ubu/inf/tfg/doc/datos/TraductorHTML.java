@@ -206,6 +206,27 @@ public class TraductorHTML extends Traductor {
 
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo
+	 * construcción a formato HTML.
+	 * 
+	 * @param problema
+	 *            Problema de construcción de subconjuntos.
+	 * @return Problema traducido a HTML.
+	 */
+	@Override
+	public Plantilla traduceCSConstruccion(ConstruccionSubconjuntos problema) {
+		log.info(
+				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresion {}, formato construcción",
+				problema.problema());
+
+		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.html");
+		
+		// TODO traducción html
+
+		return plantilla;
+	}
+
+	/**
+	 * Traduce un problema de tipo construcción de subconjuntos subtipo
 	 * expresión a formato HTML.
 	 * 
 	 * @param problema
@@ -294,7 +315,7 @@ public class TraductorHTML extends Traductor {
 			fTrans.append("</td></tr>");
 		}
 		fTrans.append("</table>");
-		
+
 		plantilla.set("imagen", url);
 		plantilla.set("transicion", fTrans.toString());
 

@@ -101,8 +101,8 @@ public class DocumentoTest {
 	}
 
 	/**
-	 * Commprueba que se incorporan problemas Aho-Sethi-Ullman subtipo construcción
-	 * correctamente.
+	 * Commprueba que se incorporan problemas Aho-Sethi-Ullman subtipo
+	 * construcción correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
@@ -124,8 +124,8 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado
-				.replaceAll("<p>Solución:[^<]*</p>", "<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
+				"<p>Solución:</p>");
 
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo construccion a vista previa.",
@@ -165,8 +165,8 @@ public class DocumentoTest {
 	}
 
 	/**
-	 * Commprueba que se incorporan problemas Aho-Sethi-Ullman subtipo etiquetado
-	 * correctamente.
+	 * Commprueba que se incorporan problemas Aho-Sethi-Ullman subtipo
+	 * etiquetado correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
@@ -302,8 +302,8 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado
-				.replaceAll("<p>Solución:[^<]*</p>", "<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
+				"<p>Solución:</p>");
 
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo construcción en vista previa.",
@@ -482,8 +482,8 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado
-				.replaceAll("<p>Solución:[^<]*</p>", "<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
+				"<p>Solución:</p>");
 
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo construcción en vista previa.",
@@ -635,6 +635,42 @@ public class DocumentoTest {
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo tablas en documento Latex exportado.",
 				esperado, encontrado);
+	}
+
+	/**
+	 * Commprueba que se incorporan problemas de construcción de subconjuntos
+	 * subtipo construcción correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testIncorporarCSConstruccion() throws IOException {
+		// TODO test
+	}
+
+	/**
+	 * Comprueba que se eliminan problemas de construcción de subconjuntos
+	 * subtipo construcción correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testEliminarCSConstruccion() throws IOException {
+		// TODO test
+	}
+
+	/**
+	 * Comprueba que se sustituyen problemas de construcción de subconjuntos
+	 * subtipo construcción correctamente.
+	 * 
+	 * @throws IOException
+	 *             Error operando con archivos.
+	 */
+	@Test
+	public void testSustituirCSConstruccion() throws IOException {
+		// TODO test
 	}
 
 	/**

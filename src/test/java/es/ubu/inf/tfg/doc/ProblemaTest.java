@@ -58,7 +58,7 @@ public class ProblemaTest {
 		Problema<ConstruccionSubconjuntos> problema = Problema.CSConstruccion(cs);
 		
 		assertEquals("Error recuperando problema original tipo ConstruccionSubconjuntos subtipo construcción",  cs, problema.getProblema());
-		assertEquals("Error identificando problema tipo ConstruccionSubconjuntos subtipo construcción", "ConstruccionSubconjuntosExpresion", problema.getTipo());
+		assertEquals("Error identificando problema tipo ConstruccionSubconjuntos subtipo construcción", "ConstruccionSubconjuntosConstruccion", problema.getTipo());
 	}
 
 	/**

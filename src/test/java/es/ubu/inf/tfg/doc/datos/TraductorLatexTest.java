@@ -52,7 +52,8 @@ public class TraductorLatexTest {
 	public void testTraduceAhoSethiUllmanConstruccion() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUConstruccion.tex");
-		String encontrado = traductor.traduceASUConstruccion(problema).toString();
+		String encontrado = traductor.traduceASUConstruccion(problema)
+				.toString();
 
 		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
 
@@ -90,6 +91,21 @@ public class TraductorLatexTest {
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo tablas.",
 				esperado, traductor.traduceASUTablas(problema).toString());
+	}
+
+	/**
+	 * Comprueba la correcta traducción de un problema de construcción de
+	 * subconjuntos subtipo construcción.
+	 */
+	@Test
+	public void testTraduceConstruccionSubconjuntosConstruccion() {
+		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
+				"((a|b*)a*c)*");
+		String esperado = toString("TraductorCSConstruccion.tex");
+
+		assertEquals(
+				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo construcción.",
+				esperado, traductor.traduceCSConstruccion(problema).toString());
 	}
 
 	/**
