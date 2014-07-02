@@ -2,12 +2,19 @@ package es.ubu.inf.tfg.regex.thompson;
 
 import java.awt.image.BufferedImage;
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
+import es.ubu.inf.tfg.regex.datos.Generador;
 import es.ubu.inf.tfg.regex.datos.MapaEstados;
 import es.ubu.inf.tfg.regex.parser.CharStream;
 import es.ubu.inf.tfg.regex.parser.ExpresionRegularParser;
@@ -32,12 +39,17 @@ import es.ubu.inf.tfg.regex.thompson.datos.Nodo;
  */
 public class ConstruccionSubconjuntos {
 
+	private static final Logger log = LoggerFactory
+			.getLogger(ConstruccionSubconjuntos.class);
+
 	private String problema;
 	private ExpresionRegular expresion;
 	private Automata automata;
 	private Map<Character, Set<Nodo>> estados;
 
 	private MapaEstados transiciones;
+	private List<BufferedImage> alternativas;
+	private List<String> alternativasDot;
 
 	/**
 	 * Resuelve un problema de construcción de subconjuntos a partir de una
@@ -251,7 +263,7 @@ public class ConstruccionSubconjuntos {
 	public BufferedImage automata() {
 		return automata.imagen();
 	}
-	
+
 	/**
 	 * Devuelve una programa en formato dot para generar la imagen representando
 	 * el autómata asociado a este problema.
@@ -260,5 +272,77 @@ public class ConstruccionSubconjuntos {
 	 */
 	public String automataDot() {
 		return automata.imagenDot();
+	}
+
+	/**
+	 * Genera una serie de cuatro imagenes correspondientes a los autómatas de
+	 * la expresión regular original del problema y de tres mutaciones de la
+	 * misma, como alternativas en un problema de construcción de árbol.
+	 * 
+	 * @return Array de cuatro imágenes representando árboles de expresión
+	 *         regular, una correspondiente al del problema y tres alternativas.
+	 */
+	public List<BufferedImage> alternativas() {
+		if (this.alternativas == null) {
+			alternativas = new ArrayList<>();
+
+			Automata automata;
+			for (ExpresionRegular expresion : expresionesAlternativas()) {
+				automata = new Automata(expresion, 0);
+				alternativas.add(automata.imagen());
+			}
+		}
+
+		return new ArrayList<>(alternativas);
+	}
+
+	/**
+	 * Genera una serie de cuatro programas dot con las imagenes
+	 * correspondientes los autómatas de la expresión regular original del
+	 * problema y de tres mutaciones de la misma, como alternativas en un
+	 * problema de construcción de árbol.
+	 * 
+	 * @return Array de cuatro cadenas de caracteres conteniendo programas dot
+	 *         representando autómatas de expresión regular, una correspondiente
+	 *         al del problema y tres alternativas.
+	 */
+	public List<String> alternativasDot() {
+		if (this.alternativasDot == null) {
+			alternativasDot = new ArrayList<>();
+			Automata automata;
+			for (ExpresionRegular expresion : expresionesAlternativas()) {
+				automata = new Automata(expresion, 0);
+				alternativasDot.add(automata.imagenDot());
+			}
+		}
+
+		return new ArrayList<>(alternativasDot);
+	}
+
+	/**
+	 * Genera un set de alternativas para una expresión regular, incluyendo la
+	 * original y tres otras.
+	 * 
+	 * @return Set completo de alternativas.
+	 */
+	public Set<ExpresionRegular> expresionesAlternativas() {
+		log.info("Generando imagenes alternativas");
+
+		int nSimbolos = simbolos().size();
+		boolean usaVacio = simbolos().contains('\u0000');
+		if (usaVacio)
+			nSimbolos--;
+		Generador generador = new Generador(nSimbolos, usaVacio, true);
+
+		Set<ExpresionRegular> expresiones = new HashSet<>();
+		expresiones.add(expresion);
+		ExpresionRegular alternativa;
+		while (expresiones.size() < 4) {
+			alternativa = generador.mutacion(expresion);
+			log.debug("Generada expresión alternativa {}", alternativa);
+			expresiones.add(alternativa);
+		}
+
+		return expresiones;
 	}
 }

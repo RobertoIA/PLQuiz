@@ -220,7 +220,22 @@ public class TraductorHTML extends Traductor {
 
 		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.html");
 		
-		// TODO traducción html
+		String[] imagenes = new String[4];
+		List<BufferedImage> alternativas = problema.alternativas();
+		Collections.shuffle(alternativas);
+
+		for (int i = 0; i < 4; i++)
+			imagenes[i] = "http:\\" + alternativas.get(i).hashCode() + ".jpg";
+
+		int index = alternativas.indexOf(problema.alternativas().get(0));
+		String solucion = "" + (char) ('a' + index);
+
+		plantilla.set("expresion", problema.problema());
+		plantilla.set("opcionA", imagenes[0]);
+		plantilla.set("opcionB", imagenes[1]);
+		plantilla.set("opcionC", imagenes[2]);
+		plantilla.set("opcionD", imagenes[3]);
+		plantilla.set("solucion", solucion);
 
 		return plantilla;
 	}

@@ -202,7 +202,7 @@ public class Documento {
 			case "ConstruccionSubconjuntosConstruccion":
 				ConstruccionSubconjuntos csConstruccion = (ConstruccionSubconjuntos) problema
 						.getProblema();
-				problemas.add(traductor.traduceCSExpresion(csConstruccion));
+				problemas.add(traductor.traduceCSConstruccion(csConstruccion));
 				break;
 			case "ConstruccionSubconjuntosExpresion":
 				ConstruccionSubconjuntos csProblemaExpresion = (ConstruccionSubconjuntos) problema

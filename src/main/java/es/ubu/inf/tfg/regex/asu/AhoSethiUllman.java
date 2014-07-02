@@ -349,7 +349,7 @@ public class AhoSethiUllman {
 
 	/**
 	 * Genera una serie de cuatro imagenes correspondientes la expresión regular
-	 * original del problema y cuatro mutaciones de la misma, como alternativas
+	 * original del problema y tres mutaciones de la misma, como alternativas
 	 * en un problema de construcción de árbol.
 	 * 
 	 * @return Array de cuatro imágenes representando árboles de expresión
@@ -368,7 +368,7 @@ public class AhoSethiUllman {
 
 	/**
 	 * Genera una serie de cuatro programas dot con las imagenes
-	 * correspondientes la expresión regular original del problema y cuatro
+	 * correspondientes la expresión regular original del problema y tres
 	 * mutaciones de la misma, como alternativas en un problema de construcción
 	 * de árbol.
 	 * 

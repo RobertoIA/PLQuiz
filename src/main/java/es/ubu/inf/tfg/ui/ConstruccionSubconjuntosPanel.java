@@ -198,6 +198,9 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		}
 
 		switch (problema.getTipo()) {
+		case "ConstruccionSubconjuntosConstruccion":
+			modoConstruccionButton.setSelected(true);
+			break;
 		case "ConstruccionSubconjuntosExpresion":
 			modoExpresionButton.setSelected(true);
 			break;
@@ -258,9 +261,13 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 							.problema())) {
 						ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 								expresion);
-						Problema<ConstruccionSubconjuntos> csProblema = modoExpresionButton
-								.isSelected() ? Problema.CSExpresion(problema)
-								: Problema.CSAutomata(problema);
+						Problema<ConstruccionSubconjuntos> csProblema;
+						if (modoConstruccionButton.isSelected())
+							csProblema = Problema.CSConstruccion(problema);
+						else if (modoAutomataButton.isSelected())
+							csProblema = Problema.CSAutomata(problema);
+						else
+							csProblema = Problema.CSExpresion(problema);
 						documento.sustituirProblema(problemaActual, csProblema);
 						main.eliminaImagen(problemaActual.getProblema()
 								.automata());
@@ -270,9 +277,13 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 				} else {
 					ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 							expresion);
-					Problema<ConstruccionSubconjuntos> csProblema = modoExpresionButton
-							.isSelected() ? Problema.CSExpresion(problema)
-							: Problema.CSAutomata(problema);
+					Problema<ConstruccionSubconjuntos> csProblema;
+					if (modoConstruccionButton.isSelected())
+						csProblema = Problema.CSConstruccion(problema);
+					else if (modoAutomataButton.isSelected())
+						csProblema = Problema.CSAutomata(problema);
+					else
+						csProblema = Problema.CSExpresion(problema);
 					documento.añadirProblema(csProblema);
 					main.añadeImagen(problema.automata());
 					problemaActual = csProblema;
@@ -315,8 +326,12 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 			Problema<ConstruccionSubconjuntos> csProblema = null;
 			try {
 				problema = get();
-				csProblema = modoExpresionButton.isSelected() ? Problema
-						.CSExpresion(problema) : Problema.CSAutomata(problema);
+				if (modoConstruccionButton.isSelected())
+					csProblema = Problema.CSConstruccion(problema);
+				else if (modoAutomataButton.isSelected())
+					csProblema = Problema.CSAutomata(problema);
+				else
+					csProblema = Problema.CSExpresion(problema);
 
 				if (problemaActual != null) {
 					main.eliminaImagen(problemaActual.getProblema().automata());
@@ -332,7 +347,9 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 				main.actualizaVistaPrevia();
 			} catch (InterruptedException | ExecutionException
 					| CancellationException e) {
-				log.error("Error generando problema de tipo AhoSethiUllman", e);
+				log.error(
+						"Error generando problema de tipo construcción de subconjuntos",
+						e);
 			} finally {
 				generando = false;
 				generarButton.setText("Generar");

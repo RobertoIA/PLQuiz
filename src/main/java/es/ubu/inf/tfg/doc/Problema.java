@@ -4,6 +4,7 @@ import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
 public class Problema<T> {
+	
 	private enum Tipo {
 		AHOSETHIULLMAN_CONSTRUCCION, // Aho-Sethi-Ullman construcción de árbol
 		AHOSETHIULLMAN_ETIQUETADO, // Aho-Sethi-Ullman etiquetado de árbol
