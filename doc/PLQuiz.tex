@@ -36,8 +36,9 @@
 \newcommand{\apendice}[1]{
 	\renewcommand{\thechapter}{A}
 	\chapter{#1}
-	
 }
+
+\renewcommand*\cftappendixname{\appendixname\ }
 
 % Formato de portada
 \makeatletter
@@ -71,15 +72,16 @@
   \begin{center}%
   {%
     \noindent\LARGE
-    Presentado por \@author{}\\%
+    Presentado por \@author{}\\ 
     en Universidad de Burgos --- Curso \@course{}\\
-    Tutor: \@tutor{}
-  }\\%
+    Tutor: \@tutor{}\\
+  }%
   \end{center}%
   \null
   \cleardoublepage
   }
 \makeatother
+
 
 % Datos de portada
 \title{PLQuiz}
@@ -103,7 +105,7 @@ El formato utilizado para generar las preguntas será importable a entornos virt
 
 \renewcommand*\abstractname{Descriptores}
 \begin{abstract}
-Generación de cuestiones, análisis léxico, expresiones regulares, autómatas finitos.
+Generación de cuestionarios, análisis léxico, expresiones regulares, autómatas finitos.
 \end{abstract}
 
 \clearpage
@@ -117,7 +119,7 @@ The format used to produce the questions should be compatible with virtual learn
 
 \renewcommand*\abstractname{Keywords}
 \begin{abstract}
-Question generation, lexical analysis, regular expresions, finite automata.
+Questionnaire generation, lexical analysis, regular expresions, finite automata.
 \end{abstract}
 
 \clearpage
@@ -142,7 +144,7 @@ Question generation, lexical analysis, regular expresions, finite automata.
 \include{./tex/3_Tecnicas_y_herramientas}
 \include{./tex/4_Aspectos_relevantes_del_desarrollo_del_proyecto}
 %\include{./tex/5_Trabajos_relacionados}
-%\include{./tex/6_Conclusiones_y_lineas_de_trabajo_futuras}
+\include{./tex/6_Conclusiones_y_lineas_de_trabajo_futuras}
 
 \appendix
 

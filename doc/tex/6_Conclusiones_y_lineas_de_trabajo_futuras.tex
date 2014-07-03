@@ -1,18 +1,18 @@
 \capitulo{6}{Conclusiones y líneas de trabajo futuras}
 
 \section{Algoritmos de generación de árboles de expresión regular}
-El sistema de generación de expresiones regulares actual implementa el método "full" descrito por John R. Koza \cite{koza92}.
+El sistema de generación de expresiones regulares actual implementa el método «full» descrito por John R. Koza \cite{koza92}.
 Dicho método genera árboles en los que todas las hojas tienen la misma altura.
 \\
 Este método permite generar expresiones de forma rápida y resulta relativamente simple de implementar, dado que los árboles no varían en profundidad.
 \\
-Como desventaja, el método "full" genera un rango de expresiones limitado.
+Como desventaja, el método «full» genera un rango de expresiones limitado.
 Esta característica supone un problema a la hora de utilizar las expresiones para generar problemas.
 \\
-Si agrupamos los problemas según los valores de las características que encontramos para generarlos podemos ver que la distribución de los mismos no resulta uniforme, sino que se generar muchos problemas con ciertos valores y muy pocos o ninguno con otros.
+Si agrupamos los problemas según los valores de las características que encontramos para generarlos, podemos ver que la distribución de los mismos no resulta uniforme, sino que se generan muchos problemas con ciertos valores y muy pocos o ninguno con otros.
 Esto resulta problemático si presentamos una interfaz de usuario que permita introducir valores arbitrarios.
 \\
-En la literatura encontramos definidos otros dos posibles algoritmos, "grow" y "half-and-half" \cite{koza92}.
+En la literatura encontramos definidos otros dos posibles algoritmos, «grow» y «half-and-half» \cite{koza92}.
 La implementación de uno de estos algoritmos (o de algún otro equivalente) supondría una mejora del sistema de generación y permitiría comprobar como de equilibrada está la distribución de resultados.
 \\
 Las mejoras en el algoritmo de generación de árboles afectarían también a los algoritmos de búsqueda, permitiendo tal vez utilizar métodos más rápidos o eficientes, y generar problemas más complejos.
