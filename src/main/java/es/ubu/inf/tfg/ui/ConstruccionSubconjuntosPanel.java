@@ -83,7 +83,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 
 		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 5),
 				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
-						"Construcción de subconjuntos", TitledBorder.LEADING,
+						"McNaughton-Yamada-Thompson", TitledBorder.LEADING,
 						TitledBorder.TOP, null, null)));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

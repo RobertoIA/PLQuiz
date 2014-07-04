@@ -240,7 +240,7 @@ public class BloquePreguntas extends JDialog {
 		this.mainPanel.add(this.csPanel);
 		this.csPanel.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 10, 5),
 				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
-						"Construcci\u00F3n de subconjuntos",
+						"McNaughton-Yamada-Thompson",
 						TitledBorder.LEADING, TitledBorder.TOP, null,
 						new Color(0, 0, 0))));
 		this.csPanel.setLayout(new BoxLayout(this.csPanel, BoxLayout.Y_AXIS));

@@ -164,7 +164,7 @@ public class Main {
 
 		this.añadirBox = new JComboBox<>();
 		this.añadirBox.setModel(new DefaultComboBoxModel<String>(new String[] {
-				"Aho-Sethi-Ullman", "Construcción de subconjuntos" }));
+				"Aho-Sethi-Ullman", "McNaughton-Yamada-Thompson" }));
 		this.añadirPanel.add(this.añadirBox);
 
 		this.añadirDerechoStrut = Box.createHorizontalStrut(100);
@@ -240,7 +240,7 @@ public class Main {
 				log.info("Añadiendo problema tipo Aho-Sethi-Ullman");
 				añadeAhoSethiUllman(null);
 			} else if (añadirBox.getSelectedItem().equals(
-					"Construcción de subconjuntos")) {
+					"McNaughton-Yamada-Thompson")) {
 				log.info("Añadiendo problema tipo construcción de subconjuntos");
 				añadeConstruccionSubconjuntos(null);
 			}
