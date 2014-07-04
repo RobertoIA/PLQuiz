@@ -139,7 +139,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 		this.vacioPanel = new JPanel();
 		this.opcionesPanel.add(this.vacioPanel);
 
-		this.vacioCheck = new JCheckBox("Incluir s\u00EDmbolo vac\u00EDo");
+		this.vacioCheck = new JCheckBox("Incluir \u03B5");
 		this.vacioPanel.add(this.vacioCheck);
 
 		this.simbolosPanel = new JPanel();

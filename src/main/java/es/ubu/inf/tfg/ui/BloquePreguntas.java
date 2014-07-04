@@ -184,7 +184,7 @@ public class BloquePreguntas extends JDialog {
 		this.asuVacioPanel.setLayout(new BoxLayout(this.asuVacioPanel,
 				BoxLayout.X_AXIS));
 
-		this.asuVacioCheck = new JCheckBox("Incluir s\u00EDmbolo vac\u00EDo");
+		this.asuVacioCheck = new JCheckBox("Incluir \u03B5");
 		this.asuVacioPanel.add(this.asuVacioCheck);
 
 		this.asuVacioGlue = Box.createHorizontalGlue();
@@ -284,7 +284,7 @@ public class BloquePreguntas extends JDialog {
 		this.csVacioPanel.setLayout(new BoxLayout(this.csVacioPanel,
 				BoxLayout.X_AXIS));
 
-		this.csVacioCheck = new JCheckBox("Incluir s\u00EDmbolo vac\u00EDo");
+		this.csVacioCheck = new JCheckBox("Incluir \u03B5");
 		this.csVacioPanel.add(this.csVacioCheck);
 
 		this.csVacioGlue = Box.createHorizontalGlue();
