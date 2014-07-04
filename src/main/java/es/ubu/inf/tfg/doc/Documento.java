@@ -143,7 +143,11 @@ public class Documento {
 		for (Problema<?> problema : problemas) {
 			if (problema.getTipo().equals(
 					"ConstruccionSubconjuntosConstruccion")) {
-				// TODO guardado
+				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
+						.getProblema();
+				imagenes.add(p.automata());
+				guardar(carpeta + p.automataDot().hashCode() + ".gv",
+						p.automataDot());
 			} else if (problema.getTipo().equals(
 					"ConstruccionSubconjuntosAutomata")) {
 				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
@@ -162,6 +166,7 @@ public class Documento {
 				for (String alternativa : p.alternativasDot())
 					guardar(carpeta + alternativa.hashCode() + ".gv",
 							alternativa);
+				// TODO guardar alternativas?
 			}
 		}
 

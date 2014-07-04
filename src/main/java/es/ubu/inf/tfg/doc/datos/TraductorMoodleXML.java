@@ -245,7 +245,34 @@ public class TraductorMoodleXML extends Traductor {
 
 		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.xml");
 
-		// TODO traducción xml
+		String[] imagenes = new String[4];
+		List<BufferedImage> alternativas = problema.alternativas();
+		Collections.shuffle(alternativas);
+		String[] alternativasBase64 = new String[4];
+
+		for (int i = 0; i < 4; i++) {
+			imagenes[i] = alternativas.get(i).hashCode() + ".jpg";
+			alternativasBase64[i] = imageToBase64(alternativas.get(i));
+		}
+
+		char solucion = (char) ('a' + alternativas.indexOf(problema
+				.alternativas().get(0)));
+		Set<Character> opciones = new HashSet<>();
+		opciones.add('a');
+		opciones.add('b');
+		opciones.add('c');
+		opciones.add('d');
+
+		plantilla.set("expresion", problema.problema());
+		plantilla.set("urlA", imagenes[0]);
+		plantilla.set("urlB", imagenes[1]);
+		plantilla.set("urlC", imagenes[2]);
+		plantilla.set("urlD", imagenes[3]);
+		plantilla.set("imagenA", alternativasBase64[0]);
+		plantilla.set("imagenB", alternativasBase64[1]);
+		plantilla.set("imagenC", alternativasBase64[2]);
+		plantilla.set("imagenD", alternativasBase64[3]);
+		plantilla.set("solucion", opcionesTransicion(solucion, opciones));
 
 		return plantilla;
 	}

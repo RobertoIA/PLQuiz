@@ -1,0 +1,42 @@
+	<!-- question: {numero}  -->
+	<question type="cloze">
+		<name>
+			<text>PLQuiz: Construcción de subconjuntos</text>
+		</name>
+		<questiontext>
+			<text><![CDATA[
+				<p>Selecciona el autómata generado por la expresión regular ((a|b*)a*c)* siguiendo el método de Thompson.</p>
+
+				<table>
+					<tr>
+						<td>
+						<h2>a)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+						<td>
+							<h2>b)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h2>c)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+						<td>
+							<h2>d)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+					</tr>
+				</table>
+
+				<p>
+					Solución: {1:MULTICHOICE:}
+				</p>
+			]]></text>
+			<file name=</file> 
+			<file name=</file> 
+			<file name=</file> 
+			<file name=</file> 
+		</questiontext>
+		<generalfeedback>
+			<text></text>
+		</generalfeedback>
+		<shuffleanswers>0</shuffleanswers>
+	</question>

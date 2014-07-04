@@ -102,10 +102,12 @@ public class TraductorLatexTest {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
 		String esperado = toString("TraductorCSConstruccion.tex");
+		String encontrado = traductor.traduceCSConstruccion(problema).toString();
+		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
 
 		assertEquals(
 				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo construcción.",
-				esperado, traductor.traduceCSConstruccion(problema).toString());
+				esperado, encontrado);
 	}
 
 	/**

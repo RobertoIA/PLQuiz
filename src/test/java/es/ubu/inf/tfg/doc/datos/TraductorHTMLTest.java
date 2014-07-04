@@ -106,10 +106,16 @@ public class TraductorHTMLTest {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
 		String esperado = toString("TraductorCSConstruccion.html");
+		String encontrado = traductor.traduceCSConstruccion(problema).toString();
+
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
+				"<p>Solución:</p>");
 
 		assertEquals(
 				"Traducción HTML incorrecta de problema de construcción de subconjuntos subtipo construcción.",
-				esperado, traductor.traduceCSConstruccion(problema).toString());
+				esperado, encontrado);
 	}
 
 	/**

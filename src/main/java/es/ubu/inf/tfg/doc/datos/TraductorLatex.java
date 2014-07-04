@@ -231,8 +231,15 @@ public class TraductorLatex extends Traductor {
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.tex");
-
-		// TODO traducción latex
+		String imagen = problema.automata().hashCode() + "";
+		
+		String expresion = problema.problema();
+		expresion = expresion.replace("|", "\\textbar ");
+		expresion = expresion.replace("\u2027", "·");
+		expresion = expresion.replace("\u03B5", "$\\epsilon$");
+		
+		plantilla.set("expresion", expresion);
+		plantilla.set("imagen", imagen);
 
 		return plantilla;
 	}

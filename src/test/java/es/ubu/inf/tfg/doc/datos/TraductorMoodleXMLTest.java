@@ -120,8 +120,13 @@ public class TraductorMoodleXMLTest {
 		String esperado = toString("TraductorCSConstruccion.xml");
 		String encontrado = traductor.traduceCSConstruccion(problema)
 				.toString();
-
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
+		
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
 		assertEquals(

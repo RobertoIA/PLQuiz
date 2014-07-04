@@ -343,13 +343,13 @@ public class AhoSethiUllmanPanel extends JPanel {
 				if (problemaActual != null) {
 					main.eliminaImagen(problemaActual.getProblema()
 							.arbolVacio());
-					main.añadeImagen(problema.arbolVacio());
-					for(BufferedImage imagen : problema.alternativas())
+					main.añadeImagen(asuProblema.getProblema().arbolVacio());
+					for(BufferedImage imagen : asuProblema.getProblema().alternativas())
 						main.añadeImagen(imagen);
 					documento.sustituirProblema(problemaActual, asuProblema);
 				} else {
-					main.añadeImagen(problema.arbolVacio());
-					for(BufferedImage imagen : problema.alternativas())
+					main.añadeImagen(asuProblema.getProblema().arbolVacio());
+					for(BufferedImage imagen : asuProblema.getProblema().alternativas())
 						main.añadeImagen(imagen);
 					documento.añadirProblema(asuProblema);
 				}

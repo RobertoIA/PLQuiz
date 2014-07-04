@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
@@ -269,8 +270,11 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 						else
 							csProblema = Problema.CSExpresion(problema);
 						documento.sustituirProblema(problemaActual, csProblema);
-						main.eliminaImagen(problemaActual.getProblema()
-								.automata());
+						for(BufferedImage imagen : problemaActual.getProblema().alternativas())
+							main.eliminaImagen(imagen);
+						main.eliminaImagen(problemaActual.getProblema().automata());
+						for(BufferedImage imagen : problema.alternativas())
+							main.añadeImagen(imagen);
 						main.añadeImagen(problema.automata());
 						problemaActual = csProblema;
 					}
@@ -286,6 +290,8 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 						csProblema = Problema.CSExpresion(problema);
 					documento.añadirProblema(csProblema);
 					main.añadeImagen(problema.automata());
+					for(BufferedImage imagen : problema.alternativas())
+						main.añadeImagen(imagen);
 					problemaActual = csProblema;
 				}
 				main.actualizaVistaPrevia();
@@ -335,10 +341,16 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 
 				if (problemaActual != null) {
 					main.eliminaImagen(problemaActual.getProblema().automata());
+					for(BufferedImage imagen : problemaActual.getProblema().alternativas())
+						main.eliminaImagen(imagen);
 					main.añadeImagen(problema.automata());
+					for(BufferedImage imagen : problema.alternativas())
+						main.añadeImagen(imagen);
 					documento.sustituirProblema(problemaActual, csProblema);
 				} else {
 					main.añadeImagen(problema.automata());
+					for(BufferedImage imagen : problema.alternativas())
+						main.añadeImagen(imagen);
 					documento.añadirProblema(csProblema);
 				}
 
