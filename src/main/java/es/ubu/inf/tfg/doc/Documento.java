@@ -135,8 +135,6 @@ public class Documento {
 		String ruta = fichero.toString();
 		if (!ruta.toLowerCase().endsWith(".tex"))
 			ruta += ".tex";
-		String carpeta = fichero.getParent().toString();
-		carpeta += File.separator;
 
 		List<BufferedImage> imagenes = new ArrayList<>();
 
@@ -146,32 +144,67 @@ public class Documento {
 				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
 						.getProblema();
 				imagenes.add(p.automata());
+			} else if (problema.getTipo().equals(
+					"ConstruccionSubconjuntosAutomata")) {
+				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
+						.getProblema();
+				imagenes.add(p.automata());
+			} else if (problema.getTipo().equals("AhoSethiUllmanEtiquetado")) {
+				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
+				imagenes.add(p.arbolVacio());
+			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
+				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
+				imagenes.add(p.alternativas().get(0));
+			}
+		}
+
+		guardar(ruta, traduce(new TraductorLatex()));
+		guardar(ruta, imagenes);
+	}
+
+	/**
+	 * Exporta el documento como un fichero de formato XML al fichero destino
+	 * especificado, guardando las imágenes que contenga en formato dot.
+	 * 
+	 * @param fichero
+	 *            Fichero destino.
+	 * @throws IOException
+	 *             Indica un error durante la exportación.
+	 */
+	public void exportaGraphvizLatex(File fichero) throws IOException {
+		log.info("Exportando documento como Latex con imágenes graphviz a {}",
+				fichero);
+		String ruta = fichero.toString();
+		if (!ruta.toLowerCase().endsWith(".tex"))
+			ruta += ".tex";
+		String carpeta = fichero.getParent().toString();
+		carpeta += File.separator;
+
+		for (Problema<?> problema : problemas) {
+			if (problema.getTipo().equals(
+					"ConstruccionSubconjuntosConstruccion")) {
+				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
+						.getProblema();
 				guardar(carpeta + p.automataDot().hashCode() + ".gv",
 						p.automataDot());
 			} else if (problema.getTipo().equals(
 					"ConstruccionSubconjuntosAutomata")) {
 				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
 						.getProblema();
-				imagenes.add(p.automata());
 				guardar(carpeta + p.automataDot().hashCode() + ".gv",
 						p.automataDot());
 			} else if (problema.getTipo().equals("AhoSethiUllmanEtiquetado")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
-				imagenes.add(p.arbolVacio());
 				guardar(carpeta + p.arbolVacioDot().hashCode() + ".gv",
 						p.arbolVacioDot());
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
-				imagenes.add(p.alternativas().get(0));
-				for (String alternativa : p.alternativasDot())
-					guardar(carpeta + alternativa.hashCode() + ".gv",
-							alternativa);
-				// TODO guardar alternativas?
+				guardar(carpeta + p.alternativasDot().get(0).hashCode() + ".gv",
+						p.alternativasDot().get(0));
 			}
 		}
 
 		guardar(ruta, traduce(new TraductorLatex()));
-		guardar(ruta, imagenes);
 	}
 
 	/**

@@ -58,6 +58,7 @@ public class Main {
 	private JMenuItem menuBloque;
 	private JMenuItem menuExportarMoodleXMLButton;
 	private JMenuItem menuExportarLatexButton;
+	private JMenuItem menuExportarGraphvizLatexButton;
 	private JMenu menuArchivo;
 
 	private Main main = this;
@@ -128,6 +129,11 @@ public class Main {
 		this.menuExportarLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuArchivo.add(this.menuExportarLatexButton);
+		
+		this.menuExportarGraphvizLatexButton = new JMenuItem("Exportar como LaTeX + Graphviz");
+		this.menuExportarGraphvizLatexButton
+				.addActionListener(new MenuExportarButtonActionListener());
+		this.menuArchivo.add(this.menuExportarGraphvizLatexButton);
 
 		this.controlPanel = new JPanel();
 		this.controlPanel.setBorder(null);
@@ -255,6 +261,8 @@ public class Main {
 				fileChooser.setFileFilter(new XMLFilter());
 			else if (source == menuExportarLatexButton)
 				fileChooser.setFileFilter(new LatexFilter());
+			else if (source == menuExportarGraphvizLatexButton)
+				fileChooser.setFileFilter(new LatexFilter());
 
 			int valorRetorno = fileChooser.showSaveDialog(frmPlquiz);
 			if (valorRetorno == JFileChooser.APPROVE_OPTION) {
@@ -266,6 +274,9 @@ public class Main {
 					} else if (source == menuExportarLatexButton) {
 						log.info("Exportando fichero Latex a {}.", fichero);
 						documento.exportaLatex(fichero);
+					} else if (source == menuExportarGraphvizLatexButton) {
+						log.info("Exportando fichero Latex con imágenes en graphviz a {}.", fichero);
+						documento.exportaGraphvizLatex(fichero);
 					}
 				} catch (IOException e) {
 					log.error("Fallo al exportar fichero", e);
