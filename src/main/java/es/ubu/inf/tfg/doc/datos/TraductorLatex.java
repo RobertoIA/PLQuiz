@@ -127,7 +127,7 @@ public class TraductorLatex extends Traductor {
 		expresion = expresion.replace("\u03B5", "$\\epsilon$");
 
 		plantilla.set("expresion", expresion);
-		plantilla.set("iamgen", imagen);
+		plantilla.set("imagen", imagen);
 		plantilla.set("tabla", solucionesL);
 
 		return plantilla;

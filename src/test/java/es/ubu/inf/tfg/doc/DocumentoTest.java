@@ -157,7 +157,7 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo construccion a documento Latex exportado.",
@@ -219,7 +219,7 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado a documento Latex exportado.",
@@ -335,7 +335,7 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo construcción en documento Latex exportado.",
@@ -398,7 +398,7 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado en documento Latex exportado.",
@@ -515,7 +515,7 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo construcción en documento Latex exportado.",
@@ -578,7 +578,7 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo etiquetado en documento Latex exportado.",
@@ -883,7 +883,7 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 
 		assertEquals(
 				"Añadido erróneo de problemas de construcción de subconjuntos subtipo automata a documento Latex exportado.",
@@ -946,7 +946,8 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
+		
 		assertEquals(
 				"Borrado erróneo de problemas de construcción de subconjuntos subtipo automata en documento XML exportado.",
 				esperado, encontrado);
@@ -1008,7 +1009,8 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
+		
 		assertEquals(
 				"Sustitución errónea de problemas de construcción de subconjuntos subtipo automata en documento Latex exportado.",
 				esperado, encontrado);

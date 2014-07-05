@@ -55,7 +55,7 @@ public class TraductorLatexTest {
 		String encontrado = traductor.traduceASUConstruccion(problema)
 				.toString();
 
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo construccion.",
@@ -71,8 +71,8 @@ public class TraductorLatexTest {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUEtiquetado.tex");
 		String encontrado = traductor.traduceASUEtiquetado(problema).toString();
-
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo etiquetado.",
@@ -103,7 +103,7 @@ public class TraductorLatexTest {
 				"((a|b*)a*c)*");
 		String esperado = toString("TraductorCSConstruccion.tex");
 		String encontrado = traductor.traduceCSConstruccion(problema).toString();
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 
 		assertEquals(
 				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo construcción.",
@@ -136,7 +136,7 @@ public class TraductorLatexTest {
 		String esperado = toString("TraductorCSAutomata.tex");
 		String encontrado = traductor.traduceCSAutomata(problema).toString();
 
-		encontrado = encontrado.replaceAll("\\{.*.jpg\\}", "{.jpg}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 
 		assertEquals(
 				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo autómata.",
