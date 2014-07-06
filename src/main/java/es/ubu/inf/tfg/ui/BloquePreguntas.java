@@ -102,13 +102,14 @@ public class BloquePreguntas extends JDialog {
 	private JRadioButton csModoConstruccionButton;
 	private JRadioButton csModoAutomataButton;
 	private JRadioButton asuModoEtiquetadoButton;
-	private JPanel csModoPanel;
+	private JPanel csModoPanelA;
 	private JRadioButton csModoExpresionButton;
 	private JRadioButton asuModoTablasButton;
 	private final ButtonGroup asuModo = new ButtonGroup();
 	private final ButtonGroup csModo = new ButtonGroup();
 	private JRadioButton asuModoConstruccionButton;
 	private JPanel asuModoPanelB;
+	private JPanel csModoPanelB;
 
 	/**
 	 * Create the dialog.
@@ -120,7 +121,7 @@ public class BloquePreguntas extends JDialog {
 //		setResizable(false);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
-		setBounds(100, 100, 300, 472);
+		setBounds(100, 100, 343, 532);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		this.mainPanel = new JPanel();
@@ -261,22 +262,25 @@ public class BloquePreguntas extends JDialog {
 		this.csNumSpinner.setModel(new SpinnerNumberModel(0, 0, 100, 1));
 		this.csNumPanel.add(this.csNumSpinner);
 
-		this.csModoPanel = new JPanel();
-		this.csPanel.add(this.csModoPanel);
+		this.csModoPanelA = new JPanel();
+		this.csPanel.add(this.csModoPanelA);
 
 		this.csModoExpresionButton = new JRadioButton("Resolver expresi\u00F3n");
 		this.csModoExpresionButton.setSelected(true);
 		csModo.add(this.csModoExpresionButton);
-		this.csModoPanel.add(this.csModoExpresionButton);
+		this.csModoPanelA.add(this.csModoExpresionButton);
 
 		this.csModoConstruccionButton = new JRadioButton(
 				"Resolver aut\u00F3mata");
 		csModo.add(this.csModoConstruccionButton);
-		this.csModoPanel.add(this.csModoConstruccionButton);
-
-		this.csModoAutomataButton = new JRadioButton("Resolver aut\u00F3mata");
-		csModo.add(this.csModoAutomataButton);
-		this.csModoPanel.add(this.csModoAutomataButton);
+		this.csModoPanelA.add(this.csModoConstruccionButton);
+		
+		this.csModoPanelB = new JPanel();
+		this.csPanel.add(this.csModoPanelB);
+		
+				this.csModoAutomataButton = new JRadioButton("Resolver aut\u00F3mata");
+				this.csModoPanelB.add(this.csModoAutomataButton);
+				csModo.add(this.csModoAutomataButton);
 
 		this.csVacioPanel = new JPanel();
 		this.csVacioPanel.setBorder(new EmptyBorder(0, 5, 5, 5));

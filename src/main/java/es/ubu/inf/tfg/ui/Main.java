@@ -84,7 +84,7 @@ public class Main {
 
 	public Main() {
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
 			log.error("Error estableciendo el look and feel", e);
@@ -164,7 +164,7 @@ public class Main {
 		this.añadirButton = new JButton("+");
 		this.añadirButton.addActionListener(new AddButtonActionListener());
 
-		this.añadirIzquierdoStrut = Box.createHorizontalStrut(100);
+		this.añadirIzquierdoStrut = Box.createHorizontalStrut(40);
 		this.añadirPanel.add(this.añadirIzquierdoStrut);
 		this.añadirPanel.add(this.añadirButton);
 
@@ -173,7 +173,7 @@ public class Main {
 				"Aho-Sethi-Ullman", "McNaughton-Yamada-Thompson" }));
 		this.añadirPanel.add(this.añadirBox);
 
-		this.añadirDerechoStrut = Box.createHorizontalStrut(100);
+		this.añadirDerechoStrut = Box.createHorizontalStrut(40);
 		this.añadirPanel.add(this.añadirDerechoStrut);
 
 		this.vistaPreviaPanel = new JPanel();

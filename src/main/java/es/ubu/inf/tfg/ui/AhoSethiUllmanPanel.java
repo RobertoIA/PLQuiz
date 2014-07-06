@@ -68,11 +68,12 @@ public class AhoSethiUllmanPanel extends JPanel {
 	private JLabel estadosEstadoLabel;
 	private JPanel progresoPanel;
 	private JProgressBar progresoBar;
-	private JPanel modoPanel;
+	private JPanel modoPanelA;
 	private JRadioButton modoConstruccionButton;
 	private JRadioButton modoTablasButton;
 	private JRadioButton modoEtiquetadoButton;
 	private final ButtonGroup modoGroup = new ButtonGroup();
+	private JPanel modoPanelB;
 
 	public AhoSethiUllmanPanel(Main main, JPanel contenedor, Documento documento) {
 
@@ -97,27 +98,30 @@ public class AhoSethiUllmanPanel extends JPanel {
 		this.expresionText = new JTextField();
 		this.expresionText.addActionListener(new BotonResolverActionListener());
 		this.expresionPanel.add(this.expresionText);
-		this.expresionText.setColumns(40);
+		this.expresionText.setColumns(25);
 
-		this.modoPanel = new JPanel();
-		add(this.modoPanel);
+		this.modoPanelA = new JPanel();
+		add(this.modoPanelA);
 
 		this.modoConstruccionButton = new JRadioButton(
 				"Construcci\u00F3n de \u00E1rbol");
 		this.modoConstruccionButton.addActionListener(new ModoButtonChangeListener());
 		modoGroup.add(this.modoConstruccionButton);
-		this.modoPanel.add(this.modoConstruccionButton);
+		this.modoPanelA.add(this.modoConstruccionButton);
 
 		this.modoEtiquetadoButton = new JRadioButton("Etiquetado de \u00E1rbol");
 		this.modoEtiquetadoButton.addActionListener(new ModoButtonChangeListener());
 		modoGroup.add(this.modoEtiquetadoButton);
-		this.modoPanel.add(this.modoEtiquetadoButton);
-
-		this.modoTablasButton = new JRadioButton("Construcci\u00F3n de tablas");
-		this.modoTablasButton.addActionListener(new ModoButtonChangeListener());
-		this.modoTablasButton.setSelected(true);
-		modoGroup.add(this.modoTablasButton);
-		this.modoPanel.add(this.modoTablasButton);
+		this.modoPanelA.add(this.modoEtiquetadoButton);
+		
+		this.modoPanelB = new JPanel();
+		add(this.modoPanelB);
+		
+				this.modoTablasButton = new JRadioButton("Construcci\u00F3n de tablas");
+				this.modoPanelB.add(this.modoTablasButton);
+				this.modoTablasButton.addActionListener(new ModoButtonChangeListener());
+				this.modoTablasButton.setSelected(true);
+				modoGroup.add(this.modoTablasButton);
 
 		this.botonesPanel = new JPanel();
 		add(this.botonesPanel);

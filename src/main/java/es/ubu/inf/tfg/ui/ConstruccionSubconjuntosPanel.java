@@ -68,11 +68,12 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 	private JLabel estadosEstadoLabel;
 	private JPanel progresoPanel;
 	private JProgressBar progresoBar;
-	private JPanel modoPanel;
+	private JPanel modoPanelA;
 	private JRadioButton modoConstruccionButton;
 	private JRadioButton modoExpresionButton;
 	private JRadioButton modoAutomataButton;
 	private final ButtonGroup modoGroup = new ButtonGroup();
+	private JPanel modoPanelB;
 
 	public ConstruccionSubconjuntosPanel(Main main, JPanel contenedor,
 			Documento documento) {
@@ -98,10 +99,10 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		this.expresionText = new JTextField();
 		this.expresionText.addActionListener(new BotonResolverActionListener());
 		this.expresionPanel.add(this.expresionText);
-		this.expresionText.setColumns(40);
+		this.expresionText.setColumns(25);
 
-		this.modoPanel = new JPanel();
-		add(this.modoPanel);
+		this.modoPanelA = new JPanel();
+		add(this.modoPanelA);
 
 		this.modoConstruccionButton = new JRadioButton(
 				"Construir aut\u00F3mata");
@@ -109,19 +110,22 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		modoGroup.add(this.modoConstruccionButton);
 		this.modoConstruccionButton
 				.addActionListener(new ModoButtonChangeListener());
-		this.modoPanel.add(this.modoConstruccionButton);
+		this.modoPanelA.add(this.modoConstruccionButton);
 
 		this.modoExpresionButton = new JRadioButton("Resolver expresi\u00F3n");
 		modoGroup.add(this.modoExpresionButton);
 		this.modoExpresionButton
 				.addActionListener(new ModoButtonChangeListener());
-		this.modoPanel.add(this.modoExpresionButton);
-
-		this.modoAutomataButton = new JRadioButton("Resolver aut\u00F3mata");
-		modoGroup.add(this.modoAutomataButton);
-		this.modoAutomataButton
-				.addActionListener(new ModoButtonChangeListener());
-		this.modoPanel.add(this.modoAutomataButton);
+		this.modoPanelA.add(this.modoExpresionButton);
+		
+		this.modoPanelB = new JPanel();
+		add(this.modoPanelB);
+		
+				this.modoAutomataButton = new JRadioButton("Resolver aut\u00F3mata");
+				this.modoPanelB.add(this.modoAutomataButton);
+				modoGroup.add(this.modoAutomataButton);
+				this.modoAutomataButton
+						.addActionListener(new ModoButtonChangeListener());
 
 		this.botonesPanel = new JPanel();
 		add(this.botonesPanel);
