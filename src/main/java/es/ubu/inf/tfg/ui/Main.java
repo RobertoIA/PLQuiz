@@ -186,8 +186,6 @@ public class Main {
 		this.vistaPreviaPanel.setLayout(new BorderLayout(0, 0));
 
 		this.vistaPreviaScroll = new JScrollPane();
-		this.vistaPreviaScroll
-				.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		this.vistaPreviaPanel.add(this.vistaPreviaScroll);
 
 		this.vistaPreviaText = new JTextPane();

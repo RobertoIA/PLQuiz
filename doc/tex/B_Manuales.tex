@@ -1,0 +1,157 @@
+\apendice{Manuales}
+
+\section{Manual de usuario}
+
+\subsection{Requerimientos}
+La aplicación cuenta con los siguientes requerimientos:
+\begin{itemize}
+	\item Java 8\footnote{http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html}
+	\item Windows
+	\begin{itemize}
+		\item Windows 8 (Desktop) / Windows 7 / Windows Vista SP2 / Windows Server 2008 / Windows Server 2012 (64-bit)
+		\item RAM: 128 MB; 64 MB en Windows XP (32-bit)
+		\item Espacio en disco: 124 MB
+	\end{itemize}
+	\item OS X
+	\begin{itemize}
+		\item Procesador Intel
+		\item Mac OS X 10.7.3 (Lion) o posterior
+		\item Privilegios de administrador para la instalación
+	\end{itemize}
+	\item Linux
+	\begin{itemize}
+		\item Oracle Linux 5.5+ / Red Hat Enterprise Linux 5.5+ / Ubuntu Linux 10.04+ / Suse Linux Enterprise Server 10 SP2+
+	\end{itemize}
+\end{itemize}
+
+Los requerimientos del sistema vienen dados por la instalación de Java\footnote{http://java.com/en/download/help/sysreq.xml}.
+
+\subsection{Instalación y ejecución}
+\subsubsection{Instalación}
+La aplicación se compone de un único archivo \emph{jar} ejecutable.
+Por lo tanto, el método de instalación se reduce a copiar y pegar el fichero a la localización deseada.
+
+\subsubsection{Ejecución}
+Existen dos métodos posibles de ejecución.
+\begin{itemize}
+	\item Directamente haciendo \emph{doble-click} sobre el fichero \emph{jar}.
+	Asumiendo que el \emph{path} de Java se encuentre correctamente configurado, el programa comenzará a ejecutarse inmediatamente.
+	\item Mediante línea de comandos, navegando hasta la carpeta que contiene el fichero \emph{jar} y ejecutando el comando
+	\begin{verbatim}
+	java -jar PLQuiz-[versión].jar
+	\end{verbatim}
+\end{itemize}
+
+\subsection{Resolución de problemas}
+La aplicación dispone de dos tipos distintos de problema con los que componer cuestionarios.
+Cada uno de estos tipos dispone de tres sub-tipos adicionales, que se centran en aspectos distintos de un mismo problema general.
+Los tipos y sub-tipos disponibles son los siguientes:
+\begin{itemize}
+	\item Problemas de aplicación del algoritmo de Aho-Sethi-Ullman
+	\begin{itemize}
+		\item Problemas de construcción de árbol.
+		El objetivo es construir el árbol sintáctico correspondiente a la expresión regular dada, o elegir el correcto de entre los proporcionados.
+		\item Problemas de etiquetado de árbol.
+		Tienen como objetivo el etiquetado de cada nodo del árbol sintáctico correspondiente a una expresión regular con sus correspondientes conjuntos \emph{primerapos} y \emph{últimapos}, indicando además si son o no anulables.
+		\item Problemas de construcción de tablas.
+		El sub-tipo de problema más completo dentro de esta clase, asume la ejecución de los otros dos sub-tipos como paso previo a su resolución.
+		Tiene como objetivo rellenar las tablas \emph{siguientepos} y de transición.
+	\end{itemize}
+	\item Problemas de aplicación del algoritmo de McNaughton-Yamada-Thompson
+	\begin{itemize}
+		\item Problema de construcción de autómata.
+		Tiene como objetivo construir el autómata finito correspondiente con la expresión regular dada, o elegir el correcto de entre los dados.
+		\item Problema de resolver expresión.
+		El objetivo de este sub-tipo de problemas es la obtención de una tabla de transición a partir de una expresión regular dada.
+		Asume la construcción del autómata como paso intermedio, combinando los otros dos sub-tipos de problema.
+		\item Problema de resolver autómata.
+		Consiste en obtener la tabla de transición de un autómata finito dado.
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{Añadir un problema}
+El añadido de problemas se realiza mediante los controles situados en la parte inferior izquierda de la ventana.
+La lista desplegable permite seleccionar el tipo de problema deseado.
+\\
+Una vez escogido el tipo, el botón marcado con `+' añadirá un problema de ese tipo al final de la lista de problemas actuales, situada en la parte izquierda de la ventana.
+
+\imagen{manual_añadir}{Controles de añadido de problemas}
+
+Existe la posibilidad de añadir bloques de múltiples problemas de cualquiera de los tipos al mismo tiempo, generando automáticamente sus contenidos.
+El método para realizarlo se detalla en la sección \emph{generación de problemas}.
+
+\subsubsection{Formato de la expresión regular}
+La expresión regular debe concordar con un formato especifico para ser correctamente reconocida por el parser.
+\begin{itemize}
+	\item Todo paréntesis de apertura `(' debe ir acompañado por un paréntesis de cierre `)'.
+	\item Los símbolos utilizados deben ser una letra minúscula (a-z) o el símbolo `\$'.
+	\item El caracter que representa la cadena vacía ($ \epsilon $) se representa con la letra `E' o con el caracter unicode \emph{\\u03B5}.
+	\item La operación de cierre se representa con el símbolo `*', y va siempre precedida de un símbolo o de \epsilon.
+	\item La operación de concatenación se representa con el símbolo `.' o con el caracter unicode \emph{\\u2027}.
+	\item La operación de unión se representa con el símbolo `$ | $'.
+	\item Se admiten espacios en blanco en el interior de la expresión.
+\end{itemize}
+
+\subsubsection{Eliminar un problema}
+La eliminación de un problema concreto se realiza mediante el botón situado a la izquierda de la caja de texto que contiene la expresión regular, identificado con el símbolo `-'.
+
+\imagen{manual_eliminar}{Contról de eliminación de problemas}
+
+La otra opción de eliminación de problemas permite eliminar el cuestionario completo y empezar de cero.
+Resulta accesible desde el menú `Archivo', tomando la opción de `Documento en blanco'.
+
+\imagen{manual_nuevo}{Control de generación de nuevo documento en blanco}
+
+Es importante remarcar que la eliminación de los problemas es \emph{definitiva}.
+
+\subsubsection{Tipos y sub-tipos de problema}
+
+\subsection{Generación de problemas}
+
+\subsubsection{Características del problema}
+A la hora de generar un problema tenemos la opción de definir ciertas características del mismo, incluyendo:
+\begin{itemize}
+	\item Si la expresión regular asociada incorporará $ \epsilon $.
+	\item El número de símbolos contenidos en la expresión regular, empezando por la `a' y sin incluir $ \epsilon $.
+	Por ejemplo, la expresión $ ((a|b)*c)|\epsilon $ contendría tres símbolos.
+	\item El número de estados en la tabla de transición del problema resuelto.
+\end{itemize}
+Las características se definen en la parte inferior del recuadro del problema.
+
+\imagen{manual_caracteristicas}{Características seleccionadas y problema generado}
+
+\subsubsection{Generación de expresiones}
+Una vez definidas las características del problema deseado, pulsar el botón `Generar' comenzará la búsqueda de una expresión regular que produzca dicho problema.
+Mientras la aplicación realiza la búsqueda, se mostrará una barra de progreso en la parte inferior del recuadro del problema, y el botón de `Generar' se transformará en el botón de `Cancelar'.
+Dicho botón puede usarse durante la búsqueda para cancelar la operación.
+
+\imagen{manual_generacion}{Generación de problema en curso}
+
+Una vez generado el problema, la solución se muestra automáticamente de acuerdo con el sub-tipo de problema seleccionado.
+\\
+La generación de problemas se realiza en un proceso aislado, por lo que es posible interactuar con la interfaz durante el proceso, o generar múltiples problemas al mismo tiempo.
+
+\subsubsection{Generación de bloques de problemas}
+La aplicación no está limitada a la generación de problemas individuales, sino que puede generar un número arbitrario de problemas de cualquier tipo.
+Para evitar la generación de un gran número de problemas similares, la aplicación permite introducir un rango de variación, dentro de los cuales se encontrarán las características de los problemas generados.
+\\
+El acceso a la herramienta de generación de problemas en bloque se encuentra en el menú `Archivo', seleccionando la opción `Generar bloque de problemas'.
+
+\imagen{manual_menu_bloque}{Opción de menu para generación de problemas en bloque}
+
+Dentro de la interfaz de generación de problemas podemos especificar el número de problemas de cada tipo principal que queremos generar.
+Cada tipo de problemas permitirá seleccionar un sub-tipo, al cuál pertenecerán todos.
+\\
+La selección de características deseadas tiene los mismos efectos que en la interfaz princial, con la diferencia de que permite especificar una variación.
+Los problemas generados en este bloque se ajustarán al rango definido entre el valor dado a la característica menos la variación, y el valor más la variación.
+
+\imagen{manual_bloque}{Interfaz de generación de problemas en bloque}
+
+Al igual que la generación de problemas normal, la generación en bloque muestra una barra de progreso y permite la cancelación.
+\\
+Una limitación de este método es que todos los problemas de un tipo dado que se generen pertenecerán al mismo sub-tipo.
+
+
+\section{Manual de programador}
+
+\subsection{Requerimientos} % java8, maven
