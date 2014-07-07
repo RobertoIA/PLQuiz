@@ -60,6 +60,7 @@ public class Main {
 	private JMenuItem menuExportarLatexButton;
 	private JMenuItem menuExportarGraphvizLatexButton;
 	private JMenu menuArchivo;
+	private JMenu menuExportar;
 
 	private Main main = this;
 	private JFileChooser fileChooser;
@@ -110,6 +111,9 @@ public class Main {
 
 		this.menuArchivo = new JMenu("Archivo");
 		this.menuBar.add(this.menuArchivo);
+		
+		this.menuExportar = new JMenu("Exportar");
+		this.menuBar.add(this.menuExportar);
 
 		this.menuNuevo = new JMenuItem("Documento en blanco");
 		this.menuNuevo.addActionListener(new MenuNuevoActionListener());
@@ -123,17 +127,17 @@ public class Main {
 				"Exportar como Moodle XML");
 		this.menuExportarMoodleXMLButton
 				.addActionListener(new MenuExportarButtonActionListener());
-		this.menuArchivo.add(this.menuExportarMoodleXMLButton);
+		this.menuExportar.add(this.menuExportarMoodleXMLButton);
 
 		this.menuExportarLatexButton = new JMenuItem("Exportar como LaTeX");
 		this.menuExportarLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
-		this.menuArchivo.add(this.menuExportarLatexButton);
+		this.menuExportar.add(this.menuExportarLatexButton);
 		
 		this.menuExportarGraphvizLatexButton = new JMenuItem("Exportar como LaTeX + Graphviz");
 		this.menuExportarGraphvizLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
-		this.menuArchivo.add(this.menuExportarGraphvizLatexButton);
+		this.menuExportar.add(this.menuExportarGraphvizLatexButton);
 
 		this.controlPanel = new JPanel();
 		this.controlPanel.setBorder(null);
