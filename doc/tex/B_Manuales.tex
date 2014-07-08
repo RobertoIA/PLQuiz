@@ -189,6 +189,52 @@ En lugar de generar la imagen directamente, lo que se exportan son programas en 
 \\
 Una vez generadas las imágenes, y sin importar el formato en que \emph{Graphviz} las emita, la compilación del documento \LaTeX{} es capaz de incluirlas directamente.
 
-\section{Manual de programador}
+\section{Manual del programador}
 
-\subsection{Requerimientos} % java8, maven
+\subsection{Requerimientos}
+La preparación del proyecto para su desarrollo y empaquetado requiere obligatoriamente las siguientes herramientas:
+\begin{itemize}
+	\item Entorno de desarrollo Java 8 (Java JDK 8)\footnote{http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html}
+	\item Apache Maven\footnote{http://maven.apache.org/} versión 3 o posterior
+\end{itemize}
+
+Opcionalmente puede trabajarse con Eclipse como \emph{IDE}, con el \emph{plugin} de \emph{JavaCC}\footnote{http://eclipse-javacc.sourceforge.net/}.
+El \emph{plugin} de Maven es opcional.
+Java 8 exige Eclipse versión Luna o posterior.
+
+\subsection{Preparación del proyecto}
+\subsubsection{Descarga desde control de versiones}
+El proyecto puede obtenerse directamente o a traves de su repositorio de Github\footnote{https://github.com/RobertoIA/PLQuiz}. Puede descargarse como un fichero comprimido mediante la opción `Download ZIP', utilizando uno de los clientes propietarios de Github con la opción `Clone in Desktop', o mediante la linea de comandos de git utilizando la URL de clonado\footnote{https://github.com/RobertoIA/PLQuiz.git}.
+
+\imagen{manual_github}{Opciones de descarga desde control de versiones}
+
+\subsubsection{Resolución de dependencias}
+La resolución de dependencias se realiza directamente mediante Maven.
+Si no va a utilizarse Eclipse como IDE, puede usarse el siguiente comando en el directorio que contenga el fichero \emph{pom.xml}:
+\begin{verbatim}
+	mvn dependency:resolve
+\end{verbatim}
+En caso de utilizarse Eclipse, este comando resulta redundante, y el procedimiento a seguir se detalla en la versión siguiente.
+
+\subsubsection{Trabajando con Eclipse}
+En caso de utilizarse Eclipse como entorno de desarrollo, Maven nos permite realizar la resolución de dependencias y la conversión del proyecto a proyecto de Eclipse en un solo paso.
+Esto se realiza con el plugin de Eclipse para Maven (y no viceversa), que Maven se encargará de descargar automáticamente si no hemos utilizado antes.
+\\
+El siguiente comando debe ejecutarse en el directorio que contenga el fichero \emph{pom.xml}:
+\begin{verbatim}
+	mvn eclipse:eclipse
+\end{verbatim}
+Una vez ha terminado, podemos importar el proyecto desde eclipse con el menú `File', opción `Import'.
+La opción a utilizar es `Existing Projects into Workspace', a la que solo tenemos que indicarle donde se encuentra almacenado el proyecto.
+
+\subsubsection{Compilación y empaquetado}
+La preparación de la aplicación para su uso se realiza con Maven, que se encarga de controlar las versiones, empaquetar las librerias necesarias y realizar los test.
+Para realizar el empaquetado de manera normal, ejecutaremos el siguiente comando en el directorio raíz del proyecto, donde encontremos el fichero \emph{pom.xml}.
+\begin{verbatim}
+	mvn package
+\end{verbatim}
+En caso de querer saltarnos la realización de test podemos utilizar el siguiente comando, en el mismo directorio que el anterior.
+\begin{verbatim}
+	mvn package -Dmaven.test.skip=true
+\end{verbatim}
+El fichero \emph{.jar} generado se encontrará en la carpeta `target', situada en la raíz del proyecto.
