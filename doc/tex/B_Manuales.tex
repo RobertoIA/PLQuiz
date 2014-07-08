@@ -75,7 +75,7 @@ La lista desplegable permite seleccionar el tipo de problema deseado.
 \\
 Una vez escogido el tipo, el botón marcado con `+' añadirá un problema de ese tipo al final de la lista de problemas actuales, situada en la parte izquierda de la ventana.
 
-\imagen{manual_añadir}{Controles de añadido de problemas}
+\imagen{manual_anadir}{Controles de añadido de problemas}
 
 Existe la posibilidad de añadir bloques de múltiples problemas de cualquiera de los tipos al mismo tiempo, generando automáticamente sus contenidos.
 El método para realizarlo se detalla en la sección \emph{generación de problemas}.
@@ -86,7 +86,7 @@ La expresión regular debe concordar con un formato especifico para ser correcta
 	\item Todo paréntesis de apertura `(' debe ir acompañado por un paréntesis de cierre `)'.
 	\item Los símbolos utilizados deben ser una letra minúscula (a-z) o el símbolo `\$'.
 	\item El caracter que representa la cadena vacía ($ \epsilon $) se representa con la letra `E' o con el caracter unicode \emph{\\u03B5}.
-	\item La operación de cierre se representa con el símbolo `*', y va siempre precedida de un símbolo o de \epsilon.
+	\item La operación de cierre se representa con el símbolo `*', y va siempre precedida de un símbolo o de $ \epsilon $.
 	\item La operación de concatenación se representa con el símbolo `.' o con el caracter unicode \emph{\\u2027}.
 	\item La operación de unión se representa con el símbolo `$ | $'.
 	\item Se admiten espacios en blanco en el interior de la expresión.
@@ -151,6 +151,43 @@ Al igual que la generación de problemas normal, la generación en bloque muestr
 \\
 Una limitación de este método es que todos los problemas de un tipo dado que se generen pertenecerán al mismo sub-tipo.
 
+\subsection{Exportado de cuestionarios}
+El exportado del cuestionario actual se realiza mediante el menú `Exportar' de la barra de herramientas, seleccionando el formato deseado.
+El cuestionario exportado no mostrará siempre el mismo aspecto que en la vista previa, y puede variar según el formato, de manera que la presentación sea la más adecuada en cada caso.
+
+\imagen{manual_exportar}{Menu exportar, con todas las opciones de exportado de cuestionarios}
+
+\subsubsection{Vista previa}
+A diferencia del resto de formatos, la traducción de cuestionarios al formato de vista previa no está disponible al usuario, y se utiliza únicamente para la vista que aparece en el lado derecho de la interfaz gráfica.
+El formato de salida es \emph{HTML} con estilos \emph{CSS} (aunque limitados), aprovechando la capacidad de los componentes \emph{Swing} para mostrarlo.
+\\
+Dado que el contenido de un mismo cuestionario puede variar para los distintos formatos de salida, la vista previa mostrará siempre aquel que muestre más información.
+Por ejemplo, si un cuestionario puede exportarse mostrando varias alternativas posibles además de la solución real, y con únicamente la solución, la vista previa mostrará las alternativas.
+
+\subsubsection{Moodle \emph{XML}}
+Esta traducción genera un cuestionario \emph{cloze} en formato \emph{XML} compatible con la plataforma de aprendizaje virtual Moodle.
+El objetivo de un cuestionario \emph{cloze} es la elección de la solución correcta de entre varias posibles para cada pregunta.
+\\
+Las imágenes de los cuestionarios Moodle no se almacenan de manera separada, sino que se insertan directamente en el documento \emph{XML}.
+Para ello codificamos la imagen en forma de cadena de caracteres de 64 bits, y la incrustamos con etiquetas de archivo dentro del documento.
+\\
+El importado del cuestionario \emph{cloze} se realiza en el menú `Banco de preguntas' de Moodle, sección `importar', y eligiendo el formato `Formato Moodle XML'.
+
+\imagen{manual_importar_moodle}{Menu de importación de cuestionarios Moodle}
+
+\subsubsection{\LaTeX{}}
+Los documentos formato \LaTeX{} pretenden ser examenes o cuestionarios imprimibles, por lo cual su formato tiende a ser diferente al de los cuestionarios virtuales.
+La mayor diferencia es que los cuestionarios \emph{XML} se centran siempre en ofrecer varias opciones de respuesta, mientras que un cuestionario escrito puede exigir directamente la resolución del problema.
+\\
+Por defecto el formato \LaTeX{} genera imágenes en formato \emph{JPG}, guardando el documento y las imágenes de manera separada en el directorio indicado.
+El documento incrustará las imágenes directamente al ser compilado.
+Los nombres dados a las imágenes son automáticos y únicos para cada imagen.
+
+\subsubsection{\LaTeX{} con imágenes \emph{Graphviz}}
+Este modo de exportado es idéntico al modo \LaTeX{} por defecto, salvo en el modo en que exporta las imágenes.
+En lugar de generar la imagen directamente, lo que se exportan son programas en formato \emph{dot} para cada imagen, que pueden ejecutarse utilizando la herramienta \emph{Graphviz}.
+\\
+Una vez generadas las imágenes, y sin importar el formato en que \emph{Graphviz} las emita, la compilación del documento \LaTeX{} es capaz de incluirlas directamente.
 
 \section{Manual de programador}
 
