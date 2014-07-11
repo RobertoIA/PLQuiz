@@ -72,7 +72,7 @@ Los tipos y sub-tipos disponibles son los siguientes:
 \subsubsection{Añadir un problema}
 El añadido de problemas se realiza mediante los controles situados en la parte inferior izquierda de la ventana.
 La lista desplegable permite seleccionar el tipo de problema deseado.
-\\
+
 Una vez escogido el tipo, el botón marcado con `+' añadirá un problema de ese tipo al final de la lista de problemas actuales, situada en la parte izquierda de la ventana.
 
 \imagen{manual_anadir}{Controles de añadido de problemas}
@@ -128,27 +128,27 @@ Dicho botón puede usarse durante la búsqueda para cancelar la operación.
 \imagen{manual_generacion}{Generación de problema en curso}
 
 Una vez generado el problema, la solución se muestra automáticamente de acuerdo con el sub-tipo de problema seleccionado.
-\\
+
 La generación de problemas se realiza en un proceso aislado, por lo que es posible interactuar con la interfaz durante el proceso, o generar múltiples problemas al mismo tiempo.
 
 \subsubsection{Generación de bloques de problemas}
 La aplicación no está limitada a la generación de problemas individuales, sino que puede generar un número arbitrario de problemas de cualquier tipo.
 Para evitar la generación de un gran número de problemas similares, la aplicación permite introducir un rango de variación, dentro de los cuales se encontrarán las características de los problemas generados.
-\\
+
 El acceso a la herramienta de generación de problemas en bloque se encuentra en el menú `Archivo', seleccionando la opción `Generar bloque de problemas'.
 
 \imagen{manual_menu_bloque}{Opción de menu para generación de problemas en bloque}
 
 Dentro de la interfaz de generación de problemas podemos especificar el número de problemas de cada tipo principal que queremos generar.
 Cada tipo de problemas permitirá seleccionar un sub-tipo, al cuál pertenecerán todos.
-\\
+
 La selección de características deseadas tiene los mismos efectos que en la interfaz princial, con la diferencia de que permite especificar una variación.
 Los problemas generados en este bloque se ajustarán al rango definido entre el valor dado a la característica menos la variación, y el valor más la variación.
 
 \imagen{manual_bloque}{Interfaz de generación de problemas en bloque}
 
 Al igual que la generación de problemas normal, la generación en bloque muestra una barra de progreso y permite la cancelación.
-\\
+
 Una limitación de este método es que todos los problemas de un tipo dado que se generen pertenecerán al mismo sub-tipo.
 
 \subsection{Exportado de cuestionarios}
@@ -160,17 +160,17 @@ El cuestionario exportado no mostrará siempre el mismo aspecto que en la vista 
 \subsubsection{Vista previa}
 A diferencia del resto de formatos, la traducción de cuestionarios al formato de vista previa no está disponible al usuario, y se utiliza únicamente para la vista que aparece en el lado derecho de la interfaz gráfica.
 El formato de salida es \emph{HTML} con estilos \emph{CSS} (aunque limitados), aprovechando la capacidad de los componentes \emph{Swing} para mostrarlo.
-\\
+
 Dado que el contenido de un mismo cuestionario puede variar para los distintos formatos de salida, la vista previa mostrará siempre aquel que muestre más información.
 Por ejemplo, si un cuestionario puede exportarse mostrando varias alternativas posibles además de la solución real, y con únicamente la solución, la vista previa mostrará las alternativas.
 
 \subsubsection{Moodle \emph{XML}}
 Esta traducción genera un cuestionario \emph{cloze} en formato \emph{XML} compatible con la plataforma de aprendizaje virtual Moodle.
 El objetivo de un cuestionario \emph{cloze} es la elección de la solución correcta de entre varias posibles para cada pregunta.
-\\
+
 Las imágenes de los cuestionarios Moodle no se almacenan de manera separada, sino que se insertan directamente en el documento \emph{XML}.
 Para ello codificamos la imagen en forma de cadena de caracteres de 64 bits, y la incrustamos con etiquetas de archivo dentro del documento.
-\\
+
 El importado del cuestionario \emph{cloze} se realiza en el menú `Banco de preguntas' de Moodle, sección `importar', y eligiendo el formato `Formato Moodle XML'.
 
 \imagen{manual_importar_moodle}{Menu de importación de cuestionarios Moodle}
@@ -178,7 +178,7 @@ El importado del cuestionario \emph{cloze} se realiza en el menú `Banco de preg
 \subsubsection{\LaTeX{}}
 Los documentos formato \LaTeX{} pretenden ser examenes o cuestionarios imprimibles, por lo cual su formato tiende a ser diferente al de los cuestionarios virtuales.
 La mayor diferencia es que los cuestionarios \emph{XML} se centran siempre en ofrecer varias opciones de respuesta, mientras que un cuestionario escrito puede exigir directamente la resolución del problema.
-\\
+
 Por defecto el formato \LaTeX{} genera imágenes en formato \emph{JPG}, guardando el documento y las imágenes de manera separada en el directorio indicado.
 El documento incrustará las imágenes directamente al ser compilado.
 Los nombres dados a las imágenes son automáticos y únicos para cada imagen.
@@ -186,7 +186,7 @@ Los nombres dados a las imágenes son automáticos y únicos para cada imagen.
 \subsubsection{\LaTeX{} con imágenes \emph{Graphviz}}
 Este modo de exportado es idéntico al modo \LaTeX{} por defecto, salvo en el modo en que exporta las imágenes.
 En lugar de generar la imagen directamente, lo que se exportan son programas en formato \emph{dot} para cada imagen, que pueden ejecutarse utilizando la herramienta \emph{Graphviz}.
-\\
+
 Una vez generadas las imágenes, y sin importar el formato en que \emph{Graphviz} las emita, la compilación del documento \LaTeX{} es capaz de incluirlas directamente.
 
 \section{Manual del programador}
@@ -219,7 +219,7 @@ En caso de utilizarse Eclipse, este comando resulta redundante, y el procedimien
 \subsubsection{Trabajando con Eclipse}
 En caso de utilizarse Eclipse como entorno de desarrollo, Maven nos permite realizar la resolución de dependencias y la conversión del proyecto a proyecto de Eclipse en un solo paso.
 Esto se realiza con el plugin de Eclipse para Maven (y no viceversa), que Maven se encargará de descargar automáticamente si no hemos utilizado antes.
-\\
+
 El siguiente comando debe ejecutarse en el directorio que contenga el fichero \emph{pom.xml}:
 \begin{verbatim}
 	mvn eclipse:eclipse

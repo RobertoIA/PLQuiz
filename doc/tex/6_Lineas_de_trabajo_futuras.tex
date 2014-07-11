@@ -3,25 +3,25 @@
 \section{Algoritmos de generación de árboles de expresión regular}
 El sistema de generación de expresiones regulares actual implementa el método «full» descrito por John R. Koza \cite{koza92}.
 Dicho método genera árboles en los que todas las hojas tienen la misma altura.
-\\
+
 Este método permite generar expresiones de forma rápida y resulta relativamente simple de implementar, dado que los árboles no varían en profundidad.
-\\
+
 Como desventaja, el método «full» genera un rango de expresiones limitado.
 Esta característica supone un problema a la hora de utilizar las expresiones para generar problemas.
-\\
+
 Si agrupamos los problemas según los valores de las características que encontramos para generarlos, podemos ver que la distribución de los mismos no resulta uniforme, sino que se generan muchos problemas con ciertos valores y muy pocos o ninguno con otros.
 Esto resulta problemático si presentamos una interfaz de usuario que permita introducir valores arbitrarios.
-\\
+
 En la literatura encontramos definidos otros dos posibles algoritmos, «grow» y «half-and-half» \cite{koza92}.
 La implementación de uno de estos algoritmos (o de algún otro equivalente) supondría una mejora del sistema de generación y permitiría comprobar como de equilibrada está la distribución de resultados.
-\\
+
 Las mejoras en el algoritmo de generación de árboles afectarían también a los algoritmos de búsqueda, permitiendo tal vez utilizar métodos más rápidos o eficientes, y generar problemas más complejos.
 
 \section{Mejoras a la interfaz gráfica}
 \subsection{Opción de guardado y carga de cuestionarios}
 En la versión actual de la aplicación, los cuestionarios pueden exportarse pero no importarse.
 Esto quiere decir que una vez se cierra el programa no puede continuar trabajandose sobre las preguntas que teníamos, a menos que se cree un cuestionario nuevo y se añadan las preguntas a mano.
-\\
+
 Se proponen dos posibles implementaciones de un sistema de guardado y carga:
 \begin{itemize}
 	\item El método más evidente es el guardado de los cuestionarios como ficheros separados, ya sea en texto plano, \emph{XML} o cualquier otro formato.
@@ -39,11 +39,11 @@ Una opción de `deshacer' evitaría problemas al usuario y aumentaría la usabil
 \subsection{Opción de reordenar cuestiones}
 Las cuestiones se muestran en el orden en que se añadieron, sin permitir cambios.
 Si se pretende añadir una cuestión entre varias existentes primero deben eliminarse las que se encuentran por debajo de la nueva posición.
-\\
+
 La implementación del cambio de orden es sencilla, ya que el documento que la aplicación utiliza internamente ya almacena los problemas de manera ordenada.
 Es necesario añadir un sistema que permita especificar un nuevo orden en el documento o una nueva posición para un problema dado.
 Una posibilidad sería asociar cada problema con un número que indique su posición.
-\\
+
 Se proponen varias implementaciones de cara a la interfaz gráfica:
 \begin{itemize}
 	\item La manera más sencilla de implementar la ordenación sería añadir dos botones al `frame' que representa el problema, uno para mover el problema hacia arriba y otro para moverlo hacia abajo.
@@ -58,11 +58,11 @@ Se proponen varias implementaciones de cara a la interfaz gráfica:
 \subsection{Personalización de plantillas}
 El sistema de plantillas de la aplicación permite la modificación de las mismas para conseguir documentos personalizados.
 Sin embargo, la personalización de las plantillas requiere modificación y empaquetado del proyecto, o modificación directa de los ficheros del \emph{.jar}.
-\\
+
 Una posible mejora sería la opción de proveer plantillas personalizadas.
 Estas plantillas se seleccionarían al realizar la exportación del cuestionario, o desde un menú de opciones en la propia aplicación.
 Las plantillas por defecto seguirían estando disponibles, en caso de que no se haya creado una propia y como ejemplo.
-\\
+
 Con esta mejora no solo permitimos personalizar el estilo, sino también el contenido.
 El usuario puede añadir o eliminar etiquetas, haciendo que el problema disponga de más o menos información.
 

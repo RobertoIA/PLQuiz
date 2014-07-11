@@ -3,11 +3,11 @@
 Trabajar con una expresión regular dentro de la aplicación implica traducirla a una estructura de datos adecuada.
 Contando con que la expresión es introducida como una cadena de caracteres, utilizaremos un analizador léxico y sintáctico para convertirla en un árbol binario.
 Los algoritmos de generación de árboles son un tema muy estudiado dentro de la programación genética, lo cuál nos permite generar la expresión directamente en forma de árbol implementando un algoritmo ya conocido.
-\\
+
 El algoritmo concreto implementado es el del método «full» \cite{koza92}.
 Este método involucra la creación de árboles cuya profundidad viene definida por la longitud del camino entre un extremo cualquiera y la raíz.
 Esto quiere decir que generaremos árboles binarios en los que cada cada nodo no hoja tiene 1 o 2 hijos, y en el que todas las hojas se encuentran a la misma profundidad.
-\\
+
 El algoritmo funciona restringiendo la selección de etiquetas para los nodos generados en función de su profundidad.
 Un nodo símbolo, por ejemplo, solo estará permitido en la profundidad máxima, mientras que un nodo cerradura estará permitido en cualquier profundidad excepto la máxima.
 Tomaremos consideraciones adicionales a la hora de generar los hijos de un nodo, ya que el número de los mismos variará en función de la operación que contenga el padre.
@@ -24,25 +24,25 @@ A la hora de generar problemas tomamos tres criterios:
 Tanto el número de símbolos como la presencia del símbolo vacío dependen directamente de la expresión regular a partir de la cual construimos el problema.
 El número de estados de la función de transición será el mismo para cualquier problema de un mismo tipo que comparta la misma expresión regular.
 Podemos decir, por lo tanto, que las características que buscamos en un problema dependen exclusivamente de la expresión regular con la cuál lo construimos.
-\\
+
 La generación de problemas por lo tanto consistirá en generar expresiones regulares cuyo problema asociado cumpla las características pedidas.
 Siendo el objetivo la generación de problemas con unas características dadas, deben determinarse los algoritmos de búsqueda a utilizar y los parámetros óptimos para los mismos.
 
 \section{Coste de generación}
 
 Dado que los árboles para las expresiones regulares son árboles binarios, sabemos que el número máximo de nodos está acotado superiormente por la función:
-\\
+
 \emph{número de nodos} $ \leq 2^{profundidad} - 1$
-\\
+
 La generación de una expresión regular crea los nodos del árbol de la expresión uno a uno, por lo tanto el coste de generar una expresión crecerá con el número de nodos en su árbol sintáctico.
-\\
+
 Para comprobar estos datos de manera experimental obtendremos los tiempos medios de generación de 100.000 expresiones regulares para cada profundidad entre 0 y 8, y comparamos su crecimiento con el número máximo de nodos asociado a cada profundidad.
 
 \imagen{profundidad}{Tiempo de generación de expresiones y número de nodos}
 
 Podemos ver como el tiempo de generación de una expresión regular depende del número de nodos que contenga el árbol sintáctico de la misma y, por lo tanto, de la profundidad del mismo.
 Por lo tanto, será preferible generar expresiones lo menos profundas posible, en concreto, limitándonos a una profundidad máxima de 6.
-\\
+
 Destacamos que los valores del tiempo dependen de la máquina en que se realizan las pruebas.
 Este análisis pretende analizar el crecimiento de la función tiempo, no sus valores exactos.
 
@@ -51,9 +51,9 @@ Este análisis pretende analizar el crecimiento de la función tiempo, no sus va
 Consideramos expresiones `útiles' aquellas que contienen entre 2 y 6 símbolos distintos (sin incluir el vacío), y entre 3 y 15 estados distintos al generar a partir de la expresión un problema de tipo Aho-Sethi-Ullman o de construcción de subconjuntos.
 Estos rangos corresponden con los problemas que consideramos apropiados para resolver de manera manual, y con lo permitido por la interfaz.
 El generador es capaz de trabajar con rangos arbitrarios, pero los problemas que aparecen con expresiones fuera de estos rangos son o demasiado complejos para resolverlos de manera manual, o completamente triviales.
-\\
+
 El conocimiento de qué profundidades de árbol corresponden con más expresiones generadas dentro de los rangos deseados nos permite establecer los límites óptimos para utilizar con los generadores de problemas.
-\\
+
 Este análisis pretende determinar cuantas de las expresiones regulares generadas aleatoriamente encajan dentro de los rangos deseados, y en qué medida depende de la profundidad del árbol sintáctico.
 La intuición nos dice que los árboles más profundos corresponderán con las expresiones más complejas (más símbolos y/o estados en la tabla de transición).
 
@@ -67,7 +67,7 @@ Con cada una de las expresiones construiremos un problema de tipo Aho-Sethi-Ullm
 
 Los resultados muestran que los árboles de profundidad 4 generan el mayor número de expresiones en la zona deseada.
 También podemos ver claramente que las expresiones con árbol sintáctico de profundidad entre 3 y 6 generan una mayoría de expresiones regulares aceptables, tanto si incluimos el símbolo vacío como si no.
-\\
+
 Por lo tanto el método de búsqueda para problemas de Aho-Sethi-Ullman utilizará expresiones de profundidad entre 3 y 6.
 
 \subsection{Construcción de subconjuntos}
@@ -78,24 +78,24 @@ Para el análisis de problemas de construcción de subconjuntos repetimos el mis
 \imagen{prof-CS-V}{Construcción de subconjuntos (con $ \epsilon $) aceptables según profundidad}
 
 Según los resultados podemos ver que las expresiones dentro del rango tienen mayoritariamente profundidades de entre 1 y 5, y que las expresiones de profundidad 6 están completamente fuera del rango.
-\\
+
 Por lo tanto, el método de búsqueda para problemas de construcción de subconjuntos utilizará expresiones de profundidad entre 1 y 5.
 
 \section{Distribución de resultados aceptables}
 
 Partiendo de los resultados que encontramos dentro de la región aceptable, es importante identificar como se distribuyen esos resultados.
 Asumimos que no todas las combinaciones de símbolo y estado van a aparecer con la misma frecuencia dentro de la región aceptable.
-\\
+
 Dado que la frecuencia de aparición de expresiones en la región aceptable varía según la profundidad, examinaremos cada profundidad utilizada por separado.
 De esta manera podremos determinar si ciertas combinaciones de símbolo y estado son más probables en ciertas profundidades.
-\\
+
 Los datos experimentales utilizados son los mismos que en los apartados anteriores.
 
 \subsection{Aho-Sethi-Ullman}
 
 Agrupando los datos según profundidades podemos ver nuevamente las agrupaciones según profundidad.
 Más interesante resulta que las expresiones generadas se agrupan, independientemente de la profundidad, alrededor de los mismos puntos.
-\\
+
 Es interesante notar que, aunque las agrupaciones no dependen de la profundidad, las profundidades mayores parecen agruparse más hacia la izquierda.
 Esto implicaría que las profundidades mayores generan problemas con menos estados y símbolos o, más probablemente, que nuestro rango aceptable es demasiado restringido para ver la perspectiva completa.
 
@@ -105,7 +105,7 @@ Esto implicaría que las profundidades mayores generan problemas con menos estad
 Vemos que el comportamiento es similar entre expresiones que contienen el elemento vacío y aquellas que no.
 Esto indica, de manera bastante clara, que ciertas combinaciones de número de símbolos y estados son mucho más probables.
 O, por otra parte, que en las profundidades con las que estamos trabajando tienden a generarse expresiones con unas características específicas.
-\\
+
 Por ejemplo, es posible que la combinación de 3 símbolos y 8 a 14 estados se dé con alta probabilidad en profundidades de 6 o mayores, o que necesite expresiones regulares con árboles que tengan hojas a distintas profundidades.
 
 \subsection{Construcción de subconjuntos}
@@ -122,7 +122,7 @@ Es decir, cuanto más elevado el número de símbolos, más variedad de estados 
 \section{Algoritmos de búsqueda}
 
 Una vez definidos los parámetros con los cuales vamos a generar las expresiones, queda pendiente encontrar un algoritmo de búsqueda que nos permita encontrar los problemas dados.
-\\
+
 Es probable que dos problemas generados a partir de expresiones regulares tengan características similares, pero no tenemos ninguna garantía al respecto.
 Es decir, es posible que dos expresiones vecinas tengan características bastante diferentes.
 Descartamos, por lo tanto, algoritmos de búsqueda como el recocido simulado, que se desplazan por el espacio de búsqueda de vecino a vecino.
