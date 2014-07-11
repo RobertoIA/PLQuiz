@@ -1,1 +1,48 @@
 \capitulo{1}{Objetivos del proyecto}
+
+\section{Objetivos técnicos}
+Los objetivos del proyecto, vistos desde el punto de vista del desarrollo técnico de la aplicación, pueden desglosarse en los siguientes puntos:
+\begin{itemize}
+	\item Desarrollo de una interfaz gráfica multiplataforma.
+	\item Procesado y manipulación de expresiones regulares mediante el uso de un procesador de textos, mediante el uso de la herramienta \emph{JavaCC}.
+	\item Resolución de problemas de aplicación del algoritmo de Aho-Sethi-Ullman a partir de las expresiones regulares procesadas.
+	\item Resolución de problemas de aplicación del algoritmo de McNaughton-Yamada-Thompson a partir de las expresiones regulares procesadas.
+	\item Agregación de los problemas en cuestionarios.
+	\item Exportado de cuestionarios a dos formatos:
+	\begin{itemize}
+		\item Formato \LaTeX{}, generando cuestionarios listos para impresión, con intención de ser usados como examenes en papel.
+		\item Formato \emph{XML} compatible con la plataforma de aprendizaje virtual Moodle.
+	\end{itemize}
+	\item Elaboración de un documento detallando los aspectos relevantes del desarrollo y funcionamiento de la aplicación.
+\end{itemize}
+
+Sin embargo los objetivos no han permanecido estáticos durante el periodo de desarrollo.
+A los puntos iniciales se han añadido los siguientes:
+\begin{itemize}
+	\item Generación de problemas aleatorios, utilizando algoritmos de programación genética y métodos de búsqueda.
+	\item Generación de problemas en bloque, produciendo cuestionarios completos con una variedad de problemas distintos.
+	\item Exportado de imágenes en múltiples formatos, incluyendo exportado directo, exportado de programas \emph{Graphviz} y codificación en base 64.
+	\item Exportado de cuestionarios a un formato adicional, HTML, permitiendo la vista previa de cuestionarios dentro de la interfaz gráfica.
+	\item Implantado de un sistema de `log', facilitando el diagnóstico de problemas durante el desarrollo de la aplicación.
+\end{itemize}
+
+\section{Objetivos académicos}
+Además de los objetivos relacionados directamente con el desarrollo del proyecto concreto, se consideran otros más generales, particularmente los detallados en la guía docente.
+De estos destaco especialmente los siguientes:
+\begin{itemize}
+	\item Aplicación de los conocimientos teóricos y prácticos adquiridos en al asignatura al desarrollo de un proyecto de más envergadura y durante un periodo de tiempo considerable.
+	\item Planteamiento y resolución de un problema real, con aplicaciones y usos concretos.
+	\item Aprendizaje de nuevos temas relacionados con la titulación, trabajando con nuevos métodos y tecnologías y adaptando a ellos el modo de trabajo.
+	\item Desarrollo de la capacidad de exposición y comunicación, especialmente durante la defensa, en el desarrollo de la memoria y en la preparación de la documentación de la aplicación.
+\end{itemize}
+
+\section{Objetivos personales}
+En último lugar, la realización de este proyecto me ha dado la oportunidad de completar una serie de objetivos a nivel personal.
+Destaco especialmente el aprendizaje de nuevas tecnologías y herramientas, que aunque ya me resultaban conocidas o familiares, no había tenido oportunidad de aplicar seriamente.
+
+Entre las herramientas utilizadas en el proyecto, las utilizadas para el `logging', SLF4J y Logback, resultan mucho más útiles al ser aplicadas a bases de código grandes.
+Su uso en el proyecto no solo ha facilitado el diagnóstico de errores y el control del flujo del programa, sino que me ha proporcionado conocimientos que probablemente pueda aplicar más adelante.
+
+También destaco el uso de la versión 8 de Java, que apareció cuando el proyecto ya estaba avanzado.
+Especialmente el añadido de los `stream', que permiten el manejo de datos de manera similar a la programación funcional, resultó de ayuda durante el desarrollo de ciertas partes de la aplicación.
+Su uso en el proyecto me ha permitido ponerme al día de las novedades en Java, utilizándolas para resolver problemas reales.
