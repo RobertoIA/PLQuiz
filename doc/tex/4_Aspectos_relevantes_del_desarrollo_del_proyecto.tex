@@ -1,0 +1,36 @@
+\capitulo{4}{Aspectos relevantes del desarrollo del proyecto}
+
+\section{Arquitectura de la aplicación}
+\subsection{Estructura de paquetes}
+La filosofía seguida a la hora de diseñar la estructura de la aplicación se centra en los conceptos de modularidad y reusabilidad.
+Cada paquete pretende ser independiente, y las dependencias externas se reducen lo más posible.
+Esto se traduce en un uso frecuente del patrón `fachada'.
+
+Cada paquete principal tiene una estructura de dos niveles: el primer nivel contiene las clases `fachada' --- visibles al resto de la aplicación ---, mientras que el segundo (\emph{.datos}) contiene la lógica y estructuras de datos internas --- utilizadas solo por el paquete `padre' ---.
+
+Podemos dividir los paquetes principales de la aplicación en tres clases:
+\begin{itemize}
+	\item Paquete de interfaz gráfica (\emph{es.ubu.inf.tfg.ui}).
+	Contiene las clases que definen la apariencia y comportamiento de la interfaz de usuario.
+	Es, por pura necesidad, el paquete con más dependencias externas, dependiendo tanto del paquete que define la representación de documentos como de los paquetes que definen cada clase de problemas.
+	\item Paquete de construcción de documentos (\emph{es.ubu.inf.tfg.doc}).
+	Dependen, por necesidad, de los paquetes que definen las clases de problemas que van a representar.
+	\item Paquetes de problemas (\emph{es.ubu.inf.tfg.regex.thompson} y \emph{es.ubu.inf.tfg.regex.asu}).
+	Contienen las clases encargadas de representar las estructuras internas del problema, sus soluciones, y aquellas necesarias para generarlos.
+	Dependen únicamente del paquete de representación de expresiones regulares, y son independientes el uno del otro.
+	\item Paquete de representación y procesamiento de expresiones regulares (\emph{es.ubu.inf.tfg.regex.parser} y \emph{es.ubu.inf.tfg.regex.datos}).
+	Contienen las clases necesarias para procesar expresiones regulares a partir de cadenas de caracteres, representarlas y operar sobre ellas.
+	Son la base sobre la cual trabajan los problemas.
+\end{itemize}
+
+\imagen{diagrama_paquetes}{Diagrama de paquetes y sus dependencias}
+
+Como podemos ver, los paquetes encargados del procesamiento de expresiones regulares son la base del problema.
+Junto con los paquetes de problemas forman el núcleo de la aplicación, y pueden ser utilizados de manera independiente, al carecer de dependencias externas.
+
+Sobre estos paquetes centrales se aposentan los paquetes de representación de documentos, que toman los datos de los documentos y les dan un formato adecuado.
+En un nivel superior esta la interfaz de usuario, que toma el conjunto de datos obtenido del resto de paquetes y lo presenta al usuario.
+
+Esta estructura en niveles significa que podemos tomar cualquier paquete, y utilizarlo de manera completamente independiente, siempre que dispongamos de aquellos que se encuentran en niveles inferiores.
+
+\subsection{Patrones de diseño}
