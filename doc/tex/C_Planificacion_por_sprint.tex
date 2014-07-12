@@ -1,18 +1,16 @@
-\capitulo{4}{Aspectos relevantes del desarrollo del proyecto}
+\apendice{Planificación por \emph{sprint}}
 
-\section{Planificación por \emph{sprint}}
 Esta sección detalla el trabajo realizado en cada \emph{sprint} del proyecto. Cada \emph{sprint} dura dos semanas, y corresponde con una serie de objetivos planteados y unos resultados conseguidos.
 Al finalizar se realiza la entrega de una versión funcional de la aplicación.
-
+\\
 Se incluye adicionalmente un \emph{sprint} inicial que transcurre entre la asignación del proyecto y el comienzo oficial.
 
 \subsection{Prototipo --- hasta el 28 de febrero}
 
 \subsubsection{Objetivos}
 Desarrollo de un prototipo básico de la aplicación, como base a partir de la cual realizar las decisiones sobre el diseño y la funcionalidad de la aplicación final.
-
-El prototipo debe incluir una interfaz gráfica simple, y debe permitir añadir y resolver problemas básicos.
-
+\\
+El prototipo debe incluir una interfaz gráfica simple, y debe permitir añadir y resolver problemas básicos. \\
 El código se desarrolla con la única intención de demostrar funcionalidad, y será desechado al final de la iteración.
 
 \subsubsection{Desarrollo}
@@ -20,7 +18,7 @@ El código se desarrolla con la única intención de demostrar funcionalidad, y 
 \subsubsection{Resultados}
 Al final de esta iteración contamos con una aplicación de interfaz gráfica que incluye un primer esbozo de los elementos que incluirá la aplicación final.
 Algunos de estos elementos no son funcionales, pero se incluyen para referenciar funcionalidad futura.
-
+\\
 El prototipo es capaz de procesar expresiones regulares a partir de cadenas de caracteres, extraer un árbol sintáctico de la misma y utilizarlo para obtener las tablas de siguiente posición y transiciones y demás datos correspondientes con el algoritmo de Aho-Sethi-Ullman
 
 \subsection{Versión 0.1 --- 28 de febrero a 14 de marzo}
@@ -29,16 +27,16 @@ El prototipo es capaz de procesar expresiones regulares a partir de cadenas de c
 \subsubsection{Objetivos}
 Diseñar y construir una aplicación como base para el proyecto, sin reutilizar código del prototipo pero con las mismas funcionalidades, e incluyendo documentación y pruebas.
 Se realizarán modificaciones en la arquitectura general de la aplicación para facilitar la generación de ejercicios.
-
+\\
 Se propone la idea de implementar un generador de ejercicios aleatorios basado en un algoritmo genético.
 
 \subsubsection{Desarrollo}
 
 \subsubsection{Resultados}
 Implementación completa y estable del procesador de expresiones regulares y del algoritmo de Aho-Sethi-Ullman.
-
+\\
 Interfaz funcional y preparada para ser ampliada con elementos posteriores.
-
+\\
 Se añade funcionalidad de generación de problemas de tipo Aho-Sethi-Ullman implementando un algoritmo de búsqueda aleatoria.
 La generación se realiza en función a una serie de parámetros dados por el usuario.
 
@@ -54,7 +52,7 @@ Implementación del algoritmo de Thompson para la resolución de problemas de ex
 
 El algoritmo de Thompson requeriría capacidades de dibujado de grafos para ser implementado correctamente.
 Se implementa un tipo de problema relacionado, el de construcción de subconjuntos, a partir del cual implementaremos el de Thompson más adelante.
-
+\\
 Permite asimismo la generación de problemas de construcción de subconjuntos mediante un algoritmo de búsqueda aleatoria.
 Se comprueba que este algoritmo no resulta eficiente para este tipo de problemas, y se plantea la implementación de un algoritmo genético.
 Completa la generación de documentos latex y en formato Moodle XML, incluyendo opciones de respuesta generadas por el propio programa.
@@ -64,16 +62,16 @@ Completa la generación de documentos latex y en formato Moodle XML, incluyendo 
 
 \subsubsection{Objetivos}
 Se plantean mejoras sobre el contenido de los ejercicios de Aho-Sethi-Ullman y construcción de subconjuntos.
-
+\\
 Asimismo, se plantea el uso de algoritmos genéticos para la generación de problemas de construcción de subconjuntos.
 
 \subsubsection{Desarrollo}
 
 \subsubsection{Resultados}
 Se implementan los cambios solicitados para los ejercicios.
-
+\\
 Añadidas las bases para la implementación de algoritmos genéticos, como la posibilidad de realizar operaciones de mutación sobre las expresiones regulares.
-
+\\
 Se prepara la implementación de generación concurrente de problemas, sin completar la funcionalidad.
 
 \subsection{Versión 0.4 --- 11 de abril a 25 de abril}
