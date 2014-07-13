@@ -33,4 +33,17 @@ En un nivel superior esta la interfaz de usuario, que toma el conjunto de datos 
 
 Esta estructura en niveles significa que podemos tomar cualquier paquete, y utilizarlo de manera completamente independiente, siempre que dispongamos de aquellos que se encuentran en niveles inferiores.
 
-\subsection{Patrones de diseño}
+\section{Java 8 - \emph{expresiones lambda} y \emph{streams}}
+Dos de las novedades introducidas con la versión 8 de Java son los \emph{streams}\footnote{http://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html} y las \empg{expresiones lambda}\footnote{http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html}.
+
+Los \emph{streams} permiten manipular colecciones, aplicándoles operaciones típicas de programación funcional, como pueden ser \emph{map} o \emph{reduce}.
+Una de las ventajas de estas operaciones son que permiten la aplicación de operaciones a cada elemento de una colección sin iterar explicitamente, o la obtención de subconjuntos de la misma que cumplan una condición cualquiera.
+
+La aplicación de operaciones se realiza mediante \emph{expresiones lambda}.
+Las \emph{expresiones lambda} permiten definir una clase de un solo método de manera compacta, encapsulado la operación.
+
+Dado que la salida de la nueva versión de Java ocurrió cuando el desarrollo de la aplicación ya estaba avanzado, la utilización de las nuevas herramientas se da de manera ocasional, y tiene un impacto reducido.
+
+El principal uso de los \emph{stream} se encuentra en las clases encargadas de la generación de expresiones regulares.
+Por ejemplo, las operaciones sobre `poblaciones' de expresiones regulares dentro de un algoritmo genético resultan simples si disponemos de medios de `filtrar' subconjuntos dentro de la colección.
+Usando la función de evaluación del algoritmo genético como argumento para la operación de filtrado sobre el \emph{stream} permite obtener el conjunto de la población que queremos preservar, mutar o cruzar de manera simple y sin recurrir a la iteración explicita sobre la colección.
