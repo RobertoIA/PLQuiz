@@ -69,3 +69,30 @@ El usuario puede añadir o eliminar etiquetas, haciendo que el problema disponga
 \subsection{Integración de un motor de plantillas}
 La herramienta de plantillas que la aplicación utiliza es propia, simple, y se basa en sustitución mediante expresiones regulares.
 Una posible mejora es la introducción de un motor de plantillas externo en forma de librería, que aumente las opciones a la hora de trabajar con las mismas, o que las simplifique.
+
+\section{Más tipos de cuestiones}
+Una de las mayores limitaciones de la aplicación es el reducido número de tipos de problemas de los que dispone, y a partir de los cuales se generan los cuestionarios.
+Una de las mejoras más obvias es una ampliación en el tipo de cuestiones disponibles.
+
+\subsection{Integración con BURGRAM}
+La aplicación BURGRAM\footnote{Carlos Gómez Palacios, Enero 2008, Universidad de Burgos}, desarrollada como proyecto de fín de carrera, permite la resolución de problemas asociados a gramáticas tipos \emph{LL}, \emph{LR}, \emph{SLR} y \emph{LALR}.
+Aunque estos tipos de problemas son bastante diferentes a los que la aplicación resuelve actualmente, se enmarcan también dentro del área de procesamiento del lenguaje.
+Los consideramos, por lo tanto, un añadido interesante a la aplicación.
+
+La aplicación BURGRAM trata la resolución de los problemas paso a paso y a partir de una gramática dada.
+El procesamiento y resolución del problemas están ya resueltos, por lo que su integración consistiría en adaptar la interfaz, añadir los distintos tipos al modelo de documentos y preparar las plantillas.
+Idealmente la integración trataría a BURGRAM como una librería externa, sin incluir directamente su código dentro del proyecto.
+
+\subsection{Compatibilidad con ficheros\emph{GIFT}}
+El formato \emph{GIFT} es el usado por la plataforma de aprendizaje virtual Moodle para el almacenamiento de cuestiones en formato de texto plano.
+Los tipos de preguntas disponibles son:
+\begin{itemize}
+	\item Selección múltiple.
+	\item Verdadero o falso.
+	\item Respuesta corta.
+	\item Rellenar huecos.
+	\item Cuestiones numéricas.
+\end{itemize}
+
+La compatibilidad con este formato nos permitiría importar o incluir con la aplicación un conjunto de preguntas de tipo teórico, que podrían insertarse en los cuestionarios.
+Esto permitiría la creación de cuestionarios y examenes más completos, con preguntas de test, teóricas y resolución de problemas.
