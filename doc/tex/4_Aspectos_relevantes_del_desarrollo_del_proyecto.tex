@@ -1,7 +1,34 @@
 \capitulo{4}{Aspectos relevantes del desarrollo del proyecto}
 
-\section{Arquitectura de la aplicación}
-\subsection{Estructura de paquetes}
+\section{Desarrollo de prototipo}
+En el intervalo de tiempo situado entre la selección del proyecto y el comienzo formal de la primera iteración de desarrollo, se dedicaron recursos al desarrollo de un prototipo de la aplicación.
+Los objetivos de esta fase eran la construcción de una interfaz gráfica que aproximase el diseño final (aunque no todas las funciones estuvieran implementadas), y el desarrollo de una funcionalidad parcial de la aplicación.
+En este caso la funcionalidad parcial era la resolución del primer tipo de cuestiones.
+
+\imagen{prototipo_interfaz}{Interfaz gráfica del prototipo de la aplicación}
+
+El prototipo está limitado a trabajar con un único problema a la vez, las opciones de generación no son funcionales y el botón `Generar' produce siempre la misma expresión.
+A pesar de estas limitaciones, el prototipo aproxima con bastante precisión la interfaz final, y forma la base de resolución de problemas de manera eficaz.
+Es capaz, en concreto, de procesar una expresion regular cualquiera proporcionada como texto, construir a partir de ella un árbol sintáctico, aplicarle el algoritmo de Aho-Sethi-Ullman y mostrar los resultados obtenidos.
+
+\section{Metodología ágil - Scrum}
+El desarrollo del proyecto ha sido enmarcado dentro de una metodología ágil, Scrum\footnote{https://www.scrum.org/}.
+Sin embargo, y debido a las diferentes condiciones entre equipo de desarrollo y las condiciones entre este proyecto y uno más habitual, se han realizado ciertas modificaciones.
+
+En cuanto a roles, volcamos los tres roles que define Scrum («\emph{Product Owner}», «\emph{Development Team}» y «\emph{Scrum Master}») sobre el desarrollador, dado que no tenemos un equipo como tal.
+El rol de «\emph{Product Owner}», especialmente la definición de tareas para el \emph{backlog}, se realizará conjuntamente con el tutor.
+
+Se definen \emph{sprints} de dos semanas, entre los cuales se realiza una reunión con el tutor del proyecto, y al final de cada cuál se completa un entregable.
+Esta reunión cumple las funciones de «\emph{Sprint Planning Meeting}» y «\emph{Sprint Review}», y en ella se revisan los resultados del \emph{sprint} que termina y se definen los objetivos del que comienza.
+No se realizan reuniones diarias («\emph{Daily Scrum}»), resultando innecesarias al contar con un equipo de desarrollo de una persona.
+
+El seguimiento de los sprint se realiza mediante el uso de una herramienta online, Pivotal Tracker\footnote{https://www.pivotaltracker.com/s/projects/1026880}, de manera que resulta accesible a tutor y desarrollador.
+La integración de esta herramienta con el sistema de control de versiones utilizado, Github\footnote{https://github.com/RobertoIA/PLQuiz}, permite la terminación de tareas directamente desde el \emph{commit} que las finaliza.
+Se consideran validadas las tareas cuando se completa su documentación (en forma de \emph{javadoc}), se escriben sus pruebas y estas se ejecutan correctamente.
+
+En el apéndice C describimos en detalle el desarrollo de cada \emph{sprint}, asi como su duración, objetivos y resultados.
+
+\section{Estructura de paquetes}
 La filosofía seguida a la hora de diseñar la estructura de la aplicación se centra en los conceptos de modularidad y reusabilidad.
 Cada paquete pretende ser independiente, y las dependencias externas se reducen lo más posible.
 Esto se traduce en un uso frecuente del patrón `fachada'.
@@ -34,7 +61,7 @@ En un nivel superior esta la interfaz de usuario, que toma el conjunto de datos 
 Esta estructura en niveles significa que podemos tomar cualquier paquete, y utilizarlo de manera completamente independiente, siempre que dispongamos de aquellos que se encuentran en niveles inferiores.
 
 \section{Java 8 - \emph{expresiones lambda} y \emph{streams}}
-Dos de las novedades introducidas con la versión 8 de Java son los \emph{streams}\footnote{http://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html} y las \empg{expresiones lambda}\footnote{http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html}.
+Dos de las novedades introducidas con la versión 8 de Java son los \emph{streams}\footnote{http://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html} y las \emph{expresiones lambda}\footnote{http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html}.
 
 Los \emph{streams} permiten manipular colecciones, aplicándoles operaciones típicas de programación funcional, como pueden ser \emph{map} o \emph{reduce}.
 Una de las ventajas de estas operaciones son que permiten la aplicación de operaciones a cada elemento de una colección sin iterar explicitamente, o la obtención de subconjuntos de la misma que cumplan una condición cualquiera.
