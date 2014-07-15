@@ -4,7 +4,7 @@ Trabajar con una expresión regular dentro de la aplicación implica traducirla 
 Contando con que la expresión es introducida como una cadena de caracteres, utilizaremos un analizador léxico y sintáctico para convertirla en un árbol binario.
 Los algoritmos de generación de árboles son un tema muy estudiado dentro de la programación genética, lo cuál nos permite generar la expresión directamente en forma de árbol implementando un algoritmo ya conocido.
 
-El algoritmo concreto implementado es el del método «full» \cite{koza92}.
+El algoritmo concreto implementado es el del método \emph{full} \cite{koza92}.
 Este método involucra la creación de árboles cuya profundidad viene definida por la longitud del camino entre un extremo cualquiera y la raíz.
 Esto quiere decir que generaremos árboles binarios en los que cada cada nodo no hoja tiene 1 o 2 hijos, y en el que todas las hojas se encuentran a la misma profundidad.
 
@@ -32,7 +32,9 @@ Siendo el objetivo la generación de problemas con unas características dadas, 
 
 Dado que los árboles para las expresiones regulares son árboles binarios, sabemos que el número máximo de nodos está acotado superiormente por la función:
 
-\emph{número de nodos} $ \leq 2^{profundidad} - 1$
+\begin{equation*}
+\text{\em número de nodos} \leq 2^\text{\em profundidad} - 1
+\end{equation*}
 
 La generación de una expresión regular crea los nodos del árbol de la expresión uno a uno, por lo tanto el coste de generar una expresión crecerá con el número de nodos en su árbol sintáctico.
 

@@ -4,16 +4,16 @@
 Las técnicas empleadas en la aplicación y su desarrollo son las siguientes:
 
 \subsection{SCRUM}
-SCRUM\footnote{https://www.scrum.org/} es una metodología ágil que se define como
+SCRUM\footnote{\url{https://www.scrum.org/}} es una metodología ágil que se define como\cite{scrum}
 \begin{quote}
 Un marco de trabajo por el cual las personas pueden acometer problemas complejos 
 adaptativos, a la vez que entregar productos del máximo valor posible productiva y 
-creativamente\cite{scrum}.
+creativamente.
 \end{quote}
-Esta metodología se centra en crear procesos iterativos e incrementales, basandose en experiencias basadas para realizar estimaciones de rendimientos futuros, en base a las cuales tomar decisiones y controlar riesgos.
+Esta metodología se centra en crear procesos iterativos e incrementales, basándose en experiencias pasadas para realizar estimaciones de rendimientos futuros, en base a las cuales tomar decisiones y controlar riesgos.
 
 \subsection{UML}
-UML\footnote{http://www.uml.org/} (\emph{Unified Modeling Language}) es un lenguaje de modelado utilizado en la estructura, comportamiento y arquitectura de aplicaciones.
+UML\footnote{\url{http://www.uml.org/}} (\emph{Unified Modeling Language}) es un lenguaje de modelado utilizado en la estructura, comportamiento y arquitectura de aplicaciones.
 El modelado de aplicaciones se considera una parte fundamental del diseño de las mismas, permitiendo examinar las funcionalidades desde un elevado nivel de abstracción.
 
 \section{Herramientas}
@@ -23,9 +23,9 @@ Las herramientas utilizadas durante el desarrollo del proyecto son las siguiente
 Java es un lenguaje de programación de propósito general \cite{jls8}, concurrente, basado en clases y orientado a objetos.
 Se trata de un lenguaje fuerte y estáticamente tipado, y distingue claramente entre errores en tiempo de compilación y errores en tiempo de ejecución.
 
-La compilación de un programa Java implica su traducción a representación `byte code', que es independiente de la plataforma.
+La compilación de un programa Java implica su traducción a representación \emph{byte code}, que es independiente de la plataforma.
 Esta representación intermedia pasa a ejecutarse sobre la máquina virtual Java.
-Por lo tanto, el código Java sigue la filosofía `write once, run anywhere', siendo compatible con cualquier arquitectura que disponga de una máquina virtual compatible.
+Por lo tanto, el código Java sigue la filosofía \emph{write once, run anywhere}, siendo compatible con cualquier arquitectura que disponga de una máquina virtual compatible.
 
 Java es un lenguaje de relativo alto nivel, en el sentido de que los detalles de representación no son accesibles al programador.
 Incluye una administración automática del almacenamiento de datos en forma del recolector de basura, diseñado para evitar los problemas relacionados con la liberación manual de memoria.
@@ -36,79 +36,78 @@ El lenguaje Java es, a fecha de 2014, uno de los lenguajes de programación más
 Java SE 8 es la edición más reciente del lenguaje de programación Java, y representa la mayor evolución del mismo en su historia.
 
 Añade a la especificación un conjunto relativamente pequeño de nuevas características, mediante las cuales permite combinar modelos de programación orientada a objetos y funcional.
-Estos cambios pretenden favorecer una serie de buenas prácticas --- inmutabilidad, ausencia de estado, composición --- a la vez que mantienen las características de Java --- legibilidad, simplicidad y universalidad.
+Estos cambios pretenden favorecer una serie de buenas prácticas ---inmutabilidad, ausencia de estado, composición--- a la vez que mantienen las características de Java ---legibilidad, simplicidad y universalidad.
 
 Las librerías de la plataforma Java mantienen una evolución paralela a la del lenguaje.
-Esto significa que el uso de las nuevas características --- expresiones lambda, referencias a métodos, interfaces funcionales --- es directamente compatible.
-\cite{jls8}
+Esto significa que el uso de las nuevas características --- expresiones lambda, referencias a métodos, interfaces funcionales --- es directamente compatible\cite{jls8}.
 
 \subsubsection{Eclipse}
-El Eclipse Software Development Kit (Eclipse SDK)\footnote{http://eclipse.org/} es tanto un entorno de desarrollo integrado (IDE) para Java como una base para productos basados en Eclipse Platform.
+El Eclipse Software Development Kit (Eclipse SDK)\footnote{\url{http://eclipse.org/}} es tanto un entorno de desarrollo integrado (IDE) para Java como una base para productos basados en Eclipse Platform.
 
 Eclipse aparece como una herramienta propietaria de IBM que pretendía unificar los entornos de desarrollo ofrecidos a sus clientes y posibilitar la reutilización de componentes entre los mismos.
-El proyecto de código abierto surge en 2001, con la fundación del Eclipse Consortium, que se encarga del desarrollo y administración del proyecto en la actualidad. \cite{website:eclipseFAQ}
+El proyecto de código abierto surge en 2001, con la fundación del Eclipse Consortium, que se encarga del desarrollo y administración del proyecto en la actualidad\cite{website:eclipseFAQ}.
 
-Uno de los puntos fuertes de Eclipse es su capacidad para integrar una variedad de componentes mediante su sistema de plugins, lo cual permite trabajar con una variedad de lenguajes y herramientas.
+Uno de los puntos fuertes de Eclipse es su capacidad para integrar una variedad de componentes mediante su sistema de complementos (\emph{plugins}), lo cual permite trabajar con una variedad de lenguajes y herramientas.
 
 \subsection{JUnit 4}
-JUnit es un sistema software utilizado para realizar pruebas sobre código Java\footnote{http://junit.org/}, formando parte de la familia de herramientas de pruebas xUnit.
+JUnit es un sistema software utilizado para realizar pruebas sobre código Java\footnote{\url{http://junit.org/}}, formando parte de la familia de herramientas de pruebas xUnit.
 Es una de las librerías Java más utilizadas en proyectos de código abierto \cite{website:githubTOP}.
 
 La versión 4 de JUnit extiende y simplifica la funcionalidad de anteriores versiones, haciendo un uso extensivo del sistema de anotaciones de Java.
 
 \subsection{Apache Maven}
-Maven es una herramienta de administración y construcción de proyectos usada principalmente con Java\footnote{http://maven.apache.org/}.
+Maven es una herramienta de administración y construcción de proyectos usada principalmente con Java\footnote{\url{http://maven.apache.org/}}.
 Similar en ciertos aspectos a Apache Ant, pero con un modelo de configuración más simple, y con el objetivo establecer una serie de `buenas prácticas' mediante sus configuraciones por defecto (`Convention over configuration').
 
 Su funcionamiento se basa en la existencia de un fichero de configuración XML, el POM (Project Object Model).
 Este fichero define la construcción, emisión documentación, empaquetado, pruebas, manejo de dependencias y múltiples otras tareas de manera centralizada \cite{mvnEx}.
 
-Maven se estructura en torno a un núcleo central de tamaño mínimo, que puede ser extendido mediante \emph{plugins}.
-Este núcleo es el encargado de descargar los \emph{plugins} que añaden la funcionalidad pedida desde sus repositorios remotos.
+Maven se estructura en torno a un núcleo central de tamaño mínimo, que puede ser extendido mediante complementos (\emph{plugins}).
+Este núcleo es el encargado de descargar los complementos que añaden la funcionalidad pedida desde sus repositorios remotos.
 
 \subsection{SLF4J}
-SLF4J (Simple Logging Facade for Java) sirve como interfaz para varias herramientas de logging\footnote{http://www.slf4j.org/}, permitiendo al usuario cambiar entre una y otra sin realizar modificaciones en el código.
+SLF4J (Simple Logging Facade for Java) sirve como interfaz para varias herramientas de logging\footnote{\url{http://www.slf4j.org/}}, permitiendo al usuario cambiar entre una y otra sin realizar modificaciones en el código.
 Se establece como única dependencia obligatoria, encargándose por si misma de buscar una implementación compatible~\cite{website:slf4j}.
 
-Esta herramienta permite trabajar con, por ejemplo, java.util.logging\footnote{http://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html}, logback\footnote{http://logback.qos.ch/} o log4j\footnote{http://logging.apache.org/log4j/1.2/}.
+Esta herramienta permite trabajar con, por ejemplo, java.util.logging\footnote{\url{http://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html}}, logback\footnote{\url{http://logback.qos.ch/}} o log4j\footnote{\url{http://logging.apache.org/log4j/1.2/}}.
 
 Es una de las librerías más utilizadas en proyectos de código abierto \cite{website:githubTOP}.
 
 \subsection{Logback}
-Logback es una herramienta de logging para Java que se establece como sucesor de Log4J.
-Utiliza el API de SLF4J, por lo cuál puede ser libremente intercambiado por cualquier otro módulo de logging compatible.
+Logback es una herramienta de registro (\emph{logging}) para Java que se establece como sucesor de Log4J.
+Utiliza el API de SLF4J, por lo cuál puede ser libremente intercambiado por cualquier otro módulo de registro compatible.
 
 La configuración de Logback se realiza mediante un pequeño fichero XML, en el cual se especifican los canales de salida, sean archivos o consola.
 Siguiendo la estructura de Apache Maven, Logback permite establecer ficheros de configuración distintos para las etapas de desarrollo y para el producto final.
 Logback refresca la configuración en tiempo de ejecución, permitiendo realizar cambios `en caliente' \cite{website:logback}.
 
-Es la herramienta de logging más utilizada en proyectos de código abierto \cite{website:githubTOP}.
+Es la herramienta de registro más utilizada en proyectos de código abierto \cite{website:githubTOP}.
 
 \subsection{JavaCC}
-JavaCC\footnote{https://javacc.java.net/} (Java Compiler Compiler) es un generador de analizadores sintácticos Java.
+JavaCC\footnote{\url{https://javacc.java.net/}} (\emph{Java Compiler Compiler}) es un generador de analizadores sintácticos Java.
 Funciona mediante la especificación de una gramática en un formato propio.
 A partir de este fichero, la herramienta genera un programa Java capaz de procesar texto y reconocer coincidencias con la gramática.
 
 Además de generador en sí, JavaCC proporciona una serie de herramientas relacionadas, como un constructor de árboles (JJTree) \cite{website:javacc}.
 
 \subsection{JGraphX}
-JGraphX\footnote{https://github.com/jgraph/jgraphx} es una biblioteca de visualización de gráficos para Java de código abierto, derivada de la implementación comercial en JavaScript (mxGraph).
+JGraphX\footnote{\url{https://github.com/jgraph/jgraphx}} es una biblioteca de visualización de gráficos para Java de código abierto, derivada de la implementación comercial en JavaScript (mxGraph).
 En las versiones anteriores la herramienta se conocía como JGraph \cite{website:jgraphx}.
 
 Implementa una serie de funcionalidades básicas para trabajar con grafos, incluyendo visualización e interacción con los mismos.
 De cara a aplicaciones Java, es compatible con Swing y permite exportar las imágenes generadas.
 
 \subsection{Graphviz}
-Graphviz es una herramienta de visualización de gráficos de código abierto\footnote{http://www.graphviz.org/}.
+Graphviz es una herramienta de visualización de gráficos de código abierto\footnote{\url{http://www.graphviz.org/}}.
 Proporciona una manera de representar información estructurada como diagramas, grafos y redes.
-Sus aplicaciones se encuentran en arquitectura de redes, bioinformática, ingenieria del software, diseño de bases de datos y web, machine learning y diseño de interfaces gráficas \cite{website:graphviz}.
+Sus aplicaciones se encuentran en arquitectura de redes, bioinformática, ingeniería del software, diseño de bases de datos y web, aprendizaje automático (\emph{machine learning}) y diseño de interfaces gráficas \cite{website:graphviz}.
 
 La herramienta toma descripciones de gráficos en texto plano y los transforma en diagramas, con varios formatos disponibles.
 El formato `dot', en concreto, permite dibujar grafos dirigidos.
 
 \subsection{Git}
-Git es un sistema de control de versiones distribuido\footnote{http://git-scm.com/}, diseñado para trabajar con proyectos de cualquier tamaño.
-Es un proyecto libre y de código abierto, licenciado bajo la GPL\footnote{http://www.gnu.org/copyleft/gpl.html}.
+Git es un sistema de control de versiones distribuido\footnote{\url{http://git-scm.com/}}, diseñado para trabajar con proyectos de cualquier tamaño.
+Es un proyecto libre y de código abierto, licenciado bajo la GPL\footnote{\url{http://www.gnu.org/copyleft/gpl.html}}.
 
 Una de las características distintivas de Git es su modelo de ramas.
 Git permite mantener múltiples ramas locales independientes, cuya creación, modificación y combinado resulta poco costoso.
@@ -119,14 +118,14 @@ Esto quiere decir que el repositorio local mantiene una copia completa del repos
 Esto permite una variedad de métodos de trabajo, y elimina puntos débiles del sistema \cite{website:git}.
 
 \subsubsection{Github}
-Github\footnote{https://github.com/} proporciona un servicio de almacenamiento de repositorios remotos y un entorno de colaboración para desarrolladores.
+Github\footnote{\url{https://github.com/}} proporciona un servicio de almacenamiento de repositorios remotos y un entorno de colaboración para desarrolladores.
 Actualmente cuenta con más de seis millones de usuarios y 13.5 millones de repositorios \cite{website:github}.
 
-Github proporciona herramientas de seguimiento de proyectos, incluyendo una wiki y un issue tracker por repositorio.
+Github proporciona herramientas de seguimiento de proyectos, incluyendo una wiki y un sistema de seguimiento de problemas (\emph{issue tracker}) por repositorio.
 También es compatible con otras aplicaciones web, como por ejemplo Pivotal Tracker, que facilitan su integración en el proceso de desarrollo.
 
 \subsection{Pivotal tracker}
-Pivotal Tracker\footnote{https://www.pivotaltracker.com} es una herramienta web para el manejo de proyectos ágiles, permitiendo la colaboración del equipo y la administración de tareas.
+Pivotal Tracker\footnote{\url{https://www.pivotaltracker.com}} es una herramienta web para el manejo de proyectos ágiles, permitiendo la colaboración del equipo y la administración de tareas.
 Su API permite la integración con otras herramientas de desarrollo, como por ejemplo Github.
 
 Pivotal Tracker cuenta con una serie de herramientas de generación de informe, con las que podemos ver las tareas finalizadas en cada iteración, gráficos de \emph{burn-down}, etc.
@@ -146,11 +145,21 @@ Esto permite separar casi completamente el contenido del documento de su formato
 
 \subsection{XML}
 \emph{XML} (\emph{Extensive Markup Language}) es un lenguaje de etiquetas que se utiliza para crear documentos estructurados \cite{website:xml}, compuestos de entidades que contienen en su interior datos u otras entidades.
-El estandar fue producido y es desarrollado por el \emph{World Wide Web Consortium}\footnote{http://www.w3.org/}.
+El estándar fue producido y es desarrollado por el \emph{World Wide Web Consortium}\footnote{\url{http://www.w3.org/}}.
 
-Podemos verificar que un documento \emph{XML} tiene el formato correcto validandolo contra su esquema o \emph{DTD} (\emph{Document Type Definition}).
+Podemos verificar que un documento \emph{XML} tiene el formato correcto validándolo contra un lenguaje de definición de esquemas: DTD\footnote{\url{http://es.wikipedia.org}},(\emph{Document Type Definition}), \emph{XML Schema}\footnote{\url{http://www.w3.org/TR/xmlschema-0/}}, RELAX NG\footnote{\url{http://www.relaxng.org/}}...
 También podemos verificar que un documento está `bien formado', es decir, que cumple una serie de reglas gramaticales mínimas.
 
+\subsection{HTML}
+\emph{HTML} (\emph{HyperText Markup Language}) es un lenguaje de etiquetas comúnmente utilizado para definir el contenido de una página web.
+Los navegadores web son capaces de interpretar los ficheros \emph{HTML}, utilizándolos para presentar al usuario la información almacenada en los mismos.
+Las etiquetas no se utilizan para definir la presentación del documento, sino su estructura.
+
+\subsection{CSS}
+\emph{CSS} (\emph{Cascading Style Sheets}) es un lenguaje utilizado para describir la apariencia, formato y presentación de un documento \emph{HTML}.
+El objetivo de \emph{CSS} es la separación del contenido del documento de su presentación, combinandose con \emph{HTML} para definir una página web completa.
+Funciona mediante la definición de una serie de reglas que se aplican en `cascada' al documento, siguiendo una prioridad determinada.
+
 \subsection{ObjectAid UML Explorer}
-ObjectAid UML Explorer\footnote{http://www.objectaid.com/} es un \emph{plugin} de visualización de código para eclipse.
+ObjectAid UML Explorer\footnote{\url{http://www.objectaid.com/}} es un \emph{plugin} de visualización de código para eclipse.
 Permite mostrar el código fuente de un proyecto Java en forma de diagramas UML, reflejando el estado y las relaciones en el código, y actualizandose a medida que el código cambia.

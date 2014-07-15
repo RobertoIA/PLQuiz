@@ -2,14 +2,20 @@
 
 \section{Algoritmo de McNaughton-Yamada-Thompson}
 
-Utilizaremos el algoritmo de McNaughton-Yamada-Thompson \cite{dragon} \cite{Thompson:1968:PTR:363347.363387} para convertir una expresión regular cualquiera en un autómata finito determinista que defina el mismo lenguaje.
+Utilizaremos el algoritmo de McNaughton-Yamada-Thompson \cite{5221603, Thompson:1968:PTR:363347.363387} para convertir una expresión regular cualquiera en un autómata finito determinista que defina el mismo lenguaje.
 
 El algoritmo construye un autómata finito no determinista (AFND) a partir de una expresión regular analizando de forma recursiva sus partes constituyentes (subexpresiones).
-El algoritmo crea un AFND para cada subexpresión y las une teniendo en cuenta el operador que las combina
+El algoritmo crea un AFND para cada subexpresión y las une teniendo en cuenta el operador que las combina.
 El algoritmo puede implementarse mediante un recorrido de arriba a abajo del árbol sintáctico que representa la expresión regular.
 
-Para empezar realizamos un análisis de la expresión regular, dividiendola en las expresiones que la componen.
+Para empezar realizamos un análisis de la expresión regular, dividiéndola en las expresiones que la componen.
 Para construir el autómata final iremos construyendo autómatas para cada una de las subexpresiones, y uniendo los autómatas según las operaciones entre expresiones.
+
+\subsection{Autómata finito}
+Un autómata finito es un modelo que define un número finito de estados en los que puede encontrarse en un momento dado.
+Entre los estados encontramos transiciones, que definen la condición ante la cual pasamos de un estado a uno de los siguientes.
+Un autómata finito es determinista si para una condición y un estado contamos con un único estado resultante.
+Un autómata finito es no determinista si incluye transiciones que no requieren condición para cumplirse, y si es capaz de transicionar a más de un estado a partir de un comienzo y una condición dadas.
 
 \subsection{Expresión vacía}
 En el caso de que quisieramos generar un autómata para la expresión vacía:
@@ -73,7 +79,7 @@ Con esto hemos conseguido el autómata capaz de reconocer el lenguaje definido p
 \imagen{thompson-ejemplo-cierre}{Autómata para la expresión $(a|b)^*$}
 
 \section{Algoritmo de Aho-Sethi-Ullman}
-El algoritmo de Aho-Sethi-Ullman \cite{dragon} \cite{5221603} consiste en el cálculo de una serie de funciones a partir del árbol de la expresión regular, a partir de los cuales se genera la tabla de transición del autómata.
+El algoritmo de Aho-Sethi-Ullman \cite{dragon} consiste en el cálculo de una serie de funciones a partir del árbol de la expresión regular, a partir de los cuales se genera la tabla de transición del autómata.
 
 Las funciones calculadas son anulable, primera posición, ultima posición y siguiente posición.
 

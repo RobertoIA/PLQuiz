@@ -5,7 +5,7 @@
 \subsection{Requerimientos}
 La aplicación cuenta con los siguientes requerimientos:
 \begin{itemize}
-	\item Java 8\footnote{http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html}
+	\item Java 8\footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html}}
 	\item Windows
 	\begin{itemize}
 		\item Windows 8 (Desktop) / Windows 7 / Windows Vista SP2 / Windows Server 2008 / Windows Server 2012 (64-bit)
@@ -24,7 +24,7 @@ La aplicación cuenta con los siguientes requerimientos:
 	\end{itemize}
 \end{itemize}
 
-Los requerimientos del sistema vienen dados por la instalación de Java\footnote{http://java.com/en/download/help/sysreq.xml}.
+Los requerimientos del sistema vienen dados por la instalación de Java\footnote{\url{http://java.com/en/download/help/sysreq.xml}}.
 
 \subsection{Instalación y ejecución}
 \subsubsection{Instalación}
@@ -43,33 +43,33 @@ Existen dos métodos posibles de ejecución.
 \end{itemize}
 
 \subsection{Resolución de problemas}
-La aplicación dispone de dos tipos distintos de problema con los que componer cuestionarios.
+La aplicación permite la evaluación de conocimientos sobre dos tipos de algoritmos, mediante la composición de cuestionarios.
 Cada uno de estos tipos dispone de tres sub-tipos adicionales, que se centran en aspectos distintos de un mismo problema general.
 Los tipos y sub-tipos disponibles son los siguientes:
 \begin{itemize}
-	\item Problemas de aplicación del algoritmo de Aho-Sethi-Ullman
+	\item Evaluación de conocimientos de aplicación del algoritmo de Aho-Sethi-Ullman
 	\begin{itemize}
-		\item Problemas de construcción de árbol.
+		\item Evaluación de la construcción de árbol sintáctico.
 		El objetivo es construir el árbol sintáctico correspondiente a la expresión regular dada, o elegir el correcto de entre los proporcionados.
-		\item Problemas de etiquetado de árbol.
+		\item Evaluación de etiquetado del árbol.
 		Tienen como objetivo el etiquetado de cada nodo del árbol sintáctico correspondiente a una expresión regular con sus correspondientes conjuntos \emph{primerapos} y \emph{últimapos}, indicando además si son o no anulables.
-		\item Problemas de construcción de tablas.
-		El sub-tipo de problema más completo dentro de esta clase, asume la ejecución de los otros dos sub-tipos como paso previo a su resolución.
+		\item Preguntas sobre construcción de tablas.
+		El sub-tipo de cuestión más completo dentro de esta clase, asume la ejecución de los otros dos sub-tipos como paso previo a su resolución.
 		Tiene como objetivo rellenar las tablas \emph{siguientepos} y de transición.
 	\end{itemize}
-	\item Problemas de aplicación del algoritmo de McNaughton-Yamada-Thompson
+	\item Preguntas sobre la aplicación del algoritmo de McNaughton-Yamada-Thompson
 	\begin{itemize}
-		\item Problema de construcción de autómata.
+		\item Evaluación de la construcción del autómata.
 		Tiene como objetivo construir el autómata finito correspondiente con la expresión regular dada, o elegir el correcto de entre los dados.
-		\item Problema de resolver expresión.
-		El objetivo de este sub-tipo de problemas es la obtención de una tabla de transición a partir de una expresión regular dada.
+		\item Preguntas sobre la resolución de la expresión.
+		El objetivo de este sub-tipo de cuestiones es la obtención de una tabla de transición a partir de una expresión regular dada.
 		Asume la construcción del autómata como paso intermedio, combinando los otros dos sub-tipos de problema.
-		\item Problema de resolver autómata.
+		\item Preguntas sobre resolución del autómata.
 		Consiste en obtener la tabla de transición de un autómata finito dado.
 	\end{itemize}
 \end{itemize}
 
-\subsubsection{Añadir un problema}
+\subsubsection{Añadir una pregunta}
 El añadido de problemas se realiza mediante los controles situados en la parte inferior izquierda de la ventana.
 La lista desplegable permite seleccionar el tipo de problema deseado.
 
@@ -81,35 +81,35 @@ Existe la posibilidad de añadir bloques de múltiples problemas de cualquiera d
 El método para realizarlo se detalla en la sección \emph{generación de problemas}.
 
 \subsubsection{Formato de la expresión regular}
-La expresión regular debe concordar con un formato especifico para ser correctamente reconocida por el parser.
+La expresión regular debe concordar con un formato específico para ser correctamente reconocida por el parser.
 \begin{itemize}
 	\item Todo paréntesis de apertura `(' debe ir acompañado por un paréntesis de cierre `)'.
 	\item Los símbolos utilizados deben ser una letra minúscula (a-z) o el símbolo `\$'.
-	\item El caracter que representa la cadena vacía ($ \epsilon $) se representa con la letra `E' o con el caracter unicode \emph{\\u03B5}.
+	\item El carácter que representa la cadena vacía ($ \epsilon $) se representa con la letra `E' o con el carácter unicode \emph{\\u03B5}.
 	\item La operación de cierre se representa con el símbolo `*', y va siempre precedida de un símbolo o de $ \epsilon $.
-	\item La operación de concatenación se representa con el símbolo `.' o con el caracter unicode \emph{\\u2027}.
+	\item La operación de concatenación se representa con el símbolo `.' o con el carácter unicode \emph{\\u2027}.
 	\item La operación de unión se representa con el símbolo `$ | $'.
 	\item Se admiten espacios en blanco en el interior de la expresión.
 \end{itemize}
 
-\subsubsection{Eliminar un problema}
+\subsubsection{Eliminar una pregunta}
 La eliminación de un problema concreto se realiza mediante el botón situado a la izquierda de la caja de texto que contiene la expresión regular, identificado con el símbolo `-'.
 
-\imagen{manual_eliminar}{Contról de eliminación de problemas}
+\imagen{manual_eliminar}{Control de eliminación de preguntas}
 
-La otra opción de eliminación de problemas permite eliminar el cuestionario completo y empezar de cero.
+La otra opción de eliminación de preguntas permite eliminar el cuestionario completo y empezar de cero.
 Resulta accesible desde el menú `Archivo', tomando la opción de `Documento en blanco'.
 
 \imagen{manual_nuevo}{Control de generación de nuevo documento en blanco}
 
-Es importante remarcar que la eliminación de los problemas es \emph{definitiva}.
+Es importante remarcar que la eliminación de las preguntas es \emph{definitiva}.
 
 \subsubsection{Tipos y sub-tipos de problema}
 
-\subsection{Generación de problemas}
+\subsection{Generación de preguntas}
 
-\subsubsection{Características del problema}
-A la hora de generar un problema tenemos la opción de definir ciertas características del mismo, incluyendo:
+\subsubsection{Características de la preguntas}
+A la hora de generar una pregunta tenemos la opción de definir ciertas características del mismo, incluyendo:
 \begin{itemize}
 	\item Si la expresión regular asociada incorporará $ \epsilon $.
 	\item El número de símbolos contenidos en la expresión regular, empezando por la `a' y sin incluir $ \epsilon $.
@@ -118,44 +118,44 @@ A la hora de generar un problema tenemos la opción de definir ciertas caracter�
 \end{itemize}
 Las características se definen en la parte inferior del recuadro del problema.
 
-\imagen{manual_caracteristicas}{Características seleccionadas y problema generado}
+\imagen{manual_caracteristicas}{Características seleccionadas y pregunta generada}
 
 \subsubsection{Generación de expresiones}
-Una vez definidas las características del problema deseado, pulsar el botón `Generar' comenzará la búsqueda de una expresión regular que produzca dicho problema.
-Mientras la aplicación realiza la búsqueda, se mostrará una barra de progreso en la parte inferior del recuadro del problema, y el botón de `Generar' se transformará en el botón de `Cancelar'.
+Una vez definidas las características de la pregunta deseada, pulsar el botón `Generar' comenzará la búsqueda de una expresión regular que produzca dicha pregunta.
+Mientras la aplicación realiza la búsqueda, se mostrará una barra de progreso en la parte inferior del recuadro de la pregunta, y el botón de `Generar' se transformará en el botón de `Cancelar'.
 Dicho botón puede usarse durante la búsqueda para cancelar la operación.
 
-\imagen{manual_generacion}{Generación de problema en curso}
+\imagen{manual_generacion}{Generación de pregunta en curso}
 
-Una vez generado el problema, la solución se muestra automáticamente de acuerdo con el sub-tipo de problema seleccionado.
+Una vez generado la pregunta, la solución se muestra automáticamente de acuerdo con el sub-tipo de pregunta seleccionado.
 
-La generación de problemas se realiza en un proceso aislado, por lo que es posible interactuar con la interfaz durante el proceso, o generar múltiples problemas al mismo tiempo.
+La generación de preguntas se realiza en un proceso aislado, por lo que es posible interactuar con la interfaz durante el proceso, o generar múltiples preguntas al mismo tiempo.
 
-\subsubsection{Generación de bloques de problemas}
-La aplicación no está limitada a la generación de problemas individuales, sino que puede generar un número arbitrario de problemas de cualquier tipo.
-Para evitar la generación de un gran número de problemas similares, la aplicación permite introducir un rango de variación, dentro de los cuales se encontrarán las características de los problemas generados.
+\subsubsection{Generación de bloques de preguntas}
+La aplicación no está limitada a la generación de preguntas individuales, sino que puede generar un número arbitrario de preguntas de cualquier tipo.
+Para evitar la generación de un gran número de preguntas similares, la aplicación permite introducir un rango de variación, dentro de los cuales se encontrarán las características de las preguntas generados.
 
-El acceso a la herramienta de generación de problemas en bloque se encuentra en el menú `Archivo', seleccionando la opción `Generar bloque de problemas'.
+El acceso a la herramienta de generación de preguntas en bloque se encuentra en el menú `Archivo', seleccionando la opción `Generar bloque de problemas'.
 
-\imagen{manual_menu_bloque}{Opción de menu para generación de problemas en bloque}
+\imagen{manual_menu_bloque}{Opción de menú para generación de preguntas en bloque}
 
-Dentro de la interfaz de generación de problemas podemos especificar el número de problemas de cada tipo principal que queremos generar.
-Cada tipo de problemas permitirá seleccionar un sub-tipo, al cuál pertenecerán todos.
+Dentro de la interfaz de generación de preguntas podemos especificar el número de preguntas de cada tipo principal que queremos generar.
+Cada tipo de preguntas permitirá seleccionar un sub-tipo, al cuál pertenecerán todas.
 
-La selección de características deseadas tiene los mismos efectos que en la interfaz princial, con la diferencia de que permite especificar una variación.
-Los problemas generados en este bloque se ajustarán al rango definido entre el valor dado a la característica menos la variación, y el valor más la variación.
+La selección de características deseadas tiene los mismos efectos que en la interfaz principal, con la diferencia de que permite especificar una variación.
+Las preguntas generados en este bloque se ajustarán al rango definido entre el valor dado a la característica menos la variación, y el valor más la variación.
 
-\imagen{manual_bloque}{Interfaz de generación de problemas en bloque}
+\imagen{manual_bloque}{Interfaz de generación de preguntas en bloque}
 
-Al igual que la generación de problemas normal, la generación en bloque muestra una barra de progreso y permite la cancelación.
+Al igual que la generación de preguntas normal, la generación en bloque muestra una barra de progreso y permite la cancelación.
 
-Una limitación de este método es que todos los problemas de un tipo dado que se generen pertenecerán al mismo sub-tipo.
+Una limitación de este método es que todos las preguntas de un tipo dado que se generen pertenecerán al mismo sub-tipo.
 
-\subsection{Exportado de cuestionarios}
-El exportado del cuestionario actual se realiza mediante el menú `Exportar' de la barra de herramientas, seleccionando el formato deseado.
+\subsection{Exportación de cuestionarios}
+La exportación del cuestionario actual se realiza mediante el menú `Exportar' de la barra de herramientas, seleccionando el formato deseado.
 El cuestionario exportado no mostrará siempre el mismo aspecto que en la vista previa, y puede variar según el formato, de manera que la presentación sea la más adecuada en cada caso.
 
-\imagen{manual_exportar}{Menu exportar, con todas las opciones de exportado de cuestionarios}
+\imagen{manual_exportar}{Menú exportar, con todas las opciones de exportado de cuestionarios}
 
 \subsubsection{Vista previa}
 A diferencia del resto de formatos, la traducción de cuestionarios al formato de vista previa no está disponible al usuario, y se utiliza únicamente para la vista que aparece en el lado derecho de la interfaz gráfica.
@@ -173,7 +173,7 @@ Para ello codificamos la imagen en forma de cadena de caracteres de 64 bits, y l
 
 El importado del cuestionario \emph{cloze} se realiza en el menú `Banco de preguntas' de Moodle, sección `importar', y eligiendo el formato `Formato Moodle XML'.
 
-\imagen{manual_importar_moodle}{Menu de importación de cuestionarios Moodle}
+\imagen{manual_importar_moodle}{Menú de importación de cuestionarios Moodle}
 
 Una vez completado el proceso de importado, podemos ver las cuestiones individuales que se han añadido al banco de preguntas.
 La aplicación marca cada cuestión generada con una identificación, indicando el tipo y sub-tipo de cada una.
@@ -191,7 +191,7 @@ Los nombres dados a las imágenes son automáticos y únicos para cada imagen.
 
 \subsubsection{\LaTeX{} con imágenes \emph{Graphviz}}
 Este modo de exportado es idéntico al modo \LaTeX{} por defecto, salvo en el modo en que exporta las imágenes.
-En lugar de generar la imagen directamente, lo que se exportan son programas en formato \emph{dot} para cada imagen, que pueden ejecutarse utilizando la herramienta \emph{Graphviz}.
+En lugar de generar la imagen directamente, lo que se exportan son programas en formato \emph{dot} para cada imagen, que pueden compilarse a pdf o a otros formatos utilizando la herramienta \emph{Graphviz}.
 
 Una vez generadas las imágenes, y sin importar el formato en que \emph{Graphviz} las emita, la compilación del documento \LaTeX{} es capaz de incluirlas directamente.
 
@@ -200,17 +200,17 @@ Una vez generadas las imágenes, y sin importar el formato en que \emph{Graphviz
 \subsection{Requerimientos}
 La preparación del proyecto para su desarrollo y empaquetado requiere obligatoriamente las siguientes herramientas:
 \begin{itemize}
-	\item Entorno de desarrollo Java 8 (Java JDK 8)\footnote{http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html}
-	\item Apache Maven\footnote{http://maven.apache.org/} versión 3 o posterior
+	\item Entorno de desarrollo Java 8 (Java JDK 8)\footnote{\url{http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html}}
+	\item Apache Maven\footnote{\url{ttp://maven.apache.org/}} versión 3 o posterior
 \end{itemize}
 
-Opcionalmente puede trabajarse con Eclipse como \emph{IDE}, con el \emph{plugin} de \emph{JavaCC}\footnote{http://eclipse-javacc.sourceforge.net/}.
-El \emph{plugin} de Maven es opcional.
+Opcionalmente puede trabajarse con Eclipse como \emph{IDE}, con el complemento de \emph{JavaCC}\footnote{\url{http://eclipse-javacc.sourceforge.net/}}.
+El complemento de Maven es opcional.
 Java 8 exige Eclipse versión Luna o posterior.
 
 \subsection{Preparación del proyecto}
 \subsubsection{Descarga desde control de versiones}
-El proyecto puede obtenerse directamente o a traves de su repositorio de Github\footnote{https://github.com/RobertoIA/PLQuiz}. Puede descargarse como un fichero comprimido mediante la opción `Download ZIP', utilizando uno de los clientes propietarios de Github con la opción `Clone in Desktop', o mediante la linea de comandos de git utilizando la URL de clonado\footnote{https://github.com/RobertoIA/PLQuiz.git}.
+El proyecto puede obtenerse directamente o a traves de su repositorio de Github\footnote{\url{https://github.com/RobertoIA/PLQuiz}}. Puede descargarse como un fichero comprimido mediante la opción \emph{Download ZIP}, utilizando uno de los clientes propietarios de Github con la opción \emph{Clone in Desktop}, o mediante la línea de comandos de git utilizando la URL de clonado\footnote{\url{https://github.com/RobertoIA/PLQuiz.git}}.
 
 \imagen{manual_github}{Opciones de descarga desde control de versiones}
 
@@ -224,7 +224,7 @@ En caso de utilizarse Eclipse, este comando resulta redundante, y el procedimien
 
 \subsubsection{Trabajando con Eclipse}
 En caso de utilizarse Eclipse como entorno de desarrollo, Maven nos permite realizar la resolución de dependencias y la conversión del proyecto a proyecto de Eclipse en un solo paso.
-Esto se realiza con el plugin de Eclipse para Maven (y no viceversa), que Maven se encargará de descargar automáticamente si no hemos utilizado antes.
+Esto se realiza con el complemento de Eclipse para Maven (y no viceversa), que Maven se encargará de descargar automáticamente si no hemos utilizado antes.
 
 El siguiente comando debe ejecutarse en el directorio que contenga el fichero \emph{pom.xml}:
 \begin{verbatim}
@@ -234,7 +234,7 @@ Una vez ha terminado, podemos importar el proyecto desde eclipse con el menú `F
 La opción a utilizar es `Existing Projects into Workspace', a la que solo tenemos que indicarle donde se encuentra almacenado el proyecto.
 
 \subsubsection{Compilación y empaquetado}
-La preparación de la aplicación para su uso se realiza con Maven, que se encarga de controlar las versiones, empaquetar las librerias necesarias y realizar los test.
+La preparación de la aplicación para su uso se realiza con Maven, que se encarga de controlar las versiones, empaquetar las bibliotecas necesarias y realizar los test.
 Para realizar el empaquetado de manera normal, ejecutaremos el siguiente comando en el directorio raíz del proyecto, donde encontremos el fichero \emph{pom.xml}.
 \begin{verbatim}
 	mvn package
@@ -243,4 +243,16 @@ En caso de querer saltarnos la realización de test podemos utilizar el siguient
 \begin{verbatim}
 	mvn package -Dmaven.test.skip=true
 \end{verbatim}
-El fichero \emph{.jar} generado se encontrará en la carpeta `target', situada en la raíz del proyecto.
+El fichero \emph{.jar} generado se encontrará en la carpeta \emph{target}, situada en la raíz del proyecto.
+
+\subsection{Entorno Moodle}
+La utilización de los cuestionarios exportados en formato Moodle XML requiere de la instalación de un entorno Moodle.
+Los requerimientos del entorno son los siguientes:
+\begin{itemize}
+	\item Sistema operativo OS X, Windows o Linux
+	\item 160MB de espacio libre en disco
+	\item Procesador de 1GHZ
+\end{itemize}
+
+El proceso de instalación\footnote{\url{http://docs.moodle.org/27/en/Installing\_Moodle}} es relativamente complejo, incluyendo la instalación y configuración de Apache, MySQL y PHP.
+Afortunadamente, Moodle ofrece instaladores completos para Windows\footnote{\url{http://download.moodle.org/windows/}} y OS X\footnote{\url{http://download.moodle.org/macosx/}} que se encargan de la instalación y configuración del entorno completo.
