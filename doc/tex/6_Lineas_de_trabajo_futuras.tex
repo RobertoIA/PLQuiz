@@ -20,11 +20,11 @@ Las mejoras en el algoritmo de generación de árboles afectarían también a lo
 \section{Mejoras a la interfaz gráfica}
 \subsection{Opción de guardado y carga de cuestionarios}
 En la versión actual de la aplicación, los cuestionarios pueden exportarse pero no importarse.
-Esto quiere decir que una vez se cierra el programa no puede continuar trabajandose sobre las preguntas que teníamos, a menos que se cree un cuestionario nuevo y se añadan las preguntas a mano.
+Esto quiere decir que una vez se cierra el programa no puede continuar trabajándose sobre las preguntas que teníamos, a menos que se cree un cuestionario nuevo y se añadan las preguntas a mano.
 
-Se proponen dos posibles implementaciones de un sistema de guardado y carga:
+Se proponen dos posibles implementaciones de un sistema de almacenamiento y carga:
 \begin{itemize}
-	\item El método más evidente es el guardado de los cuestionarios como ficheros separados, ya sea en texto plano, \emph{XML} o cualquier otro formato.
+	\item El método más evidente es el almacenamiento de los cuestionarios como ficheros separados, ya sea en texto plano, \emph{XML} o cualquier otro formato.
 	Lo único que necesitamos conocer para reconstruir un problema es la expresión regular que lo define, y el tipo y sub-tipo de problema con el que se resuelve.
 	Por lo tanto la cantidad de información a almacenar es muy reducida, y el sistema que la almacene y recupere sería simple de implementar.
 	\item Un método más complejo, pero que no requiere guardar ficheros separados, consistiría en la lectura de un fichero exportado y su comparación con la plantilla de la que se generó.
@@ -48,7 +48,7 @@ Se proponen varias implementaciones de cara a la interfaz gráfica:
 \begin{itemize}
 	\item La manera más sencilla de implementar la ordenación sería añadir dos botones al `frame' que representa el problema, uno para mover el problema hacia arriba y otro para moverlo hacia abajo.
 	Es una implementación con usabilidad limitada, ya que tenemos que pulsar el botón tantas veces como posiciones queramos mover el problema.
-	\item Una implementación sencilla y más usable seria el añadir un cuadro de texto o lista desplegable al `frame' del problema, que nos permita seleccionar una nueva posición para el problema.
+	\item Una implementación sencilla y más usable sería el añadir un cuadro de texto o lista desplegable al `frame' del problema, que nos permita seleccionar una nueva posición para el problema.
 	\item La implementación más compleja, pero más adecuada desde el punto de vista de la usabilidad, es la implementación de un sistema de `drag and drop'.
 	Es decir, que la aplicación nos permita arrastrar un problema hasta su nueva posición.
 	El problema de esta idea es que \emph{Swing} no soporta estas operaciones, y añadirlas supondría un esfuerzo de desarrollo considerable.
