@@ -1,102 +1,203 @@
-\apendice{Planificación por \emph{sprint}}
+\apendice{Planificación por \emph{sprint}} \label{sec:Cappendix}
 
 Esta sección detalla el trabajo realizado en cada \emph{sprint} del proyecto. Cada \emph{sprint} dura dos semanas, y corresponde con una serie de objetivos planteados y unos resultados conseguidos.
 Al finalizar se realiza la entrega de una versión funcional de la aplicación.
 
 Se incluye adicionalmente un \emph{sprint} inicial que transcurre entre la asignación del proyecto y el comienzo oficial.
 
-\subsection{Prototipo --- hasta el 28 de febrero}
+\section{Prototipo --- hasta el 28 de febrero}
 
-\subsubsection{Objetivos}
-Desarrollo de un prototipo básico de la aplicación, como base a partir de la cual realizar las decisiones sobre el diseño y la funcionalidad de la aplicación final.
+\subsection{Objetivos}
+Desarrollo de un prototipo básico de la aplicación, como base a partir de la cual realizar las decisiones sobre el diseño de interfaz y la funcionalidad de la aplicación final.
 
-El prototipo debe incluir una interfaz gráfica simple, y debe permitir añadir y resolver problemas básicos. 
-El código se desarrolla con la única intención de demostrar funcionalidad, y será desechado al final de la iteración.
+El prototipo debe incluir una interfaz gráfica simple, y debe permitir resolver al menos uno de los algoritmos planteados. 
+El código se desarrolla con la única intención de demostrar funcionalidad, y será desechado casi en su totalidad al final de la iteración.
 
-\subsubsection{Desarrollo}
-
-\subsubsection{Resultados}
+\subsection{Resultados}
 Al final de esta iteración contamos con una aplicación de interfaz gráfica que incluye un primer esbozo de los elementos que incluirá la aplicación final.
 Algunos de estos elementos no son funcionales, pero se incluyen para referenciar funcionalidad futura.
 
-El prototipo es capaz de procesar expresiones regulares a partir de cadenas de caracteres, extraer un árbol sintáctico de la misma y utilizarlo para obtener las tablas de siguiente posición y transiciones y demás datos correspondientes con el algoritmo de Aho-Sethi-Ullman
+El prototipo es capaz de procesar expresiones regulares a partir de cadenas de caracteres, extraer un árbol sintáctico de la misma y utilizarlo para obtener las tablas de siguiente posición y transiciones y demás datos correspondientes con el algoritmo de Aho-Sethi-Ullman.
 
-\subsection{Versión 0.1 --- 28 de febrero a 14 de marzo}
-% Primera iteración
+Conservaremos (con modificaciones) el procesador de texto y la estructura de datos utilizada para el almacenamiento de expresiones regulares.
 
-\subsubsection{Objetivos}
+\section{Versión 0.1 --- 28 de febrero a 14 de marzo}
+\subsection{Objetivos}
 Diseñar y construir una aplicación como base para el proyecto, sin reutilizar código del prototipo pero con las mismas funcionalidades, e incluyendo documentación y pruebas.
 Se realizarán modificaciones en la arquitectura general de la aplicación para facilitar la generación de ejercicios.
 
 Se propone la idea de implementar un generador de ejercicios aleatorios basado en un algoritmo genético.
 
-\subsubsection{Desarrollo}
+\subsection{Desarrollo}
+Al ser la primera iteración realizada, carecemos de una estimación del progreso.
+Realizando la revisión de la iteración destacamos que es la segunda iteración con más puntos completados, debido al gran número de tareas separadas que acompañan al comienzo del proyecto.
 
-\subsubsection{Resultados}
-Implementación completa y estable del procesador de expresiones regulares y del algoritmo de Aho-Sethi-Ullman.
+\imagen{iteracion_1}{Desarrollo de la primera iteración}
 
-Interfaz funcional y preparada para ser ampliada con elementos posteriores.
+\subsection{Resultados}
+Contamos con una implementación completa y estable del procesador de expresiones regulares y del algoritmo de Aho-Sethi-Ullman.
+La interfaz es funcional y está preparada para ser ampliada con elementos posteriores.
 
-Se añade funcionalidad de generación de problemas de tipo Aho-Sethi-Ullman implementando un algoritmo de búsqueda aleatoria.
-La generación se realiza en función a una serie de parámetros dados por el usuario.
+Se añade funcionalidad de generación de cuestiones de tipo Aho-Sethi-Ullman implementando un algoritmo de búsqueda aleatoria.
+La generación se realiza en función a una serie de parámetros dados por el usuario, que definiran ciertas características de la expresión regular y de los resultados de la cuestión.
 
-\subsection{Versión 0.2 --- 14 de marzo a 28 de marzo}
-% Segunda iteración
+Añadimos la base para el exportado de documentos en dos formatos diferentes: HTML y XML compatible con la plataforma Moodle.
 
-\subsubsection{Objetivos}
+\section{Versión 0.2 --- 14 de marzo a 28 de marzo}
+\subsection{Objetivos}
 Implementación del algoritmo de Thompson para la resolución de problemas de expresiones regulares.
+Esto implica una serie de tareas separadas, como la construcción de autómatas finitos a partir de expresiones regulares, el añadido del tipo de problemas a la interfáz gráfica o su compatibilidad con el sistema de documentos.
 
-\subsubsection{Desarrollo}
+Se pretende también reestructurar la construcción y el almacenamiento de documentos, tomando el trabajo de la iteración anterior como un primer prototipo.
+También se toma con objetivo el añadido de documentos en formato \LaTeX{}.
 
-\subsubsection{Resultados}
+\subsection{Desarrollo}
+Sobrepasamos ampliamente la estimación de tareas a completar, siendo esta la iteración con más puntos completados de todo el desarrollo.
+Se aprovecha el tiempo sobrante para refinar las tareas completadas, avanzando el proyecto todo lo posible.
 
+\imagen{iteracion_2}{Desarrollo de la segunda iteración}
+
+\subsection{Resultados}
 El algoritmo de Thompson requeriría capacidades de dibujado de grafos para ser implementado correctamente.
-Se implementa un tipo de problema relacionado, el de construcción de subconjuntos, a partir del cual implementaremos el de Thompson más adelante.
+Se implementa un tipo de cuestión relacionado, el de construcción de subconjuntos, a partir del cual implementaremos el de Thompson más adelante.
 
-Permite asimismo la generación de problemas de construcción de subconjuntos mediante un algoritmo de búsqueda aleatoria.
-Se comprueba que este algoritmo no resulta eficiente para este tipo de problemas, y se plantea la implementación de un algoritmo genético.
-Completa la generación de documentos latex y en formato Moodle XML, incluyendo opciones de respuesta generadas por el propio programa.
+Completa la generación de documentos latex y en formato Moodle XML.
+Se incluye la funcionalidad encargada de generar múltiples opciones de respuesta para las cuestiones que vayamos a exportar a Moodle.
 
-\subsection{Versión 0.3 --- 28 de marzo a 11 de abril}
-% Tercera iteración
+A pesar de que no estaba planeado, el tiempo sobrante de esta iteración lo dedicamos a preparar un algoritmo de búsqueda aleatoria que permita la generación de cuestiones de construcción de subconjuntos, similar al desarrollado en la iteración anterior para el algoritmo de Aho-Sethi-Ullman.
+Se comprueba que este algoritmo no resulta eficiente para este tipo de cuestiones, y se plantea la implementación de un algoritmo genético en una iteración posterior.
 
-\subsubsection{Objetivos}
+\section{Versión 0.3 --- 28 de marzo a 11 de abril}
+\subsection{Objetivos}
 Se plantean mejoras sobre el contenido de los ejercicios de Aho-Sethi-Ullman y construcción de subconjuntos.
+Asimismo, se plantea el uso de algoritmos genéticos para la generación de cuestiones de construcción de subconjuntos.
 
-Asimismo, se plantea el uso de algoritmos genéticos para la generación de problemas de construcción de subconjuntos.
+\subsection{Desarrollo}
+Esta iteración completa muy pocas tareas, siendo en general la menos productiva del desarrollo.
+Se trabaja en completar ciertas partes de la aplicación desarrolladas en la iteración anterior, pero las tareas más complejas se retrasan hasta la iteración siguiente.
 
-\subsubsection{Desarrollo}
+\imagen{iteracion_3}{Desarrollo de la tercera iteración}
 
-\subsubsection{Resultados}
-Se implementan los cambios solicitados para los ejercicios.
-
+\subsection{Resultados}
+Se implementan los cambios solicitados para los ejercicios, generando las opciones de selección para el formato XML siguiendo el método de una opción correcta, dos opciones similares y una opción obviamente incorrecta.
 Añadidas las bases para la implementación de algoritmos genéticos, como la posibilidad de realizar operaciones de mutación sobre las expresiones regulares.
+Se prepara la implementación de generación concurrente de cuestiones, sin completar la funcionalidad.
 
-Se prepara la implementación de generación concurrente de problemas, sin completar la funcionalidad.
+\section{Versión 0.4 --- 11 de abril a 25 de abril}
+\subsection{Objetivos}
+Se plantea en primer lugar completar el sistema de generación de cuestiones, con los siguientes objetivos:
+\begin{itemize}
+	\item Permitir que la generación se complete de manera concurrente, sin bloquear la interfaz gráfica
+	\item Crear un algoritmo capaz de generar ejercicios de construcción de subconjuntos, posiblemente un algoritmo genético
+	\item Desarrollar un sistema que permita la generación de bloques de ejercicios
+\end{itemize}
 
-\subsection{Versión 0.4 --- 11 de abril a 25 de abril}
-% Cuarta iteración
+\subsection{Desarrollo}
+Esta iteración completa una considerable cantidad de puntos, aunque el total de puntos pendientes apenas cambia debido a las nuevas tareas añadidas.
+Se completan objetivos adicionales, como la funcionalidad que permite visualizar autómatas finitos en forma de imagen en la interfaz gráfica.
+Estos añadidos producen nuevos objetivos, principalmente mejoras, correcciones y ampliaciones a la nueva funcionalidad.
 
-\subsubsection{Objetivos}
+\imagen{iteracion_4}{Desarrollo de la cuarta iteración}
 
-\subsubsection{Desarrollo}
+\subsection{Resultados}
+Se completan todos los objetivos de generación de ejercicios, dando ese subsistema por terminado al margen de retoques o modificaciones menores.
 
-\subsubsection{Resultados}
+Como añadido se prepara el sistema que permite visualizar imágenes en la interfaz gráfica, y se desarrolla la funcionalidad de generar imágenes que representen los autómatas generados por la resolución de ejercicios de aplicación del algoritmo de McNaughton-Yamada-Thompson.
 
-\subsection{Versión 0.5 --- 25 de abril a 9 de mayo}
-% Quinta iteración
+\section{Versión 0.5 --- 25 de abril a 9 de mayo}
+\subsection{Objetivos}
+Como objetivos de esta iteración marcamos en general la mejora de las características ya existentes, y el completado de la funcionalidad que está implementada solo parcialmente.
+Se sugiere, por ejemplo, la inserción de imágenes en documentos XML mediante la codificación de la imagen a cadena de carácteres de 64 bits.
 
-\subsubsection{Objetivos}
+\subsection{Desarrollo}
+Podemos ver como se completan los objetivos de esta iteración, con una subida de tareas pendientes únicamente cuando se añaden nuevas tareas al finalizar el periodo de desarrollo.
 
-\subsubsection{Desarrollo}
+\imagen{iteracion_5}{Desarrollo de la quinta iteración}
 
-\subsubsection{Resultados}
+\subsection{Resultados}
+Este \emph{sprint} completa varios ejercicios adicionales, incluyendo mejoras en la visualización de imágenes de cara a la interfaz, la insercion de imágenes en documentos XML utilizando codificación de 64 bits, y en documentos \LaTeX{} guardándolas como ficheros.
+También corrige problemas con las imágenes generadas, que hacían que no fueran completamente correctas.
 
-\subsection{Versión 0.6 --- 9 de mayo a 23 de mayo}
-% Sexta iteración
+\section{Versión 0.6 --- 9 de mayo a 23 de mayo}
+\subsection{Objetivos}
+Se plantea para esta iteración la ampliación de tipos de cuestiones disponibles, en concreto ejercicios de construcción de árboles sintácticos a partir de expresiones regulares, relacionado con la resolución del algoritmo de Aho-Sethi-Ullman.
+Esto incluye también la generación de imágenes de árboles.
 
-\subsubsection{Objetivos}
+\subsection{Desarrollo}
+La cantidad de puntos completados en esta iteración es irregular, ya que las tareas son amplias y no se dan por completadas hasta cerca del final, coincidiendo con el añadido de las nuevas tareas.
 
-\subsubsection{Desarrollo}
+\imagen{iteracion_6}{Desarrollo de la sexta iteración}
 
-\subsubsection{Resultados}
+\subsection{Resultados}
+Completa el nuevo tipo de ejercicios.
+También completa la integración de los nuevos tipos de ejercicios con el generador de bloques de cuestiones, permitiendo generar cuestiones del tipo y sub-tipo deseados.
+
+\section{Versión 0.7 --- 23 de mayo a 6 de junio}
+\subsection{Objetivos}
+Se marca como objetivo la creación de un sistema de plantillas, que permita la generación de cuestionarios de acuerdo a un formato personalizable, e independiente para cada tipo de cuestión.
+También se trabajará en ampliar la variedad de cuestiones disponibles.
+
+\subsection{Desarrollo}
+Se completan las tareas asignadas satisfactoriamente, así como las tareas añadidas durante el propio \emph{sprint}.
+Se intenta completar las partes principales del desarrollo, de manera que puedan dedicarse las iteraciones posteriores al desarrollo de la memoria.
+
+\imagen{iteracion_7}{Desarrollo de la séptima iteración}
+
+\subsection{Resultados}
+Se completa un nuevo tipo de cuestión, y se da por finalizado el sistema de plantillas.
+Damos por terminado el desarrollo del proyecto, salvo detalles y retoques.
+
+\section{Versión 0.8 --- 6 de junio a 20 de junio}
+\subsection{Objetivos}
+En este \emph{sprint} se comienza a desarrollar la memoria del proyecto a tiempo completo.
+Como actividad adicional se plantea la posibilidad de generar imágenes en un formato extra, compatible con la herramienta Graphviz.
+
+\subsection{Desarrollo}
+Se completan una cantidad satisfactoria de objetivos.
+Podemos ver que quedan pendientes partes de la memoria para las iteraciones posteriores, en forma de tareas adicionales.
+
+\imagen{iteracion_8}{Desarrollo de la octava iteración}
+
+\subsection{Resultados}
+Se completa la parte inicial de la memoria, incluyendo la descripción de herramientas utilizadas en el desarrollo y el apéndice en el que se analiza la generación de expresiones regulares.
+
+\section{Versión 0.9 --- 20 de junio a 4 de julio}
+\subsection{Objetivos}
+El objetivo de esta iteración es avanzar en el desarrollo de la memoria del proyecto, aplicando a la aplicación los retoques que se vean necesarios pero sin añadir nueva funcionalidad.
+
+\subsection{Desarrollo}
+El número de puntos asignados a tareas y el propio número de tareas sufre variaciones, al seleccionarse que partes se incluyen en la memoria.
+
+\imagen{iteracion_9}{Desarrollo de la novena iteración}
+
+\subsection{Resultados}
+Se avanza en el desarrollo de la memoria, incluyendo la parte de conceptos teóricos.
+También se añade un nuevo tipo de cuestión a la aplicación, consistente en emparejar una expresión regular con el autómata finito que resulta de aplicarle el algoritmo de McNaughton-Yamada-Thompson.
+
+\section{Versión 1.0 --- 4 de julio a 18 de julio}
+\subsection{Objetivos}
+La reunión de este último \emph{sprint} se adelanta, al coincidir de otra manera con la fecha de finalización del proyecto.
+Los objetivos son la finalización de la memoria, y la preparación de la entrega final.
+
+\subsection{Desarrollo}
+El gráfico \emph{burn-down} de esta iteración termina antes de lo esperado, dado que el completar este informe entra dentro del propio plazo.
+Este \emph{sprint} completa todas las tareas restantes.
+
+\imagen{iteracion_10}{Desarrollo de la décima iteración}
+
+\subsection{Resultados}
+Se completa la versión final de la memoria, y se preparan todos los materiales para la entrega.
+Con este \emph{sprint} se da por finalizado el proyecto.
+
+\section{Resumen del proceso de desarrollo}
+Observando la figura \ref{fig:puntos_desarrollo} vemos que el número de puntos aceptados en cada \emph{sprint} es altamente irregular.
+Esto se debe al distinto número de tareas en cada sprint, dado que muchas tareas pequeñas completadas tienden a contar más que pocas tareas grandes.
+Asimismo se ve afectado por el avance del curso, con una reducción del trabajo contribuido en las épocas de más actividad.
+
+\imagen{puntos_desarrollo}{Puntos de tarea completados por iteración}
+
+Podemos ver que las primeras iteraciones son las más fructiferas, dado que consiste en sentar las bases del proyecto.
+Estas iteraciones incluyen una cantidad alta de pequeñas tareas muy diversas, pero relativamente simples de completar.
+
+Las últimas iteraciones tienden a tener un número similar ---y más bajo--- de puntos.
+Estos \emph{sprints} están dedicados a la redacción de la memoria, y por tanto constan de tareas amplias (secciones o capítulos completos), que tienen un alto valor en puntos pero que tienden a contribuir menos al total.
