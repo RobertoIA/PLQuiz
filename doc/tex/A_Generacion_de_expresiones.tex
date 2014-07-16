@@ -130,16 +130,27 @@ Es decir, es posible que dos expresiones vecinas tengan características bastant
 Descartamos, por lo tanto, algoritmos de búsqueda como el recocido simulado, que se desplazan por el espacio de búsqueda de vecino a vecino.
 
 \subsection{Búsqueda aleatoria}
-
-El algoritmo de búsqueda aleatoria consiste en generar soluciones completamente al azar hasta encontrar la correcta.
+El algoritmo de búsqueda aleatoria consiste en generar soluciones completamente al azar hasta encontrar una que cumpla con los parámetros de entrada.
 Lo tomamos como posibilidad dado que resulta muy sencillo de implementar, y de que resultará eficiente en el caso de búsquedas sencillas.
 
-% ASU, CS
+Experimentalmente comprobamos que resulta más rápido que el algoritmo genético para la generación de cuestiones de resolución del algoritmo de Aho-Sethi-Ullman.
+Es, sin embargo, extremadamente poco efectivo a la hora de generar ejercicios de aplicación del algoritmo de McNaughton-Yamada-Thompson.
+Utilizaremos, por tanto, esta técnica para el primer tipo de ejercicios, y utilizaremos una alternativa para el segundo.
 
 \subsection{Algoritmo genético}
+Un algoritmo genético funciona generando una `población' de posibles soluciones.
+Con cada iteración del algoritmo ciertas de estas soluciones desaparecen, y nuevas surgen a partir de cruces entre las anteriores.
+Las soluciones existentes pueden sufrir pequeñas modificaciones, o `mutaciones'.
 
-% ASU, CS, Reproducción o mutación
+Las pruebas indican que el algoritmo genético, a diferencia de la búsqueda aleatoria, es perfectamente capaz de generar ejercicios de McNaughton-Yamada-Thompson en un tiempo razonable.
+Será, por lo tanto, el que utilicemos para ese tipo de cuestiones.
+Resulta, sin embargo, más lento que la busqueda aleatoria para las cuestiones de tipo Aho-Sethi-Ullman.
+Esto se debe probablemente a que la búsqueda aleatoria necesita generar un número menor de posibles expresiones regulares para encontrar una solución que el genético necesita para constituir su población inicial.
 
-\section{Conclusiones}
+\subsubsection{Reproducción o mutación}
+En el campo de la programación genética se ha estudiado\cite{Luke98arevised} que la mutación y la reproducción tienden a producir resultados similares.
+La programación genética aplica algoritmos genéticos a árboles de expresiones, en un proceso equivalente al que realiza la aplicación.
+Las conclusiones del estudio son que, aunque una de las técnicas pueda tener ventajas menores sobre la otra, ambas producen resultados similares.
 
-% puede ser que la forma de los árboles de expresiones (nodos hoja con misma profundidad) favorezcan ciertas combinaciones de simbolos / estados y desfavorezcan otras.
+A la hora de elegir una operación o la otra para nuestro algoritmo, tomaremos la de mutación.
+Esta operación resulta más sencilla de implementar, ya que solo trabaja con un único árbol.
