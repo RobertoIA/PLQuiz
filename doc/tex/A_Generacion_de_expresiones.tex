@@ -4,7 +4,7 @@ Trabajar con una expresión regular dentro de la aplicación implica traducirla 
 Contando con que la expresión es introducida como una cadena de caracteres, utilizaremos un analizador léxico y sintáctico para convertirla en un árbol binario.
 Los algoritmos de generación de árboles son un tema muy estudiado dentro de la programación genética, lo cuál nos permite generar la expresión directamente en forma de árbol implementando un algoritmo ya conocido.
 
-El algoritmo concreto implementado es el del método \emph{full} \cite{koza92}.
+El algoritmo concreto implementado es el del método «\emph{full}» \cite{koza92}.
 Este método involucra la creación de árboles cuya profundidad viene definida por la longitud del camino entre un extremo cualquiera y la raíz.
 Esto quiere decir que generaremos árboles binarios en los que cada cada nodo no hoja tiene 1 o 2 hijos, y en el que todas las hojas se encuentran a la misma profundidad.
 
@@ -148,7 +148,7 @@ Resulta, sin embargo, más lento que la busqueda aleatoria para las cuestiones d
 Esto se debe probablemente a que la búsqueda aleatoria necesita generar un número menor de posibles expresiones regulares para encontrar una solución que el genético necesita para constituir su población inicial.
 
 \subsubsection{Reproducción o mutación}
-En el campo de la programación genética se ha estudiado\cite{Luke98arevised} que la mutación y la reproducción tienden a producir resultados similares.
+En el campo de la programación genética se ha estudiado~\cite{Luke98arevised} que la mutación y la reproducción tienden a producir resultados similares.
 La programación genética aplica algoritmos genéticos a árboles de expresiones, en un proceso equivalente al que realiza la aplicación.
 Las conclusiones del estudio son que, aunque una de las técnicas pueda tener ventajas menores sobre la otra, ambas producen resultados similares.
 

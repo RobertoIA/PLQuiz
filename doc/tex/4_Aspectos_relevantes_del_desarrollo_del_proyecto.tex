@@ -11,7 +11,7 @@ El prototipo está limitado a trabajar con un único problema a la vez (ver figu
 A pesar de estas limitaciones, el prototipo aproxima con bastante precisión la interfaz final, y forma la base de resolución de problemas de manera eficaz.
 Es capaz, en concreto, de procesar una expresión regular cualquiera proporcionada como texto, construir a partir de ella un árbol sintáctico, aplicarle el algoritmo de Aho-Sethi-Ullman y mostrar los resultados obtenidos.
 
-\section{Metodología ágil - Scrum}
+\section{Metodología ágil --- Scrum}
 El desarrollo del proyecto ha sido enmarcado dentro de una metodología ágil, Scrum\footnote{\url{https://www.scrum.org/}}.
 Sin embargo, y debido a las diferentes condiciones entre equipo de desarrollo y las condiciones entre este proyecto y uno más habitual, se han realizado ciertas modificaciones.
 
@@ -26,14 +26,14 @@ El seguimiento de los \emph{sprint} se realiza mediante el uso de una herramient
 La integración de esta herramienta con el sistema de control de versiones utilizado, Github\footnote{\url{https://github.com/RobertoIA/PLQuiz}}, permite la terminación de tareas directamente desde el \emph{commit} que las finaliza.
 Se consideran validadas las tareas cuando se completa su documentación (en forma de \emph{javadoc}), se escriben sus pruebas y éstas se ejecutan correctamente.
 
-En el apéndice C (ver~\ref{sec:Cappendix}) describimos en detalle el desarrollo de cada \emph{sprint}, así como su duración, objetivos y resultados.
+En el apéndice~\ref{sec:Cappendix} describimos en detalle el desarrollo de cada \emph{sprint}, así como su duración, objetivos y resultados.
 
 \section{Estructura de paquetes}
 La filosofía seguida a la hora de diseñar la estructura de la aplicación se centra en los conceptos de modularidad y reusabilidad.
 Cada paquete pretende ser independiente, y las dependencias externas se reducen lo más posible.
 Esto se traduce en un uso frecuente del patrón `fachada'.
 
-Cada paquete principal tiene una estructura de dos niveles: el primer nivel contiene las clases `fachada' --- visibles al resto de la aplicación ---, mientras que el segundo (\ruta{.datos}) contiene la lógica y estructuras de datos internas --- utilizadas solo por el paquete `padre' ---.
+Cada paquete principal tiene una estructura de dos niveles: el primer nivel contiene las clases `fachada', visibles al resto de la aplicación, mientras que el segundo (\ruta{.datos}) contiene la lógica y estructuras de datos internas, utilizadas solo por el paquete `padre'.
 
 Podemos dividir los paquetes principales de la aplicación en tres clases:
 \begin{itemize}
@@ -74,3 +74,55 @@ Dado que la salida de la nueva versión de Java ocurrió cuando el desarrollo de
 El principal uso de los \emph{stream} se encuentra en las clases encargadas de la generación de expresiones regulares.
 Por ejemplo, las operaciones sobre `poblaciones' de expresiones regulares dentro de un algoritmo genético resultan simples si disponemos de medios de `filtrar' subconjuntos dentro de la colección.
 Usando la función de evaluación del algoritmo genético como argumento para la operación de filtrado sobre el \emph{stream} permite obtener el conjunto de la población que queremos preservar, mutar o cruzar de manera simple y sin recurrir a la iteración explicita sobre la colección.
+
+\section{Interfaz de usuario}
+La interfaz de usuario en la aplicación se divide en tres niveles:
+\begin{itemize}
+	\item La propia interfaz de la aplicación, desarrollada en Swing, y que es el medio principal de interacción
+	\item El panel de vista previa, dentro de la interfaz.
+	Muestra la resolución de los problemas añadidos, utilizando HTML y CSS, con los cuales Swing es directamente compatible.
+	La generación de imágenes de imágenes se realiza mediante JGraphX, que permite su inserción.
+	\item Los documentos exportados, tanto en formato \LaTeX{} como en XML.
+	El exportado se realiza mediante el sistema de plantillas de la aplicación, y las imágenes se generan de tres maneras posibles:
+	\begin{itemize}
+		\item Generadas mediante JGraphX y almacenadas como fichero, en el exportado de documentos \LaTeX{}
+		\item Como ficheros \emph{dot} compatibles con Graphviz, en el exportado de documentos \LaTeX{} con Graphviz
+		\item Como cadenas de caracteres codificadas en 64 bits, en el exportado de documentos XML compatibles con Moodle
+	\end{itemize}
+\end{itemize}
+
+\subsection{Sistema de plantillas}
+La creación de documentos se realiza utilizando un sistema de plantillas.
+Las plantillas son ficheros del formato correspondiente al documento final a generar (HTML, \LaTeX{} o XML), que contienen un serie de etiquetas en su interior.
+Durante la preparación del documento, estas etiquetas se sustituyen por la información concreta del ejercicio, generando una cuestión completa.
+
+Gracias a las plantillas podemos almacenar información que se repite en cada problema, como por ejemplo el enunciado, sin necesidad de incluirla dentro del código.
+Asimismo estas plantillas son modificables, gracias a lo cual podemos crear cuestionarios personalizados en cualquier estilo que permita el formato de destino.
+
+La aplicación utiliza dos tipos de plantillas:
+\begin{itemize}
+	\item La plantilla base, que contiene la estructura general del documento.
+	Se coloca una etiqueta en el punto en el que se insertarán las cuestiones.
+	Contendrá, por ejemplo, las reglas de estilo CSS y las cabeceras en un documento HTML, o los paquetes a importar en un documento \LaTeX{}.
+	\item Las plantillas de cada tipo individual de ejercicio.
+	Contienen el enunciado y estructura de cada tipo y sub-tipo de cuestión, con etiquetas que indican donde insertar el número de problema y cada una de las partes del mismo.
+	Podemos tener, por ejemplo, una etiqueta que indique donde va la expresión regular, o donde colocamos las imágenes.
+\end{itemize}
+
+\section{Estadísticas}
+\subsection{Código}
+Realizando un análisis del código fuente de la aplicación, obtenemos los siguientes valores estadísticos sobre las características del programa:
+\begin{itemize}
+	\item 17 paquetes
+	\item 69 clases, de las cuales 22 son públicas y 8 son autogeneradas por JavaCC
+	\item 521 métodos
+	\item Más de 12.700 líneas de código
+\end{itemize}
+
+\subsection{Pruebas}
+La aplicación utiliza JUnit 4 para realizar sus pruebas, y cuenta con un total de 149 pruebas, agrupadas en 18 clases.
+Las pruebas excluyen las clases relacionadas con la interfaz gráfica, y aquellas autogeneradas (como por ejemplo las pertenecientes al paquete \ruta{es.ubu.inf.tfg.regex.parser}, generadas por JavaCC).
+
+Las herramientas aplicadas indican una cobertura general superior al 65\%, con más del 90\% en las clases más relevantes.
+
+\imagen{test_cobertura}{Resultados del análisis de cobertura de pruebas}

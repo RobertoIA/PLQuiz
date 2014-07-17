@@ -1,18 +1,18 @@
 \capitulo{6}{Líneas de trabajo futuras}
 
 \section{Algoritmos de generación de árboles de expresión regular}
-El sistema de generación de expresiones regulares actual implementa el método \emph{full} descrito por John R. Koza \cite{koza92}.
+El sistema de generación de expresiones regulares actual implementa el método «\emph{full}» descrito por John R. Koza \cite{koza92}.
 Dicho método genera árboles en los que todas las hojas tienen la misma altura.
 
 Este método permite generar expresiones de forma rápida y resulta relativamente simple de implementar, dado que los árboles no varían en profundidad.
 
-Como desventaja, el método \emph{full} genera un rango de expresiones limitado.
+Como desventaja, el método «\emph{full}» genera un rango de expresiones limitado.
 Esta característica supone un problema a la hora de utilizar las expresiones para generar problemas.
 
 Si agrupamos los problemas según los valores de las características que encontramos para generarlos, podemos ver que la distribución de los mismos no resulta uniforme, sino que se generan muchos problemas con ciertos valores y muy pocos o ninguno con otros.
 Esto resulta problemático si presentamos una interfaz de usuario que permita introducir valores arbitrarios.
 
-En la literatura encontramos definidos otros dos posibles algoritmos, \emph{grow} y \emph{half-and-half} \cite{koza92}.
+En la literatura encontramos definidos otros dos posibles algoritmos, «\emph{grow}» y «\emph{half-and-half}» \cite{koza92}.
 La implementación de uno de estos algoritmos (o de algún otro equivalente) supondría una mejora del sistema de generación y permitiría comprobar como de equilibrada está la distribución de resultados.
 
 Las mejoras en el algoritmo de generación de árboles afectarían también a los algoritmos de búsqueda, permitiendo tal vez utilizar métodos más rápidos o eficientes, y generar problemas más complejos.
@@ -57,7 +57,7 @@ Se proponen varias implementaciones de cara a la interfaz gráfica:
 \section{Mejora del sistema de plantillas}
 \subsection{Personalización de plantillas}
 El sistema de plantillas de la aplicación permite la modificación de las mismas para conseguir documentos personalizados.
-Sin embargo, la personalización de las plantillas requiere modificación y empaquetado del proyecto, o modificación directa de los ficheros del \emph{.jar}.
+Sin embargo, la personalización de las plantillas requiere modificación y empaquetado del proyecto, o modificación directa de los ficheros del \ruta{.jar}.
 
 Una posible mejora sería la opción de proveer plantillas personalizadas.
 Estas plantillas se seleccionarían al realizar la exportación del cuestionario, o desde un menú de opciones en la propia aplicación.
@@ -71,7 +71,7 @@ La herramienta de plantillas que la aplicación utiliza es propia, simple, y se 
 Una posible mejora es la introducción de un motor de plantillas externo en forma de librería, que aumente las opciones a la hora de trabajar con las mismas, o que las simplifique.
 
 \section{Más tipos de cuestiones}
-LA aplicación proporciona un conjunto relativamente amplio de modelos de preguntas, pero, partiendo de la funcionalidad de resolución de algoritmos ya implementada, podrían generarse nuevos tipos de cuestiones para evaluar conocimientos de manera más amplia.
+La aplicación proporciona un conjunto relativamente amplio de modelos de preguntas, pero, partiendo de la funcionalidad de resolución de algoritmos ya implementada, podrían generarse nuevos tipos de cuestiones para evaluar conocimientos de manera más amplia.
 Un ejemplo serían preguntas de emparejamiento, que están directamente soportadas por Moodle y son sencillas de crear en otros formatos.
 
 También se propone la ampliación del sistema de resolución de algoritmos, generando tipos de pregunta totalmente distintos sobre otros temas, de manera que se integren con la aplicación ya existente.
@@ -85,7 +85,7 @@ La aplicación BURGRAM trata la resolución de los problemas paso a paso y a par
 El procesamiento y resolución del problemas están ya resueltos, por lo que su integración consistiría en adaptar la interfaz, añadir los distintos tipos al modelo de documentos y preparar las plantillas.
 Idealmente la integración trataría a BURGRAM como una librería externa, sin incluir directamente su código dentro del proyecto.
 
-\subsection{Compatibilidad con ficheros\emph{GIFT}}
+\subsection{Compatibilidad con ficheros \emph{GIFT}}
 El formato \emph{GIFT} es el usado por la plataforma de aprendizaje virtual Moodle para el almacenamiento de cuestiones en formato de texto plano.
 Los tipos de preguntas disponibles son:
 \begin{itemize}

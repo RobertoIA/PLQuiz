@@ -39,19 +39,19 @@ Añade a la especificación un conjunto relativamente pequeño de nuevas caracte
 Estos cambios pretenden favorecer una serie de buenas prácticas ---inmutabilidad, ausencia de estado, composición--- a la vez que mantienen las características de Java ---legibilidad, simplicidad y universalidad.
 
 Las librerías de la plataforma Java mantienen una evolución paralela a la del lenguaje.
-Esto significa que el uso de las nuevas características --- expresiones lambda, referencias a métodos, interfaces funcionales --- es directamente compatible\cite{jls8}.
+Esto significa que el uso de las nuevas características --- expresiones lambda, referencias a métodos, interfaces funcionales --- es directamente compatible~\cite{jls8}.
 
 \subsubsection{Eclipse}
 El Eclipse Software Development Kit (Eclipse SDK)\footnote{\url{http://eclipse.org/}} es tanto un entorno de desarrollo integrado (IDE) para Java como una base para productos basados en Eclipse Platform.
 
 Eclipse aparece como una herramienta propietaria de IBM que pretendía unificar los entornos de desarrollo ofrecidos a sus clientes y posibilitar la reutilización de componentes entre los mismos.
-El proyecto de código abierto surge en 2001, con la fundación del Eclipse Consortium, que se encarga del desarrollo y administración del proyecto en la actualidad\cite{website:eclipseFAQ}.
+El proyecto de código abierto surge en 2001, con la fundación del Eclipse Consortium, que se encarga del desarrollo y administración del proyecto en la actualidad~\cite{website:eclipseFAQ}.
 
 Uno de los puntos fuertes de Eclipse es su capacidad para integrar una variedad de componentes mediante su sistema de complementos (\emph{plugins}), lo cual permite trabajar con una variedad de lenguajes y herramientas.
 
 \subsection{JUnit 4}
 JUnit es un sistema software utilizado para realizar pruebas sobre código Java\footnote{\url{http://junit.org/}}, formando parte de la familia de herramientas de pruebas xUnit.
-Es una de las librerías Java más utilizadas en proyectos de código abierto \cite{website:githubTOP}.
+Es una de las librerías Java más utilizadas en proyectos de código abierto~\cite{website:githubTOP}.
 
 La versión 4 de JUnit extiende y simplifica la funcionalidad de anteriores versiones, haciendo un uso extensivo del sistema de anotaciones de Java.
 
@@ -66,7 +66,7 @@ Maven se estructura en torno a un núcleo central de tamaño mínimo, que puede 
 Este núcleo es el encargado de descargar los complementos que añaden la funcionalidad pedida desde sus repositorios remotos.
 
 \subsection{SLF4J}
-SLF4J (Simple Logging Facade for Java) sirve como interfaz para varias herramientas de logging\footnote{\url{http://www.slf4j.org/}}, permitiendo al usuario cambiar entre una y otra sin realizar modificaciones en el código.
+SLF4J (Simple Logging Facade for Java) sirve como interfaz para varias herramientas de registro\footnote{\url{http://www.slf4j.org/}} (\emph{logging}), permitiendo al usuario cambiar entre una y otra sin realizar modificaciones en el código.
 Se establece como única dependencia obligatoria, encargándose por si misma de buscar una implementación compatible~\cite{website:slf4j}.
 
 Esta herramienta permite trabajar con, por ejemplo, java.util.logging\footnote{\url{http://docs.oracle.com/javase/8/docs/api/java/util/logging/package-summary.html}}, logback\footnote{\url{http://logback.qos.ch/}} o log4j\footnote{\url{http://logging.apache.org/log4j/1.2/}}.
@@ -74,7 +74,7 @@ Esta herramienta permite trabajar con, por ejemplo, java.util.logging\footnote{\
 Es una de las librerías más utilizadas en proyectos de código abierto \cite{website:githubTOP}.
 
 \subsection{Logback}
-Logback es una herramienta de registro (\emph{logging}) para Java que se establece como sucesor de Log4J.
+Logback es una herramienta de registro para Java que se establece como sucesor de Log4J.
 Utiliza el API de SLF4J, por lo cuál puede ser libremente intercambiado por cualquier otro módulo de registro compatible.
 
 La configuración de Logback se realiza mediante un pequeño fichero XML, en el cual se especifican los canales de salida, sean archivos o consola.
@@ -167,5 +167,13 @@ El objetivo de \emph{CSS} es la separación del contenido del documento de su pr
 Funciona mediante la definición de una serie de reglas que se aplican en `cascada' al documento, siguiendo una prioridad determinada.
 
 \subsection{ObjectAid UML Explorer}
-ObjectAid UML Explorer\footnote{\url{http://www.objectaid.com/}} es un \emph{plugin} de visualización de código para eclipse.
-Permite mostrar el código fuente de un proyecto Java en forma de diagramas UML, reflejando el estado y las relaciones en el código, y actualizandose a medida que el código cambia.
+ObjectAid UML Explorer\footnote{\url{http://www.objectaid.com/}} es un complemento de visualización de código para eclipse.
+Permite mostrar el código fuente de un proyecto Java en forma de diagramas UML, reflejando el estado y las relaciones en el código, y actualizándose a medida que el código cambia.
+
+\subsection{InCode}
+Incode\footnote{\url{http://www.intooitus.com/products/incode}} es una herramienta de análisis de código compatible con Java, C y C++.
+Esta diseñada para detectar posibles defectos de diseño, además de permitir realizar un examen de métricas del software y una exploración gráfica del diseño de la aplicación.
+
+\subsection{EclEmma}
+EclEmma\footnote{\url{http://www.eclemma.org/}} es una herramienta que nos permite examinar la cobertura de pruebas en un proyecto Java.
+Dispone un un complemento para Eclipse que nos permite realizar las comprobaciones directamente desde el IDE.

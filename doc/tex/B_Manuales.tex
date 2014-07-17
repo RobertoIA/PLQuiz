@@ -42,7 +42,7 @@ Existen dos métodos posibles de ejecución.
 	\end{verbatim}
 \end{itemize}
 
-\subsection{Resolución de problemas}
+\subsection{Resolución de ejercicios}
 La aplicación permite la evaluación de conocimientos sobre dos tipos de algoritmos, mediante la composición de cuestionarios.
 Cada uno de estos tipos dispone de tres sub-tipos adicionales, que se centran en aspectos distintos de un mismo problema general.
 Los tipos y sub-tipos disponibles son los siguientes:
@@ -216,7 +216,7 @@ El proyecto puede obtenerse directamente o a traves de su repositorio de Github\
 
 \subsubsection{Resolución de dependencias}
 La resolución de dependencias se realiza directamente mediante Maven.
-Si no va a utilizarse Eclipse como IDE, puede usarse el siguiente comando en el directorio que contenga el fichero \emph{pom.xml}:
+Si no va a utilizarse Eclipse como IDE, puede usarse el siguiente comando en el directorio que contenga el fichero \ruta{pom.xml}:
 \begin{verbatim}
 	mvn dependency:resolve
 \end{verbatim}
@@ -226,16 +226,16 @@ En caso de utilizarse Eclipse, este comando resulta redundante, y el procedimien
 En caso de utilizarse Eclipse como entorno de desarrollo, Maven nos permite realizar la resolución de dependencias y la conversión del proyecto a proyecto de Eclipse en un solo paso.
 Esto se realiza con el complemento de Eclipse para Maven (y no viceversa), que Maven se encargará de descargar automáticamente si no hemos utilizado antes.
 
-El siguiente comando debe ejecutarse en el directorio que contenga el fichero \emph{pom.xml}:
+El siguiente comando debe ejecutarse en el directorio que contenga el fichero \ruta{pom.xml}:
 \begin{verbatim}
 	mvn eclipse:eclipse
 \end{verbatim}
-Una vez ha terminado, podemos importar el proyecto desde eclipse con el menú `File', opción `Import'.
-La opción a utilizar es `Existing Projects into Workspace', a la que solo tenemos que indicarle donde se encuentra almacenado el proyecto.
+Una vez ha terminado, podemos importar el proyecto desde eclipse con el menú `\emph{File}', opción `\emph{Import}'.
+La opción a utilizar es `\emph{Existing Projects into Workspace}', a la que solo tenemos que indicarle donde se encuentra almacenado el proyecto.
 
 \subsubsection{Compilación y empaquetado}
 La preparación de la aplicación para su uso se realiza con Maven, que se encarga de controlar las versiones, empaquetar las bibliotecas necesarias y realizar los test.
-Para realizar el empaquetado de manera normal, ejecutaremos el siguiente comando en el directorio raíz del proyecto, donde encontremos el fichero \emph{pom.xml}.
+Para realizar el empaquetado de manera normal, ejecutaremos el siguiente comando en el directorio raíz del proyecto, donde encontremos el fichero \ruta{pom.xml}.
 \begin{verbatim}
 	mvn package
 \end{verbatim}
@@ -243,7 +243,7 @@ En caso de querer saltarnos la realización de test podemos utilizar el siguient
 \begin{verbatim}
 	mvn package -Dmaven.test.skip=true
 \end{verbatim}
-El fichero \emph{.jar} generado se encontrará en la carpeta \emph{target}, situada en la raíz del proyecto.
+El fichero \ruta{.jar} generado se encontrará en la carpeta \ruta{target}, situada en la raíz del proyecto.
 
 \subsection{Entorno Moodle}
 La utilización de los cuestionarios exportados en formato Moodle XML requiere de la instalación de un entorno Moodle.
@@ -256,3 +256,5 @@ Los requerimientos del entorno son los siguientes:
 
 El proceso de instalación\footnote{\url{http://docs.moodle.org/27/en/Installing\_Moodle}} es relativamente complejo, incluyendo la instalación y configuración de Apache, MySQL y PHP.
 Afortunadamente, Moodle ofrece instaladores completos para Windows\footnote{\url{http://download.moodle.org/windows/}} y OS X\footnote{\url{http://download.moodle.org/macosx/}} que se encargan de la instalación y configuración del entorno completo.
+
+Otra posible opción es Bitnami Stack\footnote{\url{https://bitnami.com/stack/moodle}}, que proporciona instaladores completos para Windows, Linux y OS X, y máquinas virtuales ya preparadas compatibles con VMWare y VirtualBox.
