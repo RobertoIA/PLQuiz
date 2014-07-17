@@ -7,93 +7,34 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular ((a|b*)a*c)*</p>
-				<p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+				<p>Selecciona el árbol sintáctico correspondiente a la siguiente expresión regular ((a|b*)a*c)*. Ten en cuenta que el árbol corresponderá con la expresión aumentada.</p>
 
-				<table border="1" cellspacing="0" align="left">
-				<tbody>
-				<tr>
-					<th></th>
-					<th>anulable?</th>
-					<th>primera-pos</th>
-					<th>última-pos</th>
-				</tr>
-				<tr><td>A</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>B</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>C</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>D</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>E</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>F</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>G</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>H</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>I</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>J</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>K</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>L</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr>
-				</tbody>
+				<table>
+					<tr>
+						<td>
+						<h2>a)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+						<td>
+							<h2>b)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h2>c)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+						<td>
+							<h2>d)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+					</tr>
 				</table>
+
+				<p>
+					Solución: {1:MULTICHOICE:}
+				</p>
 			]]></text>
+			<file name=</file> 
+			<file name=</file> 
+			<file name=</file> 
 			<file name=</file> 
 		</questiontext>
 		<generalfeedback>
@@ -107,87 +48,34 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular (a|b*)c*a</p>
-				<p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+				<p>Selecciona el árbol sintáctico correspondiente a la siguiente expresión regular (a|b*)c*a. Ten en cuenta que el árbol corresponderá con la expresión aumentada.</p>
 
-				<table border="1" cellspacing="0" align="left">
-				<tbody>
-				<tr>
-					<th></th>
-					<th>anulable?</th>
-					<th>primera-pos</th>
-					<th>última-pos</th>
-				</tr>
-				<tr><td>A</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>B</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>C</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>D</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>E</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>F</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>G</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>H</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>I</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>J</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr><tr><td>K</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td><td>
-{1:MULTICHOICE:}
-</td></tr>
-				</tbody>
+				<table>
+					<tr>
+						<td>
+						<h2>a)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+						<td>
+							<h2>b)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h2>c)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+						<td>
+							<h2>d)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+					</tr>
 				</table>
+
+				<p>
+					Solución: {1:MULTICHOICE:}
+				</p>
 			]]></text>
+			<file name=</file> 
+			<file name=</file> 
+			<file name=</file> 
 			<file name=</file> 
 		</questiontext>
 		<generalfeedback>

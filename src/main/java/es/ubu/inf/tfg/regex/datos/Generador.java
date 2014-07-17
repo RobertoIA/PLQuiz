@@ -124,7 +124,13 @@ public class Generador {
 				.filter(e -> !e.esSimbolo() && !e.esVacio())
 				// .filter(e -> e.profundidad() < 2)
 				.collect(Collectors.toList());
-		ExpresionRegular nodo = nodos.get(random.nextInt(nodos.size()));
+		ExpresionRegular nodo;
+		if (nodos.size() > 0)
+			nodo = nodos.get(random.nextInt(nodos.size()));
+		else {
+			log.warn("Problema generando mutaciones para {}: expresion demasiado pequeña.");
+			return expresion;
+		}
 		log.debug("Nodo: {}", nodo);
 		// ExpresionRegular nuevo = arbol(nodo.profundidad());
 		this.esAumentada = false;

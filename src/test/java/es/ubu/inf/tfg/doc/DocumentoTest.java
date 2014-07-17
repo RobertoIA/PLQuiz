@@ -292,10 +292,10 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA));
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB));
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaC));
-		documento.eliminarProblema(Problema.asuEtiquetado(asuProblemaC));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaC));
+		documento.eliminarProblema(Problema.asuConstruccion(asuProblemaC));
 
 		esperado = toString("eliminarASUConstruccion.html");
 		encontrado = documento.vistaPrevia();
@@ -472,10 +472,10 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA));
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB));
-		documento.sustituirProblema(Problema.asuEtiquetado(asuProblemaB),
-				Problema.asuEtiquetado(asuProblemaC));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB));
+		documento.sustituirProblema(Problema.asuConstruccion(asuProblemaB),
+				Problema.asuConstruccion(asuProblemaC));
 
 		esperado = toString("sustituirASUConstruccion.html");
 		encontrado = documento.vistaPrevia();
@@ -646,7 +646,59 @@ public class DocumentoTest {
 	 */
 	@Test
 	public void testIncorporarCSConstruccion() throws IOException {
-		// TODO test
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaA));
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaB));
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaC));
+
+		// Vista previa
+		esperado = toString("incorporarCSConstruccion.html");
+		encontrado = documento.vistaPrevia();
+
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
+				"<p>Solución:</p>");
+
+		assertEquals(
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo construccion a vista previa.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("incorporarCSConstruccion.xml");
+		ficheroTemporal = ficheroTemporal("incorporar.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo construccion a documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("incorporarCSConstruccion.tex");
+		ficheroTemporal = ficheroTemporal("incorporar.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
+
+		assertEquals(
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo construccion a documento Latex exportado.",
+				esperado, encontrado);
 	}
 
 	/**
@@ -658,7 +710,60 @@ public class DocumentoTest {
 	 */
 	@Test
 	public void testEliminarCSConstruccion() throws IOException {
-		// TODO test
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		// Vista previa
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaA));
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaB));
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaC));
+		documento.eliminarProblema(Problema.CSConstruccion(csProblemaC));
+
+		esperado = toString("eliminarCSConstruccion.html");
+		encontrado = documento.vistaPrevia();
+
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
+				"<p>Solución:</p>");
+
+		assertEquals(
+				"Borrado erróneo de problemas de construcción de subconjuntos subtipo construcción en vista previa.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("eliminarCSConstruccion.xml");
+		ficheroTemporal = ficheroTemporal("eliminar.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Borrado erróneo de problemas de construcción de subconjuntos subtipo construcción en documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("eliminarCSConstruccion.tex");
+		ficheroTemporal = ficheroTemporal("eliminar.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
+
+		assertEquals(
+				"Borrado erróneo de problemas de construcción de subconjuntos subtipo construcción en documento Latex exportado.",
+				esperado, encontrado);
 	}
 
 	/**
@@ -670,7 +775,60 @@ public class DocumentoTest {
 	 */
 	@Test
 	public void testSustituirCSConstruccion() throws IOException {
-		// TODO test
+		File ficheroTemporal;
+
+		String esperado;
+		String encontrado;
+
+		// Vista previa
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaA));
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaB));
+		documento.sustituirProblema(Problema.CSConstruccion(csProblemaB),
+				Problema.CSConstruccion(csProblemaC));
+
+		esperado = toString("sustituirCSConstruccion.html");
+		encontrado = documento.vistaPrevia();
+
+		encontrado = encontrado
+				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
+				"<p>Solución:</p>");
+
+		assertEquals(
+				"Sustitución errónea de problemas de construcción de subconjuntos subtipo construcción en vista previa.",
+				esperado, encontrado);
+
+		// Fichero XML
+		esperado = toString("sustituirCSConstruccion.xml");
+		ficheroTemporal = ficheroTemporal("sustituir.xml");
+
+		documento.exportaXML(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		encontrado = encontrado.replaceAll(
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
+				"<file name=</file>");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
+				"{1:MULTICHOICE:}");
+
+		assertEquals(
+				"Sustitución errónea de problemas de construcción de subconjuntos subtipo construcción en documento XML exportado.",
+				esperado, encontrado);
+
+		// Fichero Latex
+		esperado = toString("sustituirCSConstruccion.tex");
+		ficheroTemporal = ficheroTemporal("sustituir.tex");
+
+		documento.exportaLatex(ficheroTemporal);
+		encontrado = toString(ficheroTemporal);
+
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
+
+		assertEquals(
+				"Sustitución errónea de problemas de construcción de subconjuntos subtipo construcción en documento Latex exportado.",
+				esperado, encontrado);
 	}
 
 	/**
