@@ -81,10 +81,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 		this.contenedorPanel = contenedor;
 		this.documento = documento;
 
-		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 5),
-				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
-						"Aho-Sethi-Ullman", TitledBorder.LEADING,
-						TitledBorder.TOP, null, null)));
+		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 25), new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Aho-Sethi-Ullman", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51))));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		this.expresionPanel = new JPanel();
@@ -190,8 +187,6 @@ public class AhoSethiUllmanPanel extends JPanel {
 
 	void problema(Problema<AhoSethiUllman> problema) {
 		if (problemaActual != null) {
-			if (!problema.getProblema().equals(problemaActual))
-				main.eliminaImagen(problemaActual.getProblema().arbolVacio());
 			documento.sustituirProblema(problemaActual, problema);
 		} else {
 			documento.añadirProblema(problema);
@@ -273,10 +268,6 @@ public class AhoSethiUllmanPanel extends JPanel {
 
 						documento
 								.sustituirProblema(problemaActual, asuProblema);
-						main.eliminaImagen(problemaActual.getProblema()
-								.arbolVacio());
-						for(BufferedImage imagen : problemaActual.getProblema().alternativas())
-							main.eliminaImagen(imagen);
 						main.añadeImagen(problema.arbolVacio());
 						for(BufferedImage imagen : problema.alternativas())
 							main.añadeImagen(imagen);
@@ -345,8 +336,6 @@ public class AhoSethiUllmanPanel extends JPanel {
 					asuProblema = Problema.asuConstruccion(problema);
 
 				if (problemaActual != null) {
-					main.eliminaImagen(problemaActual.getProblema()
-							.arbolVacio());
 					main.añadeImagen(asuProblema.getProblema().arbolVacio());
 					for(BufferedImage imagen : asuProblema.getProblema().alternativas())
 						main.añadeImagen(imagen);

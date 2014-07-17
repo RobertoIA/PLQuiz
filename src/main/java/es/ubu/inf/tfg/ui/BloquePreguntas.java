@@ -121,7 +121,7 @@ public class BloquePreguntas extends JDialog {
 //		setResizable(false);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
-		setBounds(100, 100, 343, 532);
+		setBounds(100, 100, 375, 532);
 		getContentPane().setLayout(new BorderLayout(0, 0));
 
 		this.mainPanel = new JPanel();

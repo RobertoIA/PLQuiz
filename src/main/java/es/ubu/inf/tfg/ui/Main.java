@@ -5,6 +5,8 @@ import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.AdjustmentEvent;
+import java.awt.event.AdjustmentListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -67,6 +69,8 @@ public class Main {
 	private Documento documento;
 	private JScrollPane contenedorScroll;
 	private JPanel problemasPanel;
+	private boolean scrollContenedor = true;
+	private boolean scrollVistaPrevia = true;
 
 	public static void main(String[] args) {
 		log.info("Aplicación iniciada");
@@ -85,7 +89,8 @@ public class Main {
 
 	public Main() {
 		try {
-			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+			UIManager.setLookAndFeel(UIManager
+					.getCrossPlatformLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
 			log.error("Error estableciendo el look and feel", e);
@@ -103,7 +108,7 @@ public class Main {
 	private void initialize() {
 		this.frmPlquiz = new JFrame();
 		this.frmPlquiz.setTitle("PLQuiz");
-		this.frmPlquiz.setBounds(100, 100, 1100, 900);
+		this.frmPlquiz.setBounds(100, 100, 1150, 900);
 		this.frmPlquiz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		this.menuBar = new JMenuBar();
@@ -111,7 +116,7 @@ public class Main {
 
 		this.menuArchivo = new JMenu("Archivo");
 		this.menuBar.add(this.menuArchivo);
-		
+
 		this.menuExportar = new JMenu("Exportar");
 		this.menuBar.add(this.menuExportar);
 
@@ -133,8 +138,9 @@ public class Main {
 		this.menuExportarLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuExportar.add(this.menuExportarLatexButton);
-		
-		this.menuExportarGraphvizLatexButton = new JMenuItem("Exportar como LaTeX + Graphviz");
+
+		this.menuExportarGraphvizLatexButton = new JMenuItem(
+				"Exportar como LaTeX + Graphviz");
 		this.menuExportarGraphvizLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuExportar.add(this.menuExportarGraphvizLatexButton);
@@ -168,7 +174,7 @@ public class Main {
 		this.añadirButton = new JButton("+");
 		this.añadirButton.addActionListener(new AddButtonActionListener());
 
-		this.añadirIzquierdoStrut = Box.createHorizontalStrut(40);
+		this.añadirIzquierdoStrut = Box.createHorizontalStrut(50);
 		this.añadirPanel.add(this.añadirIzquierdoStrut);
 		this.añadirPanel.add(this.añadirButton);
 
@@ -177,7 +183,7 @@ public class Main {
 				"Aho-Sethi-Ullman", "McNaughton-Yamada-Thompson" }));
 		this.añadirPanel.add(this.añadirBox);
 
-		this.añadirDerechoStrut = Box.createHorizontalStrut(40);
+		this.añadirDerechoStrut = Box.createHorizontalStrut(50);
 		this.añadirPanel.add(this.añadirDerechoStrut);
 
 		this.vistaPreviaPanel = new JPanel();
@@ -193,12 +199,18 @@ public class Main {
 		this.vistaPreviaText.setContentType("text/html;charset=UTF-8");
 		this.vistaPreviaScroll.add(this.vistaPreviaText);
 		this.vistaPreviaScroll.setViewportView(this.vistaPreviaText);
+
+		contenedorScroll.getVerticalScrollBar().addAdjustmentListener(
+				new ScrollbarContenedorListener());
+		vistaPreviaScroll.getVerticalScrollBar().addAdjustmentListener(
+				new ScrollbarVistaPreviaListener());
 	}
 
 	void añadeAhoSethiUllman(Problema<AhoSethiUllman> problema) {
 		AhoSethiUllmanPanel panel = new AhoSethiUllmanPanel(this,
 				contenedorPanel, documento);
 
+		scrollContenedor = false;
 		if (problema != null)
 			panel.problema(problema);
 
@@ -211,6 +223,7 @@ public class Main {
 		ConstruccionSubconjuntosPanel panel = new ConstruccionSubconjuntosPanel(
 				this, contenedorPanel, documento);
 
+		scrollContenedor = false;
 		if (problema != null)
 			panel.problema(problema);
 
@@ -219,6 +232,7 @@ public class Main {
 	}
 
 	void actualizaVistaPrevia() {
+		scrollVistaPrevia = false;
 		vistaPreviaText.setText(documento.vistaPrevia());
 	}
 
@@ -236,10 +250,6 @@ public class Main {
 		} catch (Exception e) {
 			log.error("Error al añadir imagen.", e);
 		}
-	}
-
-	void eliminaImagen(BufferedImage imagen) {
-		// TODO
 	}
 
 	private class AddButtonActionListener implements ActionListener {
@@ -277,7 +287,9 @@ public class Main {
 						log.info("Exportando fichero Latex a {}.", fichero);
 						documento.exportaLatex(fichero);
 					} else if (source == menuExportarGraphvizLatexButton) {
-						log.info("Exportando fichero Latex con imágenes en graphviz a {}.", fichero);
+						log.info(
+								"Exportando fichero Latex con imágenes en graphviz a {}.",
+								fichero);
 						documento.exportaGraphvizLatex(fichero);
 					}
 				} catch (IOException e) {
@@ -293,6 +305,7 @@ public class Main {
 			documento = new Documento();
 			actualizaVistaPrevia();
 			contenedorPanel.removeAll();
+			contenedorPanel.revalidate();
 		}
 	}
 
@@ -328,6 +341,22 @@ public class Main {
 		@Override
 		public String getDescription() {
 			return "Ficheros LaTeX (*.tex)";
+		}
+	}
+
+	private class ScrollbarContenedorListener implements AdjustmentListener {
+		public void adjustmentValueChanged(AdjustmentEvent e) {
+			if (!scrollContenedor)
+				e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+			scrollContenedor = true;
+		}
+	}
+	
+	private class ScrollbarVistaPreviaListener implements AdjustmentListener {
+		public void adjustmentValueChanged(AdjustmentEvent e) {
+			if (!scrollVistaPrevia)
+				e.getAdjustable().setValue(e.getAdjustable().getMaximum());
+			scrollVistaPrevia = true;
 		}
 	}
 }

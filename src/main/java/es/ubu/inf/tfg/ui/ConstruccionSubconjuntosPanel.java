@@ -82,10 +82,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		this.contenedorPanel = contenedor;
 		this.documento = documento;
 
-		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 5),
-				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
-						"McNaughton-Yamada-Thompson", TitledBorder.LEADING,
-						TitledBorder.TOP, null, null)));
+		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 25), new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "McNaughton-Yamada-Thompson", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51))));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		this.expresionPanel = new JPanel();
@@ -195,7 +192,6 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 	void problema(Problema<ConstruccionSubconjuntos> problema) {
 		if (problemaActual != null) {
 			if (!problema.getProblema().equals(problemaActual)) {
-				main.eliminaImagen(problemaActual.getProblema().automata());
 				documento.sustituirProblema(problemaActual, problema);
 			}
 		} else {
@@ -274,9 +270,6 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 						else
 							csProblema = Problema.CSExpresion(problema);
 						documento.sustituirProblema(problemaActual, csProblema);
-						for(BufferedImage imagen : problemaActual.getProblema().alternativas())
-							main.eliminaImagen(imagen);
-						main.eliminaImagen(problemaActual.getProblema().automata());
 						for(BufferedImage imagen : problema.alternativas())
 							main.añadeImagen(imagen);
 						main.añadeImagen(problema.automata());
@@ -344,9 +337,6 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 					csProblema = Problema.CSExpresion(problema);
 
 				if (problemaActual != null) {
-					main.eliminaImagen(problemaActual.getProblema().automata());
-					for(BufferedImage imagen : problemaActual.getProblema().alternativas())
-						main.eliminaImagen(imagen);
 					main.añadeImagen(problema.automata());
 					for(BufferedImage imagen : problema.alternativas())
 						main.añadeImagen(imagen);
