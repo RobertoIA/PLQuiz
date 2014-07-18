@@ -20,7 +20,7 @@
     <header>
       <div class="inner">
         <h1>PLQuiz</h1>
-        <h2></h2>
+        <h2>Trabajo fin de grado - Grado en Ingeniería Informática</h2>
         <a href="https://github.com/RobertoIA/PLQuiz" class="button"><small>View project on</small>GitHub</a>
       </div>
     </header>
@@ -29,36 +29,51 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+<a name="resumen-del-proyecto" class="anchor" href="#resumen-del-proyecto"><span class="octicon octicon-link"></span></a>Resumen del proyecto</h3>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
-
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>Desarrollo de una herramienta de escritorio que ayude a generar preguntas de test aleatorias (tipo quiz, cloze, de texto libre...) sobre problemas de algoritmos de análisis léxico. El formato utilizado para generar
+las preguntas sera importable a entornos virtuales de aprendizaje (Moodle), y permitira su impresión en papel a través de la obtención de código Latex.</p>
 
 <h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a name="algoritmo-de-aho-sehi-ullman" class="anchor" href="#algoritmo-de-aho-sehi-ullman"><span class="octicon octicon-link"></span></a>Algoritmo de Aho-Sehi-Ullman</h3>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>Calcula una serie de funciones a partir del árbol sintáctico de la expresión regular, utilizándolas para generar la tabla de transición del autómata.
+Las funciones calculadas son:</p>
+
+<ul>
+<li>Primera-pos: conjunto de posiciones que corresponden con los primeros símbolos posibles en las cadenas que define.</li>
+<li>Última-pos: conjunto de posiciones que corresponden con los últimos símbolos.</li>
+<li>Siguiente-pos: conjunto de posiciones que siguen a una posición dada en la expresión. </li>
+</ul><h3>
+<a name="algoritmo-de-mcnaughton-yamada-thompson" class="anchor" href="#algoritmo-de-mcnaughton-yamada-thompson"><span class="octicon octicon-link"></span></a>Algoritmo de McNaughton-Yamada-Thompson</h3>
+
+<p>Utiliza una expresión regular para obtener un autómata finito determinista que define el mismo lenguaje.
+Para construir el autómata recorremos el árbol sintáctico de la expresión recursivamente, construyendo el autómata correspondiente a cada nodo a partir de los autómatas de los nodos inferiores.</p>
 
 <h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<a name="generaci%C3%B3n-de-cuestiones" class="anchor" href="#generaci%C3%B3n-de-cuestiones"><span class="octicon octicon-link"></span></a>Generación de cuestiones</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>La aplicación utiliza algoritmos de búsqueda para generar expresiones regulares que correspondan con un problema de un tipo y características dadas. Las características que determinan el problema a generar son:</p>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<ul>
+<li>Si contiene o no la cadena vacía.</li>
+<li>El número de símbolos diferentes que contiene.</li>
+<li>El número de estados en su tabla de transición correspondiente.
+Los problemas de resolución de problemas del algoritmo de Aho-Sethi-Ullman utilizan un algoritmo de búsqueda aleatoria, los de McNaughton-Yamada-Thompson un algoritmo genético.</li>
+</ul><h3>
+<a name="cuestionarios" class="anchor" href="#cuestionarios"><span class="octicon octicon-link"></span></a>Cuestionarios</h3>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>La aplicación genera cuestionarios en tres posibles formatos:</p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<ul>
+<li>HTML + CSS, utilizado dentro de la propia aplicación para mostrar una vista previa del cuestionario.</li>
+<li>Latex, utilizado para generar cuestionarios que puedan imprimirse en papel, como exámenes.</li>
+<li>Moodle XML, utilizado para generar cuestiones que pueden importarse en la plataforma de aprendizaje virtual.
+y imágenes en otros tres formatos distintos:</li>
+<li>Formato de fichero de imagen común, generado al exportar documentos Latex por defecto.</li>
+<li>Formato de programa dot compatible con <a href="http://www.graphviz.org/">Graphviz</a>, generado al exportar documentos Latex de manera alternativa.</li>
+<li>Formato de cadena de texto de 64 bits, que permite codificar la imagen dentro de documentos XML.</li>
+</ul>
         </section>
 
         <aside id="sidebar">
