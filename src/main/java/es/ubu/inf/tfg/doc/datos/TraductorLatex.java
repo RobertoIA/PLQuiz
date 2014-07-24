@@ -66,10 +66,11 @@ public class TraductorLatex extends Traductor {
 		String imagen = problema.alternativas().get(0).hashCode() + "";
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("|", "\\textbar ");
-		expresion = expresion.replace("\u2027", "·");
-		expresion = expresion.replace("\u03B5", "$\\epsilon$");
-		expresion = expresion.replace("$", "\\$");
+		expresion = expresion.replace("\u2027", "\\cdot ");
+		expresion = expresion.replace("\u03B5", "\\epsilon ");
+		expresion = expresion.replace("$", "\\$ ");
+		expresion = expresion.replace("*", "^*");
+		expresion = "$ " + expresion + " $";
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
@@ -116,15 +117,17 @@ public class TraductorLatex extends Traductor {
 		solucionesL = solucionesL.replace("|", "\\textbar ");
 		solucionesL = solucionesL.replace("\u2027", "·");
 		solucionesL = solucionesL.replace("\u03B5", "$\\epsilon$");
-		solucionesL = solucionesL.replace("$", "\\$");
+		solucionesL = solucionesL.replace("$", "\\$ ");
 
 		solucionesL = "\\begin{tabular} {| c | c | c | c |}\\hline\n"
 				+ solucionesL;
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("|", "\\textbar ");
-		expresion = expresion.replace("\u2027", "·");
-		expresion = expresion.replace("\u03B5", "$\\epsilon$");
+		expresion = expresion.replace("\u2027", "\\cdot ");
+		expresion = expresion.replace("\u03B5", "\\epsilon ");
+		expresion = expresion.replace("$", "\\$");
+		expresion = expresion.replace("*", "^*");
+		expresion = "$ " + expresion + " $";
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
@@ -198,15 +201,17 @@ public class TraductorLatex extends Traductor {
 		fTrans.append("\\end{tabular}");
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("|", "\\textbar ");
-		expresion = expresion.replace("\u2027", "·");
-		expresion = expresion.replace("\u03B5", "$\\epsilon$");
+		expresion = expresion.replace("\u2027", "\\cdot ");
+		expresion = expresion.replace("\u03B5", "\\epsilon ");
+		expresion = expresion.replace("$", "\\$ ");
+		expresion = expresion.replace("*", "^*");
+		expresion = "$ " + expresion + " $";
 		String expresionAumentada = problema.expresionAumentada();
-		expresionAumentada = expresionAumentada.replace("$", "\\$");
-		expresionAumentada = expresionAumentada.replace("|", "\\textbar ");
-		expresionAumentada = expresionAumentada.replace("\u2027", "·");
-		expresionAumentada = expresionAumentada
-				.replace("\u03B5", "$\\epsilon$");
+		expresionAumentada = expresionAumentada.replace("\u2027", "\\cdot ");
+		expresionAumentada = expresionAumentada.replace("\u03B5", "\\epsilon ");
+		expresionAumentada = expresionAumentada.replace("$", "\\$ ");
+		expresionAumentada = expresionAumentada.replace("*", "^*");
+		expresionAumentada = "$ " + expresionAumentada + " $";
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("aumentada", expresionAumentada);
@@ -234,9 +239,11 @@ public class TraductorLatex extends Traductor {
 		String imagen = problema.automata().hashCode() + "";
 		
 		String expresion = problema.problema();
-		expresion = expresion.replace("|", "\\textbar ");
-		expresion = expresion.replace("\u2027", "·");
-		expresion = expresion.replace("\u03B5", "$\\epsilon$");
+		expresion = expresion.replace("\u2027", "\\cdot ");
+		expresion = expresion.replace("\u03B5", "\\epsilon ");
+		expresion = expresion.replace("$", "\\$ ");
+		expresion = expresion.replace("*", "^*");
+		expresion = "$ " + expresion + " $";
 		
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
@@ -289,9 +296,11 @@ public class TraductorLatex extends Traductor {
 		fTrans.append("\\end{tabular}");
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("|", "\\textbar ");
-		expresion = expresion.replace("\u2027", "·");
-		expresion = expresion.replace("\u03B5", "$\\epsilon$");
+		expresion = expresion.replace("\u2027", "\\cdot ");
+		expresion = expresion.replace("\u03B5", "\\epsilon ");
+		expresion = expresion.replace("$", "\\$ ");
+		expresion = expresion.replace("*", "^*");
+		expresion = "$ " + expresion + " $";
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("transicion", fTrans.toString());
