@@ -125,12 +125,11 @@ public class Generador {
 				// .filter(e -> e.profundidad() < 2)
 				.collect(Collectors.toList());
 		ExpresionRegular nodo;
-		if (nodos.size() > 0)
+		if (nodos.size() > 1)
 			nodo = nodos.get(random.nextInt(nodos.size()));
-		else {
-			log.warn("Problema generando mutaciones para {}: expresion demasiado pequeña.");
-			return expresion;
-		}
+		else
+			throw new UnsupportedOperationException(
+					"Imposible aplicar operación de mutación sobre expresión de profundidad " + expresion.profundidad());
 		log.debug("Nodo: {}", nodo);
 		// ExpresionRegular nuevo = arbol(nodo.profundidad());
 		this.esAumentada = false;

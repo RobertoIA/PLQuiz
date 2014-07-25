@@ -14,6 +14,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
@@ -252,10 +253,29 @@ public class AhoSethiUllmanPanel extends JPanel {
 		public void actionPerformed(ActionEvent event) {
 			String expresion = expresionText.getText();
 
-			if (expresion.length() > 0) {
-				if (problemaActual != null) {
-					if (!expresion.equals(problemaActual.getProblema()
-							.problema())) {
+			try {
+				if (expresion.length() > 0) {
+					if (problemaActual != null) {
+						if (!expresion.equals(problemaActual.getProblema()
+								.problema())) {
+							AhoSethiUllman problema = new AhoSethiUllman(expresion);
+							Problema<AhoSethiUllman> asuProblema;
+
+							if (modoTablasButton.isSelected())
+								asuProblema = Problema.asuTablas(problema);
+							else if (modoEtiquetadoButton.isSelected())
+								asuProblema = Problema.asuEtiquetado(problema);
+							else
+								asuProblema = Problema.asuConstruccion(problema);
+
+							documento
+									.sustituirProblema(problemaActual, asuProblema);
+							main.añadeImagen(problema.arbolVacio());
+							for(BufferedImage imagen : problema.alternativas())
+								main.añadeImagen(imagen);
+							problemaActual = asuProblema;
+						}
+					} else {
 						AhoSethiUllman problema = new AhoSethiUllman(expresion);
 						Problema<AhoSethiUllman> asuProblema;
 
@@ -266,31 +286,17 @@ public class AhoSethiUllmanPanel extends JPanel {
 						else
 							asuProblema = Problema.asuConstruccion(problema);
 
-						documento
-								.sustituirProblema(problemaActual, asuProblema);
+						documento.añadirProblema(asuProblema);
 						main.añadeImagen(problema.arbolVacio());
 						for(BufferedImage imagen : problema.alternativas())
 							main.añadeImagen(imagen);
 						problemaActual = asuProblema;
 					}
-				} else {
-					AhoSethiUllman problema = new AhoSethiUllman(expresion);
-					Problema<AhoSethiUllman> asuProblema;
-
-					if (modoTablasButton.isSelected())
-						asuProblema = Problema.asuTablas(problema);
-					else if (modoEtiquetadoButton.isSelected())
-						asuProblema = Problema.asuEtiquetado(problema);
-					else
-						asuProblema = Problema.asuConstruccion(problema);
-
-					documento.añadirProblema(asuProblema);
-					main.añadeImagen(problema.arbolVacio());
-					for(BufferedImage imagen : problema.alternativas())
-						main.añadeImagen(imagen);
-					problemaActual = asuProblema;
+					main.actualizaVistaPrevia();
 				}
-				main.actualizaVistaPrevia();
+			} catch (UnsupportedOperationException e) {
+				JOptionPane.showMessageDialog(actualPanel, "Expresión regular no valida, introduzca una más larga", "Error", JOptionPane.ERROR_MESSAGE);
+				expresionText.setText("");
 			}
 		}
 	}

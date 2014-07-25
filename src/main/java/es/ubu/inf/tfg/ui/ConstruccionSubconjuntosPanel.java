@@ -14,6 +14,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
@@ -256,10 +257,27 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		public void actionPerformed(ActionEvent event) {
 			String expresion = expresionText.getText();
 
-			if (expresion.length() > 0) {
-				if (problemaActual != null) {
-					if (!expresion.equals(problemaActual.getProblema()
-							.problema())) {
+			try {
+				if (expresion.length() > 0) {
+					if (problemaActual != null) {
+						if (!expresion.equals(problemaActual.getProblema()
+								.problema())) {
+							ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
+									expresion);
+							Problema<ConstruccionSubconjuntos> csProblema;
+							if (modoConstruccionButton.isSelected())
+								csProblema = Problema.CSConstruccion(problema);
+							else if (modoAutomataButton.isSelected())
+								csProblema = Problema.CSAutomata(problema);
+							else
+								csProblema = Problema.CSExpresion(problema);
+							documento.sustituirProblema(problemaActual, csProblema);
+							for(BufferedImage imagen : problema.alternativas())
+								main.añadeImagen(imagen);
+							main.añadeImagen(problema.automata());
+							problemaActual = csProblema;
+						}
+					} else {
 						ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 								expresion);
 						Problema<ConstruccionSubconjuntos> csProblema;
@@ -269,30 +287,19 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 							csProblema = Problema.CSAutomata(problema);
 						else
 							csProblema = Problema.CSExpresion(problema);
-						documento.sustituirProblema(problemaActual, csProblema);
+						documento.añadirProblema(csProblema);
+						main.añadeImagen(problema.automata());
 						for(BufferedImage imagen : problema.alternativas())
 							main.añadeImagen(imagen);
-						main.añadeImagen(problema.automata());
 						problemaActual = csProblema;
 					}
-				} else {
-					ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
-							expresion);
-					Problema<ConstruccionSubconjuntos> csProblema;
-					if (modoConstruccionButton.isSelected())
-						csProblema = Problema.CSConstruccion(problema);
-					else if (modoAutomataButton.isSelected())
-						csProblema = Problema.CSAutomata(problema);
-					else
-						csProblema = Problema.CSExpresion(problema);
-					documento.añadirProblema(csProblema);
-					main.añadeImagen(problema.automata());
-					for(BufferedImage imagen : problema.alternativas())
-						main.añadeImagen(imagen);
-					problemaActual = csProblema;
+					main.actualizaVistaPrevia();
 				}
-				main.actualizaVistaPrevia();
+			} catch (UnsupportedOperationException e) {
+				JOptionPane.showMessageDialog(actualPanel, "Expresión regular no valida, introduzca una más larga", "Error", JOptionPane.ERROR_MESSAGE);
+				expresionText.setText("");
 			}
+			
 		}
 	}
 
