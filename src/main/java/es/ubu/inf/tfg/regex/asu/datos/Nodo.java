@@ -420,7 +420,7 @@ public class Nodo {
 				if (!nodos.containsKey(actual)) {
 					preLetra = actualLetra;
 					imagenDot += "\n\t" + actualLetra + " [label=\""
-							+ tipo(actual.tipo()) + "\"];";
+							 + actualLetra + "\n" + tipo(actual.tipo()) +"\"];";
 					nodos.put(actual, actualLetra);
 					actualLetra++;
 				} else {
@@ -433,7 +433,7 @@ public class Nodo {
 					nodos.put(actual.hijoIzquierdo(), nuevaLetra);
 					imagenDot += "\n\t" + preLetra + " -> " + nuevaLetra;
 					imagenDot += "\n\t" + nuevaLetra + " [label=\""
-							+ tipo(actual.hijoIzquierdo().tipo()) + "\"];";
+							+ nuevaLetra + "\n" + tipo(actual.hijoIzquierdo().tipo()) + "\"];";
 				}
 
 				if (tieneHijoDerecho) {
@@ -442,7 +442,7 @@ public class Nodo {
 					nodos.put(actual.hijoDerecho(), nuevaLetra);
 					imagenDot += "\n\t" + preLetra + " -> " + nuevaLetra;
 					imagenDot += "\n\t" + nuevaLetra + " [label=\""
-							+ tipo(actual.hijoDerecho().tipo()) + "\"];";
+							+ nuevaLetra + "\n" + tipo(actual.hijoDerecho().tipo()) + "\"];";
 				}
 
 				siguientes.remove(actual);
