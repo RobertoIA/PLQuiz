@@ -238,12 +238,16 @@ public class NodoTest {
 	 */
 	@Test
 	public void testImagenDot() {
-		String esperado = "digraph {\n\tA [label=\"&#8226;\"];\n\tA -> B\n\tB [label=\"*\"];\n\t"
-				+ "A -> C\n\tC [label=\"$\"];\n\tB -> D\n\tD [label=\"&#8226;\"];\n\t"
-				+ "D -> E\n\tE [label=\"&#8226;\"];\n\tD -> F\n\tF [label=\"c\"];\n\t"
-				+ "E -> G\n\tG [label=\"|\"];\n\tE -> H\n\tH [label=\"*\"];\n\tG -> I\n\t"
-				+ "I [label=\"a\"];\n\tG -> J\n\tJ [label=\"*\"];\n\tH -> K\n\tK [label=\"a\"];\n\t"
-				+ "J -> L\n\tL [label=\"b\"];\n}";
+		String esperado = "digraph {\n\tA [label=\"A\n&#8226;\"];\n\t"
+				+ "A -> B\n\tB [label=\"B\n*\"];\n\t"
+				+ "A -> C\n\tC [label=\"C\n$\"];\n\t"
+				+ "B -> D\n\tD [label=\"D\n&#8226;\"];\n\t"
+				+ "D -> E\n\tE [label=\"E\n&#8226;\"];\n\t"
+				+ "D -> F\n\tF [label=\"F\nc\"];\n\tE -> G\n\t"
+				+ "G [label=\"G\n|\"];\n\tE -> H\n\tH [label=\"H\n*\"];\n\t"
+				+ "G -> I\n\tI [label=\"I\na\"];\n\tG -> J\n\t"
+				+ "J [label=\"J\n*\"];\n\tH -> K\n\tK [label=\"K\na\"];\n\t"
+				+ "J -> L\n\tL [label=\"L\nb\"];\n}";
 
 		assertEquals("Error generando imagen de árbol en formato dot.",
 				esperado, nodo.imagenDot());
