@@ -301,6 +301,28 @@ public class Documento {
 		} catch (IOException e) {
 			log.error("Encontrado error durante el guardado de imágenes");
 		}
+	}
 
+	/**
+	 * Crea o sobreescribe una imagen en la ruta dada con un nombre concreto
+	 * 
+	 * @param ruta
+	 *            Ruta en la que guardar las imágenes.
+	 * @param nombre
+	 *            Nombre con el que guardar las imágenes.
+	 * @param imagen
+	 *            Imagen que guardar en disco.
+	 */
+	private void guardar(String ruta, String nombre, BufferedImage imagen) {
+		log.info("Guardand imagen {}", nombre);
+
+		try {
+			File parent = new File(ruta);
+			nombre += ".jpg";
+			File salida = new File(parent.getParent() + File.separator + nombre);
+			ImageIO.write(imagen, "jpg", salida);
+		} catch (IOException e) {
+			log.error("Encontrado error durante el guardado de imagen");
+		}
 	}
 }
