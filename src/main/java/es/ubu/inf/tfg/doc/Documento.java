@@ -185,21 +185,21 @@ public class Documento {
 					"ConstruccionSubconjuntosConstruccion")) {
 				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
 						.getProblema();
-				guardar(carpeta + p.automataDot().hashCode() + ".gv",
+				guardar(carpeta + Math.abs(p.automata().hashCode()) + ".gv",
 						p.automataDot());
 			} else if (problema.getTipo().equals(
 					"ConstruccionSubconjuntosAutomata")) {
 				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
 						.getProblema();
-				guardar(carpeta + p.automataDot().hashCode() + ".gv",
+				guardar(carpeta + Math.abs(p.automata().hashCode()) + ".gv",
 						p.automataDot());
 			} else if (problema.getTipo().equals("AhoSethiUllmanEtiquetado")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
-				guardar(carpeta + p.arbolVacioDot().hashCode() + ".gv",
+				guardar(carpeta + Math.abs(p.arbolVacio().hashCode()) + ".gv",
 						p.arbolVacioDot());
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
-				guardar(carpeta + p.alternativasDot().get(0).hashCode() + ".gv",
+				guardar(carpeta + Math.abs(p.alternativas().get(0).hashCode()) + ".gv",
 						p.alternativasDot().get(0));
 			}
 		}
@@ -293,36 +293,13 @@ public class Documento {
 		try {
 			File parent = new File(ruta);
 			for (BufferedImage imagen : imagenes) {
-				String nombre = imagen.hashCode() + ".jpg";
+				String nombre = Math.abs(imagen.hashCode()) + ".jpg";
 				File salida = new File(parent.getParent() + File.separator
 						+ nombre);
 				ImageIO.write(imagen, "jpg", salida);
 			}
 		} catch (IOException e) {
 			log.error("Encontrado error durante el guardado de imágenes");
-		}
-	}
-
-	/**
-	 * Crea o sobreescribe una imagen en la ruta dada con un nombre concreto
-	 * 
-	 * @param ruta
-	 *            Ruta en la que guardar las imágenes.
-	 * @param nombre
-	 *            Nombre con el que guardar las imágenes.
-	 * @param imagen
-	 *            Imagen que guardar en disco.
-	 */
-	private void guardar(String ruta, String nombre, BufferedImage imagen) {
-		log.info("Guardand imagen {}", nombre);
-
-		try {
-			File parent = new File(ruta);
-			nombre += ".jpg";
-			File salida = new File(parent.getParent() + File.separator + nombre);
-			ImageIO.write(imagen, "jpg", salida);
-		} catch (IOException e) {
-			log.error("Encontrado error durante el guardado de imagen");
 		}
 	}
 }
