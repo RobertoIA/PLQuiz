@@ -63,6 +63,8 @@ public class Main {
 	private JMenuItem menuExportarGraphvizLatexButton;
 	private JMenu menuArchivo;
 	private JMenu menuExportar;
+	private JMenu menuAyuda;
+	private JMenuItem menuAcercaDe;
 
 	private Main main = this;
 	private JFileChooser fileChooser;
@@ -119,6 +121,12 @@ public class Main {
 
 		this.menuExportar = new JMenu("Exportar");
 		this.menuBar.add(this.menuExportar);
+		
+		this.menuAyuda = new JMenu("Ayuda");
+		this.menuBar.add(this.menuAyuda);
+		
+		this.menuAcercaDe = new JMenuItem("Acerca de");
+		this.menuAyuda.add(this.menuAcercaDe);
 
 		this.menuNuevo = new JMenuItem("Documento en blanco");
 		this.menuNuevo.addActionListener(new MenuNuevoActionListener());
