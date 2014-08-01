@@ -24,6 +24,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
@@ -126,6 +127,7 @@ public class Main {
 		this.menuBar.add(this.menuAyuda);
 		
 		this.menuAcercaDe = new JMenuItem("Acerca de");
+		this.menuAcercaDe.addActionListener(new MenuAcercaDeActionListener());
 		this.menuAyuda.add(this.menuAcercaDe);
 
 		this.menuNuevo = new JMenuItem("Documento en blanco");
@@ -314,6 +316,19 @@ public class Main {
 			actualizaVistaPrevia();
 			contenedorPanel.removeAll();
 			contenedorPanel.revalidate();
+		}
+	}
+	
+	private class MenuAcercaDeActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			log.info("Mostrando acerca de.");
+			JOptionPane.showMessageDialog(frmPlquiz, "PLQuiz\n"
+					+ "TFG del Grado en Ingeniería Informática\n"
+					+ "Escuela Politécnica Superior, Universidad de Burgos\n"
+					+ "Presentado en Julio de 2014\n\n"
+					+ "Autor: Roberto Izquierdo Amo\n"
+					+ "Tutor: Dr. Cesar Ignacio García Osorio",
+					"Acerca de", JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
