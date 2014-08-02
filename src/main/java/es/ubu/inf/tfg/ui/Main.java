@@ -2,6 +2,7 @@ package es.ubu.inf.tfg.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,8 @@ import java.awt.event.AdjustmentListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -66,6 +69,7 @@ public class Main {
 	private JMenu menuExportar;
 	private JMenu menuAyuda;
 	private JMenuItem menuAcercaDe;
+	private JMenuItem menuWeb;
 
 	private Main main = this;
 	private JFileChooser fileChooser;
@@ -125,6 +129,10 @@ public class Main {
 		
 		this.menuAyuda = new JMenu("Ayuda");
 		this.menuBar.add(this.menuAyuda);
+		
+		this.menuWeb = new JMenuItem("Página web");
+		this.menuWeb.addActionListener(new MenuWebActionListener());
+		this.menuAyuda.add(this.menuWeb);
 		
 		this.menuAcercaDe = new JMenuItem("Acerca de");
 		this.menuAcercaDe.addActionListener(new MenuAcercaDeActionListener());
@@ -316,6 +324,17 @@ public class Main {
 			actualizaVistaPrevia();
 			contenedorPanel.removeAll();
 			contenedorPanel.revalidate();
+		}
+	}
+	
+	private class MenuWebActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			log.info("Mostrando página web.");
+			try {
+				Desktop.getDesktop().browse(new URI("http://robertoia.github.com/PLQuiz"));
+			} catch (IOException | URISyntaxException e) {
+				log.error("Error abriendo página web de la aplicación");
+			}
 		}
 	}
 	
