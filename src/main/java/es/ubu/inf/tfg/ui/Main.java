@@ -333,7 +333,7 @@ public class Main {
 			try {
 				Desktop.getDesktop().browse(new URI("http://robertoia.github.com/PLQuiz"));
 			} catch (IOException | URISyntaxException e) {
-				log.error("Error abriendo página web de la aplicación");
+				log.error("Error abriendo página web de la aplicación", e);
 			}
 		}
 	}
