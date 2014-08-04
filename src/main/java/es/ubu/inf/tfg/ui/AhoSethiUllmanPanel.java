@@ -188,6 +188,8 @@ public class AhoSethiUllmanPanel extends JPanel {
 
 	void problema(Problema<AhoSethiUllman> problema) {
 		if (problemaActual != null) {
+			if (!problema.getProblema().equals(problemaActual))
+				main.eliminaImagen(problemaActual.getProblema().arbolVacio());
 			documento.sustituirProblema(problemaActual, problema);
 		} else {
 			documento.añadirProblema(problema);
@@ -268,8 +270,10 @@ public class AhoSethiUllmanPanel extends JPanel {
 							else
 								asuProblema = Problema.asuConstruccion(problema);
 
-							documento
-									.sustituirProblema(problemaActual, asuProblema);
+							documento.sustituirProblema(problemaActual, asuProblema);
+							main.eliminaImagen(problemaActual.getProblema().arbolVacio());
+							for (BufferedImage imagen : problemaActual.getProblema().alternativas())
+								main.eliminaImagen(imagen);
 							main.añadeImagen(problema.arbolVacio());
 							for(BufferedImage imagen : problema.alternativas())
 								main.añadeImagen(imagen);
@@ -342,6 +346,7 @@ public class AhoSethiUllmanPanel extends JPanel {
 					asuProblema = Problema.asuConstruccion(problema);
 
 				if (problemaActual != null) {
+					main.eliminaImagen(problemaActual.getProblema().arbolVacio());
 					main.añadeImagen(asuProblema.getProblema().arbolVacio());
 					for(BufferedImage imagen : asuProblema.getProblema().alternativas())
 						main.añadeImagen(imagen);

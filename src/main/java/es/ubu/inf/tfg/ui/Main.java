@@ -126,14 +126,14 @@ public class Main {
 
 		this.menuExportar = new JMenu("Exportar");
 		this.menuBar.add(this.menuExportar);
-		
+
 		this.menuAyuda = new JMenu("Ayuda");
 		this.menuBar.add(this.menuAyuda);
-		
+
 		this.menuWeb = new JMenuItem("Página web");
 		this.menuWeb.addActionListener(new MenuWebActionListener());
 		this.menuAyuda.add(this.menuWeb);
-		
+
 		this.menuAcercaDe = new JMenuItem("Acerca de");
 		this.menuAcercaDe.addActionListener(new MenuAcercaDeActionListener());
 		this.menuAyuda.add(this.menuAcercaDe);
@@ -270,6 +270,21 @@ public class Main {
 		}
 	}
 
+	@SuppressWarnings("rawtypes")
+	void eliminaImagen(BufferedImage imagen) {
+		try {
+			String url = "http:\\" + imagen.hashCode() + ".jpg";
+			Dictionary cache = (Dictionary) vistaPreviaText.getDocument()
+					.getProperty("imageCache");
+			if (cache != null) {
+				log.debug("Eliminando imagen {}.", url);
+				cache.remove(new URL(url));
+			}
+		} catch (Exception e) {
+			log.error("Error al eliminar imagen.", e);
+		}
+	}
+
 	private class AddButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			if (añadirBox.getSelectedItem().equals("Aho-Sethi-Ullman")) {
@@ -326,18 +341,19 @@ public class Main {
 			contenedorPanel.revalidate();
 		}
 	}
-	
+
 	private class MenuWebActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			log.info("Mostrando página web.");
 			try {
-				Desktop.getDesktop().browse(new URI("http://robertoia.github.com/PLQuiz"));
+				Desktop.getDesktop().browse(
+						new URI("http://robertoia.github.com/PLQuiz"));
 			} catch (IOException | URISyntaxException e) {
 				log.error("Error abriendo página web de la aplicación", e);
 			}
 		}
 	}
-	
+
 	private class MenuAcercaDeActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			log.info("Mostrando acerca de.");
@@ -346,8 +362,8 @@ public class Main {
 					+ "Escuela Politécnica Superior, Universidad de Burgos\n"
 					+ "Presentado en Julio de 2014\n\n"
 					+ "Autor: Roberto Izquierdo Amo\n"
-					+ "Tutor: Dr. Cesar Ignacio García Osorio",
-					"Acerca de", JOptionPane.PLAIN_MESSAGE);
+					+ "Tutor: Dr. Cesar Ignacio García Osorio", "Acerca de",
+					JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
@@ -393,7 +409,7 @@ public class Main {
 			scrollContenedor = true;
 		}
 	}
-	
+
 	private class ScrollbarVistaPreviaListener implements AdjustmentListener {
 		public void adjustmentValueChanged(AdjustmentEvent e) {
 			if (!scrollVistaPrevia)

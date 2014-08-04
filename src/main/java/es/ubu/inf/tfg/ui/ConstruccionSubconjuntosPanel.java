@@ -83,7 +83,10 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		this.contenedorPanel = contenedor;
 		this.documento = documento;
 
-		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 25), new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "McNaughton-Yamada-Thompson", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51))));
+		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 25),
+				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
+						"McNaughton-Yamada-Thompson", TitledBorder.LEADING,
+						TitledBorder.TOP, null, new Color(51, 51, 51))));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		this.expresionPanel = new JPanel();
@@ -115,15 +118,15 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		this.modoExpresionButton
 				.addActionListener(new ModoButtonChangeListener());
 		this.modoPanelA.add(this.modoExpresionButton);
-		
+
 		this.modoPanelB = new JPanel();
 		add(this.modoPanelB);
-		
-				this.modoAutomataButton = new JRadioButton("Resolver aut\u00F3mata");
-				this.modoPanelB.add(this.modoAutomataButton);
-				modoGroup.add(this.modoAutomataButton);
-				this.modoAutomataButton
-						.addActionListener(new ModoButtonChangeListener());
+
+		this.modoAutomataButton = new JRadioButton("Resolver aut\u00F3mata");
+		this.modoPanelB.add(this.modoAutomataButton);
+		modoGroup.add(this.modoAutomataButton);
+		this.modoAutomataButton
+				.addActionListener(new ModoButtonChangeListener());
 
 		this.botonesPanel = new JPanel();
 		add(this.botonesPanel);
@@ -193,6 +196,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 	void problema(Problema<ConstruccionSubconjuntos> problema) {
 		if (problemaActual != null) {
 			if (!problema.getProblema().equals(problemaActual)) {
+				main.eliminaImagen(problemaActual.getProblema().automata());
 				documento.sustituirProblema(problemaActual, problema);
 			}
 		} else {
@@ -271,8 +275,12 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 								csProblema = Problema.CSAutomata(problema);
 							else
 								csProblema = Problema.CSExpresion(problema);
-							documento.sustituirProblema(problemaActual, csProblema);
-							for(BufferedImage imagen : problema.alternativas())
+							documento.sustituirProblema(problemaActual,
+									csProblema);
+							for (BufferedImage imagen : problemaActual.getProblema().alternativas())
+								main.eliminaImagen(imagen);
+							main.eliminaImagen(problemaActual.getProblema().automata());
+							for (BufferedImage imagen : problema.alternativas())
 								main.añadeImagen(imagen);
 							main.añadeImagen(problema.automata());
 							problemaActual = csProblema;
@@ -289,17 +297,21 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 							csProblema = Problema.CSExpresion(problema);
 						documento.añadirProblema(csProblema);
 						main.añadeImagen(problema.automata());
-						for(BufferedImage imagen : problema.alternativas())
+						for (BufferedImage imagen : problema.alternativas())
 							main.añadeImagen(imagen);
 						problemaActual = csProblema;
 					}
 					main.actualizaVistaPrevia();
 				}
 			} catch (UnsupportedOperationException e) {
-				JOptionPane.showMessageDialog(actualPanel, "Expresión regular no valida, introduzca una más larga", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane
+						.showMessageDialog(
+								actualPanel,
+								"Expresión regular no valida, introduzca una más larga",
+								"Error", JOptionPane.ERROR_MESSAGE);
 				expresionText.setText("");
 			}
-			
+
 		}
 	}
 
@@ -344,13 +356,16 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 					csProblema = Problema.CSExpresion(problema);
 
 				if (problemaActual != null) {
+					main.eliminaImagen(problemaActual.getProblema().automata());
+					for (BufferedImage imagen : problemaActual.getProblema().alternativas())
+						main.eliminaImagen(imagen);
 					main.añadeImagen(problema.automata());
-					for(BufferedImage imagen : problema.alternativas())
+					for (BufferedImage imagen : problema.alternativas())
 						main.añadeImagen(imagen);
 					documento.sustituirProblema(problemaActual, csProblema);
 				} else {
 					main.añadeImagen(problema.automata());
-					for(BufferedImage imagen : problema.alternativas())
+					for (BufferedImage imagen : problema.alternativas())
 						main.añadeImagen(imagen);
 					documento.añadirProblema(csProblema);
 				}
