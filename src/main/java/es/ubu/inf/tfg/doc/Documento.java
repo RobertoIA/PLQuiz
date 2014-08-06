@@ -299,7 +299,7 @@ public class Documento {
 				ImageIO.write(imagen, "jpg", salida);
 			}
 		} catch (IOException e) {
-			log.error("Encontrado error durante el guardado de imágenes");
+			log.error("Encontrado error durante el guardado de imágenes", e);
 		}
 	}
 }
