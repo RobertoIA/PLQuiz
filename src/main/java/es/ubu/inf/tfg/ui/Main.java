@@ -30,6 +30,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
@@ -133,6 +134,8 @@ public class Main {
 		this.menuWeb = new JMenuItem("Página web");
 		this.menuWeb.addActionListener(new MenuWebActionListener());
 		this.menuAyuda.add(this.menuWeb);
+		
+		this.menuAyuda.add(new JSeparator());
 
 		this.menuAcercaDe = new JMenuItem("Acerca de");
 		this.menuAcercaDe.addActionListener(new MenuAcercaDeActionListener());
@@ -141,6 +144,8 @@ public class Main {
 		this.menuNuevo = new JMenuItem("Documento en blanco");
 		this.menuNuevo.addActionListener(new MenuNuevoActionListener());
 		this.menuArchivo.add(this.menuNuevo);
+		
+		this.menuArchivo.add(new JSeparator());
 
 		this.menuBloque = new JMenuItem("Generar bloque de problemas");
 		this.menuBloque.addActionListener(new MenuBloqueActionListener());
