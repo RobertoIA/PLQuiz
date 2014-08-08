@@ -30,7 +30,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
@@ -119,6 +118,12 @@ public class Main {
 		this.frmPlquiz.setBounds(100, 100, 1150, 900);
 		this.frmPlquiz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		initMenuBar();
+		initControlPanel();
+		initVistaPreviaPanel();
+	}
+
+	private void initMenuBar() {
 		this.menuBar = new JMenuBar();
 		this.frmPlquiz.getContentPane().add(this.menuBar, BorderLayout.NORTH);
 
@@ -134,8 +139,6 @@ public class Main {
 		this.menuWeb = new JMenuItem("Página web");
 		this.menuWeb.addActionListener(new MenuWebActionListener());
 		this.menuAyuda.add(this.menuWeb);
-		
-		this.menuAyuda.add(new JSeparator());
 
 		this.menuAcercaDe = new JMenuItem("Acerca de");
 		this.menuAcercaDe.addActionListener(new MenuAcercaDeActionListener());
@@ -144,8 +147,6 @@ public class Main {
 		this.menuNuevo = new JMenuItem("Documento en blanco");
 		this.menuNuevo.addActionListener(new MenuNuevoActionListener());
 		this.menuArchivo.add(this.menuNuevo);
-		
-		this.menuArchivo.add(new JSeparator());
 
 		this.menuBloque = new JMenuItem("Generar bloque de problemas");
 		this.menuBloque.addActionListener(new MenuBloqueActionListener());
@@ -167,7 +168,9 @@ public class Main {
 		this.menuExportarGraphvizLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuExportar.add(this.menuExportarGraphvizLatexButton);
+	}
 
+	private void initControlPanel() {
 		this.controlPanel = new JPanel();
 		this.controlPanel.setBorder(null);
 		this.frmPlquiz.getContentPane().add(this.controlPanel,
@@ -208,7 +211,9 @@ public class Main {
 
 		this.añadirDerechoStrut = Box.createHorizontalStrut(50);
 		this.añadirPanel.add(this.añadirDerechoStrut);
+	}
 
+	private void initVistaPreviaPanel() {
 		this.vistaPreviaPanel = new JPanel();
 		this.frmPlquiz.getContentPane().add(this.vistaPreviaPanel,
 				BorderLayout.CENTER);
