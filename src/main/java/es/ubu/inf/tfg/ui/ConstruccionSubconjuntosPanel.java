@@ -25,8 +25,6 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +34,7 @@ import es.ubu.inf.tfg.doc.Problema;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntosGenerador;
 
-public class ConstruccionSubconjuntosPanel extends JPanel {
+public class ConstruccionSubconjuntosPanel extends ProblemaPanel {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(ConstruccionSubconjuntosPanel.class);
@@ -62,11 +60,7 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 	private JPanel estadosPanel;
 	private JCheckBox vacioCheck;
 	private JLabel simbolosLabel;
-	private JSlider simbolosSlider;
-	private JLabel simbolosEstadoLabel;
 	private JLabel estadosLabel;
-	private JSlider estadosSlider;
-	private JLabel estadosEstadoLabel;
 	private JPanel progresoPanel;
 	private JProgressBar progresoBar;
 	private JPanel modoPanelA;
@@ -224,15 +218,6 @@ public class ConstruccionSubconjuntosPanel extends JPanel {
 		expresionText.setText(problema.getProblema().problema());
 	}
 
-	private class SliderChangeListener implements ChangeListener {
-		public void stateChanged(ChangeEvent event) {
-			JSlider source = (JSlider) event.getSource();
-			if (source == simbolosSlider)
-				simbolosEstadoLabel.setText("" + simbolosSlider.getValue());
-			else if (source == estadosSlider)
-				estadosEstadoLabel.setText("" + estadosSlider.getValue());
-		}
-	}
 
 	private class BotonGenerarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
