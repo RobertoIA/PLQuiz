@@ -34,17 +34,12 @@ import es.ubu.inf.tfg.doc.Problema;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllmanGenerador;
 
-public class AhoSethiUllmanPanel extends ProblemaPanel {
+public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 
 	private static final Logger log = LoggerFactory
 			.getLogger(AhoSethiUllmanPanel.class);
 	private static final long serialVersionUID = -8899275410326830826L;
 
-	private final Main main;
-	private final JPanel contenedorPanel;
-	private final JPanel actualPanel = this;
-	private final Documento documento;
-	private Problema<AhoSethiUllman> problemaActual = null;
 	private boolean generando = false;
 	private SwingWorker<AhoSethiUllman, Void> worker;
 
@@ -64,9 +59,6 @@ public class AhoSethiUllmanPanel extends ProblemaPanel {
 	private JPanel progresoPanel;
 	private JProgressBar progresoBar;
 	private JPanel modoPanelA;
-	private JRadioButton modoConstruccionButton;
-	private JRadioButton modoTablasButton;
-	private JRadioButton modoEtiquetadoButton;
 	private final ButtonGroup modoGroup = new ButtonGroup();
 	private JPanel modoPanelB;
 
@@ -76,7 +68,10 @@ public class AhoSethiUllmanPanel extends ProblemaPanel {
 		this.contenedorPanel = contenedor;
 		this.documento = documento;
 
-		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 25), new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true), "Aho-Sethi-Ullman", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(51, 51, 51))));
+		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 25),
+				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
+						"Aho-Sethi-Ullman", TitledBorder.LEADING,
+						TitledBorder.TOP, null, new Color(51, 51, 51))));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		this.expresionPanel = new JPanel();
@@ -95,25 +90,24 @@ public class AhoSethiUllmanPanel extends ProblemaPanel {
 		this.modoPanelA = new JPanel();
 		add(this.modoPanelA);
 
-		this.modoConstruccionButton = new JRadioButton(
-				"Construcci\u00F3n de \u00E1rbol");
-		this.modoConstruccionButton.addActionListener(new ModoButtonChangeListener());
-		modoGroup.add(this.modoConstruccionButton);
-		this.modoPanelA.add(this.modoConstruccionButton);
+		this.modoA = new JRadioButton("Construcci\u00F3n de \u00E1rbol");
+		this.modoA.addActionListener(new ModoButtonChangeListener());
+		modoGroup.add(this.modoA);
+		this.modoPanelA.add(this.modoA);
 
-		this.modoEtiquetadoButton = new JRadioButton("Etiquetado de \u00E1rbol");
-		this.modoEtiquetadoButton.addActionListener(new ModoButtonChangeListener());
-		modoGroup.add(this.modoEtiquetadoButton);
-		this.modoPanelA.add(this.modoEtiquetadoButton);
-		
+		this.modoC = new JRadioButton("Etiquetado de \u00E1rbol");
+		this.modoC.addActionListener(new ModoButtonChangeListener());
+		modoGroup.add(this.modoC);
+		this.modoPanelA.add(this.modoC);
+
 		this.modoPanelB = new JPanel();
 		add(this.modoPanelB);
-		
-				this.modoTablasButton = new JRadioButton("Construcci\u00F3n de tablas");
-				this.modoPanelB.add(this.modoTablasButton);
-				this.modoTablasButton.addActionListener(new ModoButtonChangeListener());
-				this.modoTablasButton.setSelected(true);
-				modoGroup.add(this.modoTablasButton);
+
+		this.modoB = new JRadioButton("Construcci\u00F3n de tablas");
+		this.modoPanelB.add(this.modoB);
+		this.modoB.addActionListener(new ModoButtonChangeListener());
+		this.modoB.setSelected(true);
+		modoGroup.add(this.modoB);
 
 		this.botonesPanel = new JPanel();
 		add(this.botonesPanel);
@@ -188,19 +182,19 @@ public class AhoSethiUllmanPanel extends ProblemaPanel {
 		} else {
 			documento.añadirProblema(problema);
 		}
-		
+
 		switch (problema.getTipo()) {
 		case "AhoSethiUllmanConstruccion":
 			for (BufferedImage imagen : problema.getProblema().alternativas())
 				main.añadeImagen(imagen);
-			modoConstruccionButton.setSelected(true);
+			modoA.setSelected(true);
+			break;
+		case "AhoSethiUllmanTablas":
+			modoB.setSelected(true);
 			break;
 		case "AhoSethiUllmanEtiquetado":
 			main.añadeImagen(problema.getProblema().arbolVacio());
-			modoEtiquetadoButton.setSelected(true);
-			break;
-		case "AhoSethiUllmanTablas":
-			modoTablasButton.setSelected(true);
+			modoC.setSelected(true);
 			break;
 		default:
 			log.error(
@@ -223,18 +217,6 @@ public class AhoSethiUllmanPanel extends ProblemaPanel {
 		}
 	}
 
-	private class BotonBorrarActionListener implements ActionListener {
-		public void actionPerformed(ActionEvent event) {
-			if (problemaActual != null) {
-				documento.eliminarProblema(problemaActual);
-				main.actualizaVistaPrevia();
-			}
-
-			contenedorPanel.remove(actualPanel);
-			contenedorPanel.revalidate();
-		}
-	}
-
 	private class BotonResolverActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			String expresion = expresionText.getText();
@@ -244,22 +226,27 @@ public class AhoSethiUllmanPanel extends ProblemaPanel {
 					if (problemaActual != null) {
 						if (!expresion.equals(problemaActual.getProblema()
 								.problema())) {
-							AhoSethiUllman problema = new AhoSethiUllman(expresion);
+							AhoSethiUllman problema = new AhoSethiUllman(
+									expresion);
 							Problema<AhoSethiUllman> asuProblema;
 
-							if (modoTablasButton.isSelected())
+							if (modoB.isSelected())
 								asuProblema = Problema.asuTablas(problema);
-							else if (modoEtiquetadoButton.isSelected())
+							else if (modoC.isSelected())
 								asuProblema = Problema.asuEtiquetado(problema);
 							else
-								asuProblema = Problema.asuConstruccion(problema);
+								asuProblema = Problema
+										.asuConstruccion(problema);
 
-							documento.sustituirProblema(problemaActual, asuProblema);
-							main.eliminaImagen(problemaActual.getProblema().arbolVacio());
-							for (BufferedImage imagen : problemaActual.getProblema().alternativas())
+							documento.sustituirProblema(problemaActual,
+									asuProblema);
+							main.eliminaImagen(problemaActual.getProblema()
+									.arbolVacio());
+							for (BufferedImage imagen : problemaActual
+									.getProblema().alternativas())
 								main.eliminaImagen(imagen);
 							main.añadeImagen(problema.arbolVacio());
-							for(BufferedImage imagen : problema.alternativas())
+							for (BufferedImage imagen : problema.alternativas())
 								main.añadeImagen(imagen);
 							problemaActual = asuProblema;
 						}
@@ -267,23 +254,27 @@ public class AhoSethiUllmanPanel extends ProblemaPanel {
 						AhoSethiUllman problema = new AhoSethiUllman(expresion);
 						Problema<AhoSethiUllman> asuProblema;
 
-						if (modoTablasButton.isSelected())
+						if (modoB.isSelected())
 							asuProblema = Problema.asuTablas(problema);
-						else if (modoEtiquetadoButton.isSelected())
+						else if (modoC.isSelected())
 							asuProblema = Problema.asuEtiquetado(problema);
 						else
 							asuProblema = Problema.asuConstruccion(problema);
 
 						documento.añadirProblema(asuProblema);
 						main.añadeImagen(problema.arbolVacio());
-						for(BufferedImage imagen : problema.alternativas())
+						for (BufferedImage imagen : problema.alternativas())
 							main.añadeImagen(imagen);
 						problemaActual = asuProblema;
 					}
 					main.actualizaVistaPrevia();
 				}
 			} catch (UnsupportedOperationException e) {
-				JOptionPane.showMessageDialog(actualPanel, "Expresión regular no valida, introduzca una más larga", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane
+						.showMessageDialog(
+								actualPanel,
+								"Expresión regular no valida, introduzca una más larga",
+								"Error", JOptionPane.ERROR_MESSAGE);
 				expresionText.setText("");
 			}
 		}
@@ -322,25 +313,27 @@ public class AhoSethiUllmanPanel extends ProblemaPanel {
 			Problema<AhoSethiUllman> asuProblema = null;
 			try {
 				problema = get();
-				if (modoTablasButton.isSelected())
+				if (modoB.isSelected())
 					asuProblema = Problema.asuTablas(problema);
-				else if (modoEtiquetadoButton.isSelected())
+				else if (modoC.isSelected())
 					asuProblema = Problema.asuEtiquetado(problema);
 				else
 					asuProblema = Problema.asuConstruccion(problema);
 
 				if (problemaActual != null) {
-					main.eliminaImagen(problemaActual.getProblema().arbolVacio());
-					main.añadeImagen(asuProblema.getProblema().arbolVacio());
-					for(BufferedImage imagen : asuProblema.getProblema().alternativas())
-						main.añadeImagen(imagen);
+					main.eliminaImagen(problemaActual.getProblema()
+							.arbolVacio());
+					for (BufferedImage imagen : problemaActual.getProblema()
+							.alternativas())
+						main.eliminaImagen(imagen);
 					documento.sustituirProblema(problemaActual, asuProblema);
 				} else {
-					main.añadeImagen(asuProblema.getProblema().arbolVacio());
-					for(BufferedImage imagen : asuProblema.getProblema().alternativas())
-						main.añadeImagen(imagen);
 					documento.añadirProblema(asuProblema);
 				}
+				main.añadeImagen(asuProblema.getProblema().arbolVacio());
+				for (BufferedImage imagen : asuProblema.getProblema()
+						.alternativas())
+					main.añadeImagen(imagen);
 
 				problemaActual = asuProblema;
 				expresionText.setText(problema.problema());
@@ -364,38 +357,28 @@ public class AhoSethiUllmanPanel extends ProblemaPanel {
 	private class ModoButtonChangeListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			JRadioButton modoButton = (JRadioButton) e.getSource();
-			
-			if (modoEtiquetadoButton == modoButton) {
+			Problema<AhoSethiUllman> asuProblema = null;
+			AhoSethiUllman problema = problemaActual.getProblema();
+
+			if (modoC == modoButton) {
 				log.info("Seleccionado modo etiquetado en problema de Aho-Sethi-Ullman.");
 				if (problemaActual != null) {
-					AhoSethiUllman problema = problemaActual.getProblema();
-					Problema<AhoSethiUllman> asuProblema = Problema
-							.asuEtiquetado(problema);
-					documento.sustituirProblema(problemaActual, asuProblema);
-					problemaActual = asuProblema;
-					main.actualizaVistaPrevia();
+					asuProblema = Problema.asuEtiquetado(problema);
 				}
-			} else if (modoTablasButton == modoButton) {
+			} else if (modoB == modoButton) {
 				log.info("Seleccionado modo tablas en problema de Aho-Sethi-Ullman.");
 				if (problemaActual != null) {
-					AhoSethiUllman problema = problemaActual.getProblema();
-					Problema<AhoSethiUllman> asuProblema = Problema
-							.asuTablas(problema);
-					documento.sustituirProblema(problemaActual, asuProblema);
-					problemaActual = asuProblema;
-					main.actualizaVistaPrevia();
+					asuProblema = Problema.asuTablas(problema);
 				}
 			} else {
 				log.info("Seleccionado modo construcción en problema de Aho-Sethi-Ullman.");
 				if (problemaActual != null) {
-					AhoSethiUllman problema = problemaActual.getProblema();
-					Problema<AhoSethiUllman> asuProblema = Problema
-							.asuConstruccion(problema);
-					documento.sustituirProblema(problemaActual, asuProblema);
-					problemaActual = asuProblema;
-					main.actualizaVistaPrevia();
+					asuProblema = Problema.asuConstruccion(problema);
 				}
 			}
+			documento.sustituirProblema(problemaActual, asuProblema);
+			problemaActual = asuProblema;
+			main.actualizaVistaPrevia();
 		}
 	}
 }
