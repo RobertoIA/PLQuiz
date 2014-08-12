@@ -14,8 +14,10 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -78,6 +80,8 @@ public class Main {
 	private JPanel problemasPanel;
 	private boolean scrollContenedor = true;
 	private boolean scrollVistaPrevia = true;
+	
+	private List<ProblemaPanel<?>> panelesProblema = new ArrayList<>();
 
 	public static void main(String[] args) {
 		log.info("Aplicación iniciada");
@@ -243,6 +247,7 @@ public class Main {
 			panel.problema(problema);
 
 		contenedorPanel.add(panel);
+		panelesProblema.add(panel);
 		contenedorPanel.revalidate();
 	}
 
@@ -256,6 +261,7 @@ public class Main {
 			panel.problema(problema);
 
 		contenedorPanel.add(panel);
+		panelesProblema.add(panel);
 		contenedorPanel.revalidate();
 	}
 
@@ -348,6 +354,7 @@ public class Main {
 			documento = new Documento();
 			actualizaVistaPrevia();
 			contenedorPanel.removeAll();
+			panelesProblema.clear();
 			contenedorPanel.revalidate();
 		}
 	}
