@@ -1,7 +1,6 @@
 package es.ubu.inf.tfg.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,10 +20,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,7 +57,6 @@ public class ConstruccionSubconjuntosPanel extends
 	private JPanel modoPanelA;
 	private final ButtonGroup modoGroup = new ButtonGroup();
 	private JPanel modoPanelB;
-
 	public ConstruccionSubconjuntosPanel(Main main, JPanel contenedor,
 			Documento documento) {
 
@@ -70,14 +64,39 @@ public class ConstruccionSubconjuntosPanel extends
 		this.contenedorPanel = contenedor;
 		this.documento = documento;
 
-		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 25),
-				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
-						"McNaughton-Yamada-Thompson", TitledBorder.LEADING,
-						TitledBorder.TOP, null, new Color(51, 51, 51))));
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		inicializaPanel("McNaughton-Yamada-Thompson");
+
+		this.modoA = new JRadioButton("Construir aut\u00F3mata");
+		this.modoA.setSelected(true);
+		modoGroup.add(this.modoA);
+		this.modoA.addActionListener(new ModoButtonChangeListener());
+
+		this.modoB = new JRadioButton("Resolver expresi\u00F3n");
+		modoGroup.add(this.modoB);
+		this.modoB.addActionListener(new ModoButtonChangeListener());
+
+		this.modoC = new JRadioButton("Resolver aut\u00F3mata");
+		modoGroup.add(this.modoC);
+		this.modoC.addActionListener(new ModoButtonChangeListener());
+
+		this.simbolosSlider = new JSlider();
+		this.simbolosSlider.setValue(3);
+		this.simbolosSlider.setMaximum(6);
+		this.simbolosSlider.setMinimum(2);
+		this.simbolosSlider.addChangeListener(new SliderChangeListener());
+
+		this.simbolosEstadoLabel = new JLabel("3");
+
+		this.estadosSlider = new JSlider();
+		this.estadosSlider.setValue(5);
+		this.estadosSlider.setMinimum(3);
+		this.estadosSlider.setMaximum(15);
+		this.estadosSlider.addChangeListener(new SliderChangeListener());
+
+		this.estadosEstadoLabel = new JLabel("5");
 
 		this.expresionPanel = new JPanel();
-		add(this.expresionPanel);
+		this.mainPanel.add(this.expresionPanel);
 		this.expresionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		this.borrarButton = new JButton("-");
@@ -90,29 +109,16 @@ public class ConstruccionSubconjuntosPanel extends
 		this.expresionText.setColumns(25);
 
 		this.modoPanelA = new JPanel();
-		add(this.modoPanelA);
-
-		this.modoA = new JRadioButton("Construir aut\u00F3mata");
-		this.modoA.setSelected(true);
-		modoGroup.add(this.modoA);
-		this.modoA.addActionListener(new ModoButtonChangeListener());
+		this.mainPanel.add(this.modoPanelA);
 		this.modoPanelA.add(this.modoA);
-
-		this.modoB = new JRadioButton("Resolver expresi\u00F3n");
-		modoGroup.add(this.modoB);
-		this.modoB.addActionListener(new ModoButtonChangeListener());
 		this.modoPanelA.add(this.modoB);
 
 		this.modoPanelB = new JPanel();
-		add(this.modoPanelB);
-
-		this.modoC = new JRadioButton("Resolver aut\u00F3mata");
+		this.mainPanel.add(this.modoPanelB);
 		this.modoPanelB.add(this.modoC);
-		modoGroup.add(this.modoC);
-		this.modoC.addActionListener(new ModoButtonChangeListener());
 
 		this.botonesPanel = new JPanel();
-		add(this.botonesPanel);
+		this.mainPanel.add(this.botonesPanel);
 
 		this.generarButton = new JButton("Generar");
 		this.generarButton.addActionListener(new BotonGenerarActionListener());
@@ -124,7 +130,7 @@ public class ConstruccionSubconjuntosPanel extends
 		this.botonesPanel.add(this.resolverButton);
 
 		this.opcionesPanel = new JPanel();
-		add(this.opcionesPanel);
+		this.mainPanel.add(this.opcionesPanel);
 		this.opcionesPanel.setLayout(new BoxLayout(this.opcionesPanel,
 				BoxLayout.Y_AXIS));
 
@@ -139,15 +145,7 @@ public class ConstruccionSubconjuntosPanel extends
 
 		this.simbolosLabel = new JLabel("S\u00EDmbolos");
 		this.simbolosPanel.add(this.simbolosLabel);
-
-		this.simbolosSlider = new JSlider();
-		this.simbolosSlider.setValue(3);
-		this.simbolosSlider.setMaximum(6);
-		this.simbolosSlider.setMinimum(2);
-		this.simbolosSlider.addChangeListener(new SliderChangeListener());
 		this.simbolosPanel.add(this.simbolosSlider);
-
-		this.simbolosEstadoLabel = new JLabel("3");
 		this.simbolosPanel.add(this.simbolosEstadoLabel);
 
 		this.estadosPanel = new JPanel();
@@ -155,15 +153,7 @@ public class ConstruccionSubconjuntosPanel extends
 
 		this.estadosLabel = new JLabel("Estados");
 		this.estadosPanel.add(this.estadosLabel);
-
-		this.estadosSlider = new JSlider();
-		this.estadosSlider.setValue(5);
-		this.estadosSlider.setMinimum(3);
-		this.estadosSlider.setMaximum(15);
-		this.estadosSlider.addChangeListener(new SliderChangeListener());
 		this.estadosPanel.add(this.estadosSlider);
-
-		this.estadosEstadoLabel = new JLabel("5");
 		this.estadosPanel.add(this.estadosEstadoLabel);
 
 		this.progresoPanel = new JPanel();

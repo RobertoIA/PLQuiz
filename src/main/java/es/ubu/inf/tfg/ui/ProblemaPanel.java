@@ -1,13 +1,19 @@
 package es.ubu.inf.tfg.ui;
 
+import java.awt.Color;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -29,6 +35,7 @@ public class ProblemaPanel<T> extends JPanel {
 	protected JRadioButton modoA;
 	protected JRadioButton modoB;
 	protected JRadioButton modoC;
+	protected JPanel mainPanel;
 
 	public ProblemaPanel() {
 		super();
@@ -45,7 +52,19 @@ public class ProblemaPanel<T> extends JPanel {
 	public ProblemaPanel(LayoutManager layout, boolean isDoubleBuffered) {
 		super(layout, isDoubleBuffered);
 	}
-	
+
+	void inicializaPanel(String titulo) {
+		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 25),
+				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
+						titulo, TitledBorder.LEADING, TitledBorder.TOP, null,
+						new Color(51, 51, 51))));
+
+		this.mainPanel = new JPanel();
+		add(this.mainPanel);
+		this.mainPanel
+				.setLayout(new BoxLayout(this.mainPanel, BoxLayout.Y_AXIS));
+	}
+
 	class BotonBorrarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			if (problemaActual != null) {

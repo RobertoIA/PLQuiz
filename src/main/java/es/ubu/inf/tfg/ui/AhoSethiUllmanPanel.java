@@ -1,7 +1,6 @@
 package es.ubu.inf.tfg.ui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,10 +20,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
 import javax.swing.SwingWorker;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,21 +56,45 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 	private JPanel modoPanelA;
 	private final ButtonGroup modoGroup = new ButtonGroup();
 	private JPanel modoPanelB;
-
 	public AhoSethiUllmanPanel(Main main, JPanel contenedor, Documento documento) {
 
 		this.main = main;
 		this.contenedorPanel = contenedor;
 		this.documento = documento;
 
-		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 25),
-				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
-						"Aho-Sethi-Ullman", TitledBorder.LEADING,
-						TitledBorder.TOP, null, new Color(51, 51, 51))));
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		inicializaPanel("Aho-Sethi-Ullman");
+
+		this.modoA = new JRadioButton("Construcci\u00F3n de \u00E1rbol");
+		this.modoA.addActionListener(new ModoButtonChangeListener());
+		modoGroup.add(this.modoA);
+
+		this.modoC = new JRadioButton("Etiquetado de \u00E1rbol");
+		this.modoC.addActionListener(new ModoButtonChangeListener());
+		modoGroup.add(this.modoC);
+
+		this.modoB = new JRadioButton("Construcci\u00F3n de tablas");
+		this.modoB.addActionListener(new ModoButtonChangeListener());
+		this.modoB.setSelected(true);
+		modoGroup.add(this.modoB);
+
+		this.simbolosSlider = new JSlider();
+		this.simbolosSlider.setValue(3);
+		this.simbolosSlider.setMaximum(6);
+		this.simbolosSlider.setMinimum(2);
+		this.simbolosSlider.addChangeListener(new SliderChangeListener());
+
+		this.simbolosEstadoLabel = new JLabel("3");
+
+		this.estadosSlider = new JSlider();
+		this.estadosSlider.setValue(5);
+		this.estadosSlider.setMinimum(3);
+		this.estadosSlider.setMaximum(15);
+		this.estadosSlider.addChangeListener(new SliderChangeListener());
+
+		this.estadosEstadoLabel = new JLabel("5");
 
 		this.expresionPanel = new JPanel();
-		add(this.expresionPanel);
+		this.mainPanel.add(this.expresionPanel);
 		this.expresionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		this.borrarButton = new JButton("-");
@@ -88,29 +107,16 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 		this.expresionText.setColumns(25);
 
 		this.modoPanelA = new JPanel();
-		add(this.modoPanelA);
-
-		this.modoA = new JRadioButton("Construcci\u00F3n de \u00E1rbol");
-		this.modoA.addActionListener(new ModoButtonChangeListener());
-		modoGroup.add(this.modoA);
+		this.mainPanel.add(this.modoPanelA);
 		this.modoPanelA.add(this.modoA);
-
-		this.modoC = new JRadioButton("Etiquetado de \u00E1rbol");
-		this.modoC.addActionListener(new ModoButtonChangeListener());
-		modoGroup.add(this.modoC);
 		this.modoPanelA.add(this.modoC);
 
 		this.modoPanelB = new JPanel();
-		add(this.modoPanelB);
-
-		this.modoB = new JRadioButton("Construcci\u00F3n de tablas");
+		this.mainPanel.add(this.modoPanelB);
 		this.modoPanelB.add(this.modoB);
-		this.modoB.addActionListener(new ModoButtonChangeListener());
-		this.modoB.setSelected(true);
-		modoGroup.add(this.modoB);
 
 		this.botonesPanel = new JPanel();
-		add(this.botonesPanel);
+		this.mainPanel.add(this.botonesPanel);
 
 		this.generarButton = new JButton("Generar");
 		this.generarButton.addActionListener(new BotonGenerarActionListener());
@@ -122,7 +128,7 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 		this.botonesPanel.add(this.resolverButton);
 
 		this.opcionesPanel = new JPanel();
-		add(this.opcionesPanel);
+		this.mainPanel.add(this.opcionesPanel);
 		this.opcionesPanel.setLayout(new BoxLayout(this.opcionesPanel,
 				BoxLayout.Y_AXIS));
 
@@ -137,15 +143,7 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 
 		this.simbolosLabel = new JLabel("S\u00EDmbolos");
 		this.simbolosPanel.add(this.simbolosLabel);
-
-		this.simbolosSlider = new JSlider();
-		this.simbolosSlider.setValue(3);
-		this.simbolosSlider.setMaximum(6);
-		this.simbolosSlider.setMinimum(2);
-		this.simbolosSlider.addChangeListener(new SliderChangeListener());
 		this.simbolosPanel.add(this.simbolosSlider);
-
-		this.simbolosEstadoLabel = new JLabel("3");
 		this.simbolosPanel.add(this.simbolosEstadoLabel);
 
 		this.estadosPanel = new JPanel();
@@ -153,15 +151,7 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 
 		this.estadosLabel = new JLabel("Estados");
 		this.estadosPanel.add(this.estadosLabel);
-
-		this.estadosSlider = new JSlider();
-		this.estadosSlider.setValue(5);
-		this.estadosSlider.setMinimum(3);
-		this.estadosSlider.setMaximum(15);
-		this.estadosSlider.addChangeListener(new SliderChangeListener());
 		this.estadosPanel.add(this.estadosSlider);
-
-		this.estadosEstadoLabel = new JLabel("5");
 		this.estadosPanel.add(this.estadosEstadoLabel);
 
 		this.progresoPanel = new JPanel();
