@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -36,6 +37,9 @@ public class ProblemaPanel<T> extends JPanel {
 	protected JRadioButton modoB;
 	protected JRadioButton modoC;
 	protected JPanel mainPanel;
+	protected JPanel ordenPanel;
+	protected JButton arribaButton;
+	protected JButton abajoButton;
 
 	public ProblemaPanel() {
 		super();
@@ -54,15 +58,30 @@ public class ProblemaPanel<T> extends JPanel {
 	}
 
 	void inicializaPanel(String titulo) {
-		setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15, 25),
-				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
-						titulo, TitledBorder.LEADING, TitledBorder.TOP, null,
-						new Color(51, 51, 51))));
+		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		setBorder(null);
+
+		this.ordenPanel = new JPanel();
+		this.ordenPanel.setLayout(new BoxLayout(this.ordenPanel,
+				BoxLayout.Y_AXIS));
+		add(this.ordenPanel);
+
+		this.arribaButton = new JButton("<<");
+		this.arribaButton.addActionListener(null);
+		this.ordenPanel.add(this.arribaButton);
+
+		this.abajoButton = new JButton(">>");
+		this.abajoButton.addActionListener(null);
+		this.ordenPanel.add(this.abajoButton);
 
 		this.mainPanel = new JPanel();
-		add(this.mainPanel);
+		this.mainPanel.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15,
+				25), new TitledBorder(new LineBorder(new Color(0, 0, 0), 1,
+				true), titulo, TitledBorder.LEADING, TitledBorder.TOP, null,
+				new Color(51, 51, 51))));
 		this.mainPanel
 				.setLayout(new BoxLayout(this.mainPanel, BoxLayout.Y_AXIS));
+		add(this.mainPanel);
 	}
 
 	class BotonBorrarActionListener implements ActionListener {
