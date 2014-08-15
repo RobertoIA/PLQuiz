@@ -67,11 +67,11 @@ public class ProblemaPanel<T> extends JPanel {
 		add(this.ordenPanel);
 
 		this.arribaButton = new JButton("<<");
-		this.arribaButton.addActionListener(null);
+		this.arribaButton.addActionListener(new BotonArribaActionListener());
 		this.ordenPanel.add(this.arribaButton);
 
 		this.abajoButton = new JButton(">>");
-		this.abajoButton.addActionListener(null);
+		this.abajoButton.addActionListener(new BotonAbajoActionListener());
 		this.ordenPanel.add(this.abajoButton);
 
 		this.mainPanel = new JPanel();
@@ -82,6 +82,18 @@ public class ProblemaPanel<T> extends JPanel {
 		this.mainPanel
 				.setLayout(new BoxLayout(this.mainPanel, BoxLayout.Y_AXIS));
 		add(this.mainPanel);
+	}
+	
+	private class BotonArribaActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			main.moverProblemaArriba(ProblemaPanel.this);
+		}
+	}
+	
+	private class BotonAbajoActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			main.moverProblemaAbajo(ProblemaPanel.this);
+		}
 	}
 
 	class BotonBorrarActionListener implements ActionListener {

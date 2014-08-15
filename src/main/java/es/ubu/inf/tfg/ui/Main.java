@@ -80,7 +80,7 @@ public class Main {
 	private JPanel problemasPanel;
 	private boolean scrollContenedor = true;
 	private boolean scrollVistaPrevia = true;
-	
+
 	private List<ProblemaPanel<?>> panelesProblema = new ArrayList<>();
 
 	public static void main(String[] args) {
@@ -268,6 +268,34 @@ public class Main {
 	void actualizaVistaPrevia() {
 		scrollVistaPrevia = false;
 		vistaPreviaText.setText(documento.vistaPrevia());
+	}
+
+	void moverProblemaArriba(ProblemaPanel<?> problema) {
+		int index = this.panelesProblema.indexOf(problema);
+		if (index > 0) {
+			log.info("Moviendo problema {} hacia arriba", index);
+			this.panelesProblema.remove(problema);
+			this.panelesProblema.add(index - 1, problema);
+
+			contenedorPanel.removeAll();
+			for (ProblemaPanel<?> panel : this.panelesProblema)
+				contenedorPanel.add(panel);
+			contenedorPanel.revalidate();
+		}
+	}
+
+	void moverProblemaAbajo(ProblemaPanel<?> problema) {
+		int index = this.panelesProblema.indexOf(problema);
+		if (index < this.panelesProblema.size() - 1) {
+			log.info("Moviendo problema {} hacia abajo", index);
+			this.panelesProblema.remove(problema);
+			this.panelesProblema.add(index + 1, problema);
+
+			contenedorPanel.removeAll();
+			for (ProblemaPanel<?> panel : this.panelesProblema)
+				contenedorPanel.add(panel);
+			contenedorPanel.revalidate();
+		}
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
