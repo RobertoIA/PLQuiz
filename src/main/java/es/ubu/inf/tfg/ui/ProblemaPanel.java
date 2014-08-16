@@ -1,6 +1,7 @@
 package es.ubu.inf.tfg.ui;
 
 import java.awt.Color;
+import java.awt.Insets;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -59,7 +60,6 @@ public class ProblemaPanel<T> extends JPanel {
 
 	void inicializaPanel(String titulo) {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-		setBorder(null);
 
 		this.ordenPanel = new JPanel();
 		this.ordenPanel.setLayout(new BoxLayout(this.ordenPanel,
@@ -67,10 +67,12 @@ public class ProblemaPanel<T> extends JPanel {
 		add(this.ordenPanel);
 
 		this.arribaButton = new JButton("<<");
+		this.arribaButton.setMargin(new Insets(0, 1, 0, 1));
 		this.arribaButton.addActionListener(new BotonArribaActionListener());
 		this.ordenPanel.add(this.arribaButton);
 
 		this.abajoButton = new JButton(">>");
+		this.abajoButton.setMargin(new Insets(0, 1, 0, 1));
 		this.abajoButton.addActionListener(new BotonAbajoActionListener());
 		this.ordenPanel.add(this.abajoButton);
 
@@ -83,13 +85,13 @@ public class ProblemaPanel<T> extends JPanel {
 				.setLayout(new BoxLayout(this.mainPanel, BoxLayout.Y_AXIS));
 		add(this.mainPanel);
 	}
-	
+
 	private class BotonArribaActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			main.moverProblemaArriba(ProblemaPanel.this);
 		}
 	}
-	
+
 	private class BotonAbajoActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			main.moverProblemaAbajo(ProblemaPanel.this);
