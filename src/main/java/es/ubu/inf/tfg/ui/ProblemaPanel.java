@@ -1,5 +1,6 @@
 package es.ubu.inf.tfg.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Insets;
 import java.awt.LayoutManager;
@@ -39,8 +40,10 @@ public class ProblemaPanel<T> extends JPanel {
 	protected JRadioButton modoC;
 	protected JPanel mainPanel;
 	protected JPanel ordenPanel;
+	protected JPanel mostrarPanel;
 	protected JButton arribaButton;
 	protected JButton abajoButton;
+	protected JButton mostrarButton;
 
 	public ProblemaPanel() {
 		super();
@@ -60,8 +63,10 @@ public class ProblemaPanel<T> extends JPanel {
 
 	void inicializaPanel(String titulo) {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+		setBorder(new EmptyBorder(new Insets(0, 0, 0, 0)));
 
 		this.ordenPanel = new JPanel();
+		this.ordenPanel.setBorder(new EmptyBorder(new Insets(0, 0, 0, 0)));
 		this.ordenPanel.setLayout(new BoxLayout(this.ordenPanel,
 				BoxLayout.Y_AXIS));
 		add(this.ordenPanel);
@@ -77,13 +82,24 @@ public class ProblemaPanel<T> extends JPanel {
 		this.ordenPanel.add(this.abajoButton);
 
 		this.mainPanel = new JPanel();
-		this.mainPanel.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 15,
-				25), new TitledBorder(new LineBorder(new Color(0, 0, 0), 1,
-				true), titulo, TitledBorder.LEADING, TitledBorder.TOP, null,
-				new Color(51, 51, 51))));
+		this.mainPanel.setBorder(new CompoundBorder(
+				new EmptyBorder(5, 2, 15, 2), new TitledBorder(new LineBorder(
+						new Color(0, 0, 0), 1, true), titulo,
+						TitledBorder.LEADING, TitledBorder.TOP, null,
+						new Color(51, 51, 51))));
 		this.mainPanel
 				.setLayout(new BoxLayout(this.mainPanel, BoxLayout.Y_AXIS));
 		add(this.mainPanel);
+
+		this.mostrarPanel = new JPanel();
+		this.mostrarPanel.setBorder(new EmptyBorder(new Insets(13, 0, 16, 0)));
+		this.mostrarPanel.setLayout(new BorderLayout());
+		add(this.mostrarPanel);
+
+		this.mostrarButton = new JButton(">>");
+		this.mostrarButton.setMargin(new Insets(0, 1, 0, 1));
+		this.mostrarButton.addActionListener(new BotonMostrarActionListener());
+		this.mostrarPanel.add(this.mostrarButton, BorderLayout.CENTER);
 	}
 
 	private class BotonArribaActionListener implements ActionListener {
@@ -95,6 +111,12 @@ public class ProblemaPanel<T> extends JPanel {
 	private class BotonAbajoActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			main.moverProblemaAbajo(ProblemaPanel.this);
+		}
+	}
+
+	private class BotonMostrarActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			mainPanel.setBackground(new Color(255, 0, 0));
 		}
 	}
 

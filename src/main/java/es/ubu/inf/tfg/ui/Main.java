@@ -204,7 +204,7 @@ public class Main {
 		this.añadirButton = new JButton("+");
 		this.añadirButton.addActionListener(new AddButtonActionListener());
 
-		this.añadirIzquierdoStrut = Box.createHorizontalStrut(55);
+		this.añadirIzquierdoStrut = Box.createHorizontalStrut(70);
 		this.añadirPanel.add(this.añadirIzquierdoStrut);
 		this.añadirPanel.add(this.añadirButton);
 
@@ -213,7 +213,7 @@ public class Main {
 				"Aho-Sethi-Ullman", "McNaughton-Yamada-Thompson" }));
 		this.añadirPanel.add(this.añadirBox);
 
-		this.añadirDerechoStrut = Box.createHorizontalStrut(55);
+		this.añadirDerechoStrut = Box.createHorizontalStrut(70);
 		this.añadirPanel.add(this.añadirDerechoStrut);
 	}
 
