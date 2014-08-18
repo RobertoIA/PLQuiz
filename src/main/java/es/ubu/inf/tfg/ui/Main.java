@@ -107,8 +107,7 @@ public class Main {
 			log.error("Error estableciendo el look and feel", e);
 		}
 		initialize();
-		this.documento = new Documento();
-		this.vistaPreviaText.setText(documento.vistaPrevia());
+		actualizaVistaPrevia(new Documento());
 		this.fileChooser = new JFileChooser();
 		this.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 	}
@@ -265,7 +264,13 @@ public class Main {
 		contenedorPanel.revalidate();
 	}
 
+	@Deprecated
 	void actualizaVistaPrevia() {
+		scrollVistaPrevia = false;
+		vistaPreviaText.setText(documento.vistaPrevia());
+	}
+	
+	void actualizaVistaPrevia(Documento documento) {
 		scrollVistaPrevia = false;
 		vistaPreviaText.setText(documento.vistaPrevia());
 	}
