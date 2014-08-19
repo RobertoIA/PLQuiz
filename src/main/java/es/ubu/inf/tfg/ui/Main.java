@@ -334,6 +334,13 @@ public class Main {
 		}
 	}
 
+	private Documento documento() {
+		Documento documento = new Documento();
+		for(ProblemaPanel<?> panel : this.panelesProblema)
+			documento.añadirProblema(panel.problemaActual);
+		return documento;
+	}
+	
 	private class AddButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			if (añadirBox.getSelectedItem().equals("Aho-Sethi-Ullman")) {
@@ -364,15 +371,15 @@ public class Main {
 				try {
 					if (source == menuExportarMoodleXMLButton) {
 						log.info("Exportando fichero XML a {}.", fichero);
-						documento.exportaXML(fichero);
+						documento().exportaXML(fichero);
 					} else if (source == menuExportarLatexButton) {
 						log.info("Exportando fichero Latex a {}.", fichero);
-						documento.exportaLatex(fichero);
+						documento().exportaLatex(fichero);
 					} else if (source == menuExportarGraphvizLatexButton) {
 						log.info(
 								"Exportando fichero Latex con imágenes en graphviz a {}.",
 								fichero);
-						documento.exportaGraphvizLatex(fichero);
+						documento().exportaGraphvizLatex(fichero);
 					}
 				} catch (IOException e) {
 					log.error("Fallo al exportar fichero", e);
