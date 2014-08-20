@@ -116,9 +116,7 @@ public class ProblemaPanel<T> extends JPanel {
 
 	private class BotonMostrarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			documento = new Documento();
-			documento.añadirProblema(problemaActual);
-			main.actualizaVistaPrevia(documento);
+			main.actualizaVistaPrevia(problemaActual);
 			mainPanel.setBackground(new Color(255, 0, 0));
 		}
 	}

@@ -107,7 +107,7 @@ public class Main {
 			log.error("Error estableciendo el look and feel", e);
 		}
 		initialize();
-		actualizaVistaPrevia(new Documento());
+		actualizaVistaPrevia(null);
 		this.fileChooser = new JFileChooser();
 		this.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 	}
@@ -269,8 +269,11 @@ public class Main {
 		scrollVistaPrevia = false;
 		vistaPreviaText.setText(documento.vistaPrevia());
 	}
-	
-	void actualizaVistaPrevia(Documento documento) {
+
+	void actualizaVistaPrevia(Problema<?> problema) {
+		Documento documento = new Documento();
+		if (problema != null)
+			documento.añadirProblema(problema);
 		scrollVistaPrevia = false;
 		vistaPreviaText.setText(documento.vistaPrevia());
 	}
@@ -336,11 +339,11 @@ public class Main {
 
 	private Documento documento() {
 		Documento documento = new Documento();
-		for(ProblemaPanel<?> panel : this.panelesProblema)
+		for (ProblemaPanel<?> panel : this.panelesProblema)
 			documento.añadirProblema(panel.problemaActual);
 		return documento;
 	}
-	
+
 	private class AddButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			if (añadirBox.getSelectedItem().equals("Aho-Sethi-Ullman")) {
