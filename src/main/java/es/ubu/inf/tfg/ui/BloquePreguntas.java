@@ -118,7 +118,7 @@ public class BloquePreguntas extends JDialog {
 		this.main = main;
 
 		setTitle("Genera bloque de preguntas");
-//		setResizable(false);
+		// setResizable(false);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
 		setBounds(100, 100, 375, 532);
@@ -241,9 +241,8 @@ public class BloquePreguntas extends JDialog {
 		this.mainPanel.add(this.csPanel);
 		this.csPanel.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 10, 5),
 				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
-						"McNaughton-Yamada-Thompson",
-						TitledBorder.LEADING, TitledBorder.TOP, null,
-						new Color(0, 0, 0))));
+						"McNaughton-Yamada-Thompson", TitledBorder.LEADING,
+						TitledBorder.TOP, null, new Color(0, 0, 0))));
 		this.csPanel.setLayout(new BoxLayout(this.csPanel, BoxLayout.Y_AXIS));
 
 		this.csNumPanel = new JPanel();
@@ -274,13 +273,13 @@ public class BloquePreguntas extends JDialog {
 				"Resolver aut\u00F3mata");
 		csModo.add(this.csModoConstruccionButton);
 		this.csModoPanelA.add(this.csModoConstruccionButton);
-		
+
 		this.csModoPanelB = new JPanel();
 		this.csPanel.add(this.csModoPanelB);
-		
-				this.csModoAutomataButton = new JRadioButton("Resolver aut\u00F3mata");
-				this.csModoPanelB.add(this.csModoAutomataButton);
-				csModo.add(this.csModoAutomataButton);
+
+		this.csModoAutomataButton = new JRadioButton("Resolver aut\u00F3mata");
+		this.csModoPanelB.add(this.csModoAutomataButton);
+		csModo.add(this.csModoAutomataButton);
 
 		this.csVacioPanel = new JPanel();
 		this.csVacioPanel.setBorder(new EmptyBorder(0, 5, 5, 5));
@@ -461,6 +460,7 @@ public class BloquePreguntas extends JDialog {
 		public void done() {
 			try {
 				List<Object> problemas = get();
+				Problema<?> ultimoProblema = null;
 
 				for (Object problema : problemas) {
 					if (problema instanceof AhoSethiUllman) {
@@ -474,6 +474,7 @@ public class BloquePreguntas extends JDialog {
 							p = Problema
 									.asuConstruccion((AhoSethiUllman) problema);
 						main.añadeAhoSethiUllman(p);
+						ultimoProblema = p;
 					} else if (problema instanceof ConstruccionSubconjuntos) {
 						Problema<ConstruccionSubconjuntos> p;
 						if (csModoConstruccionButton.isSelected())
@@ -486,11 +487,11 @@ public class BloquePreguntas extends JDialog {
 							p = Problema
 									.CSAutomata((ConstruccionSubconjuntos) problema);
 						main.añadeConstruccionSubconjuntos(p);
+						ultimoProblema = p;
 					} else
 						log.error("Generado problema de tipo desconocido.");
+					main.actualizaVistaPrevia(ultimoProblema);
 				}
-
-				main.actualizaVistaPrevia();
 
 			} catch (InterruptedException | ExecutionException
 					| CancellationException e) {
