@@ -24,7 +24,6 @@ import javax.swing.SwingWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import es.ubu.inf.tfg.doc.Documento;
 import es.ubu.inf.tfg.doc.Problema;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllmanGenerador;
@@ -56,11 +55,10 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 	private JPanel modoPanelA;
 	private final ButtonGroup modoGroup = new ButtonGroup();
 	private JPanel modoPanelB;
-	public AhoSethiUllmanPanel(Main main, JPanel contenedor, Documento documento) {
+	public AhoSethiUllmanPanel(Main main, JPanel contenedor) {
 
 		this.main = main;
 		this.contenedorPanel = contenedor;
-		this.documento = documento;
 
 		inicializaPanel("Aho-Sethi-Ullman");
 
@@ -168,9 +166,6 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 		if (problemaActual != null) {
 			if (!problema.getProblema().equals(problemaActual))
 				main.eliminaImagen(problemaActual.getProblema().arbolVacio());
-			documento.sustituirProblema(problemaActual, problema);
-		} else {
-			documento.añadirProblema(problema);
 		}
 
 		switch (problema.getTipo()) {
@@ -228,8 +223,6 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 								asuProblema = Problema
 										.asuConstruccion(problema);
 
-							documento.sustituirProblema(problemaActual,
-									asuProblema);
 							main.eliminaImagen(problemaActual.getProblema()
 									.arbolVacio());
 							for (BufferedImage imagen : problemaActual
@@ -251,13 +244,12 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 						else
 							asuProblema = Problema.asuConstruccion(problema);
 
-						documento.añadirProblema(asuProblema);
 						main.añadeImagen(problema.arbolVacio());
 						for (BufferedImage imagen : problema.alternativas())
 							main.añadeImagen(imagen);
 						problemaActual = asuProblema;
 					}
-					main.actualizaVistaPrevia();
+					main.actualizaVistaPrevia(problemaActual);
 				}
 			} catch (UnsupportedOperationException e) {
 				JOptionPane
@@ -316,9 +308,6 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 					for (BufferedImage imagen : problemaActual.getProblema()
 							.alternativas())
 						main.eliminaImagen(imagen);
-					documento.sustituirProblema(problemaActual, asuProblema);
-				} else {
-					documento.añadirProblema(asuProblema);
 				}
 				main.añadeImagen(asuProblema.getProblema().arbolVacio());
 				for (BufferedImage imagen : asuProblema.getProblema()
@@ -327,7 +316,7 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 
 				problemaActual = asuProblema;
 				expresionText.setText(problema.problema());
-				main.actualizaVistaPrevia();
+				main.actualizaVistaPrevia(problemaActual);
 			} catch (InterruptedException | ExecutionException
 					| CancellationException e) {
 				log.error("Error generando problema de tipo AhoSethiUllman", e);
@@ -366,9 +355,8 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 					asuProblema = Problema.asuConstruccion(problema);
 				}
 			}
-			documento.sustituirProblema(problemaActual, asuProblema);
 			problemaActual = asuProblema;
-			main.actualizaVistaPrevia();
+			main.actualizaVistaPrevia(problemaActual);
 		}
 	}
 }

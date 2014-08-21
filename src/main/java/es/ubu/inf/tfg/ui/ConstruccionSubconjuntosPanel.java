@@ -24,7 +24,6 @@ import javax.swing.SwingWorker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import es.ubu.inf.tfg.doc.Documento;
 import es.ubu.inf.tfg.doc.Problema;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntosGenerador;
@@ -57,12 +56,10 @@ public class ConstruccionSubconjuntosPanel extends
 	private JPanel modoPanelA;
 	private final ButtonGroup modoGroup = new ButtonGroup();
 	private JPanel modoPanelB;
-	public ConstruccionSubconjuntosPanel(Main main, JPanel contenedor,
-			Documento documento) {
+	public ConstruccionSubconjuntosPanel(Main main, JPanel contenedor) {
 
 		this.main = main;
 		this.contenedorPanel = contenedor;
-		this.documento = documento;
 
 		inicializaPanel("McNaughton-Yamada-Thompson");
 
@@ -170,10 +167,7 @@ public class ConstruccionSubconjuntosPanel extends
 		if (problemaActual != null) {
 			if (!problema.getProblema().equals(problemaActual)) {
 				main.eliminaImagen(problemaActual.getProblema().automata());
-				documento.sustituirProblema(problemaActual, problema);
 			}
-		} else {
-			documento.añadirProblema(problema);
 		}
 
 		switch (problema.getTipo()) {
@@ -226,8 +220,6 @@ public class ConstruccionSubconjuntosPanel extends
 								csProblema = Problema.CSAutomata(problema);
 							else
 								csProblema = Problema.CSExpresion(problema);
-							documento.sustituirProblema(problemaActual,
-									csProblema);
 							for (BufferedImage imagen : problemaActual
 									.getProblema().alternativas())
 								main.eliminaImagen(imagen);
@@ -248,13 +240,12 @@ public class ConstruccionSubconjuntosPanel extends
 							csProblema = Problema.CSAutomata(problema);
 						else
 							csProblema = Problema.CSExpresion(problema);
-						documento.añadirProblema(csProblema);
 						main.añadeImagen(problema.automata());
 						for (BufferedImage imagen : problema.alternativas())
 							main.añadeImagen(imagen);
 						problemaActual = csProblema;
 					}
-					main.actualizaVistaPrevia();
+					main.actualizaVistaPrevia(problemaActual);
 				}
 			} catch (UnsupportedOperationException e) {
 				JOptionPane
@@ -313,9 +304,6 @@ public class ConstruccionSubconjuntosPanel extends
 					for (BufferedImage imagen : problemaActual.getProblema()
 							.alternativas())
 						main.eliminaImagen(imagen);
-					documento.sustituirProblema(problemaActual, csProblema);
-				} else {
-					documento.añadirProblema(csProblema);
 				}
 				main.añadeImagen(problema.automata());
 				for (BufferedImage imagen : problema.alternativas())
@@ -323,7 +311,7 @@ public class ConstruccionSubconjuntosPanel extends
 
 				problemaActual = csProblema;
 				expresionText.setText(problema.problema());
-				main.actualizaVistaPrevia();
+				main.actualizaVistaPrevia(problemaActual);
 			} catch (InterruptedException | ExecutionException
 					| CancellationException e) {
 				log.error(
@@ -364,9 +352,8 @@ public class ConstruccionSubconjuntosPanel extends
 					csProblema = Problema.CSExpresion(problema);
 				}
 			}
-			documento.sustituirProblema(problemaActual, csProblema);
 			problemaActual = csProblema;
-			main.actualizaVistaPrevia();
+			main.actualizaVistaPrevia(problemaActual);
 		}
 	}
 }

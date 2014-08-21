@@ -75,7 +75,6 @@ public class Main {
 
 	private Main main = this;
 	private JFileChooser fileChooser;
-	private Documento documento;
 	private JScrollPane contenedorScroll;
 	private JPanel problemasPanel;
 	private boolean scrollContenedor = true;
@@ -239,7 +238,7 @@ public class Main {
 
 	void añadeAhoSethiUllman(Problema<AhoSethiUllman> problema) {
 		AhoSethiUllmanPanel panel = new AhoSethiUllmanPanel(this,
-				contenedorPanel, documento);
+				contenedorPanel);
 
 		scrollContenedor = false;
 		if (problema != null)
@@ -253,7 +252,7 @@ public class Main {
 	void añadeConstruccionSubconjuntos(
 			Problema<ConstruccionSubconjuntos> problema) {
 		ConstruccionSubconjuntosPanel panel = new ConstruccionSubconjuntosPanel(
-				this, contenedorPanel, documento);
+				this, contenedorPanel);
 
 		scrollContenedor = false;
 		if (problema != null)
@@ -262,12 +261,6 @@ public class Main {
 		contenedorPanel.add(panel);
 		panelesProblema.add(panel);
 		contenedorPanel.revalidate();
-	}
-
-	@Deprecated
-	void actualizaVistaPrevia() {
-		scrollVistaPrevia = false;
-		vistaPreviaText.setText(documento.vistaPrevia());
 	}
 
 	void actualizaVistaPrevia(Problema<?> problema) {
@@ -394,8 +387,7 @@ public class Main {
 	private class MenuNuevoActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			log.info("Generando un documento nuevo.");
-			documento = new Documento();
-			actualizaVistaPrevia();
+			actualizaVistaPrevia(null);
 			contenedorPanel.removeAll();
 			panelesProblema.clear();
 			contenedorPanel.revalidate();

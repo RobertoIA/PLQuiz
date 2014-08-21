@@ -20,7 +20,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import es.ubu.inf.tfg.doc.Documento;
 import es.ubu.inf.tfg.doc.Problema;
 
 @SuppressWarnings("serial")
@@ -33,7 +32,6 @@ public class ProblemaPanel<T> extends JPanel {
 	protected Main main;
 	protected JPanel contenedorPanel;
 	protected JPanel actualPanel = this;
-	protected Documento documento;
 	protected Problema<T> problemaActual = null;
 	protected JRadioButton modoA;
 	protected JRadioButton modoB;
@@ -124,8 +122,7 @@ public class ProblemaPanel<T> extends JPanel {
 	class BotonBorrarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			if (problemaActual != null) {
-				documento.eliminarProblema(problemaActual);
-				main.actualizaVistaPrevia();
+				main.actualizaVistaPrevia(null);
 			}
 
 			contenedorPanel.remove(actualPanel);
