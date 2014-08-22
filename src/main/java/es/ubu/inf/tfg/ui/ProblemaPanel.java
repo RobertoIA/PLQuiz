@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
+import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -25,6 +26,9 @@ import es.ubu.inf.tfg.doc.Problema;
 @SuppressWarnings("serial")
 public class ProblemaPanel<T> extends JPanel {
 
+	private Border seleccionado;
+	private Border noSeleccionado;
+	
 	protected JSlider simbolosSlider;
 	protected JSlider estadosSlider;
 	protected JLabel estadosEstadoLabel;
@@ -60,6 +64,17 @@ public class ProblemaPanel<T> extends JPanel {
 	}
 
 	void inicializaPanel(String titulo) {
+		this.noSeleccionado = new CompoundBorder(
+				new EmptyBorder(5, 2, 15, 2), new TitledBorder(new LineBorder(
+						new Color(0, 0, 0), 1, true), titulo,
+						TitledBorder.LEADING, TitledBorder.TOP, null,
+						new Color(51, 51, 51)));
+		this.seleccionado = new CompoundBorder(
+				new EmptyBorder(5, 2, 15, 2), new TitledBorder(new LineBorder(
+						new Color(255, 0, 0), 4, true), titulo,
+						TitledBorder.LEADING, TitledBorder.TOP, null,
+						new Color(51, 51, 51)));
+		
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		setBorder(new EmptyBorder(new Insets(0, 0, 0, 0)));
 
@@ -80,11 +95,7 @@ public class ProblemaPanel<T> extends JPanel {
 		this.ordenPanel.add(this.abajoButton);
 
 		this.mainPanel = new JPanel();
-		this.mainPanel.setBorder(new CompoundBorder(
-				new EmptyBorder(5, 2, 15, 2), new TitledBorder(new LineBorder(
-						new Color(0, 0, 0), 1, true), titulo,
-						TitledBorder.LEADING, TitledBorder.TOP, null,
-						new Color(51, 51, 51))));
+		this.mainPanel.setBorder(this.noSeleccionado);
 		this.mainPanel
 				.setLayout(new BoxLayout(this.mainPanel, BoxLayout.Y_AXIS));
 		add(this.mainPanel);
@@ -98,6 +109,16 @@ public class ProblemaPanel<T> extends JPanel {
 		this.mostrarButton.setMargin(new Insets(0, 1, 0, 1));
 		this.mostrarButton.addActionListener(new BotonMostrarActionListener());
 		this.mostrarPanel.add(this.mostrarButton, BorderLayout.CENTER);
+	}
+	
+	void mostrarVista() {
+		main.eliminaMarca();
+		mainPanel.setBorder(seleccionado);
+		main.actualizaVistaPrevia(problemaActual);
+	}
+	
+	void eliminarVista() {
+		this.mainPanel.setBorder(this.noSeleccionado);
 	}
 
 	private class BotonArribaActionListener implements ActionListener {
@@ -114,8 +135,7 @@ public class ProblemaPanel<T> extends JPanel {
 
 	private class BotonMostrarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			main.actualizaVistaPrevia(problemaActual);
-			mainPanel.setBackground(new Color(255, 0, 0));
+			mostrarVista();
 		}
 	}
 

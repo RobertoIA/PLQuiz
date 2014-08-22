@@ -245,7 +245,7 @@ public class ConstruccionSubconjuntosPanel extends
 							main.añadeImagen(imagen);
 						problemaActual = csProblema;
 					}
-					main.actualizaVistaPrevia(problemaActual);
+					mostrarVista();
 				}
 			} catch (UnsupportedOperationException e) {
 				JOptionPane
@@ -311,7 +311,7 @@ public class ConstruccionSubconjuntosPanel extends
 
 				problemaActual = csProblema;
 				expresionText.setText(problema.problema());
-				main.actualizaVistaPrevia(problemaActual);
+				mostrarVista();
 			} catch (InterruptedException | ExecutionException
 					| CancellationException e) {
 				log.error(
@@ -353,7 +353,7 @@ public class ConstruccionSubconjuntosPanel extends
 				}
 			}
 			problemaActual = csProblema;
-			main.actualizaVistaPrevia(problemaActual);
+			mostrarVista();
 		}
 	}
 }

@@ -329,6 +329,11 @@ public class Main {
 			log.error("Error al eliminar imagen.", e);
 		}
 	}
+	
+	void eliminaMarca() {
+		for(ProblemaPanel<?> panel : this.panelesProblema)
+			panel.eliminarVista();
+	}
 
 	private Documento documento() {
 		Documento documento = new Documento();

@@ -249,7 +249,7 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 							main.añadeImagen(imagen);
 						problemaActual = asuProblema;
 					}
-					main.actualizaVistaPrevia(problemaActual);
+					mostrarVista();
 				}
 			} catch (UnsupportedOperationException e) {
 				JOptionPane
@@ -316,7 +316,7 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 
 				problemaActual = asuProblema;
 				expresionText.setText(problema.problema());
-				main.actualizaVistaPrevia(problemaActual);
+				mostrarVista();
 			} catch (InterruptedException | ExecutionException
 					| CancellationException e) {
 				log.error("Error generando problema de tipo AhoSethiUllman", e);
@@ -356,7 +356,7 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 				}
 			}
 			problemaActual = asuProblema;
-			main.actualizaVistaPrevia(problemaActual);
+			mostrarVista();
 		}
 	}
 }
