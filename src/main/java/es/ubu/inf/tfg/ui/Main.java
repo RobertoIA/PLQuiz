@@ -238,7 +238,7 @@ public class Main {
 
 	void añadeAhoSethiUllman(Problema<AhoSethiUllman> problema) {
 		AhoSethiUllmanPanel panel = new AhoSethiUllmanPanel(this,
-				contenedorPanel);
+				contenedorPanel, this.panelesProblema.size() + 1);
 
 		scrollContenedor = false;
 		if (problema != null)
@@ -252,7 +252,7 @@ public class Main {
 	void añadeConstruccionSubconjuntos(
 			Problema<ConstruccionSubconjuntos> problema) {
 		ConstruccionSubconjuntosPanel panel = new ConstruccionSubconjuntosPanel(
-				this, contenedorPanel);
+				this, contenedorPanel, this.panelesProblema.size() + 1);
 
 		scrollContenedor = false;
 		if (problema != null)
@@ -277,6 +277,7 @@ public class Main {
 			log.info("Moviendo problema {} hacia arriba", index);
 			this.panelesProblema.remove(problema);
 			this.panelesProblema.add(index - 1, problema);
+			problema.problemaActual.setNumero(index - 1);
 
 			contenedorPanel.removeAll();
 			for (ProblemaPanel<?> panel : this.panelesProblema)
@@ -291,6 +292,7 @@ public class Main {
 			log.info("Moviendo problema {} hacia abajo", index);
 			this.panelesProblema.remove(problema);
 			this.panelesProblema.add(index + 1, problema);
+			problema.problemaActual.setNumero(index + 1);
 
 			contenedorPanel.removeAll();
 			for (ProblemaPanel<?> panel : this.panelesProblema)

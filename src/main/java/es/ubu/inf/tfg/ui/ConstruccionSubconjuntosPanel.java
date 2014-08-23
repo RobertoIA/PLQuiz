@@ -56,10 +56,12 @@ public class ConstruccionSubconjuntosPanel extends
 	private JPanel modoPanelA;
 	private final ButtonGroup modoGroup = new ButtonGroup();
 	private JPanel modoPanelB;
-	public ConstruccionSubconjuntosPanel(Main main, JPanel contenedor) {
+	
+	public ConstruccionSubconjuntosPanel(Main main, JPanel contenedor, int numero) {
 
 		this.main = main;
 		this.contenedorPanel = contenedor;
+		this.numero = numero;
 
 		inicializaPanel("McNaughton-Yamada-Thompson");
 
@@ -215,11 +217,11 @@ public class ConstruccionSubconjuntosPanel extends
 									expresion);
 							Problema<ConstruccionSubconjuntos> csProblema;
 							if (modoA.isSelected())
-								csProblema = Problema.CSConstruccion(problema);
+								csProblema = Problema.CSConstruccion(problema, numero);
 							else if (modoC.isSelected())
-								csProblema = Problema.CSAutomata(problema);
+								csProblema = Problema.CSAutomata(problema, numero);
 							else
-								csProblema = Problema.CSExpresion(problema);
+								csProblema = Problema.CSExpresion(problema, numero);
 							for (BufferedImage imagen : problemaActual
 									.getProblema().alternativas())
 								main.eliminaImagen(imagen);
@@ -235,11 +237,11 @@ public class ConstruccionSubconjuntosPanel extends
 								expresion);
 						Problema<ConstruccionSubconjuntos> csProblema;
 						if (modoA.isSelected())
-							csProblema = Problema.CSConstruccion(problema);
+							csProblema = Problema.CSConstruccion(problema, numero);
 						else if (modoC.isSelected())
-							csProblema = Problema.CSAutomata(problema);
+							csProblema = Problema.CSAutomata(problema, numero);
 						else
-							csProblema = Problema.CSExpresion(problema);
+							csProblema = Problema.CSExpresion(problema, numero);
 						main.añadeImagen(problema.automata());
 						for (BufferedImage imagen : problema.alternativas())
 							main.añadeImagen(imagen);
@@ -293,11 +295,11 @@ public class ConstruccionSubconjuntosPanel extends
 			try {
 				problema = get();
 				if (modoA.isSelected())
-					csProblema = Problema.CSConstruccion(problema);
+					csProblema = Problema.CSConstruccion(problema, numero);
 				else if (modoC.isSelected())
-					csProblema = Problema.CSAutomata(problema);
+					csProblema = Problema.CSAutomata(problema, numero);
 				else
-					csProblema = Problema.CSExpresion(problema);
+					csProblema = Problema.CSExpresion(problema, numero);
 
 				if (problemaActual != null) {
 					main.eliminaImagen(problemaActual.getProblema().automata());
@@ -339,17 +341,17 @@ public class ConstruccionSubconjuntosPanel extends
 			if (modoA == modoButton) {
 				log.info("Seleccionado modo construcción de autómata en problema de construcción de subconjuntos.");
 				if (problemaActual != null) {
-					csProblema = Problema.CSConstruccion(problema);
+					csProblema = Problema.CSConstruccion(problema, numero);
 				}
 			} else if (modoC == modoButton) {
 				log.info("Seleccionado modo autómata en problema de construcción de subconjuntos.");
 				if (problemaActual != null) {
-					csProblema = Problema.CSAutomata(problema);
+					csProblema = Problema.CSAutomata(problema, numero);
 				}
 			} else if (modoB == modoButton) {
 				log.info("Seleccionado modo expresión en problema de construcción de subconjuntos.");
 				if (problemaActual != null) {
-					csProblema = Problema.CSExpresion(problema);
+					csProblema = Problema.CSExpresion(problema, numero);
 				}
 			}
 			problemaActual = csProblema;

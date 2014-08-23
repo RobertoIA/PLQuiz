@@ -461,35 +461,37 @@ public class BloquePreguntas extends JDialog {
 			try {
 				List<Object> problemas = get();
 				Problema<?> ultimoProblema = null;
+				int numero = 1;
 
 				for (Object problema : problemas) {
 					if (problema instanceof AhoSethiUllman) {
 						Problema<AhoSethiUllman> p;
 						if (asuModoTablasButton.isSelected())
-							p = Problema.asuTablas((AhoSethiUllman) problema);
+							p = Problema.asuTablas((AhoSethiUllman) problema, numero);
 						else if (asuModoEtiquetadoButton.isSelected())
 							p = Problema
-									.asuEtiquetado((AhoSethiUllman) problema);
+									.asuEtiquetado((AhoSethiUllman) problema, numero);
 						else
 							p = Problema
-									.asuConstruccion((AhoSethiUllman) problema);
+									.asuConstruccion((AhoSethiUllman) problema, numero);
 						main.añadeAhoSethiUllman(p);
 						ultimoProblema = p;
 					} else if (problema instanceof ConstruccionSubconjuntos) {
 						Problema<ConstruccionSubconjuntos> p;
 						if (csModoConstruccionButton.isSelected())
 							p = Problema
-									.CSConstruccion((ConstruccionSubconjuntos) problema);
+									.CSConstruccion((ConstruccionSubconjuntos) problema, numero);
 						else if (csModoExpresionButton.isSelected())
 							p = Problema
-									.CSExpresion((ConstruccionSubconjuntos) problema);
+									.CSExpresion((ConstruccionSubconjuntos) problema, numero);
 						else
 							p = Problema
-									.CSAutomata((ConstruccionSubconjuntos) problema);
+									.CSAutomata((ConstruccionSubconjuntos) problema, numero);
 						main.añadeConstruccionSubconjuntos(p);
 						ultimoProblema = p;
 					} else
 						log.error("Generado problema de tipo desconocido.");
+					numero++;
 					main.actualizaVistaPrevia(ultimoProblema);
 				}
 

@@ -28,6 +28,7 @@ public class ProblemaPanel<T> extends JPanel {
 
 	private Border seleccionado;
 	private Border noSeleccionado;
+	protected int numero;
 	
 	protected JSlider simbolosSlider;
 	protected JSlider estadosSlider;
@@ -119,6 +120,14 @@ public class ProblemaPanel<T> extends JPanel {
 	
 	void eliminarVista() {
 		this.mainPanel.setBorder(this.noSeleccionado);
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
 
 	private class BotonArribaActionListener implements ActionListener {

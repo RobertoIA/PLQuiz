@@ -4,7 +4,7 @@ import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
 public class Problema<T> {
-	
+
 	private enum Tipo {
 		AHOSETHIULLMAN_CONSTRUCCION, // Aho-Sethi-Ullman construcción de árbol
 		AHOSETHIULLMAN_ETIQUETADO, // Aho-Sethi-Ullman etiquetado de árbol
@@ -16,46 +16,49 @@ public class Problema<T> {
 
 	private Tipo tipo;
 	private T problema;
+	private int numero;
 
 	private Problema(T problema) {
 		this.problema = problema;
 	}
 
 	public static Problema<AhoSethiUllman> asuConstruccion(
-			AhoSethiUllman problema) {
+			AhoSethiUllman problema, int numero) {
 		Problema<AhoSethiUllman> asuProblema = new Problema<>(problema);
 		asuProblema.tipo = Tipo.AHOSETHIULLMAN_CONSTRUCCION;
 		return asuProblema;
 	}
 
-	public static Problema<AhoSethiUllman> asuEtiquetado(AhoSethiUllman problema) {
+	public static Problema<AhoSethiUllman> asuEtiquetado(
+			AhoSethiUllman problema, int numero) {
 		Problema<AhoSethiUllman> asuProblema = new Problema<>(problema);
 		asuProblema.tipo = Tipo.AHOSETHIULLMAN_ETIQUETADO;
 		return asuProblema;
 	}
 
-	public static Problema<AhoSethiUllman> asuTablas(AhoSethiUllman problema) {
+	public static Problema<AhoSethiUllman> asuTablas(AhoSethiUllman problema,
+			int numero) {
 		Problema<AhoSethiUllman> asuProblema = new Problema<>(problema);
 		asuProblema.tipo = Tipo.AHOSETHIULLMAN_TABLAS;
 		return asuProblema;
 	}
-	
+
 	public static Problema<ConstruccionSubconjuntos> CSConstruccion(
-			ConstruccionSubconjuntos problema) {
+			ConstruccionSubconjuntos problema, int numero) {
 		Problema<ConstruccionSubconjuntos> csProblema = new Problema<>(problema);
 		csProblema.tipo = Tipo.CONSTRUCCIONSUBCONJUNTOS_CONSTRUCCION;
 		return csProblema;
 	}
 
 	public static Problema<ConstruccionSubconjuntos> CSExpresion(
-			ConstruccionSubconjuntos problema) {
+			ConstruccionSubconjuntos problema, int numero) {
 		Problema<ConstruccionSubconjuntos> csProblema = new Problema<>(problema);
 		csProblema.tipo = Tipo.CONSTRUCCIONSUBCONJUNTOS_EXPRESION;
 		return csProblema;
 	}
 
 	public static Problema<ConstruccionSubconjuntos> CSAutomata(
-			ConstruccionSubconjuntos problema) {
+			ConstruccionSubconjuntos problema, int numero) {
 		Problema<ConstruccionSubconjuntos> csProblema = new Problema<>(problema);
 		csProblema.tipo = Tipo.CONSTRUCCIONSUBCONJUNTOS_AUTOMATA;
 		return csProblema;
@@ -117,5 +120,13 @@ public class Problema<T> {
 		default:
 			return false;
 		}
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
 	}
 }

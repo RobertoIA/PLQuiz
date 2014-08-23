@@ -55,10 +55,12 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 	private JPanel modoPanelA;
 	private final ButtonGroup modoGroup = new ButtonGroup();
 	private JPanel modoPanelB;
-	public AhoSethiUllmanPanel(Main main, JPanel contenedor) {
+	
+	public AhoSethiUllmanPanel(Main main, JPanel contenedor, int numero) {
 
 		this.main = main;
 		this.contenedorPanel = contenedor;
+		this.numero = numero;
 
 		inicializaPanel("Aho-Sethi-Ullman");
 
@@ -216,12 +218,12 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 							Problema<AhoSethiUllman> asuProblema;
 
 							if (modoB.isSelected())
-								asuProblema = Problema.asuTablas(problema);
+								asuProblema = Problema.asuTablas(problema, numero);
 							else if (modoC.isSelected())
-								asuProblema = Problema.asuEtiquetado(problema);
+								asuProblema = Problema.asuEtiquetado(problema, numero);
 							else
 								asuProblema = Problema
-										.asuConstruccion(problema);
+										.asuConstruccion(problema, numero);
 
 							main.eliminaImagen(problemaActual.getProblema()
 									.arbolVacio());
@@ -238,11 +240,11 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 						Problema<AhoSethiUllman> asuProblema;
 
 						if (modoB.isSelected())
-							asuProblema = Problema.asuTablas(problema);
+							asuProblema = Problema.asuTablas(problema, numero);
 						else if (modoC.isSelected())
-							asuProblema = Problema.asuEtiquetado(problema);
+							asuProblema = Problema.asuEtiquetado(problema, numero);
 						else
-							asuProblema = Problema.asuConstruccion(problema);
+							asuProblema = Problema.asuConstruccion(problema, numero);
 
 						main.añadeImagen(problema.arbolVacio());
 						for (BufferedImage imagen : problema.alternativas())
@@ -296,11 +298,11 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 			try {
 				problema = get();
 				if (modoB.isSelected())
-					asuProblema = Problema.asuTablas(problema);
+					asuProblema = Problema.asuTablas(problema, numero);
 				else if (modoC.isSelected())
-					asuProblema = Problema.asuEtiquetado(problema);
+					asuProblema = Problema.asuEtiquetado(problema, numero);
 				else
-					asuProblema = Problema.asuConstruccion(problema);
+					asuProblema = Problema.asuConstruccion(problema, numero);
 
 				if (problemaActual != null) {
 					main.eliminaImagen(problemaActual.getProblema()
@@ -342,17 +344,17 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 			if (modoC == modoButton) {
 				log.info("Seleccionado modo etiquetado en problema de Aho-Sethi-Ullman.");
 				if (problemaActual != null) {
-					asuProblema = Problema.asuEtiquetado(problema);
+					asuProblema = Problema.asuEtiquetado(problema, numero);
 				}
 			} else if (modoB == modoButton) {
 				log.info("Seleccionado modo tablas en problema de Aho-Sethi-Ullman.");
 				if (problemaActual != null) {
-					asuProblema = Problema.asuTablas(problema);
+					asuProblema = Problema.asuTablas(problema, numero);
 				}
 			} else {
 				log.info("Seleccionado modo construcción en problema de Aho-Sethi-Ullman.");
 				if (problemaActual != null) {
-					asuProblema = Problema.asuConstruccion(problema);
+					asuProblema = Problema.asuConstruccion(problema, numero);
 				}
 			}
 			problemaActual = asuProblema;
