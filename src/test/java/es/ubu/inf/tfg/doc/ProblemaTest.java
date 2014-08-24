@@ -16,7 +16,7 @@ public class ProblemaTest {
 	@Test
 	public void testASUConstruccion() {
 		AhoSethiUllman asu = new AhoSethiUllman("a*");
-		Problema<AhoSethiUllman> problema = Problema.asuConstruccion(asu);
+		Problema<AhoSethiUllman> problema = Problema.asuConstruccion(asu, 1);
 		
 		assertEquals("Error recuperando problema original tipo AhoSethiUllman subtipo construcción",  asu, problema.getProblema());
 		assertEquals("Error identificando problema tipo AhoSethiUllman subtipo construcción", "AhoSethiUllmanConstruccion", problema.getTipo());
@@ -29,7 +29,7 @@ public class ProblemaTest {
 	@Test
 	public void testASUEtiquetado() {
 		AhoSethiUllman asu = new AhoSethiUllman("a*");
-		Problema<AhoSethiUllman> problema = Problema.asuEtiquetado(asu);
+		Problema<AhoSethiUllman> problema = Problema.asuEtiquetado(asu, 1);
 		
 		assertEquals("Error recuperando problema original tipo AhoSethiUllman subtipo etiquetado",  asu, problema.getProblema());
 		assertEquals("Error identificando problema tipo AhoSethiUllman subtipo etiquetado", "AhoSethiUllmanEtiquetado", problema.getTipo());
@@ -42,7 +42,7 @@ public class ProblemaTest {
 	@Test
 	public void testASUTablas() {
 		AhoSethiUllman asu = new AhoSethiUllman("a*");
-		Problema<AhoSethiUllman> problema = Problema.asuTablas(asu);
+		Problema<AhoSethiUllman> problema = Problema.asuTablas(asu, 1);
 		
 		assertEquals("Error recuperando problema original tipo AhoSethiUllman subtipo completo",  asu, problema.getProblema());
 		assertEquals("Error identificando problema tipo AhoSethiUllman subtipo completo", "AhoSethiUllmanTablas", problema.getTipo());
@@ -55,7 +55,7 @@ public class ProblemaTest {
 	@Test
 	public void testCSConstrucción() {
 		ConstruccionSubconjuntos cs = new ConstruccionSubconjuntos("a*");
-		Problema<ConstruccionSubconjuntos> problema = Problema.CSConstruccion(cs);
+		Problema<ConstruccionSubconjuntos> problema = Problema.CSConstruccion(cs, 1);
 		
 		assertEquals("Error recuperando problema original tipo ConstruccionSubconjuntos subtipo construcción",  cs, problema.getProblema());
 		assertEquals("Error identificando problema tipo ConstruccionSubconjuntos subtipo construcción", "ConstruccionSubconjuntosConstruccion", problema.getTipo());
@@ -68,7 +68,7 @@ public class ProblemaTest {
 	@Test
 	public void testCSExpresion() {
 		ConstruccionSubconjuntos cs = new ConstruccionSubconjuntos("a*");
-		Problema<ConstruccionSubconjuntos> problema = Problema.CSExpresion(cs);
+		Problema<ConstruccionSubconjuntos> problema = Problema.CSExpresion(cs, 1);
 		
 		assertEquals("Error recuperando problema original tipo ConstruccionSubconjuntos subtipo expresión",  cs, problema.getProblema());
 		assertEquals("Error identificando problema tipo ConstruccionSubconjuntos subtipo expresión", "ConstruccionSubconjuntosExpresion", problema.getTipo());
@@ -81,7 +81,7 @@ public class ProblemaTest {
 	@Test
 	public void testCSAutomata() {
 		ConstruccionSubconjuntos cs = new ConstruccionSubconjuntos("a*");
-		Problema<ConstruccionSubconjuntos> problema = Problema.CSAutomata(cs);
+		Problema<ConstruccionSubconjuntos> problema = Problema.CSAutomata(cs, 1);
 		
 		assertEquals("Error recuperando problema original tipo ConstruccionSubconjuntos subtipo autómata",  cs, problema.getProblema());
 		assertEquals("Error identificando problema tipo ConstruccionSubconjuntos subtipo autómata", "ConstruccionSubconjuntosAutomata", problema.getTipo());

@@ -114,9 +114,9 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
-		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA));
-		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB));
-		documento.añadirProblema(Problema.asuConstruccion(asuProblemaC));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA, 1));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB, 2));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaC, 3));
 
 		// Vista previa
 		esperado = toString("incorporarASUConstruccion.html");
@@ -178,9 +178,9 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA));
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB));
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaC));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA, 1));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB, 2));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaC, 3));
 
 		// Vista previa
 		esperado = toString("incorporarASUEtiquetado.html");
@@ -240,9 +240,9 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
-		documento.añadirProblema(Problema.asuTablas(asuProblemaA));
-		documento.añadirProblema(Problema.asuTablas(asuProblemaB));
-		documento.añadirProblema(Problema.asuTablas(asuProblemaC));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaA, 1));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaB, 2));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaC, 3));
 
 		// Vista previa
 		esperado = toString("incorporarASUTablas.html");
@@ -292,10 +292,10 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA));
-		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB));
-		documento.añadirProblema(Problema.asuConstruccion(asuProblemaC));
-		documento.eliminarProblema(Problema.asuConstruccion(asuProblemaC));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA, 1));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB, 2));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaC, 3));
+		documento.eliminarProblema(Problema.asuConstruccion(asuProblemaC, 3));
 
 		esperado = toString("eliminarASUConstruccion.html");
 		encontrado = documento.vistaPrevia();
@@ -357,10 +357,10 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA));
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB));
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaC));
-		documento.eliminarProblema(Problema.asuEtiquetado(asuProblemaC));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA, 1));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB, 2));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaC, 3));
+		documento.eliminarProblema(Problema.asuEtiquetado(asuProblemaC, 3));
 
 		esperado = toString("eliminarASUEtiquetado.html");
 		encontrado = documento.vistaPrevia();
@@ -420,10 +420,10 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.asuTablas(asuProblemaA));
-		documento.añadirProblema(Problema.asuTablas(asuProblemaB));
-		documento.añadirProblema(Problema.asuTablas(asuProblemaC));
-		documento.eliminarProblema(Problema.asuTablas(asuProblemaC));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaA, 1));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaB, 2));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaC, 3));
+		documento.eliminarProblema(Problema.asuTablas(asuProblemaC, 3));
 
 		esperado = toString("eliminarASUTablas.html");
 		encontrado = documento.vistaPrevia();
@@ -472,10 +472,10 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA));
-		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB));
-		documento.sustituirProblema(Problema.asuConstruccion(asuProblemaB),
-				Problema.asuConstruccion(asuProblemaC));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA, 1));
+		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB, 2));
+		documento.sustituirProblema(Problema.asuConstruccion(asuProblemaB, 2),
+				Problema.asuConstruccion(asuProblemaC, 2));
 
 		esperado = toString("sustituirASUConstruccion.html");
 		encontrado = documento.vistaPrevia();
@@ -537,10 +537,10 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA));
-		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB));
-		documento.sustituirProblema(Problema.asuEtiquetado(asuProblemaB),
-				Problema.asuEtiquetado(asuProblemaC));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaA, 1));
+		documento.añadirProblema(Problema.asuEtiquetado(asuProblemaB, 2));
+		documento.sustituirProblema(Problema.asuEtiquetado(asuProblemaB, 2),
+				Problema.asuEtiquetado(asuProblemaC, 2));
 
 		esperado = toString("sustituirASUEtiquetado.html");
 		encontrado = documento.vistaPrevia();
@@ -600,10 +600,10 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.asuTablas(asuProblemaA));
-		documento.añadirProblema(Problema.asuTablas(asuProblemaB));
-		documento.sustituirProblema(Problema.asuTablas(asuProblemaB),
-				Problema.asuTablas(asuProblemaC));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaA, 1));
+		documento.añadirProblema(Problema.asuTablas(asuProblemaB, 2));
+		documento.sustituirProblema(Problema.asuTablas(asuProblemaB, 2),
+				Problema.asuTablas(asuProblemaC, 2));
 
 		esperado = toString("sustituirASUTablas.html");
 		encontrado = documento.vistaPrevia();
@@ -651,9 +651,9 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
-		documento.añadirProblema(Problema.CSConstruccion(csProblemaA));
-		documento.añadirProblema(Problema.CSConstruccion(csProblemaB));
-		documento.añadirProblema(Problema.CSConstruccion(csProblemaC));
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaA, 1));
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaB, 2));
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaC, 3));
 
 		// Vista previa
 		esperado = toString("incorporarCSConstruccion.html");
@@ -716,10 +716,10 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.CSConstruccion(csProblemaA));
-		documento.añadirProblema(Problema.CSConstruccion(csProblemaB));
-		documento.añadirProblema(Problema.CSConstruccion(csProblemaC));
-		documento.eliminarProblema(Problema.CSConstruccion(csProblemaC));
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaA, 1));
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaB, 2));
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaC, 3));
+		documento.eliminarProblema(Problema.CSConstruccion(csProblemaC, 3));
 
 		esperado = toString("eliminarCSConstruccion.html");
 		encontrado = documento.vistaPrevia();
@@ -781,10 +781,10 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.CSConstruccion(csProblemaA));
-		documento.añadirProblema(Problema.CSConstruccion(csProblemaB));
-		documento.sustituirProblema(Problema.CSConstruccion(csProblemaB),
-				Problema.CSConstruccion(csProblemaC));
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaA, 1));
+		documento.añadirProblema(Problema.CSConstruccion(csProblemaB, 2));
+		documento.sustituirProblema(Problema.CSConstruccion(csProblemaB, 2),
+				Problema.CSConstruccion(csProblemaC, 2));
 
 		esperado = toString("sustituirCSConstruccion.html");
 		encontrado = documento.vistaPrevia();
@@ -845,9 +845,9 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
-		documento.añadirProblema(Problema.CSExpresion(csProblemaA));
-		documento.añadirProblema(Problema.CSExpresion(csProblemaB));
-		documento.añadirProblema(Problema.CSExpresion(csProblemaC));
+		documento.añadirProblema(Problema.CSExpresion(csProblemaA, 1));
+		documento.añadirProblema(Problema.CSExpresion(csProblemaB, 2));
+		documento.añadirProblema(Problema.CSExpresion(csProblemaC, 3));
 
 		// Vista previa
 		esperado = toString("incorporarCSExpresion.html");
@@ -897,10 +897,10 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.CSExpresion(csProblemaA));
-		documento.añadirProblema(Problema.CSExpresion(csProblemaB));
-		documento.añadirProblema(Problema.CSExpresion(csProblemaC));
-		documento.eliminarProblema(Problema.CSExpresion(csProblemaC));
+		documento.añadirProblema(Problema.CSExpresion(csProblemaA, 1));
+		documento.añadirProblema(Problema.CSExpresion(csProblemaB, 2));
+		documento.añadirProblema(Problema.CSExpresion(csProblemaC, 3));
+		documento.eliminarProblema(Problema.CSExpresion(csProblemaC, 3));
 
 		esperado = toString("eliminarCSExpresion.html");
 		encontrado = documento.vistaPrevia();
@@ -949,10 +949,10 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.CSExpresion(csProblemaA));
-		documento.añadirProblema(Problema.CSExpresion(csProblemaB));
-		documento.sustituirProblema(Problema.CSExpresion(csProblemaB),
-				Problema.CSExpresion(csProblemaC));
+		documento.añadirProblema(Problema.CSExpresion(csProblemaA, 1));
+		documento.añadirProblema(Problema.CSExpresion(csProblemaB, 2));
+		documento.sustituirProblema(Problema.CSExpresion(csProblemaB, 2),
+				Problema.CSExpresion(csProblemaC, 2));
 
 		esperado = toString("sustituirCSExpresion.html");
 		encontrado = documento.vistaPrevia();
@@ -1000,9 +1000,9 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
-		documento.añadirProblema(Problema.CSAutomata(csProblemaA));
-		documento.añadirProblema(Problema.CSAutomata(csProblemaB));
-		documento.añadirProblema(Problema.CSAutomata(csProblemaC));
+		documento.añadirProblema(Problema.CSAutomata(csProblemaA, 1));
+		documento.añadirProblema(Problema.CSAutomata(csProblemaB, 2));
+		documento.añadirProblema(Problema.CSAutomata(csProblemaC, 3));
 
 		// Vista previa
 		esperado = toString("incorporarCSAutomata.html");
@@ -1063,10 +1063,10 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.CSAutomata(csProblemaA));
-		documento.añadirProblema(Problema.CSAutomata(csProblemaB));
-		documento.añadirProblema(Problema.CSAutomata(csProblemaC));
-		documento.eliminarProblema(Problema.CSAutomata(csProblemaC));
+		documento.añadirProblema(Problema.CSAutomata(csProblemaA, 1));
+		documento.añadirProblema(Problema.CSAutomata(csProblemaB, 2));
+		documento.añadirProblema(Problema.CSAutomata(csProblemaC, 3));
+		documento.eliminarProblema(Problema.CSAutomata(csProblemaC, 3));
 
 		esperado = toString("eliminarCSAutomata.html");
 		encontrado = documento.vistaPrevia();
@@ -1126,10 +1126,10 @@ public class DocumentoTest {
 		String encontrado;
 
 		// Vista previa
-		documento.añadirProblema(Problema.CSAutomata(csProblemaA));
-		documento.añadirProblema(Problema.CSAutomata(csProblemaB));
-		documento.sustituirProblema(Problema.CSAutomata(csProblemaB),
-				Problema.CSAutomata(csProblemaC));
+		documento.añadirProblema(Problema.CSAutomata(csProblemaA, 1));
+		documento.añadirProblema(Problema.CSAutomata(csProblemaB, 2));
+		documento.sustituirProblema(Problema.CSAutomata(csProblemaB, 2),
+				Problema.CSAutomata(csProblemaC, 2));
 
 		esperado = toString("sustituirCSAutomata.html");
 		encontrado = documento.vistaPrevia();
