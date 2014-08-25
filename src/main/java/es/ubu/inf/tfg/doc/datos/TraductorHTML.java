@@ -48,6 +48,25 @@ public class TraductorHTML extends Traductor {
 
 		return plantilla.toString();
 	}
+	
+	/**
+	 * Genera un documento HTML a partir de un único problema ya traducido.
+	 * 
+	 * @param problema
+	 *            Problema traducido.
+	 * @return Documento HTML completo.
+	 */
+	@Override
+	public String traduceProblema(Plantilla problema, int num){
+		log.info("Generando documento HTML de un único problema.");
+		
+		problema.set("numero", "" + num);
+		
+		Plantilla plantilla = new Plantilla("plantilla.html");
+		plantilla.set("documento", problema.toString());
+	
+		return plantilla.toString();
+	}
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a formato

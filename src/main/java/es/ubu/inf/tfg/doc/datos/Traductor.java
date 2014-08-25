@@ -26,6 +26,18 @@ public abstract class Traductor {
 	public abstract String documento(List<Plantilla> problemas);
 
 	/**
+	 * Genera un documento de un formato concreto a partir de un único problema
+	 * ya traducido.
+	 * 
+	 * @param problema
+	 *            Problema traducido.
+	 * @param num
+	 *            Número del problema.
+	 * @return Documento completo.
+	 */
+	public abstract String traduceProblema(Plantilla problema, int num);
+
+	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a un
 	 * formato concreto.
 	 * 

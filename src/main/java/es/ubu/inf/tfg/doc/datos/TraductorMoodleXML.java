@@ -59,6 +59,25 @@ public class TraductorMoodleXML extends Traductor {
 
 		return plantilla.toString();
 	}
+	
+	/**
+	 * Genera un documento Moodle XML a partir de un único problema ya traducido.
+	 * 
+	 * @param problema
+	 *            Problema traducido.
+	 * @return Documento Moodle XML completo.
+	 */
+	@Override
+	public String traduceProblema(Plantilla problema, int num){
+		log.info("Generando documento Moodle XML de un único problema.");
+		
+		problema.set("numero", "" + num);
+		
+		Plantilla plantilla = new Plantilla("plantilla.xml");
+		plantilla.set("documento", problema.toString());
+	
+		return plantilla.toString();
+	}
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a formato

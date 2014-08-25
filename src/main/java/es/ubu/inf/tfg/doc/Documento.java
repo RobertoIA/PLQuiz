@@ -49,6 +49,58 @@ public class Documento {
 	}
 
 	/**
+	 * Devuelve un documento HTML en forma de cadena de caracteres que se
+	 * utilizará como vista previa de un problema.
+	 * 
+	 * @param problema
+	 *            Problema del que mostrar la vista previa.
+	 * @param num
+	 *            Número del problema.
+	 * 
+	 * @return Vista previa del problema en formato HTML.
+	 */
+	public static String vistaPrevia(Problema<?> problema, int num) {
+		Traductor traductor = new TraductorHTML();
+		Plantilla plantilla;
+		
+		if(problema != null) {
+			switch (problema.getTipo()) {
+			case "AhoSethiUllmanConstruccion":
+				AhoSethiUllman asuProblemaConstruccion = (AhoSethiUllman) problema.getProblema();
+				plantilla = traductor.traduceASUConstruccion(asuProblemaConstruccion);
+				break;
+			case "AhoSethiUllmanEtiquetado":
+				AhoSethiUllman asuProblemaEtiquetado = (AhoSethiUllman) problema.getProblema();
+				plantilla = traductor.traduceASUEtiquetado(asuProblemaEtiquetado);
+				break;
+			case "AhoSethiUllmanTablas":
+				AhoSethiUllman asuProblemaTablas = (AhoSethiUllman) problema.getProblema();
+				plantilla = traductor.traduceASUTablas(asuProblemaTablas);
+				break;
+			case "ConstruccionSubconjuntosConstruccion":
+				ConstruccionSubconjuntos csConstruccion = (ConstruccionSubconjuntos) problema.getProblema();
+				plantilla = traductor.traduceCSConstruccion(csConstruccion);
+				break;
+			case "ConstruccionSubconjuntosExpresion":
+				ConstruccionSubconjuntos csProblemaExpresion = (ConstruccionSubconjuntos) problema.getProblema();
+				plantilla = traductor.traduceCSExpresion(csProblemaExpresion);
+				break;
+			case "ConstruccionSubconjuntosAutomata":
+				ConstruccionSubconjuntos csProblemaAutomata = (ConstruccionSubconjuntos) problema.getProblema();
+				plantilla = traductor.traduceCSAutomata(csProblemaAutomata);
+				break;
+			default:
+				throw new UnsupportedOperationException(
+						"Argumento tipo no soportado.");
+			}
+	
+			return traductor.traduceProblema(plantilla, num);
+		} else {
+			return traductor.documento(new ArrayList<>());
+		}
+	}
+
+	/**
 	 * Añade un problema al documento.
 	 * 
 	 * @param problema
@@ -90,17 +142,6 @@ public class Documento {
 			this.problemas.set(index, nuevo);
 		else
 			añadirProblema(nuevo);
-
-	}
-
-	/**
-	 * Devuelve un documento HTML en forma de cadena de caracteres que se
-	 * utilizará como vista previa del documento.
-	 * 
-	 * @return Vista previa del documento en formato HTML.
-	 */
-	public String vistaPrevia() {
-		return traduce(new TraductorHTML());
 	}
 
 	/**
@@ -199,8 +240,8 @@ public class Documento {
 						p.arbolVacioDot());
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
-				guardar(carpeta + Math.abs(p.alternativas().get(0).hashCode()) + ".gv",
-						p.alternativasDot().get(0));
+				guardar(carpeta + Math.abs(p.alternativas().get(0).hashCode())
+						+ ".gv", p.alternativasDot().get(0));
 			}
 		}
 

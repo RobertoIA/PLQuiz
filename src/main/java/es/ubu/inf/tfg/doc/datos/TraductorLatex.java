@@ -46,6 +46,25 @@ public class TraductorLatex extends Traductor {
 
 		return plantilla.toString();
 	}
+	
+	/**
+	 * Genera un documento Latex a partir de un único problema ya traducido.
+	 * 
+	 * @param problema
+	 *            Problema traducido.
+	 * @return Documento Latex completo.
+	 */
+	@Override
+	public String traduceProblema(Plantilla problema, int num){
+		log.info("Generando documento Latex de un único problema.");
+		
+		problema.set("numero", "" + num);
+		
+		Plantilla plantilla = new Plantilla("plantilla.tex");
+		plantilla.set("documento", problema.toString());
+	
+		return plantilla.toString();
+	}
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a formato

@@ -492,7 +492,7 @@ public class BloquePreguntas extends JDialog {
 					} else
 						log.error("Generado problema de tipo desconocido.");
 					numero++;
-					main.actualizaVistaPrevia(ultimoProblema);
+					main.actualizaVistaPrevia(ultimoProblema, numero);
 				}
 
 			} catch (InterruptedException | ExecutionException

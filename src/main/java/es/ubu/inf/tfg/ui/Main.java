@@ -106,7 +106,7 @@ public class Main {
 			log.error("Error estableciendo el look and feel", e);
 		}
 		initialize();
-		actualizaVistaPrevia(null);
+		actualizaVistaPrevia(null, 0);
 		this.fileChooser = new JFileChooser();
 		this.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 	}
@@ -263,12 +263,9 @@ public class Main {
 		contenedorPanel.revalidate();
 	}
 
-	void actualizaVistaPrevia(Problema<?> problema) {
-		Documento documento = new Documento();
-		if (problema != null)
-			documento.añadirProblema(problema);
+	void actualizaVistaPrevia(Problema<?> problema, int num) {
 		scrollVistaPrevia = false;
-		vistaPreviaText.setText(documento.vistaPrevia());
+		vistaPreviaText.setText(Documento.vistaPrevia(problema, num));
 	}
 
 	void moverProblemaArriba(ProblemaPanel<?> problema) {
@@ -394,7 +391,7 @@ public class Main {
 	private class MenuNuevoActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			log.info("Generando un documento nuevo.");
-			actualizaVistaPrevia(null);
+			actualizaVistaPrevia(null, 0);
 			contenedorPanel.removeAll();
 			panelesProblema.clear();
 			contenedorPanel.revalidate();
