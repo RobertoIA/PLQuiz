@@ -115,7 +115,7 @@ public class ProblemaPanel<T> extends JPanel {
 	void mostrarVista() {
 		main.eliminaMarca();
 		mainPanel.setBorder(seleccionado);
-		main.actualizaVistaPrevia(problemaActual, this.numero);
+		main.actualizaVistaPrevia(problemaActual);
 	}
 	
 	void eliminarVista() {
@@ -151,7 +151,7 @@ public class ProblemaPanel<T> extends JPanel {
 	class BotonBorrarActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			if (problemaActual != null) {
-				main.actualizaVistaPrevia(null, 0);
+				main.actualizaVistaPrevia(null);
 			}
 
 			contenedorPanel.remove(actualPanel);

@@ -339,25 +339,27 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 		public void actionPerformed(ActionEvent e) {
 			JRadioButton modoButton = (JRadioButton) e.getSource();
 			Problema<AhoSethiUllman> asuProblema = null;
-			AhoSethiUllman problema = problemaActual.getProblema();
-
-			if (modoC == modoButton) {
-				log.info("Seleccionado modo etiquetado en problema de Aho-Sethi-Ullman.");
-				if (problemaActual != null) {
-					asuProblema = Problema.asuEtiquetado(problema, numero);
+			if(problemaActual != null) {
+				AhoSethiUllman problema = problemaActual.getProblema();
+	
+				if (modoC == modoButton) {
+					log.info("Seleccionado modo etiquetado en problema de Aho-Sethi-Ullman numero {}.", numero);
+					if (problemaActual != null) {
+						asuProblema = Problema.asuEtiquetado(problema, numero);
+					}
+				} else if (modoB == modoButton) {
+					log.info("Seleccionado modo tablas en problema de Aho-Sethi-Ullman numero {}.", numero);
+					if (problemaActual != null) {
+						asuProblema = Problema.asuTablas(problema, numero);
+					}
+				} else {
+					log.info("Seleccionado modo construcción en problema de Aho-Sethi-Ullman numero {}.", numero);
+					if (problemaActual != null) {
+						asuProblema = Problema.asuConstruccion(problema, numero);
+					}
 				}
-			} else if (modoB == modoButton) {
-				log.info("Seleccionado modo tablas en problema de Aho-Sethi-Ullman.");
-				if (problemaActual != null) {
-					asuProblema = Problema.asuTablas(problema, numero);
-				}
-			} else {
-				log.info("Seleccionado modo construcción en problema de Aho-Sethi-Ullman.");
-				if (problemaActual != null) {
-					asuProblema = Problema.asuConstruccion(problema, numero);
-				}
+				problemaActual = asuProblema;
 			}
-			problemaActual = asuProblema;
 			mostrarVista();
 		}
 	}

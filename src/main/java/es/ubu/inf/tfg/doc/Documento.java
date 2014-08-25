@@ -54,12 +54,10 @@ public class Documento {
 	 * 
 	 * @param problema
 	 *            Problema del que mostrar la vista previa.
-	 * @param num
-	 *            Número del problema.
 	 * 
 	 * @return Vista previa del problema en formato HTML.
 	 */
-	public static String vistaPrevia(Problema<?> problema, int num) {
+	public static String vistaPrevia(Problema<?> problema) {
 		Traductor traductor = new TraductorHTML();
 		Plantilla plantilla;
 		
@@ -94,7 +92,7 @@ public class Documento {
 						"Argumento tipo no soportado.");
 			}
 	
-			return traductor.traduceProblema(plantilla, num);
+			return traductor.traduceProblema(plantilla, problema.getNumero());
 		} else {
 			return traductor.documento(new ArrayList<>());
 		}

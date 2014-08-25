@@ -336,25 +336,27 @@ public class ConstruccionSubconjuntosPanel extends
 		public void actionPerformed(ActionEvent e) {
 			JRadioButton modoButton = (JRadioButton) e.getSource();
 			ConstruccionSubconjuntos problema = problemaActual.getProblema();
-			Problema<ConstruccionSubconjuntos> csProblema = null;
-
-			if (modoA == modoButton) {
-				log.info("Seleccionado modo construcción de autómata en problema de construcción de subconjuntos.");
-				if (problemaActual != null) {
-					csProblema = Problema.CSConstruccion(problema, numero);
+			if(problemaActual != null) {
+				Problema<ConstruccionSubconjuntos> csProblema = null;
+	
+				if (modoA == modoButton) {
+					log.info("Seleccionado modo construcción de autómata en problema de construcción de subconjuntos numero {}.", numero);
+					if (problemaActual != null) {
+						csProblema = Problema.CSConstruccion(problema, numero);
+					}
+				} else if (modoC == modoButton) {
+					log.info("Seleccionado modo autómata en problema de construcción de subconjuntos numero {}.", numero);
+					if (problemaActual != null) {
+						csProblema = Problema.CSAutomata(problema, numero);
+					}
+				} else if (modoB == modoButton) {
+					log.info("Seleccionado modo expresión en problema de construcción de subconjuntos numero {}.", numero);
+					if (problemaActual != null) {
+						csProblema = Problema.CSExpresion(problema, numero);
+					}
 				}
-			} else if (modoC == modoButton) {
-				log.info("Seleccionado modo autómata en problema de construcción de subconjuntos.");
-				if (problemaActual != null) {
-					csProblema = Problema.CSAutomata(problema, numero);
-				}
-			} else if (modoB == modoButton) {
-				log.info("Seleccionado modo expresión en problema de construcción de subconjuntos.");
-				if (problemaActual != null) {
-					csProblema = Problema.CSExpresion(problema, numero);
-				}
+				problemaActual = csProblema;
 			}
-			problemaActual = csProblema;
 			mostrarVista();
 		}
 	}

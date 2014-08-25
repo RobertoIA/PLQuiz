@@ -1,9 +1,14 @@
 package es.ubu.inf.tfg.doc;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
 public class Problema<T> {
+	
+	private static final Logger log = LoggerFactory.getLogger(Problema.class);
 
 	private enum Tipo {
 		AHOSETHIULLMAN_CONSTRUCCION, // Aho-Sethi-Ullman construcción de árbol
@@ -26,6 +31,7 @@ public class Problema<T> {
 			AhoSethiUllman problema, int numero) {
 		Problema<AhoSethiUllman> asuProblema = new Problema<>(problema);
 		asuProblema.tipo = Tipo.AHOSETHIULLMAN_CONSTRUCCION;
+		asuProblema.setNumero(numero);
 		return asuProblema;
 	}
 
@@ -33,6 +39,7 @@ public class Problema<T> {
 			AhoSethiUllman problema, int numero) {
 		Problema<AhoSethiUllman> asuProblema = new Problema<>(problema);
 		asuProblema.tipo = Tipo.AHOSETHIULLMAN_ETIQUETADO;
+		asuProblema.setNumero(numero);
 		return asuProblema;
 	}
 
@@ -40,6 +47,7 @@ public class Problema<T> {
 			int numero) {
 		Problema<AhoSethiUllman> asuProblema = new Problema<>(problema);
 		asuProblema.tipo = Tipo.AHOSETHIULLMAN_TABLAS;
+		asuProblema.setNumero(numero);
 		return asuProblema;
 	}
 
@@ -47,6 +55,7 @@ public class Problema<T> {
 			ConstruccionSubconjuntos problema, int numero) {
 		Problema<ConstruccionSubconjuntos> csProblema = new Problema<>(problema);
 		csProblema.tipo = Tipo.CONSTRUCCIONSUBCONJUNTOS_CONSTRUCCION;
+		csProblema.setNumero(numero);
 		return csProblema;
 	}
 
@@ -54,6 +63,7 @@ public class Problema<T> {
 			ConstruccionSubconjuntos problema, int numero) {
 		Problema<ConstruccionSubconjuntos> csProblema = new Problema<>(problema);
 		csProblema.tipo = Tipo.CONSTRUCCIONSUBCONJUNTOS_EXPRESION;
+		csProblema.setNumero(numero);
 		return csProblema;
 	}
 
@@ -61,6 +71,7 @@ public class Problema<T> {
 			ConstruccionSubconjuntos problema, int numero) {
 		Problema<ConstruccionSubconjuntos> csProblema = new Problema<>(problema);
 		csProblema.tipo = Tipo.CONSTRUCCIONSUBCONJUNTOS_AUTOMATA;
+		csProblema.setNumero(numero);
 		return csProblema;
 	}
 
@@ -127,6 +138,8 @@ public class Problema<T> {
 	}
 
 	public void setNumero(int numero) {
+		log.info("Numero de problema cambiado a {}", numero);
+		
 		this.numero = numero;
 	}
 }

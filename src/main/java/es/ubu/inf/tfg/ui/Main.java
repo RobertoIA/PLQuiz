@@ -106,7 +106,7 @@ public class Main {
 			log.error("Error estableciendo el look and feel", e);
 		}
 		initialize();
-		actualizaVistaPrevia(null, 0);
+		actualizaVistaPrevia(null);
 		this.fileChooser = new JFileChooser();
 		this.fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 	}
@@ -263,9 +263,9 @@ public class Main {
 		contenedorPanel.revalidate();
 	}
 
-	void actualizaVistaPrevia(Problema<?> problema, int num) {
+	void actualizaVistaPrevia(Problema<?> problema) {
 		scrollVistaPrevia = false;
-		vistaPreviaText.setText(Documento.vistaPrevia(problema, num));
+		vistaPreviaText.setText(Documento.vistaPrevia(problema));
 	}
 
 	void moverProblemaArriba(ProblemaPanel<?> problema) {
@@ -274,12 +274,13 @@ public class Main {
 			log.info("Moviendo problema {} hacia arriba", index);
 			this.panelesProblema.remove(problema);
 			this.panelesProblema.add(index - 1, problema);
-			problema.problemaActual.setNumero(index - 1);
+			problema.problemaActual.setNumero(index);
 
 			contenedorPanel.removeAll();
 			for (ProblemaPanel<?> panel : this.panelesProblema)
 				contenedorPanel.add(panel);
 			contenedorPanel.revalidate();
+			actualizaVistaPrevia(problema.problemaActual);
 		}
 	}
 
@@ -289,12 +290,13 @@ public class Main {
 			log.info("Moviendo problema {} hacia abajo", index);
 			this.panelesProblema.remove(problema);
 			this.panelesProblema.add(index + 1, problema);
-			problema.problemaActual.setNumero(index + 1);
+			problema.problemaActual.setNumero(index + 2);
 
 			contenedorPanel.removeAll();
 			for (ProblemaPanel<?> panel : this.panelesProblema)
 				contenedorPanel.add(panel);
 			contenedorPanel.revalidate();
+			actualizaVistaPrevia(problema.problemaActual);
 		}
 	}
 
@@ -391,7 +393,7 @@ public class Main {
 	private class MenuNuevoActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
 			log.info("Generando un documento nuevo.");
-			actualizaVistaPrevia(null, 0);
+			actualizaVistaPrevia(null);
 			contenedorPanel.removeAll();
 			panelesProblema.clear();
 			contenedorPanel.revalidate();
