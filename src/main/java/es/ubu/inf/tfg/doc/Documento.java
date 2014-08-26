@@ -97,6 +97,16 @@ public class Documento {
 			return traductor.documento(new ArrayList<>());
 		}
 	}
+	
+	/**
+	 * Devuelve un documento HTML en forma de cadena de caracteres que se
+	 * utilizará como vista previa del documento.
+	 * 
+	 * @return Vista previa del documento en formato HTML.
+	 */
+	public String vistaPrevia() {
+		return traduce(new TraductorHTML());
+	}
 
 	/**
 	 * Añade un problema al documento.
