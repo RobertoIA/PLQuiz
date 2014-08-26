@@ -274,11 +274,13 @@ public class Main {
 			log.info("Moviendo problema {} hacia arriba", index);
 			this.panelesProblema.remove(problema);
 			this.panelesProblema.add(index - 1, problema);
-			problema.problemaActual.setNumero(index);
 
 			contenedorPanel.removeAll();
-			for (ProblemaPanel<?> panel : this.panelesProblema)
+			int num = 1;
+			for (ProblemaPanel<?> panel : this.panelesProblema) {
 				contenedorPanel.add(panel);
+				panel.problemaActual.setNumero(num++);
+			}
 			contenedorPanel.revalidate();
 			actualizaVistaPrevia(problema.problemaActual);
 		}
@@ -293,8 +295,11 @@ public class Main {
 			problema.problemaActual.setNumero(index + 2);
 
 			contenedorPanel.removeAll();
-			for (ProblemaPanel<?> panel : this.panelesProblema)
+			int num = 1;
+			for (ProblemaPanel<?> panel : this.panelesProblema) {
 				contenedorPanel.add(panel);
+				panel.problemaActual.setNumero(num++);
+			}
 			contenedorPanel.revalidate();
 			actualizaVistaPrevia(problema.problemaActual);
 		}
