@@ -279,7 +279,8 @@ public class Main {
 			int num = 1;
 			for (ProblemaPanel<?> panel : this.panelesProblema) {
 				contenedorPanel.add(panel);
-				panel.problemaActual.setNumero(num++);
+				if (panel.problemaActual != null)
+					panel.problemaActual.setNumero(num++);
 			}
 			contenedorPanel.revalidate();
 			actualizaVistaPrevia(problema.problemaActual);
@@ -298,7 +299,8 @@ public class Main {
 			int num = 1;
 			for (ProblemaPanel<?> panel : this.panelesProblema) {
 				contenedorPanel.add(panel);
-				panel.problemaActual.setNumero(num++);
+				if (panel.problemaActual != null)
+					panel.problemaActual.setNumero(num++);
 			}
 			contenedorPanel.revalidate();
 			actualizaVistaPrevia(problema.problemaActual);
