@@ -1,8 +1,5 @@
-PLQuiz
+Proyecto Fin de Grado - PLQuiz
 ======
-
-### Proyecto Fin de Grado
-
 ### Grado en Ingeniería Informática, Universidad de Burgos
 
 PLQuiz es una aplicación que permite generar cuestionarios sobre el uso de algoritmos de análisis léxico.
