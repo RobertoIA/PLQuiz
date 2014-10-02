@@ -150,7 +150,7 @@ public class Main {
 		this.menuNuevo.addActionListener(new MenuNuevoActionListener());
 		this.menuArchivo.add(this.menuNuevo);
 
-		this.menuBloque = new JMenuItem("Generar bloque de problemas");
+		this.menuBloque = new JMenuItem("Generar bloque de preguntas");
 		this.menuBloque.addActionListener(new MenuBloqueActionListener());
 		this.menuArchivo.add(this.menuBloque);
 

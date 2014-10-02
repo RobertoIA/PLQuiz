@@ -117,7 +117,7 @@ public class BloquePreguntas extends JDialog {
 	public BloquePreguntas(Main main) {
 		this.main = main;
 
-		setTitle("Genera bloque de preguntas");
+		setTitle("Generar bloque de preguntas");
 		// setResizable(false);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
