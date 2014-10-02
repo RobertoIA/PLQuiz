@@ -264,15 +264,15 @@ public class BloquePreguntas extends JDialog {
 		this.csModoPanelA = new JPanel();
 		this.csPanel.add(this.csModoPanelA);
 
-		this.csModoExpresionButton = new JRadioButton("Resolver expresi\u00F3n");
-		this.csModoExpresionButton.setSelected(true);
-		csModo.add(this.csModoExpresionButton);
-		this.csModoPanelA.add(this.csModoExpresionButton);
-
 		this.csModoConstruccionButton = new JRadioButton(
-				"Resolver aut\u00F3mata");
+				"Construir aut\u00F3mata");
+		this.csModoConstruccionButton.setSelected(true);
 		csModo.add(this.csModoConstruccionButton);
 		this.csModoPanelA.add(this.csModoConstruccionButton);
+		
+		this.csModoExpresionButton = new JRadioButton("Resolver expresi\u00F3n");
+		csModo.add(this.csModoExpresionButton);
+		this.csModoPanelA.add(this.csModoExpresionButton);
 
 		this.csModoPanelB = new JPanel();
 		this.csPanel.add(this.csModoPanelB);
