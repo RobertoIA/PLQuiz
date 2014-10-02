@@ -163,6 +163,7 @@ public class BloquePreguntas extends JDialog {
 		this.asuModoConstruccionButton = new JRadioButton(
 				"Construcci\u00F3n de \u00E1rbol");
 		asuModo.add(this.asuModoConstruccionButton);
+		this.asuModoConstruccionButton.setSelected(true);
 		this.asuModoPanelA.add(this.asuModoConstruccionButton);
 
 		this.asuModoEtiquetadoButton = new JRadioButton(
@@ -177,7 +178,6 @@ public class BloquePreguntas extends JDialog {
 				"Construcci\u00F3n de tablas");
 		asuModo.add(this.asuModoTablasButton);
 		this.asuModoPanelB.add(this.asuModoTablasButton);
-		this.asuModoTablasButton.setSelected(true);
 
 		this.asuVacioPanel = new JPanel();
 		this.asuVacioPanel.setBorder(new EmptyBorder(0, 5, 5, 5));

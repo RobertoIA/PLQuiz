@@ -66,6 +66,7 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 
 		this.modoA = new JRadioButton("Construcci\u00F3n de \u00E1rbol");
 		this.modoA.addActionListener(new ModoButtonChangeListener());
+		this.modoA.setSelected(true);
 		modoGroup.add(this.modoA);
 
 		this.modoC = new JRadioButton("Etiquetado de \u00E1rbol");
@@ -74,7 +75,6 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 
 		this.modoB = new JRadioButton("Construcci\u00F3n de tablas");
 		this.modoB.addActionListener(new ModoButtonChangeListener());
-		this.modoB.setSelected(true);
 		modoGroup.add(this.modoB);
 
 		this.simbolosSlider = new JSlider();
