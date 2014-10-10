@@ -311,6 +311,7 @@ public class Main {
 	void añadeImagen(BufferedImage imagen) {
 		try {
 			String url = "http:\\" + imagen.hashCode() + ".jpg";
+			log.debug("Añadiendo imagen {}.", url);
 			Dictionary cache = (Dictionary) vistaPreviaText.getDocument()
 					.getProperty("imageCache");
 			if (cache == null) {
