@@ -175,6 +175,8 @@ public class ConstruccionSubconjuntosPanel extends
 		switch (problema.getTipo()) {
 		case "ConstruccionSubconjuntosConstruccion":
 			modoA.setSelected(true);
+			for (BufferedImage imagen : problema.getProblema().alternativas())
+				main.añadeImagen(imagen);
 			break;
 		case "ConstruccionSubconjuntosExpresion":
 			modoB.setSelected(true);
