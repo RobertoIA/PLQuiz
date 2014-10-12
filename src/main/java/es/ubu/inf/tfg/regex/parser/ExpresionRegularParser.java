@@ -9,11 +9,11 @@ public class ExpresionRegularParser implements ExpresionRegularParserConstants {
 
   private int posicion;
 
-  @SuppressWarnings("unused")
-final public ExpresionRegular expresion() throws ParseException {
+        /*	 * <expresion> :- <operacion> <eof>	 * <operacion> :- <termino> ('|' <termino>)*	 * <termino> :- <unario> ('.' <unario>)*	 * <unario> :- <factor> '*'?	 * <factor> :- <simbolo> | <epsilon> | '(' <operacion> ')'	 */
+  final public ExpresionRegular expresion() throws ParseException {
     stack = new Stack < ExpresionRegular > ();
     posicion = 1;
-    termino();
+    operacion();
     jj_consume_token(END);
     // Aumentamos la expresión regular
     stack.push(ExpresionRegular.nodoAumentado(posicion));
@@ -22,89 +22,92 @@ final public ExpresionRegular expresion() throws ParseException {
     throw new Error("Missing return statement in function");
   }
 
-  final public void termino() throws ParseException {
-    factor();
+  final public void operacion() throws ParseException {
+    termino();
     label_1:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case CONCAT:
       case UNION:
-      case OPEN_PAREN:
-      case SYMBOL:
-      case EPSILON:
         ;
         break;
       default:
         jj_la1[0] = jj_gen;
         break label_1;
       }
+      jj_consume_token(UNION);
+      termino();
+      stack.push(ExpresionRegular.nodoUnion(stack.pop(), stack.pop()));
+    }
+  }
+
+  final public void termino() throws ParseException {
+    unario();
+    label_2:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case CONCAT:
+      case OPEN_PAREN:
+      case SYMBOL:
+      case EPSILON:
+        ;
+        break;
+      default:
+        jj_la1[1] = jj_gen;
+        break label_2;
+      }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
       case CONCAT:
         jj_consume_token(CONCAT);
-        factor();
+        unario();
       stack.push(ExpresionRegular.nodoConcat(stack.pop(), stack.pop()));
         break;
       case OPEN_PAREN:
       case SYMBOL:
       case EPSILON:
-        factor();
+        unario();
       stack.push(ExpresionRegular.nodoConcat(stack.pop(), stack.pop()));
-        break;
-      case UNION:
-        jj_consume_token(UNION);
-        factor();
-      stack.push(ExpresionRegular.nodoUnion(stack.pop(), stack.pop()));
-        break;
-      default:
-        jj_la1[1] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
-    }
-  }
-
-  final public void factor() throws ParseException {
-  Token token;
-    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-    case OPEN_PAREN:
-    case SYMBOL:
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case SYMBOL:
-        token = jj_consume_token(SYMBOL);
-      stack.push(ExpresionRegular.nodoSimbolo(posicion++, token.image.charAt(0)));
-        break;
-      case OPEN_PAREN:
-        jj_consume_token(OPEN_PAREN);
-        termino();
-        jj_consume_token(CLOSE_PAREN);
         break;
       default:
         jj_la1[2] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
-      unario();
-      break;
-    case EPSILON:
-      token = jj_consume_token(EPSILON);
-    stack.push(ExpresionRegular.nodoVacio());
-      break;
-    default:
-      jj_la1[3] = jj_gen;
-      jj_consume_token(-1);
-      throw new ParseException();
     }
   }
 
   final public void unario() throws ParseException {
+    factor();
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case KLEEN:
       jj_consume_token(KLEEN);
       stack.push(ExpresionRegular.nodoCierre(stack.pop()));
       break;
     default:
-      jj_la1[4] = jj_gen;
+      jj_la1[3] = jj_gen;
       ;
+    }
+  }
+
+  final public void factor() throws ParseException {
+  Token token;
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case SYMBOL:
+      token = jj_consume_token(SYMBOL);
+      stack.push(ExpresionRegular.nodoSimbolo(posicion++, token.image.charAt(0)));
+      break;
+    case EPSILON:
+      jj_consume_token(EPSILON);
+    stack.push(ExpresionRegular.nodoVacio());
+      break;
+    case OPEN_PAREN:
+      jj_consume_token(OPEN_PAREN);
+      operacion();
+      jj_consume_token(CLOSE_PAREN);
+      break;
+    default:
+      jj_la1[4] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
     }
   }
 
@@ -122,7 +125,7 @@ final public ExpresionRegular expresion() throws ParseException {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x6e0,0x6e0,0x280,0x680,0x10,};
+      jj_la1_0 = new int[] {0x40,0x6a0,0x6a0,0x10,0x680,};
    }
 
   /** Constructor with user supplied CharStream. */
