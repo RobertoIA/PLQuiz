@@ -259,7 +259,7 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 								actualPanel,
 								"Expresión regular no valida, introduzca una más larga",
 								"Error", JOptionPane.ERROR_MESSAGE);
-				expresionText.setText("");
+//				expresionText.setText("");
 			}
 		}
 	}
