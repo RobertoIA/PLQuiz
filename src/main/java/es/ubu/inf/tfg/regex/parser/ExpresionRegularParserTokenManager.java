@@ -17,6 +17,7 @@ private final int jjStopStringLiteralDfa_0(int pos, long active0)
          return -1;
    }
 }
+@SuppressWarnings("unused")
 private final int jjStartNfa_0(int pos, long active0)
 {
    return jjMoveNfa_0(jjStopStringLiteralDfa_0(pos, active0), pos + 1);
@@ -51,6 +52,7 @@ static final long[] jjbitVec0 = {
 static final long[] jjbitVec1 = {
    0x0L, 0x0L, 0x20000000000000L, 0x0L
 };
+@SuppressWarnings("unused")
 private int jjMoveNfa_0(int startState, int curPos)
 {
    int startsAt = 0;
@@ -352,12 +354,14 @@ private void jjCheckNAdd(int state)
       jjrounds[state] = jjround;
    }
 }
+@SuppressWarnings("unused")
 private void jjAddStates(int start, int end)
 {
    do {
       jjstateSet[jjnewStateCnt++] = jjnextStates[start];
    } while (start++ != end);
 }
+@SuppressWarnings("unused")
 private void jjCheckNAddTwoStates(int state1, int state2)
 {
    jjCheckNAdd(state1);

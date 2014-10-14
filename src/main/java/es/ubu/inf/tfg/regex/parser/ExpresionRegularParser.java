@@ -10,7 +10,8 @@ public class ExpresionRegularParser implements ExpresionRegularParserConstants {
   private int posicion;
 
         /*	 * <expresion> :- <operacion> <eof>	 * <operacion> :- <termino> ('|' <termino>)*	 * <termino> :- <unario> ('.' <unario>)*	 * <unario> :- <factor> '*'?	 * <factor> :- <simbolo> | <epsilon> | '(' <operacion> ')'	 */
-  final public ExpresionRegular expresion() throws ParseException {
+  @SuppressWarnings("unused")
+final public ExpresionRegular expresion() throws ParseException {
     stack = new Stack < ExpresionRegular > ();
     posicion = 1;
     operacion();
