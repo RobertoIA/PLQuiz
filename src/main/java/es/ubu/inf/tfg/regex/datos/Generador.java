@@ -143,7 +143,7 @@ public class Generador {
 		// Vuelve a aumentar la expresión.
 		if (esAumentada)
 			mutante = ExpresionRegular.nodoConcat(
-					ExpresionRegular.nodoAumentado(posicion), mutante);
+					ExpresionRegular.nodoAumentado(posicion++), mutante);
 
 		log.debug("Mutación de {} -> {}", expresion, mutante);
 
