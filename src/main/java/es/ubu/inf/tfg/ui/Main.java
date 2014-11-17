@@ -33,6 +33,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -64,6 +65,8 @@ public class Main {
 	private JMenuBar menuBar;
 	private JMenuItem menuNuevo;
 	private JMenuItem menuBloque;
+	private JMenuItem menuASU;
+	private JMenuItem menuCS;
 	private JMenuItem menuExportarMoodleXMLButton;
 	private JMenuItem menuExportarLatexButton;
 	private JMenuItem menuExportarGraphvizLatexButton;
@@ -148,27 +151,53 @@ public class Main {
 
 		this.menuNuevo = new JMenuItem("Documento en blanco");
 		this.menuNuevo.addActionListener(new MenuNuevoActionListener());
+		this.menuNuevo.setAccelerator(KeyStroke.getKeyStroke(
+				java.awt.event.KeyEvent.VK_N, java.awt.Event.CTRL_MASK));
 		this.menuArchivo.add(this.menuNuevo);
 
 		this.menuBloque = new JMenuItem("Generar bloque de preguntas");
 		this.menuBloque.addActionListener(new MenuBloqueActionListener());
+		this.menuBloque.setAccelerator(KeyStroke.getKeyStroke(
+				java.awt.event.KeyEvent.VK_B, java.awt.Event.CTRL_MASK));
 		this.menuArchivo.add(this.menuBloque);
+
+		this.menuArchivo.addSeparator();
+
+		this.menuASU = new JMenuItem("Nueva cuestión - Aho-Sethi-Ullman");
+		this.menuASU.addActionListener(new MenuASUActionListener());
+		this.menuASU.setAccelerator(KeyStroke.getKeyStroke(
+				java.awt.event.KeyEvent.VK_A, java.awt.Event.CTRL_MASK));
+		this.menuArchivo.add(this.menuASU);
+
+		this.menuCS = new JMenuItem(
+				"Nueva cuestión - McNaughton-Yamada-Thompson");
+		this.menuCS.addActionListener(new MenuCSActionListener());
+		this.menuCS.setAccelerator(KeyStroke.getKeyStroke(
+				java.awt.event.KeyEvent.VK_T, java.awt.Event.CTRL_MASK));
+		this.menuArchivo.add(this.menuCS);
 
 		this.menuExportarMoodleXMLButton = new JMenuItem(
 				"Exportar como Moodle XML");
 		this.menuExportarMoodleXMLButton
 				.addActionListener(new MenuExportarButtonActionListener());
+		this.menuExportarMoodleXMLButton.setAccelerator(KeyStroke.getKeyStroke(
+				java.awt.event.KeyEvent.VK_M, java.awt.Event.CTRL_MASK));
 		this.menuExportar.add(this.menuExportarMoodleXMLButton);
 
 		this.menuExportarLatexButton = new JMenuItem("Exportar como LaTeX");
 		this.menuExportarLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
+		this.menuExportarLatexButton.setAccelerator(KeyStroke.getKeyStroke(
+				java.awt.event.KeyEvent.VK_L, java.awt.Event.CTRL_MASK));
 		this.menuExportar.add(this.menuExportarLatexButton);
 
 		this.menuExportarGraphvizLatexButton = new JMenuItem(
 				"Exportar como LaTeX + Graphviz");
 		this.menuExportarGraphvizLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
+		this.menuExportarGraphvizLatexButton.setAccelerator(KeyStroke
+				.getKeyStroke(java.awt.event.KeyEvent.VK_G,
+						java.awt.Event.CTRL_MASK));
 		this.menuExportar.add(this.menuExportarGraphvizLatexButton);
 	}
 
@@ -338,9 +367,9 @@ public class Main {
 			log.error("Error al eliminar imagen.", e);
 		}
 	}
-	
+
 	void eliminaMarca() {
-		for(ProblemaPanel<?> panel : this.panelesProblema)
+		for (ProblemaPanel<?> panel : this.panelesProblema)
 			panel.eliminarVista();
 	}
 
@@ -437,6 +466,18 @@ public class Main {
 		public void actionPerformed(ActionEvent event) {
 			log.info("Generando un bloque de problemas.");
 			new BloquePreguntas(main);
+		}
+	}
+
+	private class MenuASUActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			añadeAhoSethiUllman(null);
+		}
+	}
+
+	private class MenuCSActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent event) {
+			añadeConstruccionSubconjuntos(null);
 		}
 	}
 
