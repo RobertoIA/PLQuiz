@@ -17,7 +17,7 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import sun.misc.BASE64Encoder;
+import java.util.Base64;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
@@ -61,7 +61,7 @@ public class TraductorMoodleXML extends Traductor {
 	}
 	
 	/**
-	 * Genera un documento Moodle XML a partir de un único problema ya traducido.
+	 * Genera un documento Moodle XML a partir de un Ãºnico problema ya traducido.
 	 * 
 	 * @param problema
 	 *            Problema traducido.
@@ -69,7 +69,7 @@ public class TraductorMoodleXML extends Traductor {
 	 */
 	@Override
 	public String traduceProblema(Plantilla problema, int num){
-		log.info("Generando documento Moodle XML de un único problema.");
+		log.info("Generando documento Moodle XML de un Ãºnico problema.");
 		
 		problema.set("numero", "" + num);
 		
@@ -80,7 +80,7 @@ public class TraductorMoodleXML extends Traductor {
 	}
 
 	/**
-	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a formato
+	 * Traduce un problema de tipo AhoSethiUllman subtipo construcciÃ³n a formato
 	 * Moodle XML.
 	 * 
 	 * @param problema
@@ -90,7 +90,7 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public Plantilla traduceASUConstruccion(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato construcción",
+				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato construcciÃ³n",
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.xml");
@@ -166,9 +166,9 @@ public class TraductorMoodleXML extends Traductor {
 		}
 
 		String solucionesXML = soluciones.toString();
-		solucionesXML = solucionesXML.replace("\u2027", "·");
+		solucionesXML = solucionesXML.replace("\u2027", "Â·");
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "·");
+		expresion = expresion.replace("\u2027", "Â·");
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("url", url);
@@ -209,7 +209,7 @@ public class TraductorMoodleXML extends Traductor {
 			stePos.append("</td></tr>");
 		}
 
-		// Función de transición
+		// FunciÃ³n de transiciÃ³n
 		fTrans.append("\n\t<tr><th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
 		for (char simbolo : problema.simbolos())
 			if (simbolo != '$')
@@ -249,17 +249,17 @@ public class TraductorMoodleXML extends Traductor {
 	}
 
 	/**
-	 * Traduce un problema de tipo construcción de subconjuntos subtipo
-	 * construcción a formato Moodle XML.
+	 * Traduce un problema de tipo construcciÃ³n de subconjuntos subtipo
+	 * construcciÃ³n a formato Moodle XML.
 	 * 
 	 * @param problema
-	 *            Problema de construcción de subconjuntos.
+	 *            Problema de construcciÃ³n de subconjuntos.
 	 * @return Problema traducido a Moodle XML.
 	 */
 	@Override
 	public Plantilla traduceCSConstruccion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {}, formato construcción",
+				"Traduciendo a Moodle XML problema tipo construcciÃ³n de subconjuntos con expresion {}, formato construcciÃ³n",
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.xml");
@@ -297,17 +297,17 @@ public class TraductorMoodleXML extends Traductor {
 	}
 
 	/**
-	 * Traduce un problema de tipo construcción de subconjuntos subtipo
-	 * expresión a formato Moodle XML.
+	 * Traduce un problema de tipo construcciÃ³n de subconjuntos subtipo
+	 * expresiÃ³n a formato Moodle XML.
 	 * 
 	 * @param problema
-	 *            Problema de construcción de subconjuntos.
+	 *            Problema de construcciÃ³n de subconjuntos.
 	 * @return Problema traducido a Moodle XML.
 	 */
 	@Override
 	public Plantilla traduceCSExpresion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {}, formato expresión",
+				"Traduciendo a Moodle XML problema tipo construcciÃ³n de subconjuntos con expresion {}, formato expresiÃ³n",
 				problema.problema());
 
 		StringBuilder fTrans = new StringBuilder();
@@ -315,7 +315,7 @@ public class TraductorMoodleXML extends Traductor {
 
 		Plantilla plantilla = new Plantilla("plantillaCSExpresion.xml");
 
-		// Función de transición
+		// FunciÃ³n de transiciÃ³n
 		fTrans.append("\n\t<tr>\n\t<th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
 		for (char simbolo : problema.simbolos())
 			if (simbolo != '$')
@@ -354,17 +354,17 @@ public class TraductorMoodleXML extends Traductor {
 	}
 
 	/**
-	 * Traduce un problema de tipo construcción de subconjuntos subtipo autómata
+	 * Traduce un problema de tipo construcciÃ³n de subconjuntos subtipo autÃ³mata
 	 * a formato Moodle XML.
 	 * 
 	 * @param problema
-	 *            Problema de construcción de subconjuntos.
+	 *            Problema de construcciÃ³n de subconjuntos.
 	 * @return Problema traducido a Moodle XML.
 	 */
 	@Override
 	public Plantilla traduceCSAutomata(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {}, formato autómata",
+				"Traduciendo a Moodle XML problema tipo construcciÃ³n de subconjuntos con expresion {}, formato autÃ³mata",
 				problema.problema());
 
 		String url = problema.automata().hashCode() + ".jpg";
@@ -373,7 +373,7 @@ public class TraductorMoodleXML extends Traductor {
 
 		Plantilla plantilla = new Plantilla("plantillaCSAutomata.xml");
 
-		// Función de transición
+		// FunciÃ³n de transiciÃ³n
 		fTrans.append("\n\t<tr>\n\t<th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
 		for (char simbolo : problema.simbolos())
 			if (simbolo != '$')
@@ -414,11 +414,11 @@ public class TraductorMoodleXML extends Traductor {
 
 	/**
 	 * Devuelve la lista de opciones posibles a la hora de resolver el estado de
-	 * destino en una tabla de transición, a partir de la solución y de la lista
+	 * destino en una tabla de transiciÃ³n, a partir de la soluciÃ³n y de la lista
 	 * de estados existentes.
 	 * <p>
-	 * La lista de opciones incluirá la solución correcta, dos soluciones
-	 * similares y una solución completamente distinta.
+	 * La lista de opciones incluirÃ¡ la soluciÃ³n correcta, dos soluciones
+	 * similares y una soluciÃ³n completamente distinta.
 	 * 
 	 * @param solucion
 	 *            Estado de destino correcto.
@@ -429,7 +429,7 @@ public class TraductorMoodleXML extends Traductor {
 	 */
 	private String opcionesTransicion(char solucion, Set<Character> estados) {
 		log.debug(
-				"Generando opciones para transición a estado {} con estados {}",
+				"Generando opciones para transiciÃ³n a estado {} con estados {}",
 				solucion, estados);
 
 		estados.remove(solucion);
@@ -450,24 +450,24 @@ public class TraductorMoodleXML extends Traductor {
 		if (similares.size() > 0) { // Opcion similar 1
 			index = random.nextInt(similares.size());
 			opciones.append("~");
-			log.debug("Añadiendo opcion {} (similar)", similares.get(index));
+			log.debug("AÃ±adiendo opcion {} (similar)", similares.get(index));
 			opciones.append(similares.remove(index));
 		}
 		if (similares.size() > 0) { // Opcion similar 2
 			index = random.nextInt(similares.size());
 			opciones.append("~");
-			log.debug("Añadiendo opcion {} (similar)", similares.get(index));
+			log.debug("AÃ±adiendo opcion {} (similar)", similares.get(index));
 			opciones.append(similares.remove(index));
 		}
 		if (diferentes.size() > 0) { // Opcion diferente a ser posible
 			index = random.nextInt(diferentes.size());
 			opciones.append("~");
-			log.debug("Añadiendo opcion {} (diferente)", diferentes.get(index));
+			log.debug("AÃ±adiendo opcion {} (diferente)", diferentes.get(index));
 			opciones.append(diferentes.remove(index));
 		} else {
 			index = random.nextInt(similares.size());
 			opciones.append("~");
-			log.debug("Añadiendo opcion {} (similar)", similares.get(index));
+			log.debug("AÃ±adiendo opcion {} (similar)", similares.get(index));
 			opciones.append(similares.remove(index));
 		}
 
@@ -480,10 +480,10 @@ public class TraductorMoodleXML extends Traductor {
 	 * finales, a partir del conjunto de estados finales real y del conjunto
 	 * total de estados del problema.
 	 * <p>
-	 * La lista de opciones incluirá la solución correcta, dos soluciones
-	 * similares y una solución completamente distinta. Las soluciones similares
-	 * se obtienen añadiendo y quitando un elemento del conjunto
-	 * respectivamente. La solución distinta es el conjunto complementario al
+	 * La lista de opciones incluirÃ¡ la soluciÃ³n correcta, dos soluciones
+	 * similares y una soluciÃ³n completamente distinta. Las soluciones similares
+	 * se obtienen aÃ±adiendo y quitando un elemento del conjunto
+	 * respectivamente. La soluciÃ³n distinta es el conjunto complementario al
 	 * dado.
 	 * 
 	 * @param solucion
@@ -507,26 +507,26 @@ public class TraductorMoodleXML extends Traductor {
 		complementarios.removeAll(solucion);
 		List<Character> conjunto;
 		int index;
-		// Opción similar 1 (eliminamos un estado)
+		// OpciÃ³n similar 1 (eliminamos un estado)
 		conjunto = new ArrayList<>(solucion);
 		if (conjunto.size() > 0) {
 			index = random.nextInt(conjunto.size());
 			conjunto.remove(index);
-			log.debug("Añadiendo opcion {} (similar)", conjunto);
+			log.debug("AÃ±adiendo opcion {} (similar)", conjunto);
 			opciones.append("~" + listToString(conjunto));
 		}
 
-		// Opción similar 2 (añadimos un estado)
+		// OpciÃ³n similar 2 (aÃ±adimos un estado)
 		conjunto = new ArrayList<>(solucion);
 		if (conjunto.size() < solucion.size()) {
 			index = random.nextInt(complementarios.size());
 			conjunto.add(complementarios.get(index));
-			log.debug("Añadiendo opcion {} (similar)", conjunto);
+			log.debug("AÃ±adiendo opcion {} (similar)", conjunto);
 			opciones.append("~" + listToString(conjunto));
 		}
 
-		// Opción diferente
-		log.debug("Añadiendo opcion {} (diferente)", complementarios);
+		// OpciÃ³n diferente
+		log.debug("AÃ±adiendo opcion {} (diferente)", complementarios);
 		opciones.append("~" + listToString(complementarios));
 
 		opciones.append("}");
@@ -538,10 +538,10 @@ public class TraductorMoodleXML extends Traductor {
 	 * partir del conjunto de posiciones real y del conjunto total de posiciones
 	 * del problema.
 	 * <p>
-	 * La lista de opciones incluirá la solución correcta, dos soluciones
-	 * similares y una solución completamente distinta. Las soluciones similares
-	 * se obtienen añadiendo y quitando un elemento del conjunto
-	 * respectivamente. La solución distinta es el conjunto complementario al
+	 * La lista de opciones incluirÃ¡ la soluciÃ³n correcta, dos soluciones
+	 * similares y una soluciÃ³n completamente distinta. Las soluciones similares
+	 * se obtienen aÃ±adiendo y quitando un elemento del conjunto
+	 * respectivamente. La soluciÃ³n distinta es el conjunto complementario al
 	 * dado.
 	 * 
 	 * @param solucion
@@ -565,26 +565,26 @@ public class TraductorMoodleXML extends Traductor {
 		complementarios.removeAll(solucion);
 		List<Integer> conjunto;
 		int index;
-		// Opción similar 1 (eliminamos un estado si es posible)
+		// OpciÃ³n similar 1 (eliminamos un estado si es posible)
 		conjunto = new ArrayList<>(solucion);
 		if (conjunto.size() > 0) {
 			index = random.nextInt(conjunto.size());
 			conjunto.remove(index);
-			log.debug("Añadiendo opcion {} (similar)", conjunto);
+			log.debug("AÃ±adiendo opcion {} (similar)", conjunto);
 			opciones.append("~" + listToString(conjunto));
 		}
 
-		// Opción similar 2 (añadimos un estado si es posible)
+		// OpciÃ³n similar 2 (aÃ±adimos un estado si es posible)
 		conjunto = new ArrayList<>(solucion);
 		if (conjunto.size() < solucion.size()) {
 			index = random.nextInt(complementarios.size());
 			conjunto.add(complementarios.get(index));
-			log.debug("Añadiendo opcion {} (similar)", conjunto);
+			log.debug("AÃ±adiendo opcion {} (similar)", conjunto);
 			opciones.append("~" + listToString(conjunto));
 		}
 
-		// Opción diferente
-		log.debug("Añadiendo opcion {} (diferente)", complementarios);
+		// OpciÃ³n diferente
+		log.debug("AÃ±adiendo opcion {} (diferente)", complementarios);
 		opciones.append("~" + listToString(complementarios));
 
 		opciones.append("}");
@@ -593,11 +593,11 @@ public class TraductorMoodleXML extends Traductor {
 
 	/**
 	 * Genera opciones para decidir si un nodo es anulable o no (Si/No),
-	 * recibiendo la opción correcta como parámetro booleano (<code>true</code>
-	 * para sí, <code>false</code> para no).
+	 * recibiendo la opciÃ³n correcta como parÃ¡metro booleano (<code>true</code>
+	 * para sÃ­, <code>false</code> para no).
 	 * 
 	 * @param esAnulable
-	 *            Opción correcta.
+	 *            OpciÃ³n correcta.
 	 * @return Cadena de caracteres en formato Moodle XML representando las
 	 *         opciones.
 	 */
@@ -615,12 +615,12 @@ public class TraductorMoodleXML extends Traductor {
 	}
 
 	/**
-	 * Devuelve una representación de una lista de elementos separados con
+	 * Devuelve una representaciÃ³n de una lista de elementos separados con
 	 * comas.
 	 * 
 	 * @param lista
 	 *            Lista de elementos.
-	 * @return Representación de la lista como elementos separados por comas.
+	 * @return RepresentaciÃ³n de la lista como elementos separados por comas.
 	 */
 	private String listToString(List<?> lista) {
 		StringBuilder setToString = new StringBuilder();
@@ -633,7 +633,7 @@ public class TraductorMoodleXML extends Traductor {
 				setToString.append(elemento.toString());
 			}
 		} else {
-			setToString.append("Cjto. vacío");
+			setToString.append("Cjto. vacÃ­o");
 		}
 		return setToString.toString();
 	}
@@ -652,8 +652,7 @@ public class TraductorMoodleXML extends Traductor {
 			ImageIO.write(imagen, "JPG", output);
 			byte[] imageBytes = output.toByteArray();
 
-			BASE64Encoder encoder = new BASE64Encoder();
-			imagenBase64 = encoder.encode(imageBytes);
+			imagenBase64 = Base64.getEncoder().encodeToString(imageBytes);
 
 		} catch (IOException e) {
 			log.error("Error convirtiendo imagen a base 64", e);
