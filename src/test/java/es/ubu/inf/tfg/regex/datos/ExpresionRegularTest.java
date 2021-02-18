@@ -486,4 +486,95 @@ public class ExpresionRegularTest {
 				abuelo.profundidad());
 	}
 
+	//CGO added these	
+	/**
+	 * Comprueba que la expresión regular se imprime solo con los paréntesis indispensables
+	 */
+	@Test
+	public void testParentheses1() {
+		ExpresionRegular nodoA1 = ExpresionRegular.nodoSimbolo(1, 'a');
+
+		ExpresionRegular nodoA1estrella = ExpresionRegular.nodoCierre(nodoA1);
+		ExpresionRegular nodoB = ExpresionRegular.nodoSimbolo(2, 'b');
+		ExpresionRegular nodoBandA1estrella = ExpresionRegular.nodoConcat(nodoB, nodoA1estrella);
+		ExpresionRegular nodoE = ExpresionRegular.nodoVacio();
+		ExpresionRegular nodoEorBandA1estrella = ExpresionRegular.nodoCierre(ExpresionRegular.nodoUnion(nodoE, nodoBandA1estrella));
+		ExpresionRegular nodoC = ExpresionRegular.nodoSimbolo(3, 'c');
+
+		ExpresionRegular nodoA4 = ExpresionRegular.nodoSimbolo(4, 'a');
+		ExpresionRegular nodoDollar = ExpresionRegular.nodoAumentado(5);
+		
+		ExpresionRegular nodoCandIEorBandA1estrellaD = ExpresionRegular.nodoConcat(nodoC, nodoEorBandA1estrella);
+		ExpresionRegular nodoCandIEorBandA1estrellaDorA4 = ExpresionRegular.nodoUnion(nodoA4, nodoCandIEorBandA1estrellaD);
+		ExpresionRegular nodoER = ExpresionRegular.nodoConcat(nodoDollar, nodoCandIEorBandA1estrellaDorA4);
+		
+
+		/*
+		System.out.print("nodoER: ");
+		System.out.println(nodoER);
+		System.out.println(nodoER.toString2());
+		*/
+		
+
+		assertEquals("Problemas en la parentización de la expresión regular.", nodoER.toString2(), "((a*\u2027b|\u03B5)*\u2027c|a)\u2027$");
+	}
+
+	//CGO added these	
+	/**
+	 * Comprueba que la expresión regular se imprime solo con los paréntesis indispensables
+	 */
+	@Test
+	public void testParentheses2() {
+		ExpresionRegular nodoA = ExpresionRegular.nodoSimbolo(1, 'a');
+		ExpresionRegular nodoB = ExpresionRegular.nodoSimbolo(2, 'b');
+		ExpresionRegular nodoC = ExpresionRegular.nodoSimbolo(3, 'c');
+		ExpresionRegular nodoD = ExpresionRegular.nodoSimbolo(4, 'd');
+		ExpresionRegular nodoE = ExpresionRegular.nodoSimbolo(5, 'e');
+
+		ExpresionRegular nodoBC = ExpresionRegular.nodoConcat(nodoC, nodoB);
+		ExpresionRegular nodoABC = ExpresionRegular.nodoUnion(nodoBC, nodoA);
+		ExpresionRegular nodoDE = ExpresionRegular.nodoUnion(nodoE, nodoD);
+
+		ExpresionRegular nodoABCDE = ExpresionRegular.nodoConcat(nodoDE, nodoABC);
+		
+		/*
+		System.out.print("nodoABCDE: ");
+		System.out.println(nodoABCDE);
+		System.out.println(nodoABCDE.toString2());	
+		*/
+
+		// Ahora es "(a|b.c).(d|e)", en vez de "((a|(b·c))·(d|e))"
+		assertEquals("Problemas en la parentización de la expresión regular.", nodoABCDE.toString2(), "(a|b\u2027c)\u2027(d|e)");
+	}
+
+	//CGO added these	
+	/**
+	 * Comprueba que la expresión regular se imprime solo con los paréntesis indispensables
+	 */
+	@Test
+	public void testParentheses3() {
+		ExpresionRegular nodoA = ExpresionRegular.nodoSimbolo(1, 'a');
+		ExpresionRegular nodoB = ExpresionRegular.nodoSimbolo(2, 'b');
+		ExpresionRegular nodoC = ExpresionRegular.nodoSimbolo(3, 'c');
+		ExpresionRegular nodoD = ExpresionRegular.nodoSimbolo(4, 'd');
+		ExpresionRegular nodoE = ExpresionRegular.nodoSimbolo(5, 'e');
+
+		ExpresionRegular nodoBC = ExpresionRegular.nodoConcat(nodoC, nodoB);
+		ExpresionRegular nodoABC = ExpresionRegular.nodoConcat(nodoBC, nodoA);
+		ExpresionRegular nodoDE = ExpresionRegular.nodoUnion(nodoE, nodoD);
+		ExpresionRegular nodoDEa = ExpresionRegular.nodoCierre(nodoDE);
+		
+
+		ExpresionRegular nodoABCDE = ExpresionRegular.nodoConcat(nodoDEa, nodoABC);
+		
+		/*
+		System.out.print("nodoABCDE: ");
+		System.out.println(nodoABCDE);
+		System.out.println(nodoABCDE.toString2());	
+		*/
+
+		// Ahora es "a.(b.c).(d|e)*", en vez de "((a·(b·c))·(d|e)*)"
+		assertEquals("Problemas en la parentización de la expresión regular.", nodoABCDE.toString2(), "a\u2027(b\u2027c)\u2027(d|e)*");
+	}
+
 }

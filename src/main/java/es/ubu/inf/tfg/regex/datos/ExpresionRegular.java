@@ -444,6 +444,113 @@ public class ExpresionRegular {
 		return string.toString();
 	}
 
+	/**
+	 * Comprueba si el nodo es un operando.
+	 * 
+	 * @return <code>true</code> si el nodo representa un operando,
+	 *         <code>false</code> si no.
+	 */
+	public boolean esOperando() {
+		return this.esSimbolo() || this.esVacio();
+	}	
+
+	/**
+	 * Comprueba si el nodo es un operador binario.
+	 * 
+	 * @return <code>true</code> si el nodo representa un operador binario,
+	 *         <code>false</code> si no.
+	 */
+	public boolean esBinario() {
+		return this.esCierre() || this.esUnion();
+	}	
+
+	/**
+	 * Devuelve la precedencia del del nodo como un valor entero.
+	 * 
+	 * @return Precedencia del operador como valor numérico.
+	 */
+	public int precedence() {
+		switch (this.tipo) {
+		case UNION:
+			return 0;
+		case CONCAT:
+			return 1;
+		case CIERRE:
+			return 2;
+		default:
+			return -1;
+		}
+	}
+
+	/**
+	 * Construye una representación de la expresión regular, utilizando
+	 * caracteres especiales para representar las concatenaciones y los nodos
+	 * vacíos y eliminando los paréntesis cuando estos sean redundantes debido
+	 * a que con las precedencias de los operadores que combinan las sub-expresiones
+	 * es suficiente para que no haya ambigüedades en la interpretación de la expresión regular.
+	 * <p>
+	 * Formato UTF-8.
+	 */
+	public String toString2() {
+		ExpresionRegular left, right;
+		String lop, lcp, rop, rcp; // left and right, open and closing parentheses
+		StringBuilder string = new StringBuilder();
+		
+		switch (this.tipo) {
+		case VACIO:
+			// CGO changed this
+			string.append('\u03B5');
+			//string.append('E');
+			break;
+		case SIMBOLO:
+			string.append(this.simbolo);
+			break;
+		case UNION:
+		case CONCAT:
+			left = this.hijoIzquierdo;
+			right = this.hijoDerecho;
+			if (!left.esOperando() && this.precedence() > left.precedence()) {
+				lop = "(";
+				lcp = ")";
+			} else {
+				lop = "";
+				lcp = "";
+			}
+			if (!right.esOperando() && this.precedence() >= right.precedence()) {
+				rop = "(";
+				rcp = ")";
+			} else {
+				rop = "";
+				rcp = "";
+			}
+			string.append(lop);
+			string.append(this.hijoIzquierdo.toString2());
+			string.append(lcp);
+			string.append(this.tipo());
+			string.append(rop);
+			string.append(this.hijoDerecho.toString2());
+			string.append(rcp);
+			break;
+		case CIERRE:
+			if (this.hijoIzquierdo.esBinario()) {
+				lop = "(";
+				lcp = ")";
+			} else {
+				lop = "";
+				lcp = "";
+			}
+			string.append(lop);
+			string.append(this.hijoIzquierdo.toString2());
+			string.append(lcp);
+			string.append("*");
+			break;
+		default:
+			break;
+		}
+
+		return string.toString();
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (o == null)
