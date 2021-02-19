@@ -79,7 +79,7 @@ public class TraductorHTML extends Traductor {
 	@Override
 	public Plantilla traduceASUConstruccion(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato construcción",
+				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresión {}, formato construcción",
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.html");
@@ -114,7 +114,7 @@ public class TraductorHTML extends Traductor {
 	@Override
 	public Plantilla traduceASUEtiquetado(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato etiquetado",
+				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresión {}, formato etiquetado",
 				problema.problema());
 
 		String url = "http:\\" + problema.arbolVacio().hashCode() + ".jpg";
@@ -162,7 +162,7 @@ public class TraductorHTML extends Traductor {
 	@Override
 	public Plantilla traduceASUTablas(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresion {}, formato tablas",
+				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresión {}, formato tablas",
 				problema.problema());
 
 		StringBuilder stePos = new StringBuilder();
@@ -234,7 +234,7 @@ public class TraductorHTML extends Traductor {
 	@Override
 	public Plantilla traduceCSConstruccion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresion {}, formato construcción",
+				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresión {}, formato construcción",
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.html");
@@ -270,7 +270,7 @@ public class TraductorHTML extends Traductor {
 	@Override
 	public Plantilla traduceCSExpresion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresion {}, formato expresión",
+				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresión {}, formato expresión",
 				problema.problema());
 
 		StringBuilder fTrans = new StringBuilder();
@@ -318,7 +318,7 @@ public class TraductorHTML extends Traductor {
 	@Override
 	public Plantilla traduceCSAutomata(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresion {}, formato autómata",
+				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresión {}, formato autómata",
 				problema.problema());
 
 		String url = "http:\\" + problema.automata().hashCode() + ".jpg";

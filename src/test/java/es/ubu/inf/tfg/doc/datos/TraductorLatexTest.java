@@ -58,7 +58,7 @@ public class TraductorLatexTest {
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 
 		assertEquals(
-				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo construccion.",
+				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo construcción.",
 				esperado, encontrado);
 	}
 

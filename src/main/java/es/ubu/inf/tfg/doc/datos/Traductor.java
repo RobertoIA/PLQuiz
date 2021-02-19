@@ -6,7 +6,7 @@ import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
 /**
- * Traductor presenta una interfaz común para aquellas clases que se encargen de
+ * Traductor presenta una interfaz común para aquellas clases que se encarguen de
  * traducir los problemas a una representación textual especifica, con la
  * función de agruparlos en un documento de tipo concreto.
  * 

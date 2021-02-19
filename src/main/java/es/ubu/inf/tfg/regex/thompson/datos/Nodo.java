@@ -61,7 +61,7 @@ public class Nodo implements Comparable<Nodo> {
 
 	/**
 	 * Añade al nodo una transición que consumirá una entrada determinada. Si el
-	 * nodo ya contenia una transición para dicha entrada, este método la
+	 * nodo ya contenía una transición para dicha entrada, este método la
 	 * sobreescribe con la nueva.
 	 * 
 	 * @param simbolo

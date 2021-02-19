@@ -44,7 +44,7 @@ public class MapaPosicionesTest {
 	}
 
 	/**
-	 * Comprueba que las claves sueltas a las que añadimos una posicion suelta
+	 * Comprueba que las claves sueltas a las que añadimos una posición suelta
 	 * se añaden y recuperan correctamente, existieran ya o no.
 	 */
 	@Test
@@ -52,21 +52,21 @@ public class MapaPosicionesTest {
 		// MapaPosiciones<Integer>
 		mapaInteger.add(1, 1);
 		assertEquals(
-				"Error recuperando el contenido de clave nueva con posicion suelta.",
+				"Error recuperando el contenido de clave nueva con posición suelta.",
 				set(1), mapaInteger.get(1));
 		mapaInteger.add(1, 2);
 		assertEquals(
-				"Error recuperando el contenido de clave existente con posicion suelta.",
+				"Error recuperando el contenido de clave existente con posición suelta.",
 				set(1, 2), mapaInteger.get(1));
 
 		// MapaPosiciones<Character>
 		mapaCharacter.add('a', 1);
 		assertEquals(
-				"Error recuperando el contenido de clave nueva con posicion suelta.",
+				"Error recuperando el contenido de clave nueva con posición suelta.",
 				set(1), mapaCharacter.get('a'));
 		mapaCharacter.add('a', 2);
 		assertEquals(
-				"Error recuperando el contenido de clave existente con posicion suelta.",
+				"Error recuperando el contenido de clave existente con posición suelta.",
 				set(1, 2), mapaCharacter.get('a'));
 	}
 
@@ -178,7 +178,7 @@ public class MapaPosicionesTest {
 
 		assertEquals("La union no contiene todas las claves.", set(1, 2, 3),
 				unionInteger.keys());
-		assertEquals("La union no une claves existentes en ambas aprtes.",
+		assertEquals("La union no une claves existentes en ambas partes.",
 				set(1, 2, 3, 4, 5, 6), unionInteger.get(1));
 		assertEquals(
 				"La union no trata correctamente claves y posiciones duplicadas.",
@@ -199,7 +199,7 @@ public class MapaPosicionesTest {
 
 		assertEquals("La union no contiene todas las claves.",
 				set('a', 'b', 'c'), unionCharacter.keys());
-		assertEquals("La union no une claves existentes en ambas aprtes.",
+		assertEquals("La union no une claves existentes en ambas partes.",
 				set(1, 2, 3, 4, 5, 6), unionCharacter.get('a'));
 		assertEquals(
 				"La union no trata correctamente claves y posiciones duplicadas.",

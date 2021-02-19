@@ -77,7 +77,7 @@ public class DocumentoTest {
 		esperado = toString("vacio.html");
 		encontrado = documento.vistaPrevia();
 
-		assertEquals("Vista previa de documento vacío erronea.", esperado,
+		assertEquals("Vista previa de documento vacío errónea.", esperado,
 				encontrado);
 
 		// Fichero XML
@@ -87,7 +87,7 @@ public class DocumentoTest {
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		assertEquals("Exportación de documento XML vacío erronea.", esperado,
+		assertEquals("Exportación de documento XML vacío errónea.", esperado,
 				encontrado);
 
 		// Fichero Latex
@@ -96,12 +96,12 @@ public class DocumentoTest {
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		assertEquals("Exportación de documento Latex vacío erronea.", esperado,
+		assertEquals("Exportación de documento Latex vacío errónea.", esperado,
 				encontrado);
 	}
 
 	/**
-	 * Commprueba que se incorporan problemas Aho-Sethi-Ullman subtipo
+	 * Comprueba que se incorporan problemas Aho-Sethi-Ullman subtipo
 	 * construcción correctamente.
 	 * 
 	 * @throws IOException
@@ -128,7 +128,7 @@ public class DocumentoTest {
 				"<p>Solución:</p>");
 
 		assertEquals(
-				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo construccion a vista previa.",
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo construcción a vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
@@ -147,7 +147,7 @@ public class DocumentoTest {
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
-				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo construccion a documento XML exportado.",
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo construcción a documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
@@ -160,12 +160,12 @@ public class DocumentoTest {
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 
 		assertEquals(
-				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo construccion a documento Latex exportado.",
+				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo construcción a documento Latex exportado.",
 				esperado, encontrado);
 	}
 
 	/**
-	 * Commprueba que se incorporan problemas Aho-Sethi-Ullman subtipo
+	 * Comprueba que se incorporan problemas Aho-Sethi-Ullman subtipo
 	 * etiquetado correctamente.
 	 * 
 	 * @throws IOException
@@ -227,7 +227,7 @@ public class DocumentoTest {
 	}
 
 	/**
-	 * Commprueba que se incorporan problemas Aho-Sethi-Ullman subtipo tablas
+	 * Comprueba que se incorporan problemas Aho-Sethi-Ullman subtipo tablas
 	 * correctamente.
 	 * 
 	 * @throws IOException
@@ -638,7 +638,7 @@ public class DocumentoTest {
 	}
 
 	/**
-	 * Commprueba que se incorporan problemas de construcción de subconjuntos
+	 * Comprueba que se incorporan problemas de construcción de subconjuntos
 	 * subtipo construcción correctamente.
 	 * 
 	 * @throws IOException
@@ -665,7 +665,7 @@ public class DocumentoTest {
 				"<p>Solución:</p>");
 
 		assertEquals(
-				"Añadido erróneo de problemas de construcción de subconjuntos subtipo construccion a vista previa.",
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo construcción a vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
@@ -684,7 +684,7 @@ public class DocumentoTest {
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
-				"Añadido erróneo de problemas de construcción de subconjuntos subtipo construccion a documento XML exportado.",
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo construcción a documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
@@ -697,7 +697,7 @@ public class DocumentoTest {
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 
 		assertEquals(
-				"Añadido erróneo de problemas de construcción de subconjuntos subtipo construccion a documento Latex exportado.",
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo construcción a documento Latex exportado.",
 				esperado, encontrado);
 	}
 
@@ -832,8 +832,8 @@ public class DocumentoTest {
 	}
 
 	/**
-	 * Commprueba que se incorporan problemas de construcción de subconjuntos
-	 * subtipo expresion correctamente.
+	 * Comprueba que se incorporan problemas de construcción de subconjuntos
+	 * subtipo expresión correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
@@ -854,7 +854,7 @@ public class DocumentoTest {
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
-				"Añadido erróneo de problemas de construcción de subconjuntos subtipo expresion a vista previa.",
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo expresión a vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
@@ -868,7 +868,7 @@ public class DocumentoTest {
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
-				"Añadido erróneo de problemas de construcción de subconjuntos subtipo expresion a documento XML exportado.",
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo expresión a documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
@@ -878,13 +878,13 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
-				"Añadido erróneo de problemas de construcción de subconjuntos subtipo expresion a documento Latex exportado.",
+				"Añadido erróneo de problemas de construcción de subconjuntos subtipo expresión a documento Latex exportado.",
 				esperado, encontrado);
 	}
 
 	/**
 	 * Comprueba que se eliminan problemas de construcción de subconjuntos
-	 * subtipo expresion correctamente.
+	 * subtipo expresión correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
@@ -906,7 +906,7 @@ public class DocumentoTest {
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
-				"Borrado erróneo de problemas de construcción de subconjuntos subtipo expresion en vista previa.",
+				"Borrado erróneo de problemas de construcción de subconjuntos subtipo expresión en vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
@@ -920,7 +920,7 @@ public class DocumentoTest {
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
-				"Borrado erróneo de problemas de construcción de subconjuntos subtipo expresion en documento XML exportado.",
+				"Borrado erróneo de problemas de construcción de subconjuntos subtipo expresión en documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
@@ -930,13 +930,13 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
-				"Borrado erróneo de problemas de construcción de subconjuntos subtipo expresion en documento XML exportado.",
+				"Borrado erróneo de problemas de construcción de subconjuntos subtipo expresión en documento XML exportado.",
 				esperado, encontrado);
 	}
 
 	/**
 	 * Comprueba que se sustituyen problemas de construcción de subconjuntos
-	 * subtipo expresion correctamente.
+	 * subtipo expresión correctamente.
 	 * 
 	 * @throws IOException
 	 *             Error operando con archivos.
@@ -958,7 +958,7 @@ public class DocumentoTest {
 		encontrado = documento.vistaPrevia();
 
 		assertEquals(
-				"Sustitución errónea de problemas de construcción de subconjuntos subtipo expresion en vista previa.",
+				"Sustitución errónea de problemas de construcción de subconjuntos subtipo expresión en vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
@@ -972,7 +972,7 @@ public class DocumentoTest {
 				"{1:MULTICHOICE:}");
 
 		assertEquals(
-				"Sustitución errónea de problemas de construcción de subconjuntos subtipo expresion en documento XML exportado.",
+				"Sustitución errónea de problemas de construcción de subconjuntos subtipo expresión en documento XML exportado.",
 				esperado, encontrado);
 
 		// Fichero Latex
@@ -982,12 +982,12 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		assertEquals(
-				"Sustitución errónea de problemas de construcción de subconjuntos subtipo expresion en documento Latex exportado.",
+				"Sustitución errónea de problemas de construcción de subconjuntos subtipo expresión en documento Latex exportado.",
 				esperado, encontrado);
 	}
 
 	/**
-	 * Commprueba que se incorporan problemas de construcción de subconjuntos
+	 * Comprueba que se incorporan problemas de construcción de subconjuntos
 	 * subtipo automata correctamente.
 	 * 
 	 * @throws IOException
@@ -1138,7 +1138,7 @@ public class DocumentoTest {
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
 
 		assertEquals(
-				"Sustitución errónea de problemas de construcción de subconjuntos subtipo autoamta en vista previa.",
+				"Sustitución errónea de problemas de construcción de subconjuntos subtipo autómata en vista previa.",
 				esperado, encontrado);
 
 		// Fichero XML
