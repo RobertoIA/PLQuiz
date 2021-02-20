@@ -63,7 +63,7 @@ public class ConstruccionSubconjuntosGenerador {
 	public ConstruccionSubconjuntos nuevo(int nSimbolos, int nEstados,
 			boolean usaVacio) {
 		log.info(
-				"Generando problema de construcción de subconjuntos con {} simbolos y {} estados, vacios = {}.",
+				"Generando problema de construcción de subconjuntos con {} símbolos y {} estados, vacíos = {}.",
 				nSimbolos, nEstados, usaVacio);
 
 		List<ExpresionRegular> poblacion = new ArrayList<>();
@@ -135,7 +135,7 @@ public class ConstruccionSubconjuntosGenerador {
 	}
 
 	/**
-	 * Evalua un problema en función a como se adapta a los parámetros pedidos.
+	 * Evalúa un problema en función a como se adapta a los parámetros pedidos.
 	 * Tiene en cuenta tanto que el número de estados sea el pedido, como que
 	 * use todos los símbolos.
 	 * <p>

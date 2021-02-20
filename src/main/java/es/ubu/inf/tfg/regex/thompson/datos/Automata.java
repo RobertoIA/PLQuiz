@@ -21,10 +21,10 @@ import com.mxgraph.view.mxGraph;
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
 
 /**
- * Automata implementa el modelo lógico de un automata finito no determinista,
+ * Automata implementa el modelo lógico de un autómata finito no determinista,
  * compuesto por una serie de nodos y de transiciones entre dichos nodos.
  * Permite obtener los nodos obtenidos a partir de uno dado utilizando un tipo
- * de transición determinado, y consumiendo o no un caracter dado.
+ * de transición determinado, y consumiendo o no un carácter dado.
  * 
  * @author Roberto Izquierdo Amo
  * 
@@ -38,11 +38,11 @@ public class Automata {
 	private String imagenDot;
 
 	/**
-	 * Constructor. Define un automata finito no determinista a partir de un
-	 * árbol de expresion regular dado, de manera recursiva.
+	 * Constructor. Define un autómata finito no determinista a partir de un
+	 * árbol de expresión regular dado, de manera recursiva.
 	 * 
 	 * @param expresion
-	 *            Árbol de expresion regular a partir del cual generar el
+	 *            Árbol de expresión regular a partir del cual generar el
 	 *            autómata.
 	 */
 	public Automata(ExpresionRegular expresion, int posicionInicial) {
@@ -103,7 +103,7 @@ public class Automata {
 			this.simbolos.addAll(hijoDerecho.simbolos());
 		} else { // runtime exception
 			throw new IllegalArgumentException(
-					"Expresion regular de tipo desconocido.");
+					"Expresión regular de tipo desconocido.");
 		}
 	}
 
@@ -126,7 +126,7 @@ public class Automata {
 	}
 
 	/**
-	 * Devuelve el conjunto de símbolos que el automata utiliza en sus
+	 * Devuelve el conjunto de símbolos que el autómata utiliza en sus
 	 * transiciones. No se incluye epsilon ni cualquier otro indicador de
 	 * transición vacía.
 	 * 

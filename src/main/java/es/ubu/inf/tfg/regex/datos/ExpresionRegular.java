@@ -64,7 +64,7 @@ public class ExpresionRegular {
 
 	/**
 	 * Construye y devuelve un nodo hoja de tipo símbolo, en la posición dada y
-	 * conteniendo el caracter especificado.
+	 * conteniendo el carácter especificado.
 	 * 
 	 * @param posicion
 	 *            Posición del nodo.
@@ -93,7 +93,7 @@ public class ExpresionRegular {
 	 * nodoSimbolo} para la creación del nodo.
 	 * 
 	 * @param posicion
-	 *            Posicion del nodo.
+	 *            Posición del nodo.
 	 * @return Nodo símbolo.
 	 */
 	public static ExpresionRegular nodoAumentado(int posicion) {
@@ -223,7 +223,7 @@ public class ExpresionRegular {
 	public int posicion() {
 		if (!esSimbolo())
 			throw new UnsupportedOperationException(
-					"Solo los nodos simbolo tienen posición");
+					"Solo los nodos símbolo tienen posición");
 		return this.posicion;
 	}
 

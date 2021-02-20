@@ -220,7 +220,7 @@ public class BloquePreguntas extends JDialog {
 		this.asuSimbolosPanel.setLayout(new BoxLayout(this.asuSimbolosPanel,
 				BoxLayout.X_AXIS));
 
-		this.asuSimbolosLabel = new JLabel("Simbolos");
+		this.asuSimbolosLabel = new JLabel("S\u00EDmbolos");
 		this.asuSimbolosPanel.add(this.asuSimbolosLabel);
 
 		this.asuSimbolosStrut = Box.createHorizontalStrut(27);
@@ -322,7 +322,7 @@ public class BloquePreguntas extends JDialog {
 		this.csSimbolosPanel.setLayout(new BoxLayout(this.csSimbolosPanel,
 				BoxLayout.X_AXIS));
 
-		this.csSimbolosLabel = new JLabel("Simbolos");
+		this.csSimbolosLabel = new JLabel("S\u00EDmbolos");
 		this.csSimbolosPanel.add(this.csSimbolosLabel);
 
 		this.csSimbolosStrut = Box.createHorizontalStrut(27);
@@ -402,10 +402,10 @@ public class BloquePreguntas extends JDialog {
 					"Generando bloque de preguntas con {} de tipo Aho-Sethi-Ullman y {} de tipo Construcción de Subconjuntos",
 					asuNum, csNum);
 			log.info(
-					"Problemas Aho-Sethi-Ullman con {} +/- {} estados y {} +/- {} simbolos",
+					"Problemas Aho-Sethi-Ullman con {} +/- {} estados y {} +/- {} símbolos",
 					asuEstados, asuEstadosVar, asuSimbolos, asuSimbolosVar);
 			log.info(
-					"Problemas Construcción de subconjuntos con {} +/- {} estados y {} +/- {} simbolos",
+					"Problemas Construcción de subconjuntos con {} +/- {} estados y {} +/- {} símbolos",
 					csEstados, csEstadosVar, csSimbolos, csSimbolosVar);
 
 			List<Object> problemas = new ArrayList<>();

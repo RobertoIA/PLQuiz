@@ -45,7 +45,7 @@ public class NodoTest {
 	 */
 	@Test
 	public void testExpresion() {
-		assertEquals("Referencia inváliad a expresión regular", expresion,
+		assertEquals("Referencia inválida a expresión regular", expresion,
 				nodo.expresion());
 	}
 
@@ -54,9 +54,9 @@ public class NodoTest {
 	 */
 	@Test
 	public void testExpresionHijos() {
-		assertEquals("Referencia inváliad a expresión regular",
+		assertEquals("Referencia inválida a expresión regular",
 				expresion.hijoDerecho(), nodo.hijoDerecho().expresion());
-		assertEquals("Referencia inváliad a expresión regular",
+		assertEquals("Referencia inválida a expresión regular",
 				expresion.hijoIzquierdo(), nodo.hijoIzquierdo().expresion());
 	}
 
@@ -65,7 +65,7 @@ public class NodoTest {
 	 */
 	@Test
 	public void testEsAnulable() {
-		// raiz
+		// raíz
 		assertFalse("Nodo incorrectamente anulable.", nodo.esAnulable());
 
 		// profundidad 1
@@ -112,7 +112,7 @@ public class NodoTest {
 	 */
 	@Test
 	public void testPrimeraPos() {
-		// raiz
+		// raíz
 		assertEquals("Primera-pos incorrecta.", set(1, 2, 3, 4, 5),
 				nodo.primeraPos());
 
@@ -160,7 +160,7 @@ public class NodoTest {
 	 */
 	@Test
 	public void testUltimaPos() {
-		// raiz
+		// raíz
 		assertEquals("Ultima-pos incorrecta.", set(5), nodo.ultimaPos());
 
 		// profundidad 1

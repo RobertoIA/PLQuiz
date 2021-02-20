@@ -65,12 +65,12 @@ public class Nodo {
 	 * @param expresion
 	 *            ExpresionRegular sobre la que realizar los cálculos.
 	 * @throws IllegalArgumentException
-	 *             En caso de que el nodo no perteneza a ningún tipo conocido.
+	 *             En caso de que el nodo no pertenezca a ningún tipo conocido.
 	 */
 	public Nodo(ExpresionRegular expresion) {
 		this.expresion = expresion;
 
-		if (expresion.esVacio()) { // nodo vacio
+		if (expresion.esVacio()) { // nodo vació
 			this.hijoIzquierdo = null;
 			this.hijoDerecho = null;
 
@@ -143,7 +143,7 @@ public class Nodo {
 
 		} else { // runtime exception
 			throw new IllegalArgumentException(
-					"Expresion regular de tipo desconocido.");
+					"Expresión regular de tipo desconocido.");
 		}
 
 		this.primerasPos = new TreeMap<>();
@@ -166,7 +166,7 @@ public class Nodo {
 
 	/**
 	 * Devuelve una referencia al nodo hijo izquierdo de este nodo. Los nodos
-	 * cuya expresion regular asociada sean tipo símbolo o vacío no tienen hijo
+	 * cuya expresión regular asociada sean tipo símbolo o vacío no tienen hijo
 	 * izquierdo, y lanzan <code>UnsupportedOperationException</code>.
 	 * 
 	 * @throws UnsupportedOperationException
@@ -177,13 +177,13 @@ public class Nodo {
 	public Nodo hijoIzquierdo() {
 		if (this.expresion.esSimbolo() || this.expresion.esVacio())
 			throw new UnsupportedOperationException(
-					"Los nodos simbolo y vacío no tienen hijo izquierdo.");
+					"Los nodos símbolo y vacío no tienen hijo izquierdo.");
 		return this.hijoIzquierdo;
 	}
 
 	/**
 	 * Devuelve una referencia al nodo hijo izquierdo de este nodo. Los nodos
-	 * cuya expresion regular asociada sean símbolo, vacío o cierre no tienen
+	 * cuya expresión regular asociada sean símbolo, vacío o cierre no tienen
 	 * hijo derecho, y lanzan <code>UnsupportedOperationException</code>.
 	 * 
 	 * @throws UnsupportedOperationException
@@ -220,7 +220,7 @@ public class Nodo {
 
 	/**
 	 * Obtiene el conjunto de posiciones que definen la primera-pos de uno de
-	 * los nodos hijos del árbol, definidos con un caracter comenzando por 'A',
+	 * los nodos hijos del árbol, definidos con un carácter comenzando por 'A',
 	 * y etiquetando cada nivel de izquierda a derecha.
 	 * 
 	 * @param simbolo
@@ -242,7 +242,7 @@ public class Nodo {
 
 	/**
 	 * Obtiene el conjunto de posiciones que definen la última-pos de uno de los
-	 * nodos hijos del árbol, definidos con un caracter comenzando por 'A', y
+	 * nodos hijos del árbol, definidos con un carácter comenzando por 'A', y
 	 * etiquetando cada nivel de izquierda a derecha.
 	 * 
 	 * @param simbolo
@@ -255,7 +255,7 @@ public class Nodo {
 
 	/**
 	 * Comprueba si uno de los nodos hijos del árbol es anulable, definidos con
-	 * un caracter comenzando por 'A', y etiquetando cada nivel de izquierda a
+	 * un carácter comenzando por 'A', y etiquetando cada nivel de izquierda a
 	 * derecha.
 	 * 
 	 * @param simbolo

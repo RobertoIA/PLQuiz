@@ -90,7 +90,7 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public Plantilla traduceASUConstruccion(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato construcción",
+				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresión {}, formato construcción",
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.xml");
@@ -138,7 +138,7 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public Plantilla traduceASUEtiquetado(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato etiquetado",
+				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresión {}, formato etiquetado",
 				problema.problema());
 
 		String url = problema.arbolVacio().hashCode() + ".jpg";
@@ -190,7 +190,7 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public Plantilla traduceASUTablas(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresion {}, formato tablas",
+				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresión {}, formato tablas",
 				problema.problema());
 
 		StringBuilder stePos = new StringBuilder();
@@ -259,7 +259,7 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public Plantilla traduceCSConstruccion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {}, formato construcción",
+				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresión {}, formato construcción",
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.xml");
@@ -307,7 +307,7 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public Plantilla traduceCSExpresion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {}, formato expresión",
+				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresión {}, formato expresión",
 				problema.problema());
 
 		StringBuilder fTrans = new StringBuilder();
@@ -364,7 +364,7 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public Plantilla traduceCSAutomata(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresion {}, formato autómata",
+				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresión {}, formato autómata",
 				problema.problema());
 
 		String url = problema.automata().hashCode() + ".jpg";
@@ -447,27 +447,27 @@ public class TraductorMoodleXML extends Traductor {
 		opciones.append(solucion);
 
 		int index;
-		if (similares.size() > 0) { // Opcion similar 1
+		if (similares.size() > 0) { // Opción similar 1
 			index = random.nextInt(similares.size());
 			opciones.append("~");
-			log.debug("Añadiendo opcion {} (similar)", similares.get(index));
+			log.debug("Añadiendo opción {} (similar)", similares.get(index));
 			opciones.append(similares.remove(index));
 		}
-		if (similares.size() > 0) { // Opcion similar 2
+		if (similares.size() > 0) { // Opción similar 2
 			index = random.nextInt(similares.size());
 			opciones.append("~");
-			log.debug("Añadiendo opcion {} (similar)", similares.get(index));
+			log.debug("Añadiendo opción {} (similar)", similares.get(index));
 			opciones.append(similares.remove(index));
 		}
-		if (diferentes.size() > 0) { // Opcion diferente a ser posible
+		if (diferentes.size() > 0) { // Opción diferente a ser posible
 			index = random.nextInt(diferentes.size());
 			opciones.append("~");
-			log.debug("Añadiendo opcion {} (diferente)", diferentes.get(index));
+			log.debug("Añadiendo opción {} (diferente)", diferentes.get(index));
 			opciones.append(diferentes.remove(index));
 		} else {
 			index = random.nextInt(similares.size());
 			opciones.append("~");
-			log.debug("Añadiendo opcion {} (similar)", similares.get(index));
+			log.debug("Añadiendo opción {} (similar)", similares.get(index));
 			opciones.append(similares.remove(index));
 		}
 
@@ -512,7 +512,7 @@ public class TraductorMoodleXML extends Traductor {
 		if (conjunto.size() > 0) {
 			index = random.nextInt(conjunto.size());
 			conjunto.remove(index);
-			log.debug("Añadiendo opcion {} (similar)", conjunto);
+			log.debug("Añadiendo opción {} (similar)", conjunto);
 			opciones.append("~" + listToString(conjunto));
 		}
 
@@ -521,12 +521,12 @@ public class TraductorMoodleXML extends Traductor {
 		if (conjunto.size() < solucion.size()) {
 			index = random.nextInt(complementarios.size());
 			conjunto.add(complementarios.get(index));
-			log.debug("Añadiendo opcion {} (similar)", conjunto);
+			log.debug("Añadiendo opción {} (similar)", conjunto);
 			opciones.append("~" + listToString(conjunto));
 		}
 
 		// Opción diferente
-		log.debug("Añadiendo opcion {} (diferente)", complementarios);
+		log.debug("Añadiendo opción {} (diferente)", complementarios);
 		opciones.append("~" + listToString(complementarios));
 
 		opciones.append("}");
@@ -570,7 +570,7 @@ public class TraductorMoodleXML extends Traductor {
 		if (conjunto.size() > 0) {
 			index = random.nextInt(conjunto.size());
 			conjunto.remove(index);
-			log.debug("Añadiendo opcion {} (similar)", conjunto);
+			log.debug("Añadiendo opción {} (similar)", conjunto);
 			opciones.append("~" + listToString(conjunto));
 		}
 
@@ -579,12 +579,12 @@ public class TraductorMoodleXML extends Traductor {
 		if (conjunto.size() < solucion.size()) {
 			index = random.nextInt(complementarios.size());
 			conjunto.add(complementarios.get(index));
-			log.debug("Añadiendo opcion {} (similar)", conjunto);
+			log.debug("Añadiendo opción {} (similar)", conjunto);
 			opciones.append("~" + listToString(conjunto));
 		}
 
 		// Opción diferente
-		log.debug("Añadiendo opcion {} (diferente)", complementarios);
+		log.debug("Añadiendo opción {} (diferente)", complementarios);
 		opciones.append("~" + listToString(complementarios));
 
 		opciones.append("}");

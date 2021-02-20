@@ -51,7 +51,7 @@ public class AutomataTest {
 		assertEquals("Error identificando la posición del nodo inicial.", 0,
 				nodo.posicion());
 		assertEquals(
-				"Error identificando transiciones vacias del nodo inicial.",
+				"Error identificando transiciones vacías del nodo inicial.",
 				set(new Nodo(1, false), new Nodo(7, false)),
 				nodo.transicionVacia());
 		assertEquals("Error identificando transiciones del nodo inicial.",
@@ -71,7 +71,7 @@ public class AutomataTest {
 				nodo.esFinal());
 		assertEquals("Error identificando la posición del nodo final.", 10,
 				nodo.posicion());
-		assertEquals("Error identificando transiciones vacias del nodo final.",
+		assertEquals("Error identificando transiciones vacías del nodo final.",
 				set(), nodo.transicionVacia());
 		assertEquals("Error identificando transiciones del nodo final.", null,
 				nodo.transicion('a'));
@@ -103,7 +103,7 @@ public class AutomataTest {
 				new Nodo(7, false), new Nodo(8, false));
 
 		assertEquals(
-				"Error comprobando transiciones del nodo incial con entrada 'a'.",
+				"Error comprobando transiciones del nodo inicial con entrada 'a'.",
 				esperadosA, inicialesA);
 
 		Set<Nodo> inicialesB = automata.transicion(automata.nodoInicial(), 'b');
@@ -112,7 +112,7 @@ public class AutomataTest {
 				new Nodo(7, false));
 
 		assertEquals(
-				"Error comprobando transiciones del nodo incial con entrada 'b'.",
+				"Error comprobando transiciones del nodo inicial con entrada 'b'.",
 				esperadosB, inicialesB);
 	}
 

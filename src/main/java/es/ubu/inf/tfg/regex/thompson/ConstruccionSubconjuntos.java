@@ -30,9 +30,9 @@ import es.ubu.inf.tfg.regex.thompson.datos.Nodo;
  * McNaughton-Yamada-Thompson. Es capaz de trabajar tanto con una cadena de
  * caracteres como con una ExpresionRegular ya construida.
  * <p>
- * Asimismo actua como fachada del subsistema es.ubu.inf.tfg.regex.thompson,
+ * Asimismo actúa como fachada del subsistema es.ubu.inf.tfg.regex.thompson,
  * evitando dependencias con los tipos de datos internos. Todas las salidas se
- * codifican en tipos de datos estandar.
+ * codifican en tipos de datos estándar.
  * 
  * @author Roberto Izquierdo Amo
  * 
@@ -75,7 +75,7 @@ public class ConstruccionSubconjuntos {
 
 		try {
 			this.expresion = parser.expresion();
-			// No utilizamos la expresion aumentada
+			// No utilizamos la expresión aumentada
 			this.expresion = this.expresion.hijoIzquierdo();
 		} catch (ParseException | TokenMgrError e) {
 			throw new UnsupportedOperationException("Expresión no válida.");
@@ -109,7 +109,7 @@ public class ConstruccionSubconjuntos {
 	 *            conteniendo la expresión regular a resolver.
 	 */
 	public ConstruccionSubconjuntos(ExpresionRegular expresion) {
-		// Expresion sin aumentar.
+		// Expresión sin aumentar.
 		this.expresion = expresion.hijoIzquierdo();
 		this.problema = this.expresion.toString();
 
@@ -275,7 +275,7 @@ public class ConstruccionSubconjuntos {
 	}
 
 	/**
-	 * Genera una serie de cuatro imagenes correspondientes a los autómatas de
+	 * Genera una serie de cuatro imágenes correspondientes a los autómatas de
 	 * la expresión regular original del problema y de tres mutaciones de la
 	 * misma, como alternativas en un problema de construcción de árbol.
 	 * 
@@ -297,7 +297,7 @@ public class ConstruccionSubconjuntos {
 	}
 
 	/**
-	 * Genera una serie de cuatro programas dot con las imagenes
+	 * Genera una serie de cuatro programas dot con las imágenes
 	 * correspondientes los autómatas de la expresión regular original del
 	 * problema y de tres mutaciones de la misma, como alternativas en un
 	 * problema de construcción de árbol.
@@ -326,7 +326,7 @@ public class ConstruccionSubconjuntos {
 	 * @return Set completo de alternativas.
 	 */
 	public Set<ExpresionRegular> expresionesAlternativas() {
-		log.info("Generando imagenes alternativas");
+		log.info("Generando imágenes alternativas");
 
 		int nSimbolos = simbolos().size();
 		boolean usaVacio = simbolos().contains('\u0000');

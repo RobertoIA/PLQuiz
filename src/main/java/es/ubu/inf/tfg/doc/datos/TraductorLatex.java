@@ -78,7 +78,7 @@ public class TraductorLatex extends Traductor {
 	@Override
 	public Plantilla traduceASUConstruccion(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresion {}, formato construcción",
+				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresión {}, formato construcción",
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.tex");
@@ -108,7 +108,7 @@ public class TraductorLatex extends Traductor {
 	@Override
 	public Plantilla traduceASUEtiquetado(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresion {}, formato etiquetado",
+				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresión {}, formato etiquetado",
 				problema.problema());
 
 		String imagen = "" + problema.arbolVacio().hashCode();
@@ -166,7 +166,7 @@ public class TraductorLatex extends Traductor {
 	@Override
 	public Plantilla traduceASUTablas(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresion {}, formato tablas",
+				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresión {}, formato tablas",
 				problema.problema());
 
 		StringBuilder stePos = new StringBuilder();
@@ -251,7 +251,7 @@ public class TraductorLatex extends Traductor {
 	@Override
 	public Plantilla traduceCSConstruccion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresion {}, formato construcción",
+				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresión {}, formato construcción",
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.tex");
@@ -281,7 +281,7 @@ public class TraductorLatex extends Traductor {
 	@Override
 	public Plantilla traduceCSExpresion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresion {}, formato expresión",
+				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresión {}, formato expresión",
 				problema.problema());
 
 		StringBuilder fTrans = new StringBuilder();
@@ -338,7 +338,7 @@ public class TraductorLatex extends Traductor {
 	@Override
 	public Plantilla traduceCSAutomata(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresion {}, formato autómata",
+				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresión {}, formato autómata",
 				problema.problema());
 
 		String imagen = "" + problema.automata().hashCode();

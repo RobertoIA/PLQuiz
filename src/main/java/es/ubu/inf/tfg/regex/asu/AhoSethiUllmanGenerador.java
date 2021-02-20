@@ -47,7 +47,7 @@ public class AhoSethiUllmanGenerador {
 	 */
 	public AhoSethiUllman nuevo(int nSimbolos, int nEstados, boolean usaVacio) {
 		log.info(
-				"Generando problema de Aho-Sethi-Ullman con {} simbolos y {} estados, vacios = {}.",
+				"Generando problema de Aho-Sethi-Ullman con {} símbolos y {} estados, vacíos = {}.",
 				nSimbolos, nEstados, usaVacio);
 
 		AhoSethiUllman candidato = null, actual = null;
@@ -89,7 +89,7 @@ public class AhoSethiUllmanGenerador {
 	}
 
 	/**
-	 * Evalua un problema en función a como se adapta a los parámetros pedidos.
+	 * Evalúa un problema en función a como se adapta a los parámetros pedidos.
 	 * Tiene en cuenta tanto que el número de estados sea el pedido, como que
 	 * use todos los símbolos.
 	 * <p>

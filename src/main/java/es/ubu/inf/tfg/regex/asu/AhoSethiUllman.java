@@ -27,9 +27,9 @@ import es.ubu.inf.tfg.regex.parser.TokenMgrError;
  * a partir de una expresión regular. Es capaz de trabajar tanto con una cadena
  * de caracteres como con una ExpresionRegular ya construida.
  * <p>
- * Asimismo actua como fachada del subsistema es.ubu.inf.tfg.regex.asu, junto
+ * Asimismo actúa como fachada del subsistema es.ubu.inf.tfg.regex.asu, junto
  * con AhoSethiUllmanGenetico, evitando dependencias con los tipos de datos
- * internos. Todas las salidas se codifican en tipos de datos estandar.
+ * internos. Todas las salidas se codifican en tipos de datos estándar.
  * 
  * @author Roberto Izquierdo Amo
  * 
@@ -92,7 +92,7 @@ public class AhoSethiUllman {
 					this.transiciones.add(estadoActual, simbolo, destino);
 				}
 			}
-			// Pasamos al siguiente estado, alfabeticamente
+			// Pasamos al siguiente estado, alfabéticamente
 			estadoActual++;
 		}
 	}
@@ -107,7 +107,7 @@ public class AhoSethiUllman {
 	 *            ExpresionRegular conteniendo la expresión regular a resolver.
 	 */
 	public AhoSethiUllman(ExpresionRegular expresion) {
-		// Expresion sin aumentar.
+		// Expresión sin aumentar.
 		this.problema = expresion.hijoIzquierdo().toString();
 		this.expresion = expresion;
 
@@ -130,7 +130,7 @@ public class AhoSethiUllman {
 					this.transiciones.add(estadoActual, simbolo, destino);
 				}
 			}
-			// Pasamos al siguiente estado, alfabeticamente
+			// Pasamos al siguiente estado, alfabéticamente
 			estadoActual++;
 		}
 	}
@@ -176,7 +176,7 @@ public class AhoSethiUllman {
 	}
 
 	/**
-	 * Devuelve la expresion procesada y aumentada con la que vamos a trabajar.
+	 * Devuelve la expresión procesada y aumentada con la que vamos a trabajar.
 	 * 
 	 * @return Expresión regular aumentada.
 	 */
@@ -229,7 +229,7 @@ public class AhoSethiUllman {
 	 * 
 	 * @param n
 	 *            Posición para la que calculamos la función.
-	 * @return Resultado de la functión siguiente-pos para la posición dada.
+	 * @return Resultado de la función siguiente-pos para la posición dada.
 	 */
 	public Set<Integer> siguientePos(int n) {
 		return this.solucion.siguientePos().get(n);
@@ -289,7 +289,7 @@ public class AhoSethiUllman {
 
 	/**
 	 * Obtiene el conjunto de posiciones que definen la última-pos de uno de los
-	 * nodos del árbol, definidos con un caracter comenzando por 'A', y
+	 * nodos del árbol, definidos con un carácter comenzando por 'A', y
 	 * etiquetando cada nivel de izquierda a derecha.
 	 * 
 	 * @param simbolo
@@ -302,7 +302,7 @@ public class AhoSethiUllman {
 
 	/**
 	 * Obtiene el conjunto de posiciones que definen la última-pos de uno de los
-	 * nodos del árbol, definidos con un caracter comenzando por 'A', y
+	 * nodos del árbol, definidos con un carácter comenzando por 'A', y
 	 * etiquetando cada nivel de izquierda a derecha.
 	 * 
 	 * @param simbolo
@@ -315,7 +315,7 @@ public class AhoSethiUllman {
 
 	/**
 	 * Comprueba si uno de los nodos hijos del árbol es anulable, definidos con
-	 * un caracter comenzando por 'A', y etiquetando cada nivel de izquierda a
+	 * un carácter comenzando por 'A', y etiquetando cada nivel de izquierda a
 	 * derecha.
 	 * 
 	 * @param simbolo
@@ -348,7 +348,7 @@ public class AhoSethiUllman {
 	}
 
 	/**
-	 * Genera una serie de cuatro imagenes correspondientes la expresión regular
+	 * Genera una serie de cuatro imágenes correspondientes la expresión regular
 	 * original del problema y tres mutaciones de la misma, como alternativas
 	 * en un problema de construcción de árbol.
 	 * 
@@ -367,7 +367,7 @@ public class AhoSethiUllman {
 	}
 
 	/**
-	 * Genera una serie de cuatro programas dot con las imagenes
+	 * Genera una serie de cuatro programas dot con las imágenes
 	 * correspondientes la expresión regular original del problema y tres
 	 * mutaciones de la misma, como alternativas en un problema de construcción
 	 * de árbol.
@@ -396,7 +396,7 @@ public class AhoSethiUllman {
 	 * @return Set completo de alternativas.
 	 */
 	public Set<ExpresionRegular> expresionesAlternativas() {
-		log.info("Generando imagenes alternativas");
+		log.info("Generando imágenes alternativas");
 
 		int nSimbolos = simbolos().size();
 		boolean usaVacio = simbolos().contains('\u0000');

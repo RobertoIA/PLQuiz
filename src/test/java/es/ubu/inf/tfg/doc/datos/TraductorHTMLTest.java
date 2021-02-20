@@ -120,7 +120,7 @@ public class TraductorHTMLTest {
 
 	/**
 	 * Comprueba la correcta traducción de un problema de construcción de
-	 * subconjuntos subtipo expresion.
+	 * subconjuntos subtipo expresión.
 	 */
 	@Test
 	public void testTraduceConstruccionSubconjuntosExpresion() {

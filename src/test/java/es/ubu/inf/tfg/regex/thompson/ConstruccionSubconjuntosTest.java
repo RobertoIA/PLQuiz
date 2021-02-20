@@ -33,7 +33,7 @@ public class ConstruccionSubconjuntosTest {
 	}
 
 	/**
-	 * Comprueba que los simbolos del autómata se calculan correctamente.
+	 * Comprueba que los símbolos del autómata se calculan correctamente.
 	 */
 	@Test
 	public void testSimbolos() {

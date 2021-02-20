@@ -27,25 +27,25 @@ public class GeneradorTest {
 		Generador generador = new Generador(2, true, false);
 		ExpresionRegular expresion = generador.arbol(8);
 
-		assertEquals("Generado árbol de profundidad erronea", 8,
+		assertEquals("Generado árbol de profundidad errónea", 8,
 				expresion.profundidad());
 
 		generador = new Generador(2, true, true);
 		expresion = generador.arbol(8);
 
-		assertEquals("Generado árbol de profundidad erronea", 9,
+		assertEquals("Generado árbol de profundidad errónea", 9,
 				expresion.profundidad());
 
 		generador = new Generador(5, false, false);
 		expresion = generador.arbol(12);
 
-		assertEquals("Generado árbol de profundidad erronea", 12,
+		assertEquals("Generado árbol de profundidad errónea", 12,
 				expresion.profundidad());
 
 		generador = new Generador(5, false, true);
 		expresion = generador.arbol(12);
 
-		assertEquals("Generado árbol de profundidad erronea", 13,
+		assertEquals("Generado árbol de profundidad errónea", 13,
 				expresion.profundidad());
 	}
 
@@ -61,13 +61,13 @@ public class GeneradorTest {
 
 		assertFalse("La expresión mutada es igual a la original.",
 				expresion.equals(mutante));
-		assertTrue("La expresión mutada tiene una profundidad erronea.",
+		assertTrue("La expresión mutada tiene una profundidad errónea.",
 				Math.abs(8 - mutante.profundidad()) <= 1);
 	}
 
 	/**
 	 * Genera una serie de problemas Aho-Sethi-Ullman a partir de expresiones
-	 * regulares aleatorias y almacena sus caracteristicas.
+	 * regulares aleatorias y almacena sus características.
 	 * <p>
 	 * No incluye nodos vacíos.
 	 */
@@ -79,7 +79,7 @@ public class GeneradorTest {
 
 	/**
 	 * Genera una serie de problemas de Construcción de Subconjuntos a partir de
-	 * expresiones regulares aleatorias y almacena sus caracteristicas.
+	 * expresiones regulares aleatorias y almacena sus características.
 	 * <p>
 	 * No incluye nodos vacíos.
 	 */
@@ -91,7 +91,7 @@ public class GeneradorTest {
 
 	/**
 	 * Genera una serie de problemas Aho-Sethi-Ullman a partir de expresiones
-	 * regulares aleatorias y almacena sus caracteristicas.
+	 * regulares aleatorias y almacena sus características.
 	 * <p>
 	 * Incluye nodos vacíos.
 	 */
@@ -103,7 +103,7 @@ public class GeneradorTest {
 
 	/**
 	 * Genera una serie de problemas de Construcción de Subconjuntos a partir de
-	 * expresiones regulares aleatorias y almacena sus caracteristicas.
+	 * expresiones regulares aleatorias y almacena sus características.
 	 * <p>
 	 * Incluye nodos vacíos.
 	 */
