@@ -164,6 +164,7 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 		this.progresoPanel.add(this.progresoBar, BorderLayout.CENTER);
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	void problema(Problema<AhoSethiUllman> problema) {
 		if (problemaActual != null) {
 			if (!problema.getProblema().equals(problemaActual))

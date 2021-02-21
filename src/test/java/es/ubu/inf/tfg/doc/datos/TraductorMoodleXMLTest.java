@@ -4,9 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -95,9 +101,12 @@ public class TraductorMoodleXMLTest {
 	/**
 	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
 	 * subtipo tablas.
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 * @throws UnsupportedEncodingException 
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanTablas() {
+	public void testTraduceAhoSethiUllmanTablas() throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUTablas.xml");
 		String encontrado = traductor.traduceASUTablas(problema).toString();
@@ -105,6 +114,16 @@ public class TraductorMoodleXMLTest {
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+
+		
 		assertEquals(
 				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo tablas.",
 				esperado, encontrado);

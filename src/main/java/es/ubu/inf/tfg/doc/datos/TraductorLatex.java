@@ -123,9 +123,9 @@ public class TraductorLatex extends Traductor {
 			soluciones
 					.append((problema.esAnulable(simboloActual) ? "Si" : "No")
 							+ " & ");
-			soluciones.append(setToString(problema.primeraPos(simboloActual))
+			soluciones.append(setToRanges(problema.primeraPos(simboloActual)) 
 					+ " & ");
-			soluciones.append(setToString(problema.ultimaPos(simboloActual))
+			soluciones.append(setToRanges(problema.ultimaPos(simboloActual))  
 					+ "\\\\ \\hline\n");
 
 			simboloActual++;
@@ -179,16 +179,7 @@ public class TraductorLatex extends Traductor {
 		for (int n : problema.posiciones()) {
 			stePos.append(n);
 			stePos.append(" & ");
-			if (problema.siguientePos(n).size() > 0) {
-				String prefijo = "";
-				for (int pos : problema.siguientePos(n)) {
-					stePos.append(prefijo);
-					prefijo = ", ";
-					stePos.append(pos);
-				}
-			} else {
-				stePos.append("-");
-			}
+			stePos.append(setToRanges(problema.siguientePos(n)));
 			stePos.append(" \\\\ \\hline\n");
 		}
 		stePos.append("\\end{tabular}");
@@ -308,8 +299,11 @@ public class TraductorLatex extends Traductor {
 				if (simbolo != '$')
 					fTrans.append(problema.mueve(estado, simbolo) + " & ");
 			}
+			fTrans.append(setToRanges(problema.posiciones(estado)));
+			/*
 			for (int posicion : problema.posiciones(estado))
 				fTrans.append(posicion + " ");
+			*/
 			fTrans.append("\\\\ \\hline\n");
 		}
 		fTrans.append("\\end{tabular}");
@@ -366,8 +360,7 @@ public class TraductorLatex extends Traductor {
 				if (simbolo != '$')
 					fTrans.append(problema.mueve(estado, simbolo) + " & ");
 			}
-			for (int posicion : problema.posiciones(estado))
-				fTrans.append(posicion + " ");
+			fTrans.append(setToRanges(problema.posiciones(estado)));
 			fTrans.append("\\\\ \\hline\n");
 		}
 		fTrans.append("\\end{tabular}");
@@ -386,6 +379,7 @@ public class TraductorLatex extends Traductor {
 	 *            Conjunto de elementos.
 	 * @return Representación del conjunto como elementos separados por comas.
 	 */
+	@SuppressWarnings("unused")
 	private String setToString(Set<?> lista) {
 		StringBuilder setToString = new StringBuilder();
 
@@ -400,6 +394,60 @@ public class TraductorLatex extends Traductor {
 			setToString.append("Cjto. vacío");
 		}
 		return setToString.toString();
+	}
+
+	/**
+	 * Devuelve una representación de un conjunto de elementos como rangos separados por comas.
+	 * 
+	 * @param lista
+	 *            Conjunto de elementos.
+	 * @return Representación del conjunto como rangos separados por comas.
+	 */
+	// TODO: ¿se podría mover a la clase padre?
+	private String setToRanges(Set<?> lista) {
+		StringBuilder out = new StringBuilder();
+		int last=0, first=0, length=0; // inicializo para evitar warnings
+		
+		if (lista.size() == 0) {
+			//out.append("\u2205"); // Unicode empty set
+			out.append("$\\varnothing$"); // LaTeX empty set
+		} else {
+			String sep = "";
+			boolean isFirst = true;
+			for (Object e: lista) {
+				if (isFirst) {
+					last = first = (int) e;
+					length = 1;
+					isFirst = false;
+					continue;
+				}
+				if ((int) e - last == 1) {
+					last = (int) e;
+					length++;
+				} else {
+					out.append(sep);
+					sep = ", ";
+					if (length == 1) {
+						out.append(""+last);
+					} else if (length == 2) {
+						out.append(""+first+", "+last);
+					} else {
+						out.append(""+first+"-"+last);
+					}
+					last = first = (int) e;
+					length = 1;
+				}
+			}
+			out.append(sep);
+			if (length == 1) {
+				out.append(""+last);
+			} else if (length == 2) {
+				out.append(""+first+", "+last);
+			} else {
+				out.append(""+first+"-"+last);
+			}
+		}
+		return out.toString();
 	}
 
 }

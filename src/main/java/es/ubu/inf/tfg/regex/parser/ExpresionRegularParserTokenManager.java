@@ -3,6 +3,7 @@ package es.ubu.inf.tfg.regex.parser;
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
 
 /** Token Manager. */
+@SuppressWarnings("unused")
 public class ExpresionRegularParserTokenManager implements ExpresionRegularParserConstants
 {
 
