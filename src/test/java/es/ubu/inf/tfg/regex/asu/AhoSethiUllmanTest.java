@@ -31,7 +31,7 @@ public class AhoSethiUllmanTest {
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testParserException() {
-		asu = new AhoSethiUllman("a**"); // ParseException
+		asu = new AhoSethiUllman("a||"); // ParseException
 	}
 
 	/**
@@ -57,8 +57,9 @@ public class AhoSethiUllmanTest {
 	 */
 	@Test
 	public void testExpresionAumentada() {
+		System.out.println(asu.expresionAumentada());
 		assertEquals("El ejercicio almacena la expresión aumentada errónea.",
-				"((((a|b*)\u2027a*)\u2027c)*\u2027$)", asu.expresionAumentada());
+				"((a|b*)·a*·c)*·$", asu.expresionAumentada());
 	}
 
 	/**

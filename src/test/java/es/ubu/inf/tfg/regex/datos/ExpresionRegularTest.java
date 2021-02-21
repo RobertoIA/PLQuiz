@@ -132,7 +132,11 @@ public class ExpresionRegularTest {
 	@Test
 	public void testNodoVacioString() {
 		ExpresionRegular nodo = ExpresionRegular.nodoVacio();
-
+		
+		/*
+		System.out.println(nodo.toString());
+		*/
+		
 		assertEquals("Incorrecta impresión de nodo vacío.", "\u03B5",
 				nodo.toString());
 	}
@@ -285,11 +289,15 @@ public class ExpresionRegularTest {
 	public void testNodoConcatString() {
 		ExpresionRegular hijoIzquierdo = ExpresionRegular.nodoSimbolo(1, 'a');
 		ExpresionRegular hijoDerecho = ExpresionRegular.nodoSimbolo(2, 'b');
-		ExpresionRegular nodo = ExpresionRegular.nodoConcat(hijoDerecho,
-				hijoIzquierdo);
+		ExpresionRegular nodo = ExpresionRegular.nodoConcat(hijoIzquierdo, hijoDerecho);
+		
+		/*
+		System.out.println(nodo.toString());
+		*/
+		
 
 		assertEquals("Incorrecta impresión de nodo concatenación.",
-				"(a\u2027b)", nodo.toString());
+				"a·b", nodo.toString());
 	}
 
 	/**
@@ -368,10 +376,13 @@ public class ExpresionRegularTest {
 	public void testNodoUnionString() {
 		ExpresionRegular hijoIzquierdo = ExpresionRegular.nodoSimbolo(1, 'a');
 		ExpresionRegular hijoDerecho = ExpresionRegular.nodoSimbolo(2, 'b');
-		ExpresionRegular nodo = ExpresionRegular.nodoUnion(hijoDerecho,
-				hijoIzquierdo);
-
-		assertEquals("Incorrecta impresión de nodo unión.", "(a|b)",
+		ExpresionRegular nodo = ExpresionRegular.nodoUnion(hijoIzquierdo, hijoDerecho);
+		
+		/*
+		System.out.println(nodo.toString());
+		*/
+		
+		assertEquals("Incorrecta impresión de nodo unión.", "a|b",
 				nodo.toString());
 	}
 
@@ -450,20 +461,25 @@ public class ExpresionRegularTest {
 	 */
 	@Test
 	public void testNodos() {
-		ExpresionRegular nodoA = ExpresionRegular.nodoSimbolo(1, 'a');
-		ExpresionRegular nodoB = ExpresionRegular.nodoCierre(nodoA);
-		ExpresionRegular nodoC = ExpresionRegular.nodoSimbolo(2, 'b');
-		ExpresionRegular nodoD = ExpresionRegular.nodoConcat(nodoB, nodoC);
-		ExpresionRegular nodoE = ExpresionRegular.nodoVacio();
-		ExpresionRegular nodoF = ExpresionRegular.nodoUnion(nodoD, nodoE);
+		ExpresionRegular nodoA = ExpresionRegular.nodoSimbolo(1, 'a');      // a
+		ExpresionRegular nodoB = ExpresionRegular.nodoCierre(nodoA);        // a*
+		ExpresionRegular nodoC = ExpresionRegular.nodoSimbolo(2, 'b');      // b
+		ExpresionRegular nodoD = ExpresionRegular.nodoConcat(nodoB, nodoC); // a*.b
+		ExpresionRegular nodoE = ExpresionRegular.nodoVacio();              // E
+		ExpresionRegular nodoF = ExpresionRegular.nodoUnion(nodoD, nodoE);  // a*.b|E
 
 		List<ExpresionRegular> nodos = new ArrayList<>();
 		nodos.add(nodoF);
+		nodos.add(nodoE);
 		nodos.add(nodoD);
+		nodos.add(nodoC);
 		nodos.add(nodoB);
 		nodos.add(nodoA);
-		nodos.add(nodoC);
-		nodos.add(nodoE);
+		
+		/*
+		System.out.println(nodos);
+		System.out.println(nodoF.nodos());
+		*/
 
 		assertEquals("Listado de nodos incorrecto.", nodos, nodoF.nodos());
 	}
@@ -492,21 +508,24 @@ public class ExpresionRegularTest {
 	 */
 	@Test
 	public void testParentheses1() {
-		ExpresionRegular nodoA1 = ExpresionRegular.nodoSimbolo(1, 'a');
+		ExpresionRegular nodoA1 = ExpresionRegular.nodoSimbolo(1, 'a');                 // a
 
-		ExpresionRegular nodoA1estrella = ExpresionRegular.nodoCierre(nodoA1);
-		ExpresionRegular nodoB = ExpresionRegular.nodoSimbolo(2, 'b');
-		ExpresionRegular nodoBandA1estrella = ExpresionRegular.nodoConcat(nodoB, nodoA1estrella);
+		ExpresionRegular nodoA1estrella = ExpresionRegular.nodoCierre(nodoA1);          // a*
+		ExpresionRegular nodoB = ExpresionRegular.nodoSimbolo(2, 'b');                  // b
+		ExpresionRegular nodoBandA1estrella = ExpresionRegular.nodoConcat(
+				nodoA1estrella, nodoB);                                                 // a*.b
 		ExpresionRegular nodoE = ExpresionRegular.nodoVacio();
-		ExpresionRegular nodoEorBandA1estrella = ExpresionRegular.nodoCierre(ExpresionRegular.nodoUnion(nodoE, nodoBandA1estrella));
-		ExpresionRegular nodoC = ExpresionRegular.nodoSimbolo(3, 'c');
-
-		ExpresionRegular nodoA4 = ExpresionRegular.nodoSimbolo(4, 'a');
-		ExpresionRegular nodoDollar = ExpresionRegular.nodoAumentado(5);
-		
-		ExpresionRegular nodoCandIEorBandA1estrellaD = ExpresionRegular.nodoConcat(nodoC, nodoEorBandA1estrella);
-		ExpresionRegular nodoCandIEorBandA1estrellaDorA4 = ExpresionRegular.nodoUnion(nodoA4, nodoCandIEorBandA1estrellaD);
-		ExpresionRegular nodoER = ExpresionRegular.nodoConcat(nodoDollar, nodoCandIEorBandA1estrellaDorA4);
+		ExpresionRegular nodoEorBandA1estrella = ExpresionRegular.nodoCierre(
+				ExpresionRegular.nodoUnion(nodoE, nodoBandA1estrella));                 // E|a*.b
+		ExpresionRegular nodoC = ExpresionRegular.nodoSimbolo(3, 'c');                  // c
+		ExpresionRegular nodoA4 = ExpresionRegular.nodoSimbolo(4, 'a');                 // a
+		ExpresionRegular nodoDollar = ExpresionRegular.nodoAumentado(5);                // $		
+		ExpresionRegular nodoCandIEorBandA1estrellaD = ExpresionRegular.nodoConcat(
+				nodoEorBandA1estrella, nodoC);                                          // (E|a*.b).c
+		ExpresionRegular nodoCandIEorBandA1estrellaDorA4 = ExpresionRegular.nodoUnion(
+				nodoCandIEorBandA1estrellaD, nodoA4);                                   // (E|a*.b).c|a
+		ExpresionRegular nodoER = ExpresionRegular.nodoConcat(
+				nodoCandIEorBandA1estrellaDorA4, nodoDollar);                           // ((E|a*.b).c|a).$
 		
 
 		/*
@@ -516,7 +535,7 @@ public class ExpresionRegularTest {
 		*/
 		
 
-		assertEquals("Problemas en la parentización de la expresión regular.", nodoER.toString2(), "((a*\u2027b|\u03B5)*\u2027c|a)\u2027$");
+		assertEquals("Problemas en la parentización de la expresión regular.", nodoER.toString(), "((\u03B5|a*·b)*·c|a)·$");
 	}
 
 	//CGO added these	
@@ -531,11 +550,11 @@ public class ExpresionRegularTest {
 		ExpresionRegular nodoD = ExpresionRegular.nodoSimbolo(4, 'd');
 		ExpresionRegular nodoE = ExpresionRegular.nodoSimbolo(5, 'e');
 
-		ExpresionRegular nodoBC = ExpresionRegular.nodoConcat(nodoC, nodoB);
-		ExpresionRegular nodoABC = ExpresionRegular.nodoUnion(nodoBC, nodoA);
-		ExpresionRegular nodoDE = ExpresionRegular.nodoUnion(nodoE, nodoD);
+		ExpresionRegular nodoBC = ExpresionRegular.nodoConcat(nodoB, nodoC);
+		ExpresionRegular nodoABC = ExpresionRegular.nodoUnion(nodoA, nodoBC);
+		ExpresionRegular nodoDE = ExpresionRegular.nodoUnion(nodoD, nodoE);
 
-		ExpresionRegular nodoABCDE = ExpresionRegular.nodoConcat(nodoDE, nodoABC);
+		ExpresionRegular nodoABCDE = ExpresionRegular.nodoConcat(nodoABC, nodoDE);
 		
 		/*
 		System.out.print("nodoABCDE: ");
@@ -543,8 +562,9 @@ public class ExpresionRegularTest {
 		System.out.println(nodoABCDE.toString2());	
 		*/
 
-		// Ahora es "(a|b.c).(d|e)", en vez de "((a|(b·c))·(d|e))"
-		assertEquals("Problemas en la parentización de la expresión regular.", nodoABCDE.toString2(), "(a|b\u2027c)\u2027(d|e)");
+		// Ahora es "(a|b·c)·(d|e)", en vez de "((a|(b·c))·(d|e))"
+		
+		assertEquals("Problemas en la parentización de la expresión regular.", nodoABCDE.toString2(), "(a|b·c)·(d|e)");
 	}
 
 	//CGO added these	
@@ -559,13 +579,13 @@ public class ExpresionRegularTest {
 		ExpresionRegular nodoD = ExpresionRegular.nodoSimbolo(4, 'd');
 		ExpresionRegular nodoE = ExpresionRegular.nodoSimbolo(5, 'e');
 
-		ExpresionRegular nodoBC = ExpresionRegular.nodoConcat(nodoC, nodoB);
-		ExpresionRegular nodoABC = ExpresionRegular.nodoConcat(nodoBC, nodoA);
-		ExpresionRegular nodoDE = ExpresionRegular.nodoUnion(nodoE, nodoD);
+		ExpresionRegular nodoBC = ExpresionRegular.nodoConcat(nodoB, nodoC);
+		ExpresionRegular nodoABC = ExpresionRegular.nodoConcat(nodoA, nodoBC);
+		ExpresionRegular nodoDE = ExpresionRegular.nodoUnion(nodoD, nodoE);
 		ExpresionRegular nodoDEa = ExpresionRegular.nodoCierre(nodoDE);
 		
 
-		ExpresionRegular nodoABCDE = ExpresionRegular.nodoConcat(nodoDEa, nodoABC);
+		ExpresionRegular nodoABCDE = ExpresionRegular.nodoConcat(nodoABC, nodoDEa);
 		
 		/*
 		System.out.print("nodoABCDE: ");
@@ -573,8 +593,8 @@ public class ExpresionRegularTest {
 		System.out.println(nodoABCDE.toString2());	
 		*/
 
-		// Ahora es "a.(b.c).(d|e)*", en vez de "((a·(b·c))·(d|e)*)"
-		assertEquals("Problemas en la parentización de la expresión regular.", nodoABCDE.toString2(), "a\u2027(b\u2027c)\u2027(d|e)*");
+		// Ahora es "a·(b·c)·(d|e)*", en vez de "((a·(b·c))·(d|e)*)"
+		assertEquals("Problemas en la parentización de la expresión regular.", nodoABCDE.toString2(), "a·(b·c)·(d|e)*");
 	}
 
 }

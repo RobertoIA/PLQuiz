@@ -142,8 +142,8 @@ public class Generador {
 
 		// Vuelve a aumentar la expresión.
 		if (esAumentada)
-			mutante = ExpresionRegular.nodoConcat(
-					ExpresionRegular.nodoAumentado(posicion++), mutante);
+			mutante = ExpresionRegular.nodoConcat(mutante,
+					ExpresionRegular.nodoAumentado(posicion++));
 
 		log.debug("Mutación de {} -> {}", expresion, mutante);
 
@@ -190,7 +190,7 @@ public class Generador {
 				hijoIzquierdo = nuevo;
 			else
 				hijoIzquierdo = sustituir(original.hijoIzquierdo(), nodo, nuevo);
-			return ExpresionRegular.nodoConcat(hijoDerecho, hijoIzquierdo);
+			return ExpresionRegular.nodoConcat(hijoIzquierdo, hijoDerecho);
 		} else if (original.esUnion()) {
 			if (original.hijoDerecho().equals(nodo))
 				hijoDerecho = nuevo;
@@ -200,7 +200,7 @@ public class Generador {
 				hijoIzquierdo = nuevo;
 			else
 				hijoIzquierdo = sustituir(original.hijoIzquierdo(), nodo, nuevo);
-			return ExpresionRegular.nodoUnion(hijoDerecho, hijoIzquierdo);
+			return ExpresionRegular.nodoUnion(hijoIzquierdo, hijoDerecho);
 		}
 
 		log.error(
@@ -246,8 +246,8 @@ public class Generador {
 			if (esAumentada) {
 				hijoIzquierdo = subArbol(profundidad, Operador.COMPLETO);
 				return ExpresionRegular
-						.nodoConcat(ExpresionRegular.nodoAumentado(posicion),
-								hijoIzquierdo);
+						.nodoConcat(hijoIzquierdo,
+								ExpresionRegular.nodoAumentado(posicion));
 			} else {
 				operadores = Operador.COMPLETO;
 			}
@@ -280,11 +280,11 @@ public class Generador {
 		case CONCAT:
 			hijoIzquierdo = subArbol(profundidad - 1, Operador.COMPLETO);
 			hijoDerecho = subArbol(profundidad - 1, Operador.COMPLETO);
-			return ExpresionRegular.nodoConcat(hijoDerecho, hijoIzquierdo);
+			return ExpresionRegular.nodoConcat(hijoIzquierdo, hijoDerecho);
 		case UNION:
 			hijoIzquierdo = subArbol(profundidad - 1, Operador.COMPLETO);
 			hijoDerecho = subArbol(profundidad - 1, Operador.COMPLETO);
-			return ExpresionRegular.nodoUnion(hijoDerecho, hijoIzquierdo);
+			return ExpresionRegular.nodoUnion(hijoIzquierdo, hijoDerecho);
 		default:
 			return null;
 		}

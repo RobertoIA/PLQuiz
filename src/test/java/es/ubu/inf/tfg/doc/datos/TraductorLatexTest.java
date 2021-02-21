@@ -18,6 +18,7 @@ import es.ubu.inf.tfg.doc.datos.TraductorLatex;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
+@SuppressWarnings("unused")
 public class TraductorLatexTest {
 
 	Traductor traductor;
@@ -87,10 +88,11 @@ public class TraductorLatexTest {
 	public void testTraduceAhoSethiUllmanTablas() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUTablas.tex");
+		String encontrado = traductor.traduceASUTablas(problema).toString();
 
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo tablas.",
-				esperado, traductor.traduceASUTablas(problema).toString());
+				esperado, encontrado);
 	}
 
 	/**

@@ -18,6 +18,7 @@ import es.ubu.inf.tfg.doc.datos.TraductorHTML;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
+@SuppressWarnings("unused")
 public class TraductorHTMLTest {
 
 	Traductor traductor;
@@ -91,10 +92,11 @@ public class TraductorHTMLTest {
 	public void testTraduceAhoSethiUllmanTablas() {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUTablas.html");
+		String encontrado = traductor.traduceASUTablas(problema).toString();
 
 		assertEquals(
 				"Traducción HTML incorrecta de problema AhoSethiUllman subtipo tablas.",
-				esperado, traductor.traduceASUTablas(problema).toString());
+				esperado, encontrado);
 	}
 
 	/**

@@ -43,17 +43,17 @@ public class ExpresionRegular {
 		SIMBOLO, VACIO, CONCAT, UNION, CIERRE
 	}
 
-	private final Tipo tipo;
+	public final Tipo tipo;
 	private final int posicion;
 	private final char simbolo;
 
-	private ExpresionRegular hijoIzquierdo;
-	private ExpresionRegular hijoDerecho;
+	public ExpresionRegular hijoIzquierdo;
+	public ExpresionRegular hijoDerecho;
 
 	private BufferedImage imagen;
 
 	private ExpresionRegular(Tipo tipo, int posicion, char simbolo,
-			ExpresionRegular hijoDerecho, ExpresionRegular hijoIzquierdo) {
+			ExpresionRegular hijoIzquierdo, ExpresionRegular hijoDerecho) {
 		this.tipo = tipo;
 		this.posicion = posicion;
 		this.simbolo = simbolo;
@@ -104,32 +104,32 @@ public class ExpresionRegular {
 	 * Construye y devuelve un nodo concatenación del cual cuelgan los dos nodos
 	 * hijo especificados.
 	 * 
-	 * @param hijoDerecho
-	 *            Operando derecho en la concatenación.
 	 * @param hijoIzquierdo
 	 *            Operando izquierdo en la concatenación.
+	 * @param hijoDerecho
+	 *            Operando derecho en la concatenación.
 	 * @return Nodo concatenación.
 	 */
-	public static ExpresionRegular nodoConcat(ExpresionRegular hijoDerecho,
-			ExpresionRegular hijoIzquierdo) {
+	public static ExpresionRegular nodoConcat(ExpresionRegular hijoIzquierdo,
+			ExpresionRegular hijoDerecho) {
 		return new ExpresionRegular(Tipo.CONCAT, Integer.MIN_VALUE, '\u0000',
-				hijoDerecho, hijoIzquierdo);
+				hijoIzquierdo, hijoDerecho);
 	}
 
 	/**
 	 * Construye y devuelve un nodo concatenación del cual cuelgan los dos nodos
 	 * hijo especificados.
 	 * 
-	 * @param hijoDerecho
-	 *            Operando derecho en la concatenación.
 	 * @param hijoIzquierdo
 	 *            Operando izquierdo en la concatenación.
+	 * @param hijoDerecho
+	 *            Operando derecho en la concatenación.
 	 * @return Nodo unión.
 	 */
-	public static ExpresionRegular nodoUnion(ExpresionRegular hijoDerecho,
-			ExpresionRegular hijoIzquierdo) {
+	public static ExpresionRegular nodoUnion(ExpresionRegular hijoIzquierdo,
+			ExpresionRegular hijoDerecho) {
 		return new ExpresionRegular(Tipo.UNION, Integer.MIN_VALUE, '\u0000',
-				hijoDerecho, hijoIzquierdo);
+				hijoIzquierdo, hijoDerecho);
 	}
 
 	/**
@@ -142,7 +142,7 @@ public class ExpresionRegular {
 	 */
 	public static ExpresionRegular nodoCierre(ExpresionRegular hijo) {
 		return new ExpresionRegular(Tipo.CIERRE, Integer.MIN_VALUE, '\u0000',
-				null, hijo);
+				hijo, null);
 	}
 
 	/**
@@ -391,11 +391,15 @@ public class ExpresionRegular {
 		case CIERRE:
 			return "*";
 		case CONCAT:
-			return "\u2027";
+			// CGO changed this
+			//return "\u2027";
+			return "·"; // Esto hace más fácil el depurado, «a·b» vs «a\u2027b»
 		case UNION:
 			return "|";
 		case VACIO:
+			// CGO changed this
 			return "\u03B5";
+			//return "E"; // Esto podría hacer más fácil el depurado, «a|E» vs «a|\u03B5»
 		default:
 			return "";
 		}
@@ -408,8 +412,7 @@ public class ExpresionRegular {
 	 * <p>
 	 * Formato UTF-8.
 	 */
-	@Override
-	public String toString() {
+	public String toStringOLD() {
 		StringBuilder string = new StringBuilder();
 
 		switch (this.tipo) {
@@ -444,6 +447,11 @@ public class ExpresionRegular {
 		return string.toString();
 	}
 
+	@Override
+	public String toString() {
+		return this.toString2();
+	}
+	
 	/**
 	 * Comprueba si el nodo es un operando.
 	 * 
@@ -461,7 +469,7 @@ public class ExpresionRegular {
 	 *         <code>false</code> si no.
 	 */
 	public boolean esBinario() {
-		return this.esCierre() || this.esUnion();
+		return this.esConcat() || this.esUnion();
 	}	
 
 	/**
@@ -500,7 +508,7 @@ public class ExpresionRegular {
 		case VACIO:
 			// CGO changed this
 			string.append('\u03B5');
-			//string.append('E');
+			//string.append('E'); // Esto podría hacer más fácil el depurado
 			break;
 		case SIMBOLO:
 			string.append(this.simbolo);
