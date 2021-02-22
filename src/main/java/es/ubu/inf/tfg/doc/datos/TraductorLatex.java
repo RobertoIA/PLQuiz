@@ -204,8 +204,8 @@ public class TraductorLatex extends Traductor {
 				if (simbolo != '$')
 					fTrans.append(problema.mueve(estado, simbolo) + " & ");
 			}
-			for (int posicion : problema.estado(estado))
-				fTrans.append(posicion + " ");
+			fTrans.append(setToRanges(problema.estado(estado)));
+			//for (int posicion : problema.estado(estado)) fTrans.append(posicion + " ");
 			fTrans.append("\\\\ \\hline\n");
 		}
 		fTrans.append("\\end{tabular}");
@@ -241,8 +241,7 @@ public class TraductorLatex extends Traductor {
 	 */
 	@Override
 	public Plantilla traduceCSConstruccion(ConstruccionSubconjuntos problema) {
-		log.info(
-				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresión {}, formato construcción",
+		log.info("Traduciendo a Latex problema tipo construcción de subconjuntos con expresión {}, formato construcción",
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.tex");
@@ -300,10 +299,7 @@ public class TraductorLatex extends Traductor {
 					fTrans.append(problema.mueve(estado, simbolo) + " & ");
 			}
 			fTrans.append(setToRanges(problema.posiciones(estado)));
-			/*
-			for (int posicion : problema.posiciones(estado))
-				fTrans.append(posicion + " ");
-			*/
+			//for (int posicion : problema.posiciones(estado)) fTrans.append(posicion + " ");
 			fTrans.append("\\\\ \\hline\n");
 		}
 		fTrans.append("\\end{tabular}");
@@ -406,6 +402,7 @@ public class TraductorLatex extends Traductor {
 	// TODO: ¿se podría mover a la clase padre?
 	private String setToRanges(Set<?> lista) {
 		StringBuilder out = new StringBuilder();
+		log.info("Ejecutando setToRanges({})", lista);
 		int last=0, first=0, length=0; // inicializo para evitar warnings
 		
 		if (lista.size() == 0) {
