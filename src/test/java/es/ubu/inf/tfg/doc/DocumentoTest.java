@@ -276,7 +276,6 @@ public class DocumentoTest {
 		esperado = toString("incorporarASUTablas.tex");
 		ficheroTemporal = ficheroTemporal("incorporar.tex");
 
-
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		
@@ -941,6 +940,7 @@ public class DocumentoTest {
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
+
 		assertEquals(
 				"Borrado erróneo de problemas de construcción de subconjuntos subtipo expresión en documento XML exportado.",
 				esperado, encontrado);
