@@ -12,7 +12,7 @@ public class ExpresionRegularParserTest {
 
 	/**
 	 * Comprueba que las cadenas que no terminan en salto de linea son no
-	 * validas, aunque por lo demás sean correctas.
+	 * válidas, aunque por lo demás sean correctas.
 	 * 
 	 * @throws ParseException
 	 *             Error del parser.
@@ -27,7 +27,7 @@ public class ExpresionRegularParserTest {
 	}
 
 	/**
-	 * Comprueba que las expresiones no validas producen un error en el parser.
+	 * Comprueba que las expresiones no válidas producen un error en el parser.
 	 * 
 	 * @throws ParseException
 	 *             Error del parser.
@@ -42,7 +42,7 @@ public class ExpresionRegularParserTest {
 	}
 
 	/**
-	 * Comprueba que las expresiones con caracteres no validas producen un error
+	 * Comprueba que las expresiones con caracteres no válidas producen un error
 	 * en el token manager.
 	 * 
 	 * @throws Exception
@@ -58,7 +58,7 @@ public class ExpresionRegularParserTest {
 	}
 
 	/**
-	 * Comprueba que el parser produce la expresion regular correcta,
+	 * Comprueba que el parser produce la expresión regular correcta,
 	 * comparándola con una construida a mano.
 	 * 
 	 * @throws ParseException
@@ -84,7 +84,7 @@ public class ExpresionRegularParserTest {
 		ExpresionRegularParser parser = new ExpresionRegularParser(input);
 		ExpresionRegular resultado = parser.expresion();
 
-		assertEquals("Parser produce expresion incorrecta.", expresion,
+		assertEquals("Parser produce expresión incorrecta.", expresion,
 				resultado);
 	}
 

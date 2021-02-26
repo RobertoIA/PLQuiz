@@ -329,15 +329,15 @@ public class Documento {
 	}
 
 	/**
-	 * Crea o sobreescribe una serie de imagenes en la ruta dada.
+	 * Crea o sobreescribe una serie de imágenes en la ruta dada.
 	 * 
 	 * @param ruta
 	 *            Ruta en la que guardar las imágenes.
 	 * @param imagenes
-	 *            Imagenes que guardar en disco.
+	 *            Imágenes que guardar en disco.
 	 */
 	private void guardar(String ruta, List<BufferedImage> imagenes) {
-		log.info("Guardando {} imagenes", imagenes.size());
+		log.info("Guardando {} imágenes", imagenes.size());
 
 		try {
 			File parent = new File(ruta);

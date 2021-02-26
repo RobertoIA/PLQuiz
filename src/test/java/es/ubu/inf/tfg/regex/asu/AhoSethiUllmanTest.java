@@ -48,7 +48,7 @@ public class AhoSethiUllmanTest {
 	 */
 	@Test
 	public void testProblema() {
-		assertEquals("El ejercicio almacena el problema erroneo.",
+		assertEquals("El ejercicio almacena el problema erróneo.",
 				"((a|b*)a*c)*", asu.problema());
 	}
 
@@ -57,7 +57,7 @@ public class AhoSethiUllmanTest {
 	 */
 	@Test
 	public void testExpresionAumentada() {
-		assertEquals("El ejercicio almacena la expresión aumentada erronea.",
+		assertEquals("El ejercicio almacena la expresión aumentada errónea.",
 				"((((a|b*)\u2027a*)\u2027c)*\u2027$)", asu.expresionAumentada());
 	}
 
@@ -110,15 +110,15 @@ public class AhoSethiUllmanTest {
 	 */
 	@Test
 	public void testSiguientePos() {
-		assertEquals("Función siguiente-pos erronea.", set(3, 4),
+		assertEquals("Función siguiente-pos errónea.", set(3, 4),
 				asu.siguientePos(1));
-		assertEquals("Función siguiente-pos erronea.", set(2, 3, 4),
+		assertEquals("Función siguiente-pos errónea.", set(2, 3, 4),
 				asu.siguientePos(2));
-		assertEquals("Función siguiente-pos erronea.", set(3, 4),
+		assertEquals("Función siguiente-pos errónea.", set(3, 4),
 				asu.siguientePos(3));
-		assertEquals("Función siguiente-pos erronea.", set(1, 2, 3, 4, 5),
+		assertEquals("Función siguiente-pos errónea.", set(1, 2, 3, 4, 5),
 				asu.siguientePos(4));
-		assertEquals("Función siguiente-pos erronea.", new TreeSet<Integer>(),
+		assertEquals("Función siguiente-pos errónea.", new TreeSet<Integer>(),
 				asu.siguientePos(5));
 	}
 

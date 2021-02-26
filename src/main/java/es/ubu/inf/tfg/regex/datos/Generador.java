@@ -158,7 +158,7 @@ public class Generador {
 	 * Construye la expresión de manera recursiva.
 	 * 
 	 * @param original
-	 *            Expresion regular original.
+	 *            Expresión regular original.
 	 * @param nodo
 	 *            Nodo en el que realizar la sustitución. Será reemplazado por
 	 *            la raíz del subárbol.
@@ -226,7 +226,7 @@ public class Generador {
 	}
 
 	/**
-	 * Genera un sub-árbol de expresion regular con la profundidad dada y
+	 * Genera un sub-árbol de expresión regular con la profundidad dada y
 	 * utilizando un conjunto de operadores concreto. Se llama a si mismo de
 	 * manera recursiva para completar la construcción.
 	 * 
@@ -263,7 +263,7 @@ public class Generador {
 
 		// Nodo operador.
 		switch (operador(operadores)) {
-		case VACIO: // Vacío solo actua como marcador.
+		case VACIO: // Vacío solo actúa como marcador.
 		case SIMBOLO:
 			char simbolo;
 			if (operadores.equals(Operador.FINAL_COMPLETO))
