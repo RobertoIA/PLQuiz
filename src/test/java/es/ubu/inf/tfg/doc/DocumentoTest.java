@@ -4,11 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 import org.junit.After;
 import org.junit.Before;
@@ -247,7 +251,7 @@ public class DocumentoTest {
 		// Vista previa
 		esperado = toString("incorporarASUTablas.html");
 		encontrado = documento.vistaPrevia();
-
+		
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo tablas a vista previa.",
 				esperado, encontrado);
@@ -270,8 +274,10 @@ public class DocumentoTest {
 		esperado = toString("incorporarASUTablas.tex");
 		ficheroTemporal = ficheroTemporal("incorporar.tex");
 
+
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
+		
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo tablas a documento Latex exportado.",
 				esperado, encontrado);
@@ -452,6 +458,7 @@ public class DocumentoTest {
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
+
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo tablas en documento Latex exportado.",
 				esperado, encontrado);
@@ -619,6 +626,8 @@ public class DocumentoTest {
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
+		
+
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
@@ -632,6 +641,7 @@ public class DocumentoTest {
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
+		
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo tablas en documento Latex exportado.",
 				esperado, encontrado);

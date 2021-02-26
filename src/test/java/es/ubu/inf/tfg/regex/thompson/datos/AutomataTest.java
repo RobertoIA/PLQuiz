@@ -20,16 +20,16 @@ public class AutomataTest {
 	public void setUp() throws Exception { // (a|b)*abb
 		ExpresionRegular expresion;
 
-		expresion = ExpresionRegular.nodoSimbolo(1, 'a');
-		expresion = ExpresionRegular.nodoUnion(
-				ExpresionRegular.nodoSimbolo(2, 'b'), expresion);
-		expresion = ExpresionRegular.nodoCierre(expresion);
-		expresion = ExpresionRegular.nodoConcat(
-				ExpresionRegular.nodoSimbolo(3, 'a'), expresion);
-		expresion = ExpresionRegular.nodoConcat(
-				ExpresionRegular.nodoSimbolo(4, 'b'), expresion);
-		expresion = ExpresionRegular.nodoConcat(
-				ExpresionRegular.nodoSimbolo(5, 'b'), expresion);
+		expresion = ExpresionRegular.nodoSimbolo(1, 'a');   // a
+		expresion = ExpresionRegular.nodoUnion(expresion,
+				ExpresionRegular.nodoSimbolo(2, 'b'));      // (a|b)
+		expresion = ExpresionRegular.nodoCierre(expresion); // (a|b)*
+		expresion = ExpresionRegular.nodoConcat(expresion,
+				ExpresionRegular.nodoSimbolo(3, 'a'));      // (a|b)*a
+		expresion = ExpresionRegular.nodoConcat(expresion,
+				ExpresionRegular.nodoSimbolo(4, 'b'));      // (a|b)*ab
+		expresion = ExpresionRegular.nodoConcat(expresion,
+				ExpresionRegular.nodoSimbolo(5, 'b'));      // (a|b)*abb
 
 		automata = new Automata(expresion, 0);
 	}

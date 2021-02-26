@@ -11,7 +11,7 @@ public interface ExpresionRegularParserConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int KLEEN = 4;
+  int KLEENE = 4;
   /** RegularExpression Id. */
   int CONCAT = 5;
   /** RegularExpression Id. */

@@ -18,6 +18,7 @@ import es.ubu.inf.tfg.doc.datos.TraductorMoodleXML;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
+@SuppressWarnings("unused")
 public class TraductorMoodleXMLTest {
 
 	Traductor traductor;

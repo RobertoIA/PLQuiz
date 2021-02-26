@@ -85,7 +85,7 @@ public class TraductorLatex extends Traductor {
 		String imagen = problema.alternativas().get(0).hashCode() + "";
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ");
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot ");
 		expresion = expresion.replace("\u03B5", "\\epsilon ");
 		expresion = expresion.replace("$", "\\$ ");
 		expresion = expresion.replace("*", "^*");
@@ -142,7 +142,7 @@ public class TraductorLatex extends Traductor {
 				+ solucionesL;
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ");
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot ");
 		expresion = expresion.replace("\u03B5", "\\epsilon ");
 		expresion = expresion.replace("$", "\\$");
 		expresion = expresion.replace("*", "^*");
@@ -220,13 +220,13 @@ public class TraductorLatex extends Traductor {
 		fTrans.append("\\end{tabular}");
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ");
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot ");
 		expresion = expresion.replace("\u03B5", "\\epsilon ");
 		expresion = expresion.replace("$", "\\$ ");
 		expresion = expresion.replace("*", "^*");
 		expresion = "$ " + expresion + " $";
 		String expresionAumentada = problema.expresionAumentada();
-		expresionAumentada = expresionAumentada.replace("\u2027", "\\cdot ");
+		expresionAumentada = expresionAumentada.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot ");
 		expresionAumentada = expresionAumentada.replace("\u03B5", "\\epsilon ");
 		expresionAumentada = expresionAumentada.replace("$", "\\$ ");
 		expresionAumentada = expresionAumentada.replace("*", "^*");
@@ -258,7 +258,7 @@ public class TraductorLatex extends Traductor {
 		String imagen = problema.automata().hashCode() + "";
 		
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ");
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot ");
 		expresion = expresion.replace("\u03B5", "\\epsilon ");
 		expresion = expresion.replace("$", "\\$ ");
 		expresion = expresion.replace("*", "^*");
@@ -315,7 +315,7 @@ public class TraductorLatex extends Traductor {
 		fTrans.append("\\end{tabular}");
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ");
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot ");
 		expresion = expresion.replace("\u03B5", "\\epsilon ");
 		expresion = expresion.replace("$", "\\$ ");
 		expresion = expresion.replace("*", "^*");
