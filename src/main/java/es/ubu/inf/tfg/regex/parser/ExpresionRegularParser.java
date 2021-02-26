@@ -6,7 +6,8 @@ public class ExpresionRegularParser implements ExpresionRegularParserConstants {
         private int posicion;
 
         /*	 * <expresion> :- <operacion> <eof>	 * <operacion> :- <termino> ('|' <termino>)*	 * <termino> :- <unario> ('.' <unario>)*	 * <unario> :- <factor> '*'*	 * <factor> :- <simbolo> | <epsilon> | '(' <operacion> ')'	 */
-  final public ExpresionRegular expresion() throws ParseException {
+  @SuppressWarnings("unused")
+final public ExpresionRegular expresion() throws ParseException {
         ExpresionRegular expreg;
                 posicion = 1;
     expreg = operacion();
@@ -16,7 +17,8 @@ public class ExpresionRegularParser implements ExpresionRegularParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public ExpresionRegular operacion() throws ParseException {
+  @SuppressWarnings("unused")
+final public ExpresionRegular operacion() throws ParseException {
         ExpresionRegular expregIzda, expregDcha;
     expregIzda = termino();
     label_1:
@@ -37,7 +39,8 @@ public class ExpresionRegularParser implements ExpresionRegularParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public ExpresionRegular termino() throws ParseException {
+  @SuppressWarnings("unused")
+final public ExpresionRegular termino() throws ParseException {
         ExpresionRegular expregIzda, expregDcha;
     expregIzda = unario();
     label_2:
@@ -69,7 +72,8 @@ public class ExpresionRegularParser implements ExpresionRegularParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public ExpresionRegular unario() throws ParseException {
+  @SuppressWarnings("unused")
+final public ExpresionRegular unario() throws ParseException {
         ExpresionRegular expreg;
     expreg = factor();
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -96,7 +100,8 @@ public class ExpresionRegularParser implements ExpresionRegularParserConstants {
     throw new Error("Missing return statement in function");
   }
 
-  final public ExpresionRegular factor() throws ParseException {
+  @SuppressWarnings("unused")
+final public ExpresionRegular factor() throws ParseException {
         Token token;
         ExpresionRegular expreg;
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {

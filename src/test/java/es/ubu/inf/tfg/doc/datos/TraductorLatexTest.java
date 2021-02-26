@@ -4,9 +4,15 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -74,7 +80,7 @@ public class TraductorLatexTest {
 		String encontrado = traductor.traduceASUEtiquetado(problema).toString();
 		
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-
+		
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo etiquetado.",
 				esperado, encontrado);
@@ -121,10 +127,11 @@ public class TraductorLatexTest {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
 		String esperado = toString("TraductorCSExpresion.tex");
+		String encontrado = traductor.traduceCSExpresion(problema).toString();
 
 		assertEquals(
 				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo expresión.",
-				esperado, traductor.traduceCSExpresion(problema).toString());
+				esperado, encontrado);
 	}
 
 	/**
@@ -132,7 +139,7 @@ public class TraductorLatexTest {
 	 * subconjuntos subtipo autómata.
 	 */
 	@Test
-	public void testTraduceConstruccionSubconjuntosAutomata() {
+	public void testTraduceConstruccionSubconjuntosAutomata()  {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*");
 		String esperado = toString("TraductorCSAutomata.tex");

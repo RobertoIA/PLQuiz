@@ -513,7 +513,7 @@ public class TraductorMoodleXML extends Traductor {
 			index = random.nextInt(conjunto.size());
 			conjunto.remove(index);
 			log.debug("A帽adiendo opci贸n {} (similar)", conjunto);
-			opciones.append("~" + listToString(conjunto));
+			opciones.append("~" + listToString(conjunto)); 
 		}
 
 		// Opci贸n similar 2 (a帽adimos un estado)
@@ -522,12 +522,12 @@ public class TraductorMoodleXML extends Traductor {
 			index = random.nextInt(complementarios.size());
 			conjunto.add(complementarios.get(index));
 			log.debug("A帽adiendo opci贸n {} (similar)", conjunto);
-			opciones.append("~" + listToString(conjunto));
+			opciones.append("~" + listToString(conjunto)); 
 		}
 
 		// Opci贸n diferente
 		log.debug("A帽adiendo opci贸n {} (diferente)", complementarios);
-		opciones.append("~" + listToString(complementarios));
+		opciones.append("~" + listToString(complementarios)); 
 
 		opciones.append("}");
 		return opciones.toString();
@@ -559,7 +559,7 @@ public class TraductorMoodleXML extends Traductor {
 
 		StringBuilder opciones = new StringBuilder();
 		opciones.append("{1:MULTICHOICE:%100%");
-		opciones.append(listToString(new ArrayList<>(solucion)));
+		opciones.append(listToRanges(new ArrayList<>(solucion)));
 
 		List<Integer> complementarios = new ArrayList<>(posiciones);
 		complementarios.removeAll(solucion);
@@ -571,7 +571,7 @@ public class TraductorMoodleXML extends Traductor {
 			index = random.nextInt(conjunto.size());
 			conjunto.remove(index);
 			log.debug("A帽adiendo opci贸n {} (similar)", conjunto);
-			opciones.append("~" + listToString(conjunto));
+			opciones.append("~" + listToRanges(conjunto));
 		}
 
 		// Opci贸n similar 2 (a帽adimos un estado si es posible)
@@ -580,12 +580,12 @@ public class TraductorMoodleXML extends Traductor {
 			index = random.nextInt(complementarios.size());
 			conjunto.add(complementarios.get(index));
 			log.debug("A帽adiendo opci贸n {} (similar)", conjunto);
-			opciones.append("~" + listToString(conjunto));
+			opciones.append("~" + listToRanges(conjunto));
 		}
 
 		// Opci贸n diferente
 		log.debug("A帽adiendo opci贸n {} (diferente)", complementarios);
-		opciones.append("~" + listToString(complementarios));
+		opciones.append("~" + listToRanges(complementarios));
 
 		opciones.append("}");
 		return opciones.toString();
@@ -622,6 +622,7 @@ public class TraductorMoodleXML extends Traductor {
 	 *            Lista de elementos.
 	 * @return Representaci贸n de la lista como elementos separados por comas.
 	 */
+	@SuppressWarnings("unused")
 	private String listToString(List<?> lista) {
 		StringBuilder setToString = new StringBuilder();
 
@@ -636,6 +637,64 @@ public class TraductorMoodleXML extends Traductor {
 			setToString.append("Cjto. vac铆o");
 		}
 		return setToString.toString();
+	}
+
+	/**
+	 * Devuelve una representaci髇 de un conjunto de elementos como rangos separados por comas.
+	 * 
+	 * @param lista
+	 *            Conjunto de elementos.
+	 * @return Representaci髇 del conjunto como rangos separados por comas.
+	 */
+	// TODO: 縮e podr韆 mover a la clase padre?
+	// TODO: 縮etToRanges y listToRanges se podr韆n fusionar?
+	private String listToRanges(List<?> lista) {
+		StringBuilder out = new StringBuilder();
+		int last=0, first=0, length=0; // inicializo para evitar warnings
+		
+		log.info("***** lista {}.", lista);
+
+		
+		if (lista.size() == 0) {
+			out.append("\u2205"); // Unicode empty set
+		} else {
+			String sep = "";
+			boolean isFirst = true;
+			for (Object e: lista) {
+				log.info("***** lista {}.", e);
+				if (isFirst) {
+					last = first = (int) e;
+					length = 1;
+					isFirst = false;
+					continue;
+				}
+				if ((int) e - last == 1) {
+					last = (int) e;
+					length++;
+				} else {
+					out.append(sep);
+					sep = ", ";
+					if (length == 1) {
+						out.append(""+last);
+					} else if (length == 2) {
+						out.append(""+first+", "+last);
+					} else {
+						out.append(""+first+"-"+last);
+					}
+					last = first = (int) e;
+					length = 1;
+				}
+			}
+			out.append(sep);
+			if (length == 1) {
+				out.append(""+last);
+			} else if (length == 2) {
+				out.append(""+first+", "+last);
+			} else {
+				out.append(""+first+"-"+last);
+			}
+		}
+		return out.toString();
 	}
 
 	/**

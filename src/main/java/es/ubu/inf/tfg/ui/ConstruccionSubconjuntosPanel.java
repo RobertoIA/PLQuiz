@@ -165,6 +165,7 @@ public class ConstruccionSubconjuntosPanel extends
 		this.progresoPanel.add(this.progresoBar);
 	}
 
+	@SuppressWarnings("unlikely-arg-type")
 	void problema(Problema<ConstruccionSubconjuntos> problema) {
 		if (problemaActual != null) {
 			if (!problema.getProblema().equals(problemaActual)) {

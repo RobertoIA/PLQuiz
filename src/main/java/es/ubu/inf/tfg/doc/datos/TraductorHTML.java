@@ -133,10 +133,10 @@ public class TraductorHTML extends Traductor {
 					+ "</td>");
 			soluciones
 					.append("<td>"
-							+ setToString(problema.primeraPos(simboloActual))
+							+ setToRanges(problema.primeraPos(simboloActual)) 
 							+ "</td>");
 			soluciones.append("<td>"
-					+ setToString(problema.ultimaPos(simboloActual)) + "</td>");
+					+ setToRanges(problema.ultimaPos(simboloActual)) + "</td>"); 
 			soluciones.append("</tr>");
 
 			simboloActual++;
@@ -177,16 +177,7 @@ public class TraductorHTML extends Traductor {
 			stePos.append("<tr><td>");
 			stePos.append(n);
 			stePos.append("</td><td>");
-			if (problema.siguientePos(n).size() > 0) {
-				String prefijo = "";
-				for (int pos : problema.siguientePos(n)) {
-					stePos.append(prefijo);
-					prefijo = ", ";
-					stePos.append(pos);
-				}
-			} else {
-				stePos.append("-");
-			}
+			stePos.append(setToRanges(problema.siguientePos(n)));
 			stePos.append("</td></tr>");
 		}
 		stePos.append("</table></p>");
@@ -209,8 +200,7 @@ public class TraductorHTML extends Traductor {
 							+ "</td>");
 			}
 			fTrans.append("<td>");
-			for (int posicion : problema.estado(estado))
-				fTrans.append(posicion + " ");
+			fTrans.append(setToRanges(problema.estado(estado)));
 			fTrans.append("</td></tr>");
 		}
 		fTrans.append("</table>");
@@ -295,8 +285,7 @@ public class TraductorHTML extends Traductor {
 							+ "</td>");
 			}
 			fTrans.append("<td>");
-			for (int posicion : problema.posiciones(estado))
-				fTrans.append(posicion + " ");
+			fTrans.append(setToRanges(problema.posiciones(estado)));
 			fTrans.append("</td></tr>");
 		}
 		fTrans.append("</table>");
@@ -344,8 +333,7 @@ public class TraductorHTML extends Traductor {
 							+ "</td>");
 			}
 			fTrans.append("<td>");
-			for (int posicion : problema.posiciones(estado))
-				fTrans.append(posicion + " ");
+			fTrans.append(setToRanges(problema.posiciones(estado)));
 			fTrans.append("</td></tr>");
 		}
 		fTrans.append("</table>");
@@ -364,6 +352,7 @@ public class TraductorHTML extends Traductor {
 	 *            Conjunto de elementos.
 	 * @return Representación del conjunto como elementos separados por comas.
 	 */
+	@SuppressWarnings("unused")
 	private String setToString(Set<?> lista) {
 		StringBuilder setToString = new StringBuilder();
 
@@ -379,4 +368,58 @@ public class TraductorHTML extends Traductor {
 		}
 		return setToString.toString();
 	}
+
+	/**
+	 * Devuelve una representación de un conjunto de elementos como rangos separados por comas.
+	 * 
+	 * @param lista
+	 *            Conjunto de elementos.
+	 * @return Representación del conjunto como rangos separados por comas.
+	 */
+	// TODO: ¿se podría mover a la clase padre?
+	private String setToRanges(Set<?> lista) {
+		StringBuilder out = new StringBuilder();
+		int last=0, first=0, length=0; // inicializo para evitar warnings
+		
+		if (lista.size() == 0) {
+			out.append("\u2205"); // Unicode empty set
+		} else {
+			String sep = "";
+			boolean isFirst = true;
+			for (Object e: lista) {
+				if (isFirst) {
+					last = first = (int) e;
+					length = 1;
+					isFirst = false;
+					continue;
+				}
+				if ((int) e - last == 1) {
+					last = (int) e;
+					length++;
+				} else {
+					out.append(sep);
+					sep = ", ";
+					if (length == 1) {
+						out.append(""+last);
+					} else if (length == 2) {
+						out.append(""+first+", "+last);
+					} else {
+						out.append(""+first+"-"+last);
+					}
+					last = first = (int) e;
+					length = 1;
+				}
+			}
+			out.append(sep);
+			if (length == 1) {
+				out.append(""+last);
+			} else if (length == 2) {
+				out.append(""+first+", "+last);
+			} else {
+				out.append(""+first+"-"+last);
+			}
+		}
+		return out.toString();
+	}
+
 }

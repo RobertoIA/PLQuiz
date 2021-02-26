@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import es.ubu.inf.tfg.regex.datos.MapaEstados;
 
+@SuppressWarnings("unused")
 public class MapaEstadosTest {
 
 	private MapaEstados mapaEstados;
