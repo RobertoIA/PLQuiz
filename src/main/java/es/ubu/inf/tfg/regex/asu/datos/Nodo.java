@@ -12,10 +12,14 @@ import java.util.TreeSet;
 
 import javax.swing.SwingConstants;
 
+import org.w3c.dom.Document;
+
 import com.mxgraph.layout.mxParallelEdgeLayout;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxCellRenderer;
+import com.mxgraph.util.mxUtils;
+import com.mxgraph.util.mxXmlUtils;
 import com.mxgraph.view.mxGraph;
 
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
@@ -56,6 +60,7 @@ public class Nodo {
 
 	private BufferedImage imagen;
 	private String imagenDot;
+	private String imagenSvg;	//JBA
 
 	/**
 	 * Calcula los atributos de un nodo ExpresionRegular a partir de los de sus
@@ -452,6 +457,109 @@ public class Nodo {
 		}
 
 		return this.imagenDot;
+	}
+	
+	/**
+	 * Genera una imagen representando la estructura del �rbol de la expresi�n,
+	 * con los nodos marcados pero vac�os. La imagen generada se cachea al ser
+	 * solicitada por primera vez para evitar realizar los c�lculos repetidas
+	 * veces.
+	 * 
+	 * @return Imagen conteniendo el �rbol que representa a la expresi�n.
+	 */
+	public String imagenSvg() {
+		if (this.imagenSvg == null) {
+			mxGraph graph = new mxGraph();
+			Object parent = graph.getDefaultParent();
+			Map<Nodo, Object> gNodos = new HashMap<>();
+			Nodo actual;
+			Object gNodo, gActual;
+			List<Nodo> siguientes = new ArrayList<>();
+			boolean tieneHijoIzquierdo, tieneHijoDerecho;
+			char actualLetra = 'A';
+
+			String estiloVertex = "shape=ellipse;fillColor=white;strokeColor=black;fontColor=black;";
+			String estiloEdge = "strokeColor=black;fontColor=black;labelBackgroundColor=white;endArrow=open;";
+
+			graph.getModel().beginUpdate();
+			try {
+				siguientes.add(this);
+
+				while (!siguientes.isEmpty()) {
+					actual = siguientes.get(0);
+
+					if (!gNodos.containsKey(actual)) {
+						gActual = graph.insertVertex(parent, null,
+								actualLetra++ + "\n" + actual.tipo(), 0, 0, 30,
+								30, estiloVertex);
+						gNodos.put(actual, gActual);
+
+						primerasPos.put((char) (actualLetra - 1),
+								actual.primeraPos());
+						ultimasPos.put((char) (actualLetra - 1),
+								actual.ultimaPos());
+						anulables.put((char) (actualLetra - 1),
+								actual.esAnulable());
+					} else {
+						gActual = gNodos.get(actual);
+					}
+
+					tieneHijoIzquierdo = !actual.expresion().esSimbolo()
+							&& !actual.expresion().esVacio();
+					tieneHijoDerecho = tieneHijoIzquierdo
+							&& !actual.expresion().esCierre();
+
+					if (tieneHijoIzquierdo) {
+						siguientes.add(actual.hijoIzquierdo());
+						gNodo = graph.insertVertex(parent, null, actualLetra++
+								+ " \n" + actual.hijoIzquierdo().tipo(), 0, 0,
+								30, 30, estiloVertex);
+						graph.insertEdge(parent, null, "", gActual, gNodo,
+								estiloEdge);
+						gNodos.put(actual.hijoIzquierdo(), gNodo);
+
+						primerasPos.put((char) (actualLetra - 1), actual
+								.hijoIzquierdo().primeraPos());
+						ultimasPos.put((char) (actualLetra - 1), actual
+								.hijoIzquierdo().ultimaPos());
+						anulables.put((char) (actualLetra - 1), actual
+								.hijoIzquierdo().esAnulable());
+					}
+
+					if (tieneHijoDerecho) {
+						siguientes.add(actual.hijoDerecho());
+						gNodo = graph.insertVertex(parent, null, actualLetra++
+								+ "\n" + actual.hijoDerecho().tipo(), 0, 0, 30,
+								30, estiloVertex);
+						graph.insertEdge(parent, null, "", gActual, gNodo,
+								estiloEdge);
+						gNodos.put(actual.hijoDerecho(), gNodo);
+
+						primerasPos.put((char) (actualLetra - 1), actual
+								.hijoDerecho().primeraPos());
+						ultimasPos.put((char) (actualLetra - 1), actual
+								.hijoDerecho().ultimaPos());
+						anulables.put((char) (actualLetra - 1), actual
+								.hijoDerecho().esAnulable());
+					}
+
+					siguientes.remove(actual);
+				}
+			} finally {
+				graph.getModel().endUpdate();
+
+				new mxHierarchicalLayout(graph, SwingConstants.NORTH)
+						.execute(parent);
+				new mxParallelEdgeLayout(graph).execute(parent);
+
+				
+				Document document = mxCellRenderer.createSvgDocument(graph, null, 1, Color.WHITE, null);
+				imagenSvg = mxXmlUtils.getXml(document);
+
+			}
+		}
+
+		return imagenSvg;
 	}
 
 	/**

@@ -15,10 +15,10 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
  * @author Roberto Izquierdo Amo
  * 
  */
-public class TraductorLatex extends Traductor {
+public class TraductorLatexSVG extends Traductor {
 
 	private static final Logger log = LoggerFactory
-			.getLogger(TraductorLatex.class);
+			.getLogger(TraductorLatexSVG.class);
 
 	/**
 	 * Genera un documento Latex a partir de una lista de problemas ya
@@ -41,7 +41,7 @@ public class TraductorLatex extends Traductor {
 			documento.append(problema.toString());
 		}
 
-		Plantilla plantilla = new Plantilla("plantilla.tex");
+		Plantilla plantilla = new Plantilla("plantillaSVG.tex");
 		plantilla.set("documento", documento.toString());
 
 		return plantilla.toString();
@@ -60,7 +60,7 @@ public class TraductorLatex extends Traductor {
 		
 		problema.set("numero", "" + num);
 		
-		Plantilla plantilla = new Plantilla("plantilla.tex");
+		Plantilla plantilla = new Plantilla("plantillaSVG.tex");
 		plantilla.set("documento", problema.toString());
 	
 		return plantilla.toString();
@@ -93,7 +93,7 @@ public class TraductorLatex extends Traductor {
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
-		plantilla.set("includetool", "\\myincludegraphicssol");
+		plantilla.set("includetool", "\\myincludesvgsol");
 		
 		
 
@@ -158,7 +158,7 @@ public class TraductorLatex extends Traductor {
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
 		plantilla.set("tabla", solucionesL);
-		plantilla.set("includetool", "\\myincludegraphics");
+		plantilla.set("includetool", "\\myincludesvg");
 
 		return plantilla;
 	}
@@ -271,7 +271,7 @@ public class TraductorLatex extends Traductor {
 		
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
-		plantilla.set("includetool", "\\myincludegraphicssol");
+		plantilla.set("includetool", "\\myincludesvgsol");
 
 		return plantilla;
 	}
@@ -385,7 +385,7 @@ public class TraductorLatex extends Traductor {
 
 		plantilla.set("imagen", imagen);
 		plantilla.set("transicion", fTrans.toString());
-		plantilla.set("includetool", "\\myincludegraphics");
+		plantilla.set("includetool", "\\myincludesvg");
 
 		return plantilla;
 	}

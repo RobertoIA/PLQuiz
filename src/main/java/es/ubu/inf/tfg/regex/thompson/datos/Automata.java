@@ -12,10 +12,14 @@ import java.util.stream.Collectors;
 
 import javax.swing.SwingConstants;
 
+import org.w3c.dom.Document;
+
 import com.mxgraph.layout.mxParallelEdgeLayout;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxCellRenderer;
+import com.mxgraph.util.mxUtils;
+import com.mxgraph.util.mxXmlUtils;
 import com.mxgraph.view.mxGraph;
 
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
@@ -36,6 +40,7 @@ public class Automata {
 	private Set<Character> simbolos;
 	private BufferedImage imagen;
 	private String imagenDot;
+	private String imagenSvg;	// JBA
 
 	/**
 	 * Constructor. Define un autómata finito no determinista a partir de un
@@ -326,5 +331,89 @@ public class Automata {
 		}
 
 		return this.imagenDot;
+	}
+
+
+	/**
+	 * Genera el programa en formato SVG para generar la imagen representando el
+	 * autómata asociado a la expresión, con los nodos marcados pero vacíos. El
+	 * programa generado se cachea al ser solicitado por primera vez para evitar
+	 * realizar los cálculos repetidas veces.
+	 * 
+	 * @return Programa SVG conteniendo el autómata que genera la expresión.
+	 */
+	public String imagenSvg() {
+		if (this.imagenSvg == null) {
+			mxGraph graph = new mxGraph();
+			Object parent = graph.getDefaultParent();
+			Map<Integer, Object> gNodos = new HashMap<>();
+			Object gNodo, gActual;
+			List<Nodo> pendientes = new ArrayList<>();
+			Map<Nodo, Character> siguientes;
+			Nodo actual;
+
+			String estiloVertex = "shape=ellipse;fillColor=white;strokeColor=black;fontColor=black;";
+			String estiloEdge = "strokeColor=black;fontColor=black;labelBackgroundColor=white;rounded=true;";
+
+			graph.getModel().beginUpdate();
+			try {
+				actual = nodoInicial;
+				do {
+					gActual = gNodos.get(actual.posicion());
+					if (gActual == null) { // Primer nodo
+						gActual = graph.insertVertex(parent, null,
+								actual.posicion(), 0, 0, 30, 30, estiloVertex);
+						gNodos.put(actual.posicion(), gActual);
+					}
+
+					// Calcula transiciones
+					siguientes = new HashMap<>();
+					for (Nodo nodo : actual.transicionVacia())
+						siguientes.put(nodo, null);
+					Nodo siguiente;
+					for (char simbolo : simbolos) {
+						siguiente = actual.transicion(simbolo);
+						if (siguiente != null)
+							siguientes.put(siguiente, simbolo);
+					}
+
+					pendientes.addAll(siguientes.keySet().stream()
+							.filter(n -> !gNodos.containsKey(n.posicion()))
+							.collect(Collectors.toList()));
+
+					for (Nodo nodo : siguientes.keySet()) {
+						if (!gNodos.containsKey(nodo.posicion())) { // Aï¿½ade
+																	// nodo
+							gNodo = graph
+									.insertVertex(parent, null,
+											nodo.posicion(), 0, 0, 30, 30,
+											estiloVertex);
+							gNodos.put(nodo.posicion(), gNodo);
+						} else { // Recupera nodo
+							gNodo = gNodos.get(nodo.posicion());
+						}
+						// Aï¿½ade transiciï¿½n
+						graph.insertEdge(parent, null, siguientes.get(nodo),
+								gActual, gNodo, estiloEdge);
+					}
+
+					actual = pendientes.isEmpty() ? null : pendientes.remove(0);
+				} while (actual != null);
+
+			} finally {
+				graph.getModel().endUpdate();
+
+				new mxHierarchicalLayout(graph, SwingConstants.WEST)
+						.execute(parent);
+				new mxParallelEdgeLayout(graph).execute(parent);
+
+				
+				Document document = mxCellRenderer.createSvgDocument(graph, null, 1, Color.WHITE, null);
+				imagenSvg = mxXmlUtils.getXml(document);
+				
+			}
+		}
+
+		return imagenSvg;
 	}
 }

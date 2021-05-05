@@ -3,6 +3,7 @@ package es.ubu.inf.tfg.doc;
 import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -15,13 +16,22 @@ import javax.imageio.ImageIO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.mxgraph.util.mxUtils;
+
 import es.ubu.inf.tfg.doc.datos.Plantilla;
 import es.ubu.inf.tfg.doc.datos.Traductor;
 import es.ubu.inf.tfg.doc.datos.TraductorHTML;
 import es.ubu.inf.tfg.doc.datos.TraductorLatex;
+import es.ubu.inf.tfg.doc.datos.TraductorLatexSVG;
 import es.ubu.inf.tfg.doc.datos.TraductorMoodleXML;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
+
+import org.apache.batik.transcoder.Transcoder;
+import org.apache.batik.transcoder.TranscoderException;
+import org.apache.batik.transcoder.TranscoderInput;
+import org.apache.batik.transcoder.TranscoderOutput;
+import org.apache.fop.svg.PDFTranscoder;
 
 /**
  * Documento implementa un documento completo generado por la aplicación, sin
@@ -257,6 +267,103 @@ public class Documento {
 	}
 
 	/**
+	 * Exporta el documento como un fichero de formato LaTeX al fichero destino
+	 * especificado, guardando las imágenes que contenga en formato SVG.
+	 * 
+	 * @param fichero
+	 *            Fichero destino.
+	 * @throws IOException
+	 *             Indica un error durante la exportación.
+	 * @author JBA
+	 * @throws IOException
+	 */
+	public void exportaSVGLatex(File fichero) throws IOException {
+		log.info("Exportando documento como Latex con imágenes SVG a {}",
+				fichero);
+		String ruta = fichero.toString();
+		if (!ruta.toLowerCase().endsWith(".tex"))
+			ruta += ".tex";
+		String carpeta = fichero.getParent().toString();
+		carpeta += File.separator;
+
+
+		for (Problema<?> problema : problemas) {
+			if (problema.getTipo().equals(
+					"ConstruccionSubconjuntosConstruccion")) {
+				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
+						.getProblema();
+				guardarSVG(carpeta + Math.abs(p.automata().hashCode()) + ".svg",
+						p.automataSvgSolucion());
+			} else if (problema.getTipo().equals(
+					"ConstruccionSubconjuntosAutomata")) {
+				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
+						.getProblema();
+				guardarSVG(carpeta + Math.abs(p.automata().hashCode()) + ".svg",
+						p.automataSvg());
+			} else if (problema.getTipo().equals("AhoSethiUllmanEtiquetado")) {
+				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
+				guardarSVG(carpeta + Math.abs(p.arbolVacio().hashCode()) + ".svg",
+						p.arbolVacioSvg());
+			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
+				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
+				guardarSVG(carpeta + Math.abs(p.alternativas().get(0).hashCode())
+						+ ".svg", p.alternativasSvgSolucion().get(0));
+			}
+		}
+
+		guardar(ruta, traduce(new TraductorLatexSVG()));
+	}
+	
+	
+	/**
+	 * Exporta el documento como un fichero de formato LaTeX al fichero destino
+	 * especificado, guardando las imágenes que contenga en formato SVG.
+	 * 
+	 * @param fichero
+	 *            Fichero destino.
+	 * @throws IOException
+	 *             Indica un error durante la exportación.
+	 * @author JBA
+	 * @throws IOException
+	 */
+	public void exportaPDFLatex(File fichero) throws IOException {
+		log.info("Exportando documento como Latex con imágenes PDF a {}",
+				fichero);
+		String ruta = fichero.toString();
+		if (!ruta.toLowerCase().endsWith(".tex"))
+			ruta += ".tex";
+		String carpeta = fichero.getParent().toString();
+		carpeta += File.separator;
+
+
+		for (Problema<?> problema : problemas) {
+			if (problema.getTipo().equals(
+					"ConstruccionSubconjuntosConstruccion")) {
+				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
+						.getProblema();
+				guardarPDF(carpeta + Math.abs(p.automata().hashCode()) + ".pdf",
+						p.automataSvgSolucion());
+			} else if (problema.getTipo().equals(
+					"ConstruccionSubconjuntosAutomata")) {
+				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
+						.getProblema();
+				guardarPDF(carpeta + Math.abs(p.automata().hashCode()) + ".pdf",
+						p.automataSvg());
+			} else if (problema.getTipo().equals("AhoSethiUllmanEtiquetado")) {
+				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
+				guardarPDF(carpeta + Math.abs(p.arbolVacio().hashCode()) + ".pdf",
+						p.arbolVacioSvg());
+			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
+				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
+				guardarPDF(carpeta + Math.abs(p.alternativas().get(0).hashCode())
+						+ ".pdf", p.alternativasSvgSolucion().get(0));
+			}
+		}
+
+		guardar(ruta, traduce(new TraductorLatex()));
+	}
+	
+	/**
 	 * Traduce el documento al formato dado por un traductor especifico, y
 	 * devuelve el documento completo como una cadena de caracteres.
 	 * 
@@ -327,6 +434,51 @@ public class Documento {
 			writer.write(documento);
 		}
 	}
+	
+	/**
+	 * Crea o sobreescribe un documento en la ruta dada, con el contenido dado.
+	 * 
+	 * @param ruta
+	 *            Ruta en la que guardar el documento.
+	 * @param documento
+	 *            Contenido del documento.
+	 * @throws IOException
+	 *             Indica un error durante el guardado.
+	 * @author JBA
+	 */
+	private void guardarSVG(String ruta, String documento) throws IOException {
+		mxUtils.writeFile(documento, ruta);
+	}
+	
+	/**
+	 * Crea o sobreescribe un documento en la ruta dada, con el contenido dado.
+	 * 
+	 * @param ruta
+	 *            Ruta en la que guardar el documento.
+	 * @param outputStream
+	 *            Contenido del documento.
+	 * @throws IOException
+	 *             Indica un error durante el guardado.
+	 */
+	private void guardarPDF(String ruta, String documento) throws IOException {
+		String rutaSvg = ruta + ".svg";
+		mxUtils.writeFile(documento, rutaSvg);
+		Transcoder transcoder = new PDFTranscoder();
+        TranscoderInput transcoderInput = new TranscoderInput(new FileInputStream(new File(rutaSvg)));
+        TranscoderOutput transcoderOutput = new TranscoderOutput(new FileOutputStream(new File(ruta)));
+        try {
+			transcoder.transcode(transcoderInput, transcoderOutput);
+		} catch (TranscoderException e) {
+			log.error("Encontrado error durante el guardado de imágenes pdf", e);
+		}
+        File tmpsvg = new File(rutaSvg); 
+        if (tmpsvg.delete()) { 
+        	log.info("Eliminando ficheros temporales.");
+        } else {
+        	log.error("Encontrado error durante el borrado del fichero temporal " + tmpsvg.getName());
+        }
+	}
+	
 
 	/**
 	 * Crea o sobreescribe una serie de imágenes en la ruta dada.

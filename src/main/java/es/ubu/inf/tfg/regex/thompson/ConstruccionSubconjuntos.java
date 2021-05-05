@@ -1,6 +1,9 @@
 package es.ubu.inf.tfg.regex.thompson;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,8 +13,14 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
+import org.apache.batik.transcoder.Transcoder;
+import org.apache.batik.transcoder.TranscoderException;
+import org.apache.batik.transcoder.TranscoderInput;
+import org.apache.batik.transcoder.TranscoderOutput;
+import org.apache.fop.svg.PDFTranscoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
 
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
 import es.ubu.inf.tfg.regex.datos.Generador;
@@ -273,6 +282,30 @@ public class ConstruccionSubconjuntos {
 	public String automataDot() {
 		return automata.imagenDot();
 	}
+	
+	/**
+	 * Devuelve una programa en formato svg para generar la imagen representando
+	 * el autómata asociado a este problema.
+	 * 
+	 * @return Programa formato svg para representar el autómata.
+	 */
+	public String automataSvg() {
+		return automata.imagenSvg();
+	}
+	
+	/**
+	 * Devuelve una solución (en azul) en formato svg para generar la imagen representando
+	 * el autómata asociado a este problema.
+	 * 
+	 * @return Programa formato svg para representar el autómata.
+	 */
+	public String automataSvgSolucion() {
+		String imagensvg = automata.imagenSvg();
+		imagensvg = imagensvg.replace("stroke=\"black\"", "stroke=\"navy\"");
+		imagensvg = imagensvg.replace("fill=\"black\"", "fill=\"navy\"");
+		return imagensvg;
+	}
+	
 
 	/**
 	 * Genera una serie de cuatro imágenes correspondientes a los autómatas de
