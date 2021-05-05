@@ -70,6 +70,8 @@ public class Main {
 	private JMenuItem menuExportarMoodleXMLButton;
 	private JMenuItem menuExportarLatexButton;
 	private JMenuItem menuExportarGraphvizLatexButton;
+	private JMenuItem menuExportarSVGLatexButton; //JBA
+	private JMenuItem menuExportarPDFLatexButton; //JBA
 	private JMenu menuArchivo;
 	private JMenu menuExportar;
 	private JMenu menuAyuda;
@@ -199,6 +201,27 @@ public class Main {
 				.getKeyStroke(java.awt.event.KeyEvent.VK_G,
 						java.awt.Event.CTRL_MASK));
 		this.menuExportar.add(this.menuExportarGraphvizLatexButton);
+		
+		// JBA >>
+		this.menuExportarSVGLatexButton = new JMenuItem(
+				"Exportar como LaTeX + SVG");
+		this.menuExportarSVGLatexButton
+				.addActionListener(new MenuExportarButtonActionListener());
+		this.menuExportarSVGLatexButton.setAccelerator(KeyStroke
+				.getKeyStroke(java.awt.event.KeyEvent.VK_S,		// Maybe this should be another key, but which one?
+						java.awt.Event.CTRL_MASK));
+		this.menuExportar.add(this.menuExportarSVGLatexButton);
+		
+		
+		this.menuExportarPDFLatexButton = new JMenuItem(
+				"Exportar como LaTeX + PDF");
+		this.menuExportarPDFLatexButton
+				.addActionListener(new MenuExportarButtonActionListener());
+		this.menuExportarPDFLatexButton.setAccelerator(KeyStroke
+				.getKeyStroke(java.awt.event.KeyEvent.VK_P,		// Maybe this should be another key, but which one?
+						java.awt.Event.CTRL_MASK));
+		this.menuExportar.add(this.menuExportarPDFLatexButton);
+		// << JBA
 	}
 
 	private void initControlPanel() {
@@ -403,6 +426,10 @@ public class Main {
 				fileChooser.setFileFilter(new LatexFilter());
 			else if (source == menuExportarGraphvizLatexButton)
 				fileChooser.setFileFilter(new LatexFilter());
+			else if (source == menuExportarSVGLatexButton) 		// JBA
+				fileChooser.setFileFilter(new LatexFilter());
+			else if (source == menuExportarPDFLatexButton) 		// JBA
+				fileChooser.setFileFilter(new LatexFilter());
 
 			int valorRetorno = fileChooser.showSaveDialog(frmPlquiz);
 			if (valorRetorno == JFileChooser.APPROVE_OPTION) {
@@ -419,6 +446,16 @@ public class Main {
 								"Exportando fichero Latex con imágenes en graphviz a {}.",
 								fichero);
 						documento().exportaGraphvizLatex(fichero);
+					} else if (source == menuExportarSVGLatexButton) {	// JBA
+						log.info(
+								"Exportando fichero Latex con imágenes en SVG a {}.",
+								fichero);
+						documento().exportaSVGLatex(fichero);
+					} else if (source == menuExportarPDFLatexButton) {	// JBA
+						log.info(
+								"Exportando fichero Latex con imágenes en SVG a {}.",
+								fichero);
+						documento().exportaPDFLatex(fichero);
 					}
 				} catch (IOException e) {
 					log.error("Fallo al exportar fichero", e);
