@@ -388,6 +388,7 @@ public class Nodo {
 				this.imagen = mxCellRenderer.createBufferedImage(graph, null,
 						1, Color.WHITE, graphComponent.isAntiAlias(), null,
 						graphComponent.getCanvas());
+				
 			}
 		}
 
@@ -459,6 +460,7 @@ public class Nodo {
 		return this.imagenDot;
 	}
 	
+	
 	/**
 	 * Genera una imagen representando la estructura del ï¿½rbol de la expresiï¿½n,
 	 * con los nodos marcados pero vacï¿½os. La imagen generada se cachea al ser
@@ -468,6 +470,112 @@ public class Nodo {
 	 * @return Imagen conteniendo el ï¿½rbol que representa a la expresiï¿½n.
 	 */
 	public String imagenSvg() {
+		if (this.imagenSvg == null) {
+			mxGraph graph = new mxGraph();
+			Object parent = graph.getDefaultParent();
+			Map<Nodo, Object> gNodos = new HashMap<>();
+			Nodo actual;
+			Object gNodo, gActual;
+			List<Nodo> siguientes = new ArrayList<>();
+			boolean tieneHijoIzquierdo, tieneHijoDerecho;
+			char actualLetra = 'A';
+
+			String estiloVertex = "shape=ellipse;fillColor=white;strokeColor=black;fontColor=black;";
+			String estiloEdge = "strokeColor=black;fontColor=black;labelBackgroundColor=white;endArrow=open;";
+
+			graph.getModel().beginUpdate();
+			siguientes.add(this);
+			try {
+
+				while (!siguientes.isEmpty()) {
+					actual = siguientes.get(0);
+
+					if (!gNodos.containsKey(actual)) {
+						gActual = graph.insertVertex(parent, null,
+								actualLetra++ + "\n" + tipoSVG(actual.tipo()), 0, 0, 30,
+								30, estiloVertex);
+						gNodos.put(actual, gActual);
+
+						primerasPos.put((char) (actualLetra - 1),
+								actual.primeraPos());
+						ultimasPos.put((char) (actualLetra - 1),
+								actual.ultimaPos());
+						anulables.put((char) (actualLetra - 1),
+								actual.esAnulable());
+					} else {
+						gActual = gNodos.get(actual);
+					}
+
+					tieneHijoIzquierdo = !actual.expresion().esSimbolo()
+							&& !actual.expresion().esVacio();
+					tieneHijoDerecho = tieneHijoIzquierdo
+							&& !actual.expresion().esCierre();
+
+					if (tieneHijoIzquierdo) {
+						siguientes.add(actual.hijoIzquierdo());
+						gNodo = graph.insertVertex(parent, null, actualLetra++
+								+ " \n" + tipoSVG(actual.hijoIzquierdo().tipo()), 0, 0,
+								30, 30, estiloVertex);
+						graph.insertEdge(parent, null, "", gActual, gNodo,
+								estiloEdge);
+						gNodos.put(actual.hijoIzquierdo(), gNodo);
+
+						primerasPos.put((char) (actualLetra - 1), actual
+								.hijoIzquierdo().primeraPos());
+						ultimasPos.put((char) (actualLetra - 1), actual
+								.hijoIzquierdo().ultimaPos());
+						anulables.put((char) (actualLetra - 1), actual
+								.hijoIzquierdo().esAnulable());
+					}
+
+					if (tieneHijoDerecho) {
+						siguientes.add(actual.hijoDerecho());
+						gNodo = graph.insertVertex(parent, null, actualLetra++
+								+ "\n" + tipoSVG(actual.hijoDerecho().tipo()), 0, 0, 30,
+								30, estiloVertex);
+						graph.insertEdge(parent, null, "", gActual, gNodo,
+								estiloEdge);
+						gNodos.put(actual.hijoDerecho(), gNodo);
+
+						primerasPos.put((char) (actualLetra - 1), actual
+								.hijoDerecho().primeraPos());
+						ultimasPos.put((char) (actualLetra - 1), actual
+								.hijoDerecho().ultimaPos());
+						anulables.put((char) (actualLetra - 1), actual
+								.hijoDerecho().esAnulable());
+					}
+
+					siguientes.remove(actual);
+				}
+			} finally {
+				graph.getModel().endUpdate();
+				
+				new mxHierarchicalLayout(graph, SwingConstants.NORTH)
+						.execute(parent);
+				new mxParallelEdgeLayout(graph).execute(parent);
+				
+				
+				this.imagenSvg = mxXmlUtils.getXml(mxCellRenderer.createSvgDocument(graph, null,
+						1, Color.WHITE, null));
+				
+				this.imagenSvg = fixXMLSVG(this.imagenSvg);
+				
+			}
+		}
+
+		return this.imagenSvg;
+	}
+	
+	
+	/**
+	 * Genera una imagen representando la estructura del ï¿½rbol de la expresiï¿½n,
+	 * con los nodos marcados pero vacï¿½os. La imagen generada se cachea al ser
+	 * solicitada por primera vez para evitar realizar los cï¿½lculos repetidas
+	 * veces.
+	 * 
+	 * @return Imagen conteniendo el ï¿½rbol que representa a la expresiï¿½n.
+	 */
+	public String imagenTikZ() {	//TODO
 		if (this.imagenSvg == null) {
 			mxGraph graph = new mxGraph();
 			Object parent = graph.getDefaultParent();
@@ -561,6 +669,7 @@ public class Nodo {
 
 		return imagenSvg;
 	}
+	
 
 	/**
 	 * Convierte una cadena al formato compatible con graphviz.
@@ -570,6 +679,24 @@ public class Nodo {
 	 * @return Cadena en formato compatible.
 	 */
 	private String tipo(String tipo) {
+		switch (tipo) {
+		case "\u03B5":
+			return "&#949;";
+		case "\u2027":
+			return "&#8226;";
+		default:
+			return tipo;
+		}
+	}
+	
+	/**
+	 * Convierte una cadena al formato compatible con SVG.
+	 * 
+	 * @param string
+	 *            Cadena original.
+	 * @return Cadena en formato compatible.
+	 */
+	private String tipoSVG(String tipo) {
 		switch (tipo) {
 		case "\u03B5":
 			return "&#949;";
@@ -598,5 +725,16 @@ public class Nodo {
 		else
 			// vacío
 			return "\u03B5";
+	}
+	
+	/**
+	 * Soluciona problemas de encodificación de ciertos caracteres.
+	 * 
+	 * @param imagenSgv
+	 */
+	private String fixXMLSVG(String imagenSvg) {
+				
+		return imagenSvg.replace("&amp;#949;", "&#949;").replace("&amp;#8226;", "&#8226;");
+		
 	}
 }

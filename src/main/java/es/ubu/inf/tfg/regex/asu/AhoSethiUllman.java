@@ -47,6 +47,7 @@ public class AhoSethiUllman {
 	private List<BufferedImage> alternativas;
 	private List<String> alternativasDot;
 	private List<String> alternativasSvg;	/// JBA
+	private List<String> alternativasTikZ;	/// JBA
 
 	/**
 	 * Resuelve un problema de construcción de AFD a partir de una expresión
@@ -349,6 +350,17 @@ public class AhoSethiUllman {
 	}
 	
 	/**
+	 * Devuelve una programa en formato TikZ para generar la imagen representando
+	 * el árbol de expresión regular asociado a este problema, sin completar y
+	 * con los nodos etiquetados.
+	 * 
+	 * @return Programa formato dot para representar el árbol vacío.
+	 */
+	public String arbolVacioTikZ() {
+		return this.solucion.imagenTikZ();
+	}
+	
+	/**
 	 * Devuelve una programa en formato SVG para generar la imagen representando
 	 * el árbol de expresión regular asociado a este problema, sin completar y
 	 * con los nodos etiquetados.
@@ -413,10 +425,7 @@ public class AhoSethiUllman {
 	}
 	
 	/**
-	 * Genera una serie de cuatro programas svg con las imágenes
-	 * correspondientes la expresión regular original del problema y tres
-	 * mutaciones de la misma, como alternativas en un problema de construcción
-	 * de árbol.
+	 * Genera el árbol solución en Svg.
 	 * 
 	 * @return Array de cuatro cadenas de caracteres conteniendo programas dot
 	 *         representando árboles de expresión regular, una correspondiente
@@ -424,49 +433,16 @@ public class AhoSethiUllman {
 	 *         
 	 * @author JBA
 	 */
-	public List<String> alternativasSvg() {			
-		if (this.alternativasSvg == null) {
-			alternativasSvg = new ArrayList<>();
-			Nodo nodo;
-			for (ExpresionRegular expresion : expresionesAlternativas()) {
-				nodo = new Nodo(expresion);
-				alternativasSvg.add(nodo.imagenSvg());
-			}
-		}
-
-		return alternativasSvg;
+	public String svgSolucion() {			
+		String imagensvg = this.solucion.imagenSvg();
+		
+		imagensvg = imagensvg.replace("stroke=\"black\"", "stroke=\"navy\"");
+		imagensvg = imagensvg.replace("fill=\"black\"", "fill=\"navy\"");
+		
+		return imagensvg;
 	}
 	
-	/**
-	 * Genera una serie de cuatro soluciones (azul) svg con las imágenes
-	 * correspondientes la expresión regular original del problema y tres
-	 * mutaciones de la misma, como alternativas en un problema de construcción
-	 * de árbol.
-	 * 
-	 * @return Array de cuatro cadenas de caracteres conteniendo programas dot
-	 *         representando árboles de expresión regular, una correspondiente
-	 *         al del problema y tres alternativas.
-	 *         
-	 * @author JBA
-	 */
-	public List<String> alternativasSvgSolucion() {			
-		if (this.alternativasSvg == null) {
-			alternativasSvg = new ArrayList<>();
-			Nodo nodo;
-			for (ExpresionRegular expresion : expresionesAlternativas()) {
-				nodo = new Nodo(expresion);
-				String imagensvg = nodo.imagenSvg();
-				
-				imagensvg = imagensvg.replace("stroke=\"black\"", "stroke=\"navy\"");
-				imagensvg = imagensvg.replace("fill=\"black\"", "fill=\"navy\"");
-				
-				alternativasSvg.add(imagensvg);
-			}
-		}
-
-		return alternativasSvg;
-	}
-
+	
 	/**
 	 * Genera un set de alternativas para una expresión regular, incluyendo la
 	 * original y tres otras.

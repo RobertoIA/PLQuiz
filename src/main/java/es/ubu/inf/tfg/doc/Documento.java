@@ -23,6 +23,7 @@ import es.ubu.inf.tfg.doc.datos.Traductor;
 import es.ubu.inf.tfg.doc.datos.TraductorHTML;
 import es.ubu.inf.tfg.doc.datos.TraductorLatex;
 import es.ubu.inf.tfg.doc.datos.TraductorLatexSVG;
+import es.ubu.inf.tfg.doc.datos.TraductorLatexTikZ;
 import es.ubu.inf.tfg.doc.datos.TraductorMoodleXML;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
@@ -307,7 +308,7 @@ public class Documento {
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
 				guardarSVG(carpeta + Math.abs(p.alternativas().get(0).hashCode())
-						+ ".svg", p.alternativasSvgSolucion().get(0));
+						+ ".svg", p.svgSolucion());
 			}
 		}
 
@@ -356,12 +357,35 @@ public class Documento {
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
 				guardarPDF(carpeta + Math.abs(p.alternativas().get(0).hashCode())
-						+ ".pdf", p.alternativasSvgSolucion().get(0));
+						+ ".pdf", p.svgSolucion());
 			}
 		}
 
 		guardar(ruta, traduce(new TraductorLatex()));
 	}
+	
+	
+	/**
+	 * Exporta el documento como un fichero de formato LaTeX al fichero destino
+	 * especificado, incluyendo las imágenes que contenga en formato TikZ dentro del propio LaTeX.
+	 * 
+	 * @param fichero
+	 *            Fichero destino.
+	 * @throws IOException
+	 *             Indica un error durante la exportación.
+	 * @author JBA
+	 * @throws IOException
+	 */
+	public void exportaTikZLatex(File fichero) throws IOException {
+		log.info("Exportando documento como Latex con imágenes TikZ a {}",
+				fichero);
+		String ruta = fichero.toString();
+		if (!ruta.toLowerCase().endsWith(".tex"))
+			ruta += ".tex";
+		
+		guardar(ruta, traduce(new TraductorLatexTikZ()));
+	}
+	
 	
 	/**
 	 * Traduce el documento al formato dado por un traductor especifico, y
@@ -503,4 +527,5 @@ public class Documento {
 			log.error("Encontrado error durante el guardado de imágenes", e);
 		}
 	}
+	
 }

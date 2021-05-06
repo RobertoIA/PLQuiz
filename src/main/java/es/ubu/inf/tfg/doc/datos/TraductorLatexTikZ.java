@@ -15,10 +15,10 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
  * @author Roberto Izquierdo Amo
  * 
  */
-public class TraductorLatexSVG extends Traductor {
+public class TraductorLatexTikZ extends Traductor {
 
 	private static final Logger log = LoggerFactory
-			.getLogger(TraductorLatexSVG.class);
+			.getLogger(TraductorLatexTikZ.class);
 
 	/**
 	 * Genera un documento Latex a partir de una lista de problemas ya
@@ -41,7 +41,7 @@ public class TraductorLatexSVG extends Traductor {
 			documento.append(problema.toString());
 		}
 
-		Plantilla plantilla = new Plantilla("plantillaSVG.tex");
+		Plantilla plantilla = new Plantilla("plantilla.tex");
 		plantilla.set("documento", documento.toString());
 
 		return plantilla.toString();
@@ -60,7 +60,7 @@ public class TraductorLatexSVG extends Traductor {
 		
 		problema.set("numero", "" + num);
 		
-		Plantilla plantilla = new Plantilla("plantillaSVG.tex");
+		Plantilla plantilla = new Plantilla("plantilla.tex");
 		plantilla.set("documento", problema.toString());
 	
 		return plantilla.toString();
@@ -93,9 +93,7 @@ public class TraductorLatexSVG extends Traductor {
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
-		plantilla.set("includetool", "\\myincludesvgsol");
-		
-		
+		plantilla.set("includetool", "\\myincludegraphicssol");
 
 		return plantilla;
 	}
@@ -115,7 +113,7 @@ public class TraductorLatexSVG extends Traductor {
 				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresión {}, formato etiquetado",
 				problema.problema());
 
-		String imagen = "" + problema.arbolVacio().hashCode();
+		String imagen = "" + problema.arbolVacioTikZ();
 		Plantilla plantilla = new Plantilla("plantillaASUEtiquetado.tex");
 		StringBuilder soluciones = new StringBuilder();
 		
@@ -143,9 +141,7 @@ public class TraductorLatexSVG extends Traductor {
 		solucionesL = solucionesL.replace("|", "\\textbar ");
 		solucionesL = solucionesL.replace("\u2027", "·");
 		solucionesL = solucionesL.replace("\u03B5", "$\\epsilon$");
-		solucionesL = solucionesL.replace("$", "\\$");
-		solucionesL = solucionesL.replace("\\$\\varnothing\\$", "$ \\varnothing $");
-		
+		solucionesL = solucionesL.replace("$", "\\$ ");
 		
 		solucionesL = "\\rowcolors{2}{gray!25}{white}\n" + "\\begin{tabular} {c@{\\hspace{4mm}}c@{\\hspace{4mm}}c@{\\hspace{4mm}}c}\n"
 				+ solucionesL;
@@ -160,7 +156,7 @@ public class TraductorLatexSVG extends Traductor {
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
 		plantilla.set("tabla", solucionesL);
-		plantilla.set("includetool", "\\myincludesvg");
+		plantilla.set("includetool", "\\myincludegraphics");
 
 		return plantilla;
 	}
@@ -262,7 +258,7 @@ public class TraductorLatexSVG extends Traductor {
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.tex");
-		String imagen = problema.automata().hashCode() + "";
+		String imagen = problema.automataTikZSolucion();
 		
 		String expresion = problema.problema();
 		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot ");
@@ -273,7 +269,7 @@ public class TraductorLatexSVG extends Traductor {
 		
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
-		plantilla.set("includetool", "\\myincludesvgsol");
+		plantilla.set("includetool", "\\myincludegraphicssol");
 
 		return plantilla;
 	}
@@ -352,7 +348,7 @@ public class TraductorLatexSVG extends Traductor {
 				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresión {}, formato autómata",
 				problema.problema());
 
-		String imagen = "" + problema.automata().hashCode();
+		String imagen = "" + problema.automataTikZ();
 		StringBuilder fTrans = new StringBuilder();
 
 		Plantilla plantilla = new Plantilla("plantillaCSAutomata.tex");
@@ -387,7 +383,7 @@ public class TraductorLatexSVG extends Traductor {
 
 		plantilla.set("imagen", imagen);
 		plantilla.set("transicion", fTrans.toString());
-		plantilla.set("includetool", "\\myincludesvg");
+		plantilla.set("includetool", "\\myincludegraphics");
 
 		return plantilla;
 	}

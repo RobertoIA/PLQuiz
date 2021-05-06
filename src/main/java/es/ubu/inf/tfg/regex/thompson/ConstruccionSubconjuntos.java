@@ -283,6 +283,18 @@ public class ConstruccionSubconjuntos {
 		return automata.imagenDot();
 	}
 	
+	
+	/**
+	 * Devuelve una programa en formato TikZ para generar la imagen representando
+	 * el autómata asociado a este problema.
+	 * 
+	 * @return Programa formato dot para representar el autómata.
+	 */
+	public String automataTikZ() {
+		return automata.imagenTikZ();
+	}
+	
+	
 	/**
 	 * Devuelve una programa en formato svg para generar la imagen representando
 	 * el autómata asociado a este problema.
@@ -304,6 +316,21 @@ public class ConstruccionSubconjuntos {
 		imagensvg = imagensvg.replace("stroke=\"black\"", "stroke=\"navy\"");
 		imagensvg = imagensvg.replace("fill=\"black\"", "fill=\"navy\"");
 		return imagensvg;
+	}
+	
+	
+	/**
+	 * Devuelve una solución (en azul) en formato svg para generar la imagen representando
+	 * el autómata asociado a este problema.
+	 * 
+	 * @return Programa formato svg para representar el autómata.
+	 */
+	public String automataTikZSolucion() {
+		String imagentikz = automata.imagenTikZ();
+		//TODO
+		imagentikz = imagentikz.replace("stroke=\"black\"", "stroke=\"navy\"");
+		imagentikz = imagentikz.replace("fill=\"black\"", "fill=\"navy\"");
+		return imagentikz;
 	}
 	
 

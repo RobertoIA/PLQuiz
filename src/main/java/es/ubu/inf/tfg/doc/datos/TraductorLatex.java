@@ -143,7 +143,8 @@ public class TraductorLatex extends Traductor {
 		solucionesL = solucionesL.replace("|", "\\textbar ");
 		solucionesL = solucionesL.replace("\u2027", "·");
 		solucionesL = solucionesL.replace("\u03B5", "$\\epsilon$");
-		solucionesL = solucionesL.replace("$", "\\$ ");
+		solucionesL = solucionesL.replace("$", "\\$");
+		solucionesL = solucionesL.replace("\\$\\varnothing\\$", "$ \\varnothing $");
 		
 		solucionesL = "\\rowcolors{2}{gray!25}{white}\n" + "\\begin{tabular} {c@{\\hspace{4mm}}c@{\\hspace{4mm}}c@{\\hspace{4mm}}c}\n"
 				+ solucionesL;
