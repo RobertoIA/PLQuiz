@@ -290,7 +290,7 @@ public class ConstruccionSubconjuntos {
 	 * 
 	 * @return Programa formato dot para representar el autómata.
 	 */
-	public String automataTikZ() {
+	public String automataTikZ() {			//TODO
 		return automata.imagenTikZ();
 	}
 	
@@ -325,9 +325,8 @@ public class ConstruccionSubconjuntos {
 	 * 
 	 * @return Programa formato svg para representar el autómata.
 	 */
-	public String automataTikZSolucion() {
+	public String automataTikZSolucion() {			//TODO
 		String imagentikz = automata.imagenTikZ();
-		//TODO
 		imagentikz = imagentikz.replace("stroke=\"black\"", "stroke=\"navy\"");
 		imagentikz = imagentikz.replace("fill=\"black\"", "fill=\"navy\"");
 		return imagentikz;

@@ -426,7 +426,7 @@ public class Automata {
 	 * 
 	 * @return Programa TikZ conteniendo el autómata que genera la expresión.
 	 */
-	public String imagenTikZ() {
+	public String imagenTikZ() {			//TODO
 		if (this.imagenSvg == null) {
 			mxGraph graph = new mxGraph();
 			Object parent = graph.getDefaultParent();

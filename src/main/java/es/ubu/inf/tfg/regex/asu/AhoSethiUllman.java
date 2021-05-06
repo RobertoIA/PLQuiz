@@ -356,7 +356,7 @@ public class AhoSethiUllman {
 	 * 
 	 * @return Programa formato dot para representar el árbol vacío.
 	 */
-	public String arbolVacioTikZ() {
+	public String arbolVacioTikZ() {			//TODO
 		return this.solucion.imagenTikZ();
 	}
 	
@@ -434,6 +434,25 @@ public class AhoSethiUllman {
 	 * @author JBA
 	 */
 	public String svgSolucion() {			
+		String imagensvg = this.solucion.imagenSvg();
+		
+		imagensvg = imagensvg.replace("stroke=\"black\"", "stroke=\"navy\"");
+		imagensvg = imagensvg.replace("fill=\"black\"", "fill=\"navy\"");
+		
+		return imagensvg;
+	}
+	
+	
+	/**
+	 * Genera el árbol solución en Svg.
+	 * 
+	 * @return Array de cuatro cadenas de caracteres conteniendo programas dot
+	 *         representando árboles de expresión regular, una correspondiente
+	 *         al del problema y tres alternativas.
+	 *         
+	 * @author JBA
+	 */
+	public String tikZSolucion() {			//TODO
 		String imagensvg = this.solucion.imagenSvg();
 		
 		imagensvg = imagensvg.replace("stroke=\"black\"", "stroke=\"navy\"");
