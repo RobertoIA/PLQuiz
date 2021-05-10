@@ -41,7 +41,7 @@ public class TraductorLatexTikZ extends Traductor {
 			documento.append(problema.toString());
 		}
 
-		Plantilla plantilla = new Plantilla("plantilla.tex");
+		Plantilla plantilla = new Plantilla("plantillaTikZ.tex");
 		plantilla.set("documento", documento.toString());
 
 		return plantilla.toString();
@@ -60,7 +60,7 @@ public class TraductorLatexTikZ extends Traductor {
 		
 		problema.set("numero", "" + num);
 		
-		Plantilla plantilla = new Plantilla("plantilla.tex");
+		Plantilla plantilla = new Plantilla("plantillaTikZ.tex");
 		plantilla.set("documento", problema.toString());
 	
 		return plantilla.toString();
@@ -93,7 +93,7 @@ public class TraductorLatexTikZ extends Traductor {
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
-		plantilla.set("includetool", "\\myincludegraphicssol");
+		plantilla.set("includetool", "\\myincludetikzsol");
 
 		return plantilla;
 	}
@@ -157,7 +157,7 @@ public class TraductorLatexTikZ extends Traductor {
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
 		plantilla.set("tabla", solucionesL);
-		plantilla.set("includetool", "\\myincludegraphics");
+		plantilla.set("includetool", "\\myincludetikz");
 
 		return plantilla;
 	}
@@ -270,7 +270,7 @@ public class TraductorLatexTikZ extends Traductor {
 		
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
-		plantilla.set("includetool", "\\myincludegraphicssol");
+		plantilla.set("includetool", "\\myincludetikzsol");
 
 		return plantilla;
 	}
@@ -384,7 +384,7 @@ public class TraductorLatexTikZ extends Traductor {
 
 		plantilla.set("imagen", imagen);
 		plantilla.set("transicion", fTrans.toString());
-		plantilla.set("includetool", "\\myincludegraphics");
+		plantilla.set("includetool", "\\myincludetikz");
 
 		return plantilla;
 	}

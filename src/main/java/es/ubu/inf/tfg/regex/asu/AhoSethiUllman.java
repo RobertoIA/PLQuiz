@@ -453,12 +453,8 @@ public class AhoSethiUllman {
 	 * @author JBA
 	 */
 	public String tikZSolucion() {			//TODO
-		String imagensvg = this.solucion.imagenSvg();
-		
-		imagensvg = imagensvg.replace("stroke=\"black\"", "stroke=\"navy\"");
-		imagensvg = imagensvg.replace("fill=\"black\"", "fill=\"navy\"");
-		
-		return imagensvg;
+				
+		return this.solucion.imagenTikZ();
 	}
 	
 	

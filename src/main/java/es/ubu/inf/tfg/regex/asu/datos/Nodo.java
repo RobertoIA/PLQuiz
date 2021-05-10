@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -61,6 +62,15 @@ public class Nodo {
 	private BufferedImage imagen;
 	private String imagenDot;
 	private String imagenSvg;	//JBA
+	
+	//TikZ
+	private String tipo;
+	private char simb;
+	public static int letra = 0;
+	public static int pos = 0;
+	public static Map<String, Integer> leavePos = new HashMap<String, Integer>();
+	public static Map<String, String> annotationsPripos = new HashMap<String, String>();
+	public static Map<String, String> annotationsUltpos = new HashMap<String, String>();
 
 	/**
 	 * Calcula los atributos de un nodo ExpresionRegular a partir de los de sus
@@ -84,6 +94,10 @@ public class Nodo {
 			this.ultimaPos = new TreeSet<Integer>();
 			this.simbolos = new MapaPosiciones<>();
 			this.siguientePos = new MapaPosiciones<>();
+			
+			//TikZ
+			this.tipo = "EPS";
+			
 
 		} else if (expresion.esSimbolo()) { // nodo símbolo / aumentado
 			this.hijoIzquierdo = null;
@@ -97,6 +111,11 @@ public class Nodo {
 			this.simbolos.add(expresion.simbolo(), expresion.posicion());
 			this.siguientePos = new MapaPosiciones<>();
 			this.siguientePos.add(expresion.posicion());
+			
+			//TikZ
+			this.tipo = "SYMB";
+			this.simb = expresion.simbolo();
+			
 
 		} else if (expresion.esCierre()) { // nodo cierre
 			this.hijoIzquierdo = new Nodo(expresion.hijoIzquierdo());
@@ -107,8 +126,10 @@ public class Nodo {
 			this.ultimaPos = this.hijoIzquierdo.ultimaPos();
 			this.simbolos = this.hijoIzquierdo.simbolos();
 			this.siguientePos = this.hijoIzquierdo.siguientePos();
-			this.siguientePos.add(this.hijoIzquierdo.ultimaPos(),
-					this.hijoIzquierdo.primeraPos());
+			this.siguientePos.add(this.hijoIzquierdo.ultimaPos(), this.hijoIzquierdo.primeraPos());
+			
+			//TikZ
+			this.tipo = "AST";
 
 		} else if (expresion.esConcat()) { // nodo concat
 			this.hijoIzquierdo = new Nodo(expresion.hijoIzquierdo());
@@ -129,6 +150,9 @@ public class Nodo {
 					this.hijoIzquierdo.siguientePos());
 			this.siguientePos.add(this.hijoIzquierdo.ultimaPos(),
 					this.hijoDerecho.primeraPos());
+			
+			//TikZ
+			this.tipo = "CAT";
 
 		} else if (expresion.esUnion()) { // nodo union
 			this.hijoIzquierdo = new Nodo(expresion.hijoIzquierdo());
@@ -145,6 +169,9 @@ public class Nodo {
 			this.siguientePos = MapaPosiciones.union(
 					this.hijoDerecho.siguientePos(),
 					this.hijoIzquierdo.siguientePos());
+			
+			//TikZ
+			this.tipo = "SEL";
 
 		} else { // runtime exception
 			throw new IllegalArgumentException(
@@ -575,101 +602,115 @@ public class Nodo {
 	 * 
 	 * @return Imagen conteniendo el ï¿½rbol que representa a la expresiï¿½n.
 	 */
-	public String imagenTikZ() {	//TODO
-		if (this.imagenSvg == null) {
-			mxGraph graph = new mxGraph();
-			Object parent = graph.getDefaultParent();
-			Map<Nodo, Object> gNodos = new HashMap<>();
-			Nodo actual;
-			Object gNodo, gActual;
-			List<Nodo> siguientes = new ArrayList<>();
-			boolean tieneHijoIzquierdo, tieneHijoDerecho;
-			char actualLetra = 'A';
+	public String imagenTikZ() {
 
-			String estiloVertex = "shape=ellipse;fillColor=white;strokeColor=black;fontColor=black;";
-			String estiloEdge = "strokeColor=black;fontColor=black;labelBackgroundColor=white;endArrow=open;";
-
-			graph.getModel().beginUpdate();
-			try {
-				siguientes.add(this);
-
-				while (!siguientes.isEmpty()) {
-					actual = siguientes.get(0);
-
-					if (!gNodos.containsKey(actual)) {
-						gActual = graph.insertVertex(parent, null,
-								actualLetra++ + "\n" + actual.tipo(), 0, 0, 30,
-								30, estiloVertex);
-						gNodos.put(actual, gActual);
-
-						primerasPos.put((char) (actualLetra - 1),
-								actual.primeraPos());
-						ultimasPos.put((char) (actualLetra - 1),
-								actual.ultimaPos());
-						anulables.put((char) (actualLetra - 1),
-								actual.esAnulable());
-					} else {
-						gActual = gNodos.get(actual);
-					}
-
-					tieneHijoIzquierdo = !actual.expresion().esSimbolo()
-							&& !actual.expresion().esVacio();
-					tieneHijoDerecho = tieneHijoIzquierdo
-							&& !actual.expresion().esCierre();
-
-					if (tieneHijoIzquierdo) {
-						siguientes.add(actual.hijoIzquierdo());
-						gNodo = graph.insertVertex(parent, null, actualLetra++
-								+ " \n" + actual.hijoIzquierdo().tipo(), 0, 0,
-								30, 30, estiloVertex);
-						graph.insertEdge(parent, null, "", gActual, gNodo,
-								estiloEdge);
-						gNodos.put(actual.hijoIzquierdo(), gNodo);
-
-						primerasPos.put((char) (actualLetra - 1), actual
-								.hijoIzquierdo().primeraPos());
-						ultimasPos.put((char) (actualLetra - 1), actual
-								.hijoIzquierdo().ultimaPos());
-						anulables.put((char) (actualLetra - 1), actual
-								.hijoIzquierdo().esAnulable());
-					}
-
-					if (tieneHijoDerecho) {
-						siguientes.add(actual.hijoDerecho());
-						gNodo = graph.insertVertex(parent, null, actualLetra++
-								+ "\n" + actual.hijoDerecho().tipo(), 0, 0, 30,
-								30, estiloVertex);
-						graph.insertEdge(parent, null, "", gActual, gNodo,
-								estiloEdge);
-						gNodos.put(actual.hijoDerecho(), gNodo);
-
-						primerasPos.put((char) (actualLetra - 1), actual
-								.hijoDerecho().primeraPos());
-						ultimasPos.put((char) (actualLetra - 1), actual
-								.hijoDerecho().ultimaPos());
-						anulables.put((char) (actualLetra - 1), actual
-								.hijoDerecho().esAnulable());
-					}
-
-					siguientes.remove(actual);
-				}
-			} finally {
-				graph.getModel().endUpdate();
-
-				new mxHierarchicalLayout(graph, SwingConstants.NORTH)
-						.execute(parent);
-				new mxParallelEdgeLayout(graph).execute(parent);
-
-				
-				Document document = mxCellRenderer.createSvgDocument(graph, null, 1, Color.WHITE, null);
-				imagenSvg = mxXmlUtils.getXml(document);
-
-			}
-		}
-
-		return imagenSvg;
+		String out = "\\begin{adjustbox}{max size={\\textwidth}{\\textheight}}\n" + 
+				"\\begin{tikzpicture}[sibling distance=2cm,level distance=1.5cm,\n" + 
+				"    color=blue!40!black, level 1/.style={sibling distance=1.0cm},\n" + 
+				"    level 2/.style={sibling distance=2.0cm,level distance=1.5cm},\n" + 
+				"    level 3/.style={sibling distance=2.0cm},\n" + 
+				"    % growth parent anchor={center}, nodes={anchor=center},\n" + 
+				"    parent anchor={center},child anchor={center},%\n" + 
+				"    ]\n" + 
+				"\\tikzset{edge from parent/.append style={thick}}\n" + 
+				"\\Tree";
+		out += dibujaImagenTikZ();
+		
+		out += "\n\\iflabeled\n";
+	    out += "% ===================================================\n";
+	    out += "% VALUES OF THE POSITIONS FOR LEAVE NODES WITH SYMBOL\n";
+	    for ( Map.Entry<String, Integer> entry : leavePos.entrySet() ) {
+	        String l = entry.getKey();
+	        int lPos = entry.getValue();
+	        
+	        out += String.format("\\node[below=.1mm of {%s}]{%d};\n", l, lPos);
+	    }
+	    out += "% ===================================================\n";
+	    
+	    out += "% ANNOTATIONS AT EACH NODE\n";
+	    
+	    for ( Entry<String, String> entry : annotationsPripos.entrySet() ) {
+	    	String k = entry.getKey();
+	        String pripos = entry.getValue();
+	        String ultpos = annotationsUltpos.get(k);
+	        
+	        out += String.format("\\node[left=\\sep of %s,align=right]{%s};\n", k, pripos);
+	        out += String.format("\\node[right=\\sep of %s,align=left]{%s};\n", k, ultpos);
+	        
+	    }
+	    out += "\\fi\n";
+		
+		out += "\n\\end{tikzpicture}";
+		out += "\n\\end{adjustbox}";
+		
+		// Reset
+		letra = 0;
+		pos = 0;
+		leavePos = new HashMap<String, Integer>();
+		annotationsPripos = new HashMap<String, String>();
+		annotationsUltpos = new HashMap<String, String>();
+		
+		return out;
 	}
 	
+	public String dibujaImagenTikZ() {
+		String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String out = "";
+		HashMap<String, String>  op =  new HashMap<String, String>();
+		op.put("CAT", "\\cat");
+		op.put("SEL", "\\sel");
+		op.put("AST", "\\ast"); 
+		
+		if (this.tipo == "EPS" || this.tipo == "SYMB") {
+			String l = Character.toString(letras.charAt(letra));
+			letra ++;
+			
+			if (this.esAnulable()) {
+				out += String.format("\n\\node[nullable] (%s) {%s\\nodepart{lower}\\eps};", l, l);
+				annotationsPripos.put(l, "\\empty");
+				annotationsUltpos.put(l, "\\empty");
+			} else {
+				pos ++;
+				String s = Character.toString(this.simb);
+				s = s.equals("$") ? "\\$" : s;
+				out += String.format("\n\\node[normal] (%s) {%s\\nodepart{lower}\\term{%s}};", l, l, s);
+				annotationsPripos.put(l, Integer.toString(pos));
+				annotationsUltpos.put(l, Integer.toString(pos));
+				leavePos.put(l, pos);
+			}
+			return out;
+		}
+			
+		String hijoI = "";
+		String hijoD = "";
+		
+		if(this.hijoIzquierdo != null)
+			hijoI = this.hijoIzquierdo().dibujaImagenTikZ();
+		
+		if(this.hijoDerecho != null) 
+			hijoD = this.hijoDerecho().dibujaImagenTikZ();
+		
+		String l = Character.toString(letras.charAt(letra));
+		letra ++;
+		
+		//TODO pripos ultpos
+		String pripos = this.primeraPos.toString().replace("[", "\\{").replace("]", "\\}");
+		String ultpos = this.ultimaPos.toString().replace("[", "\\{").replace("]", "\\}");
+		
+		annotationsPripos.put(l, pripos);
+		annotationsUltpos.put(l, ultpos);
+		
+		String nodeType = this.esAnulable() ? "nullable" : "normal";
+		
+		out += String.format("\n[.\\node[%s] (%s) {%s\\nodepart{lower}%s};", nodeType, l, l, op.get(this.tipo));
+		out += hijoI;
+		out += hijoD;
+
+        out += "]";
+				
+
+		return out;
+	}
 
 	/**
 	 * Convierte una cadena al formato compatible con graphviz.
