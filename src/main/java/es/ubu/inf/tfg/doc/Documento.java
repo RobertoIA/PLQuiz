@@ -199,15 +199,14 @@ public class Documento {
 		List<BufferedImage> imagenes = new ArrayList<>();
 
 		for (Problema<?> problema : problemas) {
-			if (problema.getTipo().equals(
-					"ConstruccionSubconjuntosConstruccion")) {
-				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
-						.getProblema();
+			if (problema.getTipo().equals("ConstruccionSubconjuntosConstruccion")) {
+				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema.getProblema();
 				imagenes.add(p.automata());
-			} else if (problema.getTipo().equals(
-					"ConstruccionSubconjuntosAutomata")) {
-				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
-						.getProblema();
+			} else if (problema.getTipo().equals("ConstruccionSubconjuntosAutomata")) {
+				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema.getProblema();
+				imagenes.add(p.automata());
+			} else if (problema.getTipo().equals("ConstruccionSubconjuntosExpresion")) {
+				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema.getProblema();
 				imagenes.add(p.automata());
 			} else if (problema.getTipo().equals("AhoSethiUllmanEtiquetado")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
@@ -215,7 +214,10 @@ public class Documento {
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
 				imagenes.add(p.alternativas().get(0));
-			}
+			} else if (problema.getTipo().equals("AhoSethiUllmanTablas")) {
+				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
+				imagenes.add(p.alternativas().get(0));
+			} 
 		}
 
 		guardar(ruta, traduce(new TraductorLatex()));
@@ -253,11 +255,20 @@ public class Documento {
 						.getProblema();
 				guardar(carpeta + Math.abs(p.automata().hashCode()) + ".gv",
 						p.automataDot());
+			} else if (problema.getTipo().equals("ConstruccionSubconjuntosExpresion")) {
+				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
+						.getProblema();
+				guardar(carpeta + Math.abs(p.automata().hashCode()) + ".gv",
+						p.automataDot());
 			} else if (problema.getTipo().equals("AhoSethiUllmanEtiquetado")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
 				guardar(carpeta + Math.abs(p.arbolVacio().hashCode()) + ".gv",
 						p.arbolVacioDot());
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
+				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
+				guardar(carpeta + Math.abs(p.alternativas().get(0).hashCode())
+						+ ".gv", p.alternativasDot().get(0));
+			} else if (problema.getTipo().equals("AhoSethiUllmanTablas")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
 				guardar(carpeta + Math.abs(p.alternativas().get(0).hashCode())
 						+ ".gv", p.alternativasDot().get(0));
@@ -293,21 +304,31 @@ public class Documento {
 					"ConstruccionSubconjuntosConstruccion")) {
 				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
 						.getProblema();
-				guardarSVG(carpeta + Math.abs(p.automata().hashCode()) + ".svg",
+				guardarSVG(carpeta + Math.abs(p.automataSvgSolucion().hashCode()) + ".svg",
 						p.automataSvgSolucion());
 			} else if (problema.getTipo().equals(
 					"ConstruccionSubconjuntosAutomata")) {
 				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
 						.getProblema();
-				guardarSVG(carpeta + Math.abs(p.automata().hashCode()) + ".svg",
+				guardarSVG(carpeta + Math.abs(p.automataSvg().hashCode()) + ".svg",
 						p.automataSvg());
+			} else if (problema.getTipo().equals(
+					"ConstruccionSubconjuntosExpresion")) {
+				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
+						.getProblema();
+				guardarSVG(carpeta + Math.abs(p.automataSvgSolucion().hashCode()) + ".svg",
+						p.automataSvgSolucion());
 			} else if (problema.getTipo().equals("AhoSethiUllmanEtiquetado")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
-				guardarSVG(carpeta + Math.abs(p.arbolVacio().hashCode()) + ".svg",
+				guardarSVG(carpeta + Math.abs(p.arbolVacioSvg().hashCode()) + ".svg",
 						p.arbolVacioSvg());
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
-				guardarSVG(carpeta + Math.abs(p.alternativas().get(0).hashCode())
+				guardarSVG(carpeta + Math.abs(p.svgSolucion().hashCode())
+						+ ".svg", p.svgSolucion());
+			} else if (problema.getTipo().equals("AhoSethiUllmanTablas")) {
+				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
+				guardarSVG(carpeta + Math.abs(p.svgSolucion().hashCode())
 						+ ".svg", p.svgSolucion());
 			}
 		}
@@ -350,11 +371,21 @@ public class Documento {
 						.getProblema();
 				guardarPDF(carpeta + Math.abs(p.automata().hashCode()) + ".pdf",
 						p.automataSvg());
+			} else if (problema.getTipo().equals(
+					"ConstruccionSubconjuntosExpresion")) {
+				ConstruccionSubconjuntos p = (ConstruccionSubconjuntos) problema
+						.getProblema();
+				guardarPDF(carpeta + Math.abs(p.automata().hashCode()) + ".pdf",
+						p.automataSvgSolucion());
 			} else if (problema.getTipo().equals("AhoSethiUllmanEtiquetado")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
 				guardarPDF(carpeta + Math.abs(p.arbolVacio().hashCode()) + ".pdf",
 						p.arbolVacioSvg());
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
+				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
+				guardarPDF(carpeta + Math.abs(p.alternativas().get(0).hashCode())
+						+ ".pdf", p.svgSolucion());
+			} else if (problema.getTipo().equals("AhoSethiUllmanTablas")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
 				guardarPDF(carpeta + Math.abs(p.alternativas().get(0).hashCode())
 						+ ".pdf", p.svgSolucion());

@@ -185,6 +185,7 @@ public class TraductorLatex extends Traductor {
 		StringBuilder fTrans = new StringBuilder();
 
 		Plantilla plantilla = new Plantilla("plantillaASUTablas.tex");
+		String imagen = problema.alternativas().get(0).hashCode() + "";
 
 		// siguiente-pos
 		stePos.append("\\rowcolors{2}{gray!25}{white}\n");
@@ -243,6 +244,8 @@ public class TraductorLatex extends Traductor {
 		plantilla.set("aumentada", expresionAumentada);
 		plantilla.set("siguientePos", stePos.toString());
 		plantilla.set("transicion", fTrans.toString());
+		plantilla.set("imagen", imagen);
+		plantilla.set("includetool", "\\myincludegraphicssol");
 
 		return plantilla;
 	}
@@ -295,6 +298,7 @@ public class TraductorLatex extends Traductor {
 		StringBuilder fTrans = new StringBuilder();
 
 		Plantilla plantilla = new Plantilla("plantillaCSExpresion.tex");
+		String imagen = problema.automata().hashCode() + "";
 
 		// Función de transición
 		fTrans.append("\\rowcolors{2}{gray!25}{white}\n");
@@ -333,7 +337,9 @@ public class TraductorLatex extends Traductor {
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("transicion", fTrans.toString());
-
+		plantilla.set("imagen", imagen);
+		plantilla.set("includetool", "\\myincludegraphicssol");
+		
 		return plantilla;
 	}
 

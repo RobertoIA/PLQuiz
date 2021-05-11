@@ -13,13 +13,10 @@ import java.util.TreeSet;
 
 import javax.swing.SwingConstants;
 
-import org.w3c.dom.Document;
-
 import com.mxgraph.layout.mxParallelEdgeLayout;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxCellRenderer;
-import com.mxgraph.util.mxUtils;
 import com.mxgraph.util.mxXmlUtils;
 import com.mxgraph.view.mxGraph;
 
@@ -634,8 +631,8 @@ public class Nodo {
 	        String pripos = entry.getValue();
 	        String ultpos = annotationsUltpos.get(k);
 	        
-	        out += String.format("\\node[left=\\sep of %s,align=right]{%s};\n", k, pripos);
-	        out += String.format("\\node[right=\\sep of %s,align=left]{%s};\n", k, ultpos);
+	        out += String.format("\\node[left=\\sep of %s,align=right]{\\{%s\\}};\n", k, pripos);
+	        out += String.format("\\node[right=\\sep of %s,align=left]{\\{%s\\}};\n", k, ultpos);
 	        
 	    }
 	    out += "\\fi\n";
@@ -693,9 +690,8 @@ public class Nodo {
 		String l = Character.toString(letras.charAt(letra));
 		letra ++;
 		
-		//TODO pripos ultpos
-		String pripos = this.primeraPos.toString().replace("[", "\\{").replace("]", "\\}");
-		String ultpos = this.ultimaPos.toString().replace("[", "\\{").replace("]", "\\}");
+		String pripos = this.primeraPos.toString().replace("[", "{").replace("]", "}");
+		String ultpos = this.ultimaPos.toString().replace("[", "{").replace("]", "}");
 		
 		annotationsPripos.put(l, pripos);
 		annotationsUltpos.put(l, ultpos);

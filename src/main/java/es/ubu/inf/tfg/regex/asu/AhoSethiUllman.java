@@ -46,8 +46,6 @@ public class AhoSethiUllman {
 	private MapaEstados transiciones;
 	private List<BufferedImage> alternativas;
 	private List<String> alternativasDot;
-	private List<String> alternativasSvg;	/// JBA
-	private List<String> alternativasTikZ;	/// JBA
 
 	/**
 	 * Resuelve un problema de construcción de AFD a partir de una expresión
@@ -356,7 +354,7 @@ public class AhoSethiUllman {
 	 * 
 	 * @return Programa formato dot para representar el árbol vacío.
 	 */
-	public String arbolVacioTikZ() {			//TODO
+	public String arbolVacioTikZ() {
 		return this.solucion.imagenTikZ();
 	}
 	
@@ -452,7 +450,7 @@ public class AhoSethiUllman {
 	 *         
 	 * @author JBA
 	 */
-	public String tikZSolucion() {			//TODO
+	public String tikZSolucion() {
 				
 		return this.solucion.imagenTikZ();
 	}

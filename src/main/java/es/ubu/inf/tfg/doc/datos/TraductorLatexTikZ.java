@@ -236,11 +236,16 @@ public class TraductorLatexTikZ extends Traductor {
 		expresionAumentada = expresionAumentada.replace("$", "\\$ ");
 		expresionAumentada = expresionAumentada.replace("*", "^*");
 		expresionAumentada = "$ " + expresionAumentada + " $";
+		
 
+		String imagen = problema.tikZSolucion();
+		
 		plantilla.set("expresion", expresion);
 		plantilla.set("aumentada", expresionAumentada);
 		plantilla.set("siguientePos", stePos.toString());
 		plantilla.set("transicion", fTrans.toString());
+		plantilla.set("imagen", imagen);
+		plantilla.set("includetool", "\\myincludetikzsol");
 
 		return plantilla;
 	}
@@ -293,6 +298,7 @@ public class TraductorLatexTikZ extends Traductor {
 		StringBuilder fTrans = new StringBuilder();
 
 		Plantilla plantilla = new Plantilla("plantillaCSExpresion.tex");
+		String imagen = problema.automataTikZSolucion();
 
 		// Función de transición
 		fTrans.append("\\rowcolors{2}{gray!25}{white}\n");
@@ -331,6 +337,8 @@ public class TraductorLatexTikZ extends Traductor {
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("transicion", fTrans.toString());
+		plantilla.set("imagen", imagen);
+		plantilla.set("includetool", "\\myincludetikzsol");
 
 		return plantilla;
 	}
