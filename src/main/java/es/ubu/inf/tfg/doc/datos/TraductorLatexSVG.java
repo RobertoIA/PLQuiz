@@ -82,7 +82,7 @@ public class TraductorLatexSVG extends Traductor {
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.tex");
-		String imagen = problema.alternativas().get(0).hashCode() + "";
+		String imagen = Math.abs(problema.svgSolucion().hashCode()) + "";
 
 		String expresion = problema.problema();
 		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot ");
@@ -115,7 +115,7 @@ public class TraductorLatexSVG extends Traductor {
 				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresión {}, formato etiquetado",
 				problema.problema());
 
-		String imagen = "" + problema.arbolVacio().hashCode();
+		String imagen = "" + Math.abs(problema.arbolVacioSvg().hashCode());
 		Plantilla plantilla = new Plantilla("plantillaASUEtiquetado.tex");
 		StringBuilder soluciones = new StringBuilder();
 		
@@ -143,7 +143,9 @@ public class TraductorLatexSVG extends Traductor {
 		solucionesL = solucionesL.replace("|", "\\textbar ");
 		solucionesL = solucionesL.replace("\u2027", "·");
 		solucionesL = solucionesL.replace("\u03B5", "$\\epsilon$");
-		solucionesL = solucionesL.replace("$", "\\$ ");
+		solucionesL = solucionesL.replace("$", "\\$");
+		solucionesL = solucionesL.replace("\\$\\varnothing\\$", "$ \\varnothing $");
+		
 		
 		solucionesL = "\\rowcolors{2}{gray!25}{white}\n" + "\\begin{tabular} {c@{\\hspace{4mm}}c@{\\hspace{4mm}}c@{\\hspace{4mm}}c}\n"
 				+ solucionesL;
@@ -184,6 +186,7 @@ public class TraductorLatexSVG extends Traductor {
 		StringBuilder fTrans = new StringBuilder();
 
 		Plantilla plantilla = new Plantilla("plantillaASUTablas.tex");
+		String imagen = Math.abs(problema.svgSolucion().hashCode()) + "";
 
 		// siguiente-pos
 		stePos.append("\\rowcolors{2}{gray!25}{white}\n");
@@ -242,6 +245,8 @@ public class TraductorLatexSVG extends Traductor {
 		plantilla.set("aumentada", expresionAumentada);
 		plantilla.set("siguientePos", stePos.toString());
 		plantilla.set("transicion", fTrans.toString());
+		plantilla.set("imagen", imagen);
+		plantilla.set("includetool", "\\myincludesvgsol");
 
 		return plantilla;
 	}
@@ -260,7 +265,7 @@ public class TraductorLatexSVG extends Traductor {
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.tex");
-		String imagen = problema.automata().hashCode() + "";
+		String imagen = Math.abs(problema.automataSvgSolucion().hashCode()) + "";
 		
 		String expresion = problema.problema();
 		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot ");
@@ -294,6 +299,7 @@ public class TraductorLatexSVG extends Traductor {
 		StringBuilder fTrans = new StringBuilder();
 
 		Plantilla plantilla = new Plantilla("plantillaCSExpresion.tex");
+		String imagen = Math.abs(problema.automataSvgSolucion().hashCode()) + "";
 
 		// Función de transición
 		fTrans.append("\\rowcolors{2}{gray!25}{white}\n");
@@ -332,6 +338,8 @@ public class TraductorLatexSVG extends Traductor {
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("transicion", fTrans.toString());
+		plantilla.set("imagen", imagen);
+		plantilla.set("includetool", "\\myincludesvgsol");
 
 		return plantilla;
 	}
@@ -350,7 +358,7 @@ public class TraductorLatexSVG extends Traductor {
 				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresión {}, formato autómata",
 				problema.problema());
 
-		String imagen = "" + problema.automata().hashCode();
+		String imagen = "" + Math.abs(problema.automataSvg().hashCode());
 		StringBuilder fTrans = new StringBuilder();
 
 		Plantilla plantilla = new Plantilla("plantillaCSAutomata.tex");

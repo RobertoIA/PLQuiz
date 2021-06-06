@@ -15,10 +15,10 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
  * @author Roberto Izquierdo Amo
  * 
  */
-public class TraductorLatex extends Traductor {
+public class TraductorLatexTikZ extends Traductor {
 
 	private static final Logger log = LoggerFactory
-			.getLogger(TraductorLatex.class);
+			.getLogger(TraductorLatexTikZ.class);
 
 	/**
 	 * Genera un documento Latex a partir de una lista de problemas ya
@@ -41,7 +41,7 @@ public class TraductorLatex extends Traductor {
 			documento.append(problema.toString());
 		}
 
-		Plantilla plantilla = new Plantilla("plantilla.tex");
+		Plantilla plantilla = new Plantilla("plantillaTikZ.tex");
 		plantilla.set("documento", documento.toString());
 
 		return plantilla.toString();
@@ -60,7 +60,7 @@ public class TraductorLatex extends Traductor {
 		
 		problema.set("numero", "" + num);
 		
-		Plantilla plantilla = new Plantilla("plantilla.tex");
+		Plantilla plantilla = new Plantilla("plantillaTikZ.tex");
 		plantilla.set("documento", problema.toString());
 	
 		return plantilla.toString();
@@ -82,7 +82,7 @@ public class TraductorLatex extends Traductor {
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.tex");
-		String imagen = problema.alternativas().get(0).hashCode() + "";
+		String imagen = problema.tikZSolucion();
 
 		String expresion = problema.problema();
 		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot ");
@@ -93,9 +93,7 @@ public class TraductorLatex extends Traductor {
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
-		plantilla.set("includetool", "\\myincludegraphicssol");
-		
-		
+		plantilla.set("includetool", "\\myincludetikzsol");
 
 		return plantilla;
 	}
@@ -115,7 +113,7 @@ public class TraductorLatex extends Traductor {
 				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresión {}, formato etiquetado",
 				problema.problema());
 
-		String imagen = "" + problema.arbolVacio().hashCode();
+		String imagen = "" + problema.arbolVacioTikZ();
 		Plantilla plantilla = new Plantilla("plantillaASUEtiquetado.tex");
 		StringBuilder soluciones = new StringBuilder();
 		
@@ -159,7 +157,7 @@ public class TraductorLatex extends Traductor {
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
 		plantilla.set("tabla", solucionesL);
-		plantilla.set("includetool", "\\myincludegraphics");
+		plantilla.set("includetool", "\\myincludetikz");
 
 		return plantilla;
 	}
@@ -185,7 +183,6 @@ public class TraductorLatex extends Traductor {
 		StringBuilder fTrans = new StringBuilder();
 
 		Plantilla plantilla = new Plantilla("plantillaASUTablas.tex");
-		String imagen = problema.alternativas().get(0).hashCode() + "";
 
 		// siguiente-pos
 		stePos.append("\\rowcolors{2}{gray!25}{white}\n");
@@ -239,13 +236,16 @@ public class TraductorLatex extends Traductor {
 		expresionAumentada = expresionAumentada.replace("$", "\\$ ");
 		expresionAumentada = expresionAumentada.replace("*", "^*");
 		expresionAumentada = "$ " + expresionAumentada + " $";
+		
 
+		String imagen = problema.tikZSolucion();
+		
 		plantilla.set("expresion", expresion);
 		plantilla.set("aumentada", expresionAumentada);
 		plantilla.set("siguientePos", stePos.toString());
 		plantilla.set("transicion", fTrans.toString());
 		plantilla.set("imagen", imagen);
-		plantilla.set("includetool", "\\myincludegraphicssol");
+		plantilla.set("includetool", "\\myincludetikzsol");
 
 		return plantilla;
 	}
@@ -264,7 +264,7 @@ public class TraductorLatex extends Traductor {
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.tex");
-		String imagen = problema.automata().hashCode() + "";
+		String imagen = problema.automataTikZSolucion();
 		
 		String expresion = problema.problema();
 		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot ");
@@ -275,7 +275,7 @@ public class TraductorLatex extends Traductor {
 		
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
-		plantilla.set("includetool", "\\myincludegraphicssol");
+		plantilla.set("includetool", "\\myincludetikzsol");
 
 		return plantilla;
 	}
@@ -298,7 +298,7 @@ public class TraductorLatex extends Traductor {
 		StringBuilder fTrans = new StringBuilder();
 
 		Plantilla plantilla = new Plantilla("plantillaCSExpresion.tex");
-		String imagen = problema.automata().hashCode() + "";
+		String imagen = problema.automataTikZSolucion();
 
 		// Función de transición
 		fTrans.append("\\rowcolors{2}{gray!25}{white}\n");
@@ -338,8 +338,8 @@ public class TraductorLatex extends Traductor {
 		plantilla.set("expresion", expresion);
 		plantilla.set("transicion", fTrans.toString());
 		plantilla.set("imagen", imagen);
-		plantilla.set("includetool", "\\myincludegraphicssol");
-		
+		plantilla.set("includetool", "\\myincludetikzsol");
+
 		return plantilla;
 	}
 
@@ -357,7 +357,7 @@ public class TraductorLatex extends Traductor {
 				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresión {}, formato autómata",
 				problema.problema());
 
-		String imagen = "" + problema.automata().hashCode();
+		String imagen = "" + problema.automataTikZ();
 		StringBuilder fTrans = new StringBuilder();
 
 		Plantilla plantilla = new Plantilla("plantillaCSAutomata.tex");
@@ -392,7 +392,7 @@ public class TraductorLatex extends Traductor {
 
 		plantilla.set("imagen", imagen);
 		plantilla.set("transicion", fTrans.toString());
-		plantilla.set("includetool", "\\myincludegraphics");
+		plantilla.set("includetool", "\\myincludetikz");
 
 		return plantilla;
 	}

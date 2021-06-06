@@ -72,6 +72,7 @@ public class Main {
 	private JMenuItem menuExportarGraphvizLatexButton;
 	private JMenuItem menuExportarSVGLatexButton; //JBA
 	private JMenuItem menuExportarPDFLatexButton; //JBA
+	private JMenuItem menuExportarTikZLatexButton; //JBA
 	private JMenu menuArchivo;
 	private JMenu menuExportar;
 	private JMenu menuAyuda;
@@ -218,9 +219,19 @@ public class Main {
 		this.menuExportarPDFLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuExportarPDFLatexButton.setAccelerator(KeyStroke
-				.getKeyStroke(java.awt.event.KeyEvent.VK_P,		// Maybe this should be another key, but which one?
+				.getKeyStroke(java.awt.event.KeyEvent.VK_P,
 						java.awt.Event.CTRL_MASK));
 		this.menuExportar.add(this.menuExportarPDFLatexButton);
+		
+		
+		this.menuExportarTikZLatexButton = new JMenuItem(
+				"Exportar como LaTeX + TikZ");
+		this.menuExportarTikZLatexButton
+				.addActionListener(new MenuExportarButtonActionListener());
+		this.menuExportarTikZLatexButton.setAccelerator(KeyStroke
+				.getKeyStroke(java.awt.event.KeyEvent.VK_I,
+						java.awt.Event.CTRL_MASK));
+		this.menuExportar.add(this.menuExportarTikZLatexButton);
 		// << JBA
 	}
 
@@ -430,6 +441,8 @@ public class Main {
 				fileChooser.setFileFilter(new LatexFilter());
 			else if (source == menuExportarPDFLatexButton) 		// JBA
 				fileChooser.setFileFilter(new LatexFilter());
+			else if (source == menuExportarTikZLatexButton) 		// JBA
+				fileChooser.setFileFilter(new LatexFilter());
 
 			int valorRetorno = fileChooser.showSaveDialog(frmPlquiz);
 			if (valorRetorno == JFileChooser.APPROVE_OPTION) {
@@ -456,6 +469,11 @@ public class Main {
 								"Exportando fichero Latex con imágenes en SVG a {}.",
 								fichero);
 						documento().exportaPDFLatex(fichero);
+					} else if (source == menuExportarTikZLatexButton) {	// JBA
+						log.info(
+								"Exportando fichero Latex con imágenes en TikZ a {}.",
+								fichero);
+						documento().exportaTikZLatex(fichero);
 					}
 				} catch (IOException e) {
 					log.error("Fallo al exportar fichero", e);
