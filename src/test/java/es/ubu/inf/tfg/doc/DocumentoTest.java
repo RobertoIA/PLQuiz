@@ -1126,7 +1126,7 @@ public class DocumentoTest {
 		encontrado = toString(ficheroTemporal);
 
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-		
+		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
 		assertEquals(
 				"Borrado erróneo de problemas de construcción de subconjuntos subtipo automata en documento XML exportado.",
 				esperado, encontrado);
