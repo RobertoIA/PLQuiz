@@ -95,7 +95,7 @@ public class TraductorLatexTest {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUTablas.tex");
 		String encontrado = traductor.traduceASUTablas(problema).toString();
-
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo tablas.",
 				esperado, encontrado);
