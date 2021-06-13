@@ -63,7 +63,7 @@ public class TraductorLatexTest {
 				.toString();
 
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo construcción.",
 				esperado, encontrado);
