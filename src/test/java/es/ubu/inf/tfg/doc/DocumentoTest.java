@@ -892,6 +892,8 @@ public class DocumentoTest {
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
+
 		assertEquals(
 				"Añadido erróneo de problemas de construcción de subconjuntos subtipo expresión a documento Latex exportado.",
 				esperado, encontrado);

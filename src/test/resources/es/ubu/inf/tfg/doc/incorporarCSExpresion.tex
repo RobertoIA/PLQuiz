@@ -1,50 +1,103 @@
-\documentclass[11pt,a4paper]{report}
+\documentclass[11pt,a4paper,table,answers]{exam} % <== Answers are printed
+%\documentclass[11pt,a4paper,table]{exam} % <== Answers are NOT printed
+
 \usepackage[spanish]{babel}
 \selectlanguage{spanish}
 \usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+
 \usepackage{graphicx}
+\usepackage{adjustbox}	% Some graphs were too wide
+
+\usepackage{xcolor} % table option is passed as documentclass option
+\usepackage{booktabs}
+\colorlet{azul}{blue!40!black}
+
+\newcommand{\h}[1]{\ifprintanswers\textcolor{azul}{\bf#1}\else{\phantom{\bf#1}}\fi}
+
+\newcommand{\myincludegraphics}[1]{%
+\begin{center}
+\begin{adjustbox}{max size={\textwidth}{\textheight}}
+	\includegraphics{#1}
+\end{adjustbox}
+\end{center}
+} % /myincludegraphics
+
+\newlength{\graphicheigth}
+\newsavebox{\graphicbox}
+\newcommand{\myincludegraphicssol}[1]{%
+    \sbox{\graphicbox}{%
+        \begin{adjustbox}{max size={\textwidth}{\textheight}}
+            \includegraphics{#1}
+        \end{adjustbox}
+    }
+    \settoheight{\graphicheigth}{\usebox{\graphicbox}}
+    \addtolength{\graphicheigth}{4ex} % increase a litle bit the heigth
+    \ifprintanswers
+        \begin{center}
+            \usebox{\graphicbox}
+        \end{center} 
+    \else
+        \makeemptybox{\graphicheigth}
+    \fi
+}
+
 \begin{document}
-\paragraph{}
 
-\paragraph{}
-\textbf{1.-} Aplicar el algoritmo de construcción de subconjuntos para obtener el AFD capaz de reconocer el lenguaje definido por la siguiente expresión regular: \textbf{$ ((a|b^*)a^*c)^* $} \\
 
-\begin{tabular} {| c | c |c |c | l |}
-\hline 
-& a & b & c & \\ \hline
-(A) & B & C & D & 0-2, 4, 5, 7-9, 11, 13\\ \hline
-B & E & F & D & 3, 8-11\\ \hline
-C & E & C & D & 5-9, 11\\ \hline
-(D) & B & C & D & 1, 2, 4, 5, 7-9, 11-13\\ \hline
-E & E & F & D & 9-11\\ \hline
-F & F & F & F & $\varnothing$\\ \hline
-\end{tabular}\paragraph{}
-\textbf{2.-} Aplicar el algoritmo de construcción de subconjuntos para obtener el AFD capaz de reconocer el lenguaje definido por la siguiente expresión regular: \textbf{$ (a|b^*)c^*a $} \\
 
-\begin{tabular} {| c | c |c |c | l |}
-\hline 
-& a & b & c & \\ \hline
-A & B & C & D & 0, 1, 3, 4, 6-8, 10\\ \hline
-(B) & E & F & D & 2, 7, 8, 10, 11\\ \hline
-C & E & C & D & 4-8, 10\\ \hline
-D & E & F & D & 8-10\\ \hline
-(E) & F & F & F & 11\\ \hline
-F & F & F & F & $\varnothing$\\ \hline
-\end{tabular}\paragraph{}
-\textbf{3.-} Aplicar el algoritmo de construcción de subconjuntos para obtener el AFD capaz de reconocer el lenguaje definido por la siguiente expresión regular: \textbf{$ (a|b)^*a(a|b)(a|b) $} \\
+\paragraph{1.-}\label{p1}
+Aplicar el algoritmo de construcción de subconjuntos para obtener el AFD capaz de reconocer el lenguaje definido por la siguiente expresión regular: \textbf{$ ((a|b^*)a^*c)^* $} \\
+\myincludegraphicssol{}
+\rowcolors{2}{gray!25}{white}
+\begin{tabular} {c@{\hspace{4mm}}ccc@{\hspace{4mm}}l}
+\toprule % =============================
+$\mathcal{Q}$ & a & b & c & \emph{Estados del AFND}\\
+\midrule %-------------------------------
+\h{(A)} & \h{B} & \h{C} & \h{D} & \h{0-2, 4, 5, 7-9, 11, 13}\\
+\h{B} & \h{E} & \h{F} & \h{D} & \h{3, 8-11}\\
+\h{C} & \h{E} & \h{C} & \h{D} & \h{5-9, 11}\\
+\h{(D)} & \h{B} & \h{C} & \h{D} & \h{1, 2, 4, 5, 7-9, 11-13}\\
+\h{E} & \h{E} & \h{F} & \h{D} & \h{9-11}\\
+\h{F} & \h{F} & \h{F} & \h{F} & \h{$\varnothing$}\\
+\bottomrule % =============================
+\end{tabular}
 
-\begin{tabular} {| c | c |c | l |}
-\hline 
-& a & b & \\ \hline
-A & B & C & 0-2, 4, 7\\ \hline
-B & D & E & 1-4, 6-9, 11\\ \hline
-C & B & C & 1, 2, 4-7\\ \hline
-D & F & G & 1-4, 6-11, 13, 14, 16\\ \hline
-E & H & I & 1, 2, 4-7, 12-14, 16\\ \hline
-(F) & F & G & 1-4, 6-11, 13-16, 18\\ \hline
-(G) & H & I & 1, 2, 4-7, 12-14, 16-18\\ \hline
-(H) & D & E & 1-4, 6-9, 11, 15, 18\\ \hline
-(I) & B & C & 1, 2, 4-7, 17, 18\\ \hline
+\paragraph{2.-}\label{p2}
+Aplicar el algoritmo de construcción de subconjuntos para obtener el AFD capaz de reconocer el lenguaje definido por la siguiente expresión regular: \textbf{$ (a|b^*)c^*a $} \\
+\myincludegraphicssol{}
+\rowcolors{2}{gray!25}{white}
+\begin{tabular} {c@{\hspace{4mm}}ccc@{\hspace{4mm}}l}
+\toprule % =============================
+$\mathcal{Q}$ & a & b & c & \emph{Estados del AFND}\\
+\midrule %-------------------------------
+\h{A} & \h{B} & \h{C} & \h{D} & \h{0, 1, 3, 4, 6-8, 10}\\
+\h{(B)} & \h{E} & \h{F} & \h{D} & \h{2, 7, 8, 10, 11}\\
+\h{C} & \h{E} & \h{C} & \h{D} & \h{4-8, 10}\\
+\h{D} & \h{E} & \h{F} & \h{D} & \h{8-10}\\
+\h{(E)} & \h{F} & \h{F} & \h{F} & \h{11}\\
+\h{F} & \h{F} & \h{F} & \h{F} & \h{$\varnothing$}\\
+\bottomrule % =============================
+\end{tabular}
+
+\paragraph{3.-}\label{p3}
+Aplicar el algoritmo de construcción de subconjuntos para obtener el AFD capaz de reconocer el lenguaje definido por la siguiente expresión regular: \textbf{$ (a|b)^*a(a|b)(a|b) $} \\
+\myincludegraphicssol{}
+\rowcolors{2}{gray!25}{white}
+\begin{tabular} {c@{\hspace{4mm}}cc@{\hspace{4mm}}l}
+\toprule % =============================
+$\mathcal{Q}$ & a & b & \emph{Estados del AFND}\\
+\midrule %-------------------------------
+\h{A} & \h{B} & \h{C} & \h{0-2, 4, 7}\\
+\h{B} & \h{D} & \h{E} & \h{1-4, 6-9, 11}\\
+\h{C} & \h{B} & \h{C} & \h{1, 2, 4-7}\\
+\h{D} & \h{F} & \h{G} & \h{1-4, 6-11, 13, 14, 16}\\
+\h{E} & \h{H} & \h{I} & \h{1, 2, 4-7, 12-14, 16}\\
+\h{(F)} & \h{F} & \h{G} & \h{1-4, 6-11, 13-16, 18}\\
+\h{(G)} & \h{H} & \h{I} & \h{1, 2, 4-7, 12-14, 16-18}\\
+\h{(H)} & \h{D} & \h{E} & \h{1-4, 6-9, 11, 15, 18}\\
+\h{(I)} & \h{B} & \h{C} & \h{1, 2, 4-7, 17, 18}\\
+\bottomrule % =============================
 \end{tabular}
 
 \end{document}
