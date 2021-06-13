@@ -1,77 +1,124 @@
-\documentclass[11pt,a4paper]{report}
+\documentclass[11pt,a4paper,table,answers]{exam} % <== Answers are printed
+%\documentclass[11pt,a4paper,table]{exam} % <== Answers are NOT printed
+
 \usepackage[spanish]{babel}
 \selectlanguage{spanish}
 \usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+
 \usepackage{graphicx}
+\usepackage{adjustbox}	% Some graphs were too wide
+
+\usepackage{xcolor} % table option is passed as documentclass option
+\usepackage{booktabs}
+\colorlet{azul}{blue!40!black}
+
+\newcommand{\h}[1]{\ifprintanswers\textcolor{azul}{\bf#1}\else{\phantom{\bf#1}}\fi}
+
+\newcommand{\myincludegraphics}[1]{%
+\begin{center}
+\begin{adjustbox}{max size={\textwidth}{\textheight}}
+	\includegraphics{#1}
+\end{adjustbox}
+\end{center}
+} % /myincludegraphics
+
+\newlength{\graphicheigth}
+\newsavebox{\graphicbox}
+\newcommand{\myincludegraphicssol}[1]{%
+    \sbox{\graphicbox}{%
+        \begin{adjustbox}{max size={\textwidth}{\textheight}}
+            \includegraphics{#1}
+        \end{adjustbox}
+    }
+    \settoheight{\graphicheigth}{\usebox{\graphicbox}}
+    \addtolength{\graphicheigth}{4ex} % increase a litle bit the heigth
+    \ifprintanswers
+        \begin{center}
+            \usebox{\graphicbox}
+        \end{center} 
+    \else
+        \makeemptybox{\graphicheigth}
+    \fi
+}
+
 \begin{document}
-\paragraph{}
 
-\paragraph{}
-\textbf{1.-} Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular $ ((a|b^*)a^*c)^* $
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=90mm]{}
-\end{figure}
 
-\begin{tabular} {| c | c | c | c |}\hline
- & anulable? & primera-pos & última-pos\\ \hline
-A & No & 1-5 & 5\\ \hline
-B & Si & 1-4 & 4\\ \hline
-C & No & 5 & 5\\ \hline
-D & No & 1-4 & 4\\ \hline
-E & Si & 1-3 & 1-3\\ \hline
-F & No & 4 & 4\\ \hline
-G & Si & 1, 2 & 1, 2\\ \hline
-H & Si & 3 & 3\\ \hline
-I & No & 1 & 1\\ \hline
-J & Si & 2 & 2\\ \hline
-K & No & 3 & 3\\ \hline
-L & No & 2 & 2\\ \hline
-\end{tabular}\paragraph{}
-\textbf{2.-} Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular $ (a|b^*)c^*a $
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=90mm]{}
-\end{figure}
 
-\begin{tabular} {| c | c | c | c |}\hline
- & anulable? & primera-pos & última-pos\\ \hline
-A & No & 1-4 & 5\\ \hline
-B & No & 1-4 & 4\\ \hline
-C & No & 5 & 5\\ \hline
-D & Si & 1-3 & 1-3\\ \hline
-E & No & 4 & 4\\ \hline
-F & Si & 1, 2 & 1, 2\\ \hline
-G & Si & 3 & 3\\ \hline
-H & No & 1 & 1\\ \hline
-I & Si & 2 & 2\\ \hline
-J & No & 3 & 3\\ \hline
-K & No & 2 & 2\\ \hline
-\end{tabular}\paragraph{}
-\textbf{3.-} Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular $ (a|b)^*a(a|b)(a|b) $
-\begin{figure}[ht!]
-\centering
-\includegraphics[width=90mm]{}
-\end{figure}
+\paragraph{1.-}\label{p1}
+Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular $ ((a|b^*)a^*c)^* $
+    \myincludegraphics{}
+    
+\rowcolors{2}{gray!25}{white}
+\begin{tabular} {c@{\hspace{4mm}}c@{\hspace{4mm}}c@{\hspace{4mm}}c}
+\toprule % =============================
+Nodo & Anulable & Primera-pos & Última-pos\\ 
+\midrule %-------------------------------
+A & \h{No} & \h{1-5} & \h{5}\\
+B & \h{Sí} & \h{1-4} & \h{4}\\
+C & \h{No} & \h{5} & \h{5}\\
+D & \h{No} & \h{1-4} & \h{4}\\
+E & \h{Sí} & \h{1-3} & \h{1-3}\\
+F & \h{No} & \h{4} & \h{4}\\
+G & \h{Sí} & \h{1, 2} & \h{1, 2}\\
+H & \h{Sí} & \h{3} & \h{3}\\
+I & \h{No} & \h{1} & \h{1}\\
+J & \h{Sí} & \h{2} & \h{2}\\
+K & \h{No} & \h{3} & \h{3}\\
+L & \h{No} & \h{2} & \h{2}\\
+\bottomrule % =============================
+\end{tabular}
 
-\begin{tabular} {| c | c | c | c |}\hline
- & anulable? & primera-pos & última-pos\\ \hline
-A & No & 1-3 & 8\\ \hline
-B & No & 1-3 & 6, 7\\ \hline
-C & No & 8 & 8\\ \hline
-D & No & 1-3 & 4, 5\\ \hline
-E & No & 6, 7 & 6, 7\\ \hline
-F & No & 1-3 & 3\\ \hline
-G & No & 4, 5 & 4, 5\\ \hline
-H & No & 6 & 6\\ \hline
-I & No & 7 & 7\\ \hline
-J & Si & 1, 2 & 1, 2\\ \hline
-K & No & 3 & 3\\ \hline
-L & No & 4 & 4\\ \hline
-M & No & 5 & 5\\ \hline
-N & No & 1, 2 & 1, 2\\ \hline
-O & No & 1 & 1\\ \hline
-P & No & 2 & 2\\ \hline
+\paragraph{2.-}\label{p2}
+Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular $ (a|b^*)c^*a $
+    \myincludegraphics{}
+    
+\rowcolors{2}{gray!25}{white}
+\begin{tabular} {c@{\hspace{4mm}}c@{\hspace{4mm}}c@{\hspace{4mm}}c}
+\toprule % =============================
+Nodo & Anulable & Primera-pos & Última-pos\\ 
+\midrule %-------------------------------
+A & \h{No} & \h{1-4} & \h{5}\\
+B & \h{No} & \h{1-4} & \h{4}\\
+C & \h{No} & \h{5} & \h{5}\\
+D & \h{Sí} & \h{1-3} & \h{1-3}\\
+E & \h{No} & \h{4} & \h{4}\\
+F & \h{Sí} & \h{1, 2} & \h{1, 2}\\
+G & \h{Sí} & \h{3} & \h{3}\\
+H & \h{No} & \h{1} & \h{1}\\
+I & \h{Sí} & \h{2} & \h{2}\\
+J & \h{No} & \h{3} & \h{3}\\
+K & \h{No} & \h{2} & \h{2}\\
+\bottomrule % =============================
+\end{tabular}
+
+\paragraph{3.-}\label{p3}
+Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular $ (a|b)^*a(a|b)(a|b) $
+    \myincludegraphics{}
+    
+\rowcolors{2}{gray!25}{white}
+\begin{tabular} {c@{\hspace{4mm}}c@{\hspace{4mm}}c@{\hspace{4mm}}c}
+\toprule % =============================
+Nodo & Anulable & Primera-pos & Última-pos\\ 
+\midrule %-------------------------------
+A & \h{No} & \h{1-3} & \h{8}\\
+B & \h{No} & \h{1-3} & \h{6, 7}\\
+C & \h{No} & \h{8} & \h{8}\\
+D & \h{No} & \h{1-3} & \h{4, 5}\\
+E & \h{No} & \h{6, 7} & \h{6, 7}\\
+F & \h{No} & \h{1-3} & \h{3}\\
+G & \h{No} & \h{4, 5} & \h{4, 5}\\
+H & \h{No} & \h{6} & \h{6}\\
+I & \h{No} & \h{7} & \h{7}\\
+J & \h{Sí} & \h{1, 2} & \h{1, 2}\\
+K & \h{No} & \h{3} & \h{3}\\
+L & \h{No} & \h{4} & \h{4}\\
+M & \h{No} & \h{5} & \h{5}\\
+N & \h{No} & \h{1, 2} & \h{1, 2}\\
+O & \h{No} & \h{1} & \h{1}\\
+P & \h{No} & \h{2} & \h{2}\\
+\bottomrule % =============================
 \end{tabular}
 
 \end{document}
