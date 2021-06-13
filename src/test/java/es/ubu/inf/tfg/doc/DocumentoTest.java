@@ -279,7 +279,7 @@ public class DocumentoTest {
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-		
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo tablas a documento Latex exportado.",
 				esperado, encontrado);
