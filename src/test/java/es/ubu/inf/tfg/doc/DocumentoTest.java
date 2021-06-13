@@ -839,7 +839,8 @@ public class DocumentoTest {
 		encontrado = toString(ficheroTemporal);
 
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
+		
 		assertEquals(
 				"Sustitución errónea de problemas de construcción de subconjuntos subtipo construcción en documento Latex exportado.",
 				esperado, encontrado);
