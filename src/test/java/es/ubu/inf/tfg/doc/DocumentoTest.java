@@ -629,8 +629,6 @@ public class DocumentoTest {
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 
-		
-
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
@@ -644,6 +642,7 @@ public class DocumentoTest {
 
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
 		
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo tablas en documento Latex exportado.",
