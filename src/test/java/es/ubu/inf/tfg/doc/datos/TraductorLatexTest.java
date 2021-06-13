@@ -80,7 +80,7 @@ public class TraductorLatexTest {
 		String encontrado = traductor.traduceASUEtiquetado(problema).toString();
 		
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-		
+		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo etiquetado.",
 				esperado, encontrado);
