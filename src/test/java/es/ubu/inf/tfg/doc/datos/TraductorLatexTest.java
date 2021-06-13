@@ -112,7 +112,7 @@ public class TraductorLatexTest {
 		String esperado = toString("TraductorCSConstruccion.tex");
 		String encontrado = traductor.traduceCSConstruccion(problema).toString();
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
 		assertEquals(
 				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo construcción.",
 				esperado, encontrado);
