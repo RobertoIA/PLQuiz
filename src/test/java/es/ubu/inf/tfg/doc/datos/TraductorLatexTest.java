@@ -128,7 +128,7 @@ public class TraductorLatexTest {
 				"((a|b*)a*c)*");
 		String esperado = toString("TraductorCSExpresion.tex");
 		String encontrado = traductor.traduceCSExpresion(problema).toString();
-
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
 		assertEquals(
 				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo expresión.",
 				esperado, encontrado);
