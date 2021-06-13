@@ -407,7 +407,7 @@ public class DocumentoTest {
 		encontrado = toString(ficheroTemporal);
 
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-
+		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado en documento Latex exportado.",
 				esperado, encontrado);
