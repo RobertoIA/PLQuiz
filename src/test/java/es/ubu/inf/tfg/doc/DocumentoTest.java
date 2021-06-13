@@ -457,9 +457,9 @@ public class DocumentoTest {
 		// Fichero Latex
 		esperado = toString("eliminarASUTablas.tex");
 		ficheroTemporal = ficheroTemporal("eliminar.tex");
-
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
 
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo tablas en documento Latex exportado.",
