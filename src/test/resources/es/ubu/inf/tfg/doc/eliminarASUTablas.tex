@@ -1,57 +1,113 @@
-\documentclass[11pt,a4paper]{report}
+\documentclass[11pt,a4paper,table,answers]{exam} % <== Answers are printed
+%\documentclass[11pt,a4paper,table]{exam} % <== Answers are NOT printed
+
 \usepackage[spanish]{babel}
 \selectlanguage{spanish}
 \usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+
 \usepackage{graphicx}
+\usepackage{adjustbox}	% Some graphs were too wide
+
+\usepackage{xcolor} % table option is passed as documentclass option
+\usepackage{booktabs}
+\colorlet{azul}{blue!40!black}
+
+\newcommand{\h}[1]{\ifprintanswers\textcolor{azul}{\bf#1}\else{\phantom{\bf#1}}\fi}
+
+\newcommand{\myincludegraphics}[1]{%
+\begin{center}
+\begin{adjustbox}{max size={\textwidth}{\textheight}}
+	\includegraphics{#1}
+\end{adjustbox}
+\end{center}
+} % /myincludegraphics
+
+\newlength{\graphicheigth}
+\newsavebox{\graphicbox}
+\newcommand{\myincludegraphicssol}[1]{%
+    \sbox{\graphicbox}{%
+        \begin{adjustbox}{max size={\textwidth}{\textheight}}
+            \includegraphics{#1}
+        \end{adjustbox}
+    }
+    \settoheight{\graphicheigth}{\usebox{\graphicbox}}
+    \addtolength{\graphicheigth}{4ex} % increase a litle bit the heigth
+    \ifprintanswers
+        \begin{center}
+            \usebox{\graphicbox}
+        \end{center} 
+    \else
+        \makeemptybox{\graphicheigth}
+    \fi
+}
+
 \begin{document}
-\paragraph{}
 
-\paragraph{}
-\textbf{1.-} Aplicar el algoritmo de Aho-Sethi-Ullman a la expresión regular: \textbf{$ ((a|b^*)a^*c)^* $} \\
+
+
+\paragraph{1.-}\label{p1}
+Aplicar el algoritmo de Aho-Sethi-Ullman a la expresión regular: \textbf{$ ((a|b^*)a^*c)^* $} \\
 \\
-Expresión aumentada: $ ((a|b^*)\cdot a^*\cdot c)^*\cdot \$  $ \\
+Expresión aumentada: \h{$ ((a|b^*)\cdot a^*\cdot c)^*\cdot \$  $} \\
 
-\begin{tabular} {| c | l |}
-\hline
-n & stePos(n) \\ \hline
-1 & 3, 4 \\ \hline
-2 & 2-4 \\ \hline
-3 & 3, 4 \\ \hline
-4 & 1-5 \\ \hline
-5 & $\varnothing$ \\ \hline
+\myincludegraphicssol{}
+\rowcolors{2}{gray!25}{white}
+\begin{tabular} {c@{\hspace{4mm}}l}
+\toprule % =============================
+$n$ & stePos($n$) \\
+\midrule %-------------------------------
+1 & \h{3, 4} \\ 
+2 & \h{2-4} \\ 
+3 & \h{3, 4} \\ 
+4 & \h{1-5} \\ 
+5 & \h{$\varnothing$} \\ 
+\bottomrule % =============================
 \end{tabular}
 \quad
-\begin{tabular} {| c | c |c |c | l |}
-\hline 
-& a & b & c & \\ \hline
-(A) & B & C & A & 1-5\\ \hline
-B & B & D & A & 3, 4\\ \hline
-C & B & C & A & 2-4\\ \hline
-D & D & D & D & $\varnothing$\\ \hline
-\end{tabular}\paragraph{}
-\textbf{2.-} Aplicar el algoritmo de Aho-Sethi-Ullman a la expresión regular: \textbf{$ (a|b^*)c^*a $} \\
-\\
-Expresión aumentada: $ (a|b^*)\cdot c^*\cdot a\cdot \$  $ \\
+\rowcolors{2}{gray!25}{white}
+\begin{tabular} {c@{\hspace{4mm}}ccc@{\hspace{4mm}}l}
+\toprule % ============================= 
+$\mathcal{Q}$ & a & b & c & \emph{Posiciones}\\ 
+\midrule %-------------------------------
+\h{(A)} & \h{B} & \h{C} & \h{A} & \h{1-5}\\ 
+\h{B} & \h{B} & \h{D} & \h{A} & \h{3, 4}\\ 
+\h{C} & \h{B} & \h{C} & \h{A} & \h{2-4}\\ 
+\h{D} & \h{D} & \h{D} & \h{D} & \h{$\varnothing$}\\ 
+\bottomrule % =============================
+\end{tabular}
 
-\begin{tabular} {| c | l |}
-\hline
-n & stePos(n) \\ \hline
-1 & 3, 4 \\ \hline
-2 & 2-4 \\ \hline
-3 & 3, 4 \\ \hline
-4 & 5 \\ \hline
-5 & $\varnothing$ \\ \hline
+\paragraph{2.-}\label{p2}
+Aplicar el algoritmo de Aho-Sethi-Ullman a la expresión regular: \textbf{$ (a|b^*)c^*a $} \\
+\\
+Expresión aumentada: \h{$ (a|b^*)\cdot c^*\cdot a\cdot \$  $} \\
+
+\myincludegraphicssol{}
+\rowcolors{2}{gray!25}{white}
+\begin{tabular} {c@{\hspace{4mm}}l}
+\toprule % =============================
+$n$ & stePos($n$) \\
+\midrule %-------------------------------
+1 & \h{3, 4} \\ 
+2 & \h{2-4} \\ 
+3 & \h{3, 4} \\ 
+4 & \h{5} \\ 
+5 & \h{$\varnothing$} \\ 
+\bottomrule % =============================
 \end{tabular}
 \quad
-\begin{tabular} {| c | c |c |c | l |}
-\hline 
-& a & b & c & \\ \hline
-A & B & C & D & 1-4\\ \hline
-(B) & E & F & D & 3-5\\ \hline
-C & E & C & D & 2-4\\ \hline
-D & E & F & D & 3, 4\\ \hline
-(E) & F & F & F & 5\\ \hline
-F & F & F & F & $\varnothing$\\ \hline
+\rowcolors{2}{gray!25}{white}
+\begin{tabular} {c@{\hspace{4mm}}ccc@{\hspace{4mm}}l}
+\toprule % ============================= 
+$\mathcal{Q}$ & a & b & c & \emph{Posiciones}\\ 
+\midrule %-------------------------------
+\h{A} & \h{B} & \h{C} & \h{D} & \h{1-4}\\ 
+\h{(B)} & \h{E} & \h{F} & \h{D} & \h{3-5}\\ 
+\h{C} & \h{E} & \h{C} & \h{D} & \h{2-4}\\ 
+\h{D} & \h{E} & \h{F} & \h{D} & \h{3, 4}\\ 
+\h{(E)} & \h{F} & \h{F} & \h{F} & \h{5}\\ 
+\h{F} & \h{F} & \h{F} & \h{F} & \h{$\varnothing$}\\ 
+\bottomrule % =============================
 \end{tabular}
 
 \end{document}

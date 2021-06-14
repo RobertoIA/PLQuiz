@@ -63,7 +63,7 @@ public class TraductorLatexTest {
 				.toString();
 
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo construcción.",
 				esperado, encontrado);
@@ -80,7 +80,7 @@ public class TraductorLatexTest {
 		String encontrado = traductor.traduceASUEtiquetado(problema).toString();
 		
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-		
+		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo etiquetado.",
 				esperado, encontrado);
@@ -95,7 +95,7 @@ public class TraductorLatexTest {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUTablas.tex");
 		String encontrado = traductor.traduceASUTablas(problema).toString();
-
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo tablas.",
 				esperado, encontrado);
@@ -112,7 +112,7 @@ public class TraductorLatexTest {
 		String esperado = toString("TraductorCSConstruccion.tex");
 		String encontrado = traductor.traduceCSConstruccion(problema).toString();
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
 		assertEquals(
 				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo construcción.",
 				esperado, encontrado);
@@ -128,7 +128,7 @@ public class TraductorLatexTest {
 				"((a|b*)a*c)*");
 		String esperado = toString("TraductorCSExpresion.tex");
 		String encontrado = traductor.traduceCSExpresion(problema).toString();
-
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
 		assertEquals(
 				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo expresión.",
 				esperado, encontrado);
@@ -146,7 +146,7 @@ public class TraductorLatexTest {
 		String encontrado = traductor.traduceCSAutomata(problema).toString();
 
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-
+		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
 		assertEquals(
 				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo autómata.",
 				esperado, encontrado);
