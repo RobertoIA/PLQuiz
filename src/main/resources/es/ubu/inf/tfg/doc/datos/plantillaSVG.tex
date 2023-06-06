@@ -7,7 +7,7 @@
 \usepackage{amssymb}
 
 \usepackage{svg}
-\usepackage{adjustbox}	% Some graphs were too wide
+\usepackage{adjustbox} % Some graphs were too wide
 
 \usepackage{xcolor} % table option is passed as documentclass option
 \usepackage{booktabs}
@@ -18,7 +18,7 @@
 \newcommand{\myincludesvg}[1]{%
 \begin{center}
 \begin{adjustbox}{max size={\textwidth}{\textheight}}
-	\includesvg[inkscapelatex=false]{#1}
+    \includesvg[inkscapelatex=false]{#1}
 \end{adjustbox}
 \end{center}
 } % /myincludesvg
