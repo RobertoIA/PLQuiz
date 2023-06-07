@@ -44,9 +44,9 @@ public class NodoTikZ{
 		if(this.isEmpty()){
 			return "";
 		} else {
-			System.out.println("Not empty:");
-			System.out.println("id:"+ this.id);
-			System.out.println("tipo:"+ this.tipo);
+			//System.out.println("Not empty:");
+			//System.out.println("id:"+ this.id);
+			//System.out.println("Tipo:"+ this.tipo);
 		}
 		String salida = "{";
 		salida += String.format("'tipo': '%s',", this.tipo);

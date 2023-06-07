@@ -1,0 +1,85 @@
+	<!-- question: {numero}  -->
+	<question type="cloze">
+		<name>
+			<text>PLQuiz: Construcción de subconjuntos</text>
+		</name>
+		<questiontext>
+			<text><![CDATA[
+				<p>Completa la tabla de función de transición para el AFD que se obtendría de aplicar el método de construcción de subconjuntos al AFND de la figura
+					<img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+
+				<table border="1" cellspacing="0" align="left">
+				<tbody>
+				
+	<tr>
+	<th scope="col">$$\mathcal{Q}/\Sigma$$</th>
+	<th scope="col">a</th>
+	<th scope="col">b</th>
+	<th scope="col">c</th>
+	<th scope="col"> </th>
+	</tr>
+	<tr>
+	<td>A</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>B</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>C</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>D</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>E</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>F</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+				</tbody>
+				</table>
+
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+
+				<p>Los estados finales son: {1:MULTICHOICE:}</p>
+			]]></text>
+			<file name=</file> 
+		</questiontext>
+		<generalfeedback>
+			<text></text>
+		</generalfeedback>
+		<shuffleanswers>0</shuffleanswers>
+	</question>

@@ -1,0 +1,29 @@
+	<!-- question: {numero}  -->
+	<question type="cloze">
+		<name>
+			<text>PLQuiz: Aho-Sethi-Ullman</text>
+		</name>
+		<questiontext>
+			<text><![CDATA[
+				<p>Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular {expresion}</p>
+				<p><img src="@@PLUGINFILE@@/{url}" alt="" /></p>
+
+				<table border="1" cellspacing="0" align="left">
+				<tbody>
+				<tr>
+					<th></th>
+					<th>anulable?</th>
+					<th>primera-pos</th>
+					<th>última-pos</th>
+				</tr>
+				{tabla}
+				</tbody>
+				</table>
+			]]></text>
+			<file name="{url}" encoding="base64">{imagen}</file> 
+		</questiontext>
+		<generalfeedback>
+			<text></text>
+		</generalfeedback>
+		<shuffleanswers>0</shuffleanswers>
+	</question>

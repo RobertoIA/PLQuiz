@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+		<!-- question: 1  -->
+	<question type="cloze">
+		<name>
+			<text>PLQuiz: Aho-Sethi-Ullman</text>
+		</name>
+		<questiontext>
+			<text><![CDATA[
+				<p>Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular ((a|b*)a*c)*</p>
+				<p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+
+				<table border="1" cellspacing="0" align="left">
+				<tbody>
+				<tr>
+					<th></th>
+					<th>anulable?</th>
+					<th>primera-pos</th>
+					<th>última-pos</th>
+				</tr>
+				<tr><td>A</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>B</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>C</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>D</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>E</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>F</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>G</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>H</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>I</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>J</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>K</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>L</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr>
+				</tbody>
+				</table>
+			]]></text>
+			<file name=</file> 
+		</questiontext>
+		<generalfeedback>
+			<text></text>
+		</generalfeedback>
+		<shuffleanswers>0</shuffleanswers>
+	</question>	<!-- question: 2  -->
+	<question type="cloze">
+		<name>
+			<text>PLQuiz: Aho-Sethi-Ullman</text>
+		</name>
+		<questiontext>
+			<text><![CDATA[
+				<p>Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular (a|b*)c*a</p>
+				<p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+
+				<table border="1" cellspacing="0" align="left">
+				<tbody>
+				<tr>
+					<th></th>
+					<th>anulable?</th>
+					<th>primera-pos</th>
+					<th>última-pos</th>
+				</tr>
+				<tr><td>A</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>B</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>C</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>D</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>E</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>F</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>G</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>H</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>I</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>J</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>K</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr>
+				</tbody>
+				</table>
+			]]></text>
+			<file name=</file> 
+		</questiontext>
+		<generalfeedback>
+			<text></text>
+		</generalfeedback>
+		<shuffleanswers>0</shuffleanswers>
+	</question>	<!-- question: 3  -->
+	<question type="cloze">
+		<name>
+			<text>PLQuiz: Aho-Sethi-Ullman</text>
+		</name>
+		<questiontext>
+			<text><![CDATA[
+				<p>Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular (a|b)*a(a|b)(a|b)</p>
+				<p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+
+				<table border="1" cellspacing="0" align="left">
+				<tbody>
+				<tr>
+					<th></th>
+					<th>anulable?</th>
+					<th>primera-pos</th>
+					<th>última-pos</th>
+				</tr>
+				<tr><td>A</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>B</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>C</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>D</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>E</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>F</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>G</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>H</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>I</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>J</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>K</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>L</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>M</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>N</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>O</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr><tr><td>P</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td><td>
+{1:MULTICHOICE:}
+</td></tr>
+				</tbody>
+				</table>
+			]]></text>
+			<file name=</file> 
+		</questiontext>
+		<generalfeedback>
+			<text></text>
+		</generalfeedback>
+		<shuffleanswers>0</shuffleanswers>
+	</question>
+</quiz>

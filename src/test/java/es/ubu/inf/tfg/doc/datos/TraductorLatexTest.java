@@ -45,10 +45,10 @@ public class TraductorLatexTest {
 	 */
 	@Test
 	public void testDocumento() {
-		String esperado = toString("TraductorVacio.tex");
+		String esperado = toString("TraductorVacio.tex"); //$NON-NLS-1$
+		String encontrado = traductor.documento(new ArrayList<Plantilla>());
 
-		assertEquals("Generación incorrecta de documento Latex.", esperado,
-				traductor.documento(new ArrayList<Plantilla>()));
+		assertEquals("Generación incorrecta de documento Latex.", esperado, encontrado); //$NON-NLS-1$
 	}
 
 	/**
@@ -57,15 +57,14 @@ public class TraductorLatexTest {
 	 */
 	@Test
 	public void testTraduceAhoSethiUllmanConstruccion() {
-		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("TraductorASUConstruccion.tex");
-		String encontrado = traductor.traduceASUConstruccion(problema)
-				.toString();
+		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*"); //$NON-NLS-1$
+		String esperado = toString("TraductorASUConstruccion.tex"); //$NON-NLS-1$
+		String encontrado = traductor.traduceASUConstruccion(problema).toString();
 
-		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}"); //$NON-NLS-1$ //$NON-NLS-2$
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}"); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(
-				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo construcción.",
+				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo construcción.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
@@ -75,14 +74,14 @@ public class TraductorLatexTest {
 	 */
 	@Test
 	public void testTraduceAhoSethiUllmanEtiquetado() {
-		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("TraductorASUEtiquetado.tex");
+		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*"); //$NON-NLS-1$
+		String esperado = toString("TraductorASUEtiquetado.tex"); //$NON-NLS-1$
 		String encontrado = traductor.traduceASUEtiquetado(problema).toString();
 		
-		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}"); //$NON-NLS-1$ //$NON-NLS-2$
+		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}"); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(
-				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo etiquetado.",
+				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo etiquetado.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
@@ -92,12 +91,12 @@ public class TraductorLatexTest {
 	 */
 	@Test
 	public void testTraduceAhoSethiUllmanTablas() {
-		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("TraductorASUTablas.tex");
+		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*"); //$NON-NLS-1$
+		String esperado = toString("TraductorASUTablas.tex"); //$NON-NLS-1$
 		String encontrado = traductor.traduceASUTablas(problema).toString();
-		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}"); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(
-				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo tablas.",
+				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo tablas.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
@@ -108,13 +107,13 @@ public class TraductorLatexTest {
 	@Test
 	public void testTraduceConstruccionSubconjuntosConstruccion() {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
-				"((a|b*)a*c)*");
-		String esperado = toString("TraductorCSConstruccion.tex");
+				"((a|b*)a*c)*"); //$NON-NLS-1$
+		String esperado = toString("TraductorCSConstruccion.tex"); //$NON-NLS-1$
 		String encontrado = traductor.traduceCSConstruccion(problema).toString();
-		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}"); //$NON-NLS-1$ //$NON-NLS-2$
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}"); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(
-				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo construcción.",
+				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo construcción.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
@@ -125,12 +124,12 @@ public class TraductorLatexTest {
 	@Test
 	public void testTraduceConstruccionSubconjuntosExpresion() {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
-				"((a|b*)a*c)*");
-		String esperado = toString("TraductorCSExpresion.tex");
+				"((a|b*)a*c)*"); //$NON-NLS-1$
+		String esperado = toString("TraductorCSExpresion.tex"); //$NON-NLS-1$
 		String encontrado = traductor.traduceCSExpresion(problema).toString();
-		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
+		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}"); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(
-				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo expresión.",
+				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo expresión.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
@@ -140,15 +139,14 @@ public class TraductorLatexTest {
 	 */
 	@Test
 	public void testTraduceConstruccionSubconjuntosAutomata()  {
-		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
-				"((a|b*)a*c)*");
-		String esperado = toString("TraductorCSAutomata.tex");
+		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos("((a|b*)a*c)*"); //$NON-NLS-1$
+		String esperado = toString("TraductorCSAutomata.tex"); //$NON-NLS-1$
 		String encontrado = traductor.traduceCSAutomata(problema).toString();
 
-		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
-		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
+		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}"); //$NON-NLS-1$ //$NON-NLS-2$
+		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}"); //$NON-NLS-1$
 		assertEquals(
-				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo autómata.",
+				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo autómata.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
@@ -163,10 +161,13 @@ public class TraductorLatexTest {
 		String resultado;
 		StringBuilder contenido;
 		String linea;
+		
+		String languageFolder = Messages.getString("TraductorLatexTest.lang"); //$NON-NLS-1$
+		fichero = languageFolder + fichero;	
 
 		try (InputStream entrada = getClass().getResourceAsStream(fichero);
 				BufferedReader lector = new BufferedReader(
-						new InputStreamReader(entrada, "UTF8"))) {
+						new InputStreamReader(entrada, "UTF8"))) { //$NON-NLS-1$
 
 			contenido = new StringBuilder();
 			linea = lector.readLine();
@@ -174,14 +175,14 @@ public class TraductorLatexTest {
 				contenido.append(linea);
 				linea = lector.readLine();
 				if (linea != null)
-					contenido.append("\n");
+					contenido.append("\n"); //$NON-NLS-1$
 			}
 
 			resultado = contenido.toString();
 			return resultado;
 		} catch (IOException e) {
-			fail("Error al abrir el archivo " + fichero);
-			return "";
+			fail("Error al abrir el archivo " + fichero); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 }

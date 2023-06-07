@@ -985,7 +985,7 @@ public class Automata {
 		stateId ++;
 		afnd.id = stateId;
 		
-		System.out.println("Tipo " + afnd.tipo + "   id: "+ stateId);
+		//System.out.println("Tipo " + afnd.tipo + "   id: "+ stateId);
 		if (afnd.tipo == "FINAL") {
 			return stateId;
 		}

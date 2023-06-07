@@ -1,0 +1,125 @@
+\documentclass[11pt,a4paper,table,answers]{exam} % <== Answers are printed
+%\documentclass[11pt,a4paper,table]{exam} % <== Answers are NOT printed
+
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[edges]{forest} % forest environment
+\usepackage{tikz,tikz-qtree,tikz-qtree-compat}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning}
+\usepackage{svg}
+\usepackage{xcolor}
+\colorlet{azul}{blue!40!black}
+\usepackage{relsize}   % \smaller \relsize{-2}
+\usepackage{adjustbox} % Some graphs were too wide
+\usepackage{xcolor}    % table option is passed as documentclass option
+\usepackage{booktabs}
+\colorlet{azul}{blue!40!black}
+
+\newcommand{\h}[1]{\ifprintanswers\textcolor{azul}{\bf#1}\else{\phantom{\bf#1}}\fi}
+
+\usetikzlibrary{arrows.meta}
+\definecolor{green}{RGB}{0,128,0}
+\def \globalscale {1.000000}
+
+\newcommand{\s}[1]{\textbf{#1}}
+\newcommand{\car}[1]{\textbf{\emph{#1}}}
+\def \globalscale {1.000000}
+
+\newif\ifusexelatex
+\usexelatextrue
+
+\ifusexelatex 
+\usepackage{fontspec}
+\else 
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp} % \textbrokenbar
+\fi 
+
+
+\newcommand{\term}[1]{\textcolor{cyan}{\textbf{\emph{#1}}}}
+\newcommand{\fin}{\textcolor{cyan}{\textbf{\$}}}
+\newcommand{\eps}{\textcolor{cyan}{$\boldsymbol{\varepsilon}$}}
+\renewcommand{\empty}{$\varnothing$}
+
+\newcommand{\mybold}[1]{\contour{red}{#1}}
+\ifusexelatex 
+\renewcommand{\mybold}[1]{\textbf{#1}}
+\fi 
+
+\newcommand{\cat}{$\color{red}\bullet$}
+\renewcommand{\ast}{$\color{red}\boldsymbol{*}$}
+\newcommand{\sel}{$\color{red}\scriptsize\mybold{\textbrokenbar}$}
+
+\newcommand{\sep}{-.1mm}
+
+
+\newcommand{\myincludetikz}[1]{%
+\begin{center}
+#1
+\end{center}
+}
+
+
+\definecolor{aliceblue}{rgb}{0.94, 0.97, 1.0}
+
+\newlength{\tikzheight}
+\newsavebox{\tikzbox}
+\newcommand{\myincludetikzsol}[1]{
+    \sbox{\tikzbox}{%
+        #1
+    }
+    \settoheight{\tikzheight}{\usebox{\tikzbox}}
+    \addtolength{\tikzheight}{4ex} % increase a litle bit the heigth
+    \ifprintanswers
+        \begin{center}
+            \colorbox{aliceblue}{\usebox{\tikzbox}}
+        \end{center} 
+    \else
+        \makeemptybox{\tikzheight}
+    \fi
+}
+
+
+\newif\iflabeled
+\labeledfalse %
+\ifprintanswers
+\labeledtrue
+\fi
+
+\tikzset{normal/.style={circle split,
+                        line width=.02cm,
+                        align=center,
+                        top color=blue!10,
+                        bottom color=white,
+                        draw}
+        }
+\iflabeled
+\tikzset{
+    nullable/.style={circle split,
+                     line width=.05cm,
+                     red,text=black,
+                     align=center,
+                     top color=blue!10,
+                     bottom color=white,
+                     draw}
+}
+\else 
+\tikzset{nullable/.style={circle split,
+                          line width=.02cm,
+                          align=center,
+                          top color=blue!10,
+                          bottom color=white,
+                          draw}
+        }
+\fi 
+
+
+\begin{document}
+
+{documento}
+
+\end{document}

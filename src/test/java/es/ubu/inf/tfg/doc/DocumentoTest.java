@@ -21,6 +21,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import es.ubu.inf.tfg.doc.datos.Messages;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
@@ -119,6 +120,8 @@ public class DocumentoTest {
 
 		String esperado;
 		String encontrado;
+		
+		String solution = Messages.getString("DocumentoTest.solution");
 
 		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA, 1));
 		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB, 2));
@@ -128,10 +131,11 @@ public class DocumentoTest {
 		esperado = toString("incorporarASUConstruccion.html");
 		encontrado = documento.vistaPrevia();
 
+
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
-				"<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>" + solution + "[^<]*</p>",
+				"<p>" + solution + "</p>");
 
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo construcción a vista previa.",
@@ -299,6 +303,8 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
+		String solution = Messages.getString("DocumentoTest.solution");
+		
 		// Vista previa
 		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA, 1));
 		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB, 2));
@@ -310,8 +316,8 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
-				"<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>" + solution + "[^<]*</p>",
+				"<p>" + solution + "</p>");
 
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo construcción en vista previa.",
@@ -480,6 +486,8 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
+		String solution = Messages.getString("DocumentoTest.solution");
+		
 		// Vista previa
 		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA, 1));
 		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB, 2));
@@ -491,8 +499,8 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
-				"<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>" + solution +"[^<]*</p>", 
+				"<p>" + solution + "</p>");
 
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo construcción en vista previa.",
@@ -663,6 +671,8 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
+		String solution = Messages.getString("DocumentoTest.solution");
+
 		documento.añadirProblema(Problema.CSConstruccion(csProblemaA, 1));
 		documento.añadirProblema(Problema.CSConstruccion(csProblemaB, 2));
 		documento.añadirProblema(Problema.CSConstruccion(csProblemaC, 3));
@@ -673,8 +683,8 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
-				"<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>" + solution + "[^<]*</p>",
+				"<p>" + solution + "</p>");
 
 		assertEquals(
 				"Añadido erróneo de problemas de construcción de subconjuntos subtipo construcción a vista previa.",
@@ -729,6 +739,8 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
+		String solution = Messages.getString("DocumentoTest.solution");
+
 		// Vista previa
 		documento.añadirProblema(Problema.CSConstruccion(csProblemaA, 1));
 		documento.añadirProblema(Problema.CSConstruccion(csProblemaB, 2));
@@ -740,8 +752,8 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
-				"<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>" + solution + "[^<]*</p>",
+				"<p>" + solution + "</p>");
 
 		assertEquals(
 				"Borrado erróneo de problemas de construcción de subconjuntos subtipo construcción en vista previa.",
@@ -794,6 +806,8 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
+		String solution = Messages.getString("DocumentoTest.solution");
+
 		// Vista previa
 		documento.añadirProblema(Problema.CSConstruccion(csProblemaA, 1));
 		documento.añadirProblema(Problema.CSConstruccion(csProblemaB, 2));
@@ -805,8 +819,8 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
-				"<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>" + solution + "[^<]*</p>",
+				"<p>" + solution + "</p>");
 
 		assertEquals(
 				"Sustitución errónea de problemas de construcción de subconjuntos subtipo construcción en vista previa.",
@@ -1259,6 +1273,9 @@ public class DocumentoTest {
 		String resultado;
 		StringBuilder contenido;
 		String linea;
+		
+		String languageFolder = Messages.getString("DocumentoTest.lang");
+		fichero = languageFolder + fichero;
 
 		try (InputStream entrada = getClass().getResourceAsStream(fichero);
 				BufferedReader lector = new BufferedReader(

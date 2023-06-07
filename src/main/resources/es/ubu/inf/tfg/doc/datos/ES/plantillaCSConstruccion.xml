@@ -1,0 +1,42 @@
+	<!-- question: {numero}  -->
+	<question type="cloze">
+		<name>
+			<text>PLQuiz: Construcción de subconjuntos</text>
+		</name>
+		<questiontext>
+			<text><![CDATA[
+				<p>Selecciona el autómata generado por la expresión regular {expresion} siguiendo el método de Thompson.</p>
+
+				<table>
+					<tr>
+						<td>
+						<h2>a)</h2><p><img src="@@PLUGINFILE@@/{urlA}" alt="" /></p>
+						</td>
+						<td>
+							<h2>b)</h2><p><img src="@@PLUGINFILE@@/{urlB}" alt="" /></p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h2>c)</h2><p><img src="@@PLUGINFILE@@/{urlC}" alt="" /></p>
+						</td>
+						<td>
+							<h2>d)</h2><p><img src="@@PLUGINFILE@@/{urlD}" alt="" /></p>
+						</td>
+					</tr>
+				</table>
+
+				<p>
+					Solución: {solucion}
+				</p>
+			]]></text>
+			<file name="{urlA}" encoding="base64">{imagenA}</file> 
+			<file name="{urlB}" encoding="base64">{imagenB}</file> 
+			<file name="{urlC}" encoding="base64">{imagenC}</file> 
+			<file name="{urlD}" encoding="base64">{imagenD}</file> 
+		</questiontext>
+		<generalfeedback>
+			<text></text>
+		</generalfeedback>
+		<shuffleanswers>0</shuffleanswers>
+	</question>

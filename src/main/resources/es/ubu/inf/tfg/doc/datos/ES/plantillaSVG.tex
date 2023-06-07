@@ -1,0 +1,49 @@
+\documentclass[11pt,a4paper,table,answers]{exam} % <== Answers are printed
+%\documentclass[11pt,a4paper,table]{exam} % <== Answers are NOT printed
+
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+
+\usepackage{svg}
+\usepackage{adjustbox} % Some graphs were too wide
+
+\usepackage{xcolor} % table option is passed as documentclass option
+\usepackage{booktabs}
+\colorlet{azul}{blue!40!black}
+
+\newcommand{\h}[1]{\ifprintanswers\textcolor{azul}{\bf#1}\else{\phantom{\bf#1}}\fi}
+
+\newcommand{\myincludesvg}[1]{%
+\begin{center}
+\begin{adjustbox}{max size={\textwidth}{\textheight}}
+    \includesvg[inkscapelatex=false]{#1}
+\end{adjustbox}
+\end{center}
+} % /myincludesvg
+
+\newlength{\svgheigth}
+\newsavebox{\svgbox}
+\newcommand{\myincludesvgsol}[1]{%
+    \sbox{\svgbox}{%
+        \begin{adjustbox}{max size={\textwidth}{\textheight}}
+            \includesvg[inkscapelatex=false]{#1}
+        \end{adjustbox}
+    }
+    \settoheight{\svgheigth}{\usebox{\svgbox}}
+    \addtolength{\svgheigth}{4ex} % increase a litle bit the heigth
+    \ifprintanswers
+        \begin{center}
+            \usebox{\svgbox}
+        \end{center} 
+    \else
+        \makeemptybox{\svgheigth}
+    \fi
+}
+
+\begin{document}
+
+{documento}
+
+\end{document}
