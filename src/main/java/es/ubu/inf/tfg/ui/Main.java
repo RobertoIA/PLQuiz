@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.image.BufferedImage;
+import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -59,12 +60,12 @@ public class Main {
 	private JPanel vistaPreviaPanel;
 	private JScrollPane vistaPreviaScroll;
 	private JTextPane vistaPreviaText;
-	private JPanel aÒadirPanel;
-	private JButton aÒadirButton;
-	private JComboBox<String> aÒadirBox;
+	private JPanel a√±adirPanel;
+	private JButton a√±adirButton;
+	private JComboBox<String> a√±adirBox;
 	private JPanel contenedorPanel;
-	private Component aÒadirDerechoStrut;
-	private Component aÒadirIzquierdoStrut;
+	private Component a√±adirDerechoStrut;
+	private Component a√±adirIzquierdoStrut;
 	private JMenuBar menuBar;
 	private JMenuItem menuNuevo;
 	private JMenuItem menuBloque;
@@ -128,7 +129,7 @@ public class Main {
 					Main window = new Main();
 					window.frmPlquiz.setVisible(true);
 				} catch (Exception e) {
-					log.error("Error al iniciar la aplicaciÛn", e); //$NON-NLS-1$
+					log.error("Error al iniciar la aplicaci√≥n", e); //$NON-NLS-1$
 				}
 			}
 		});
@@ -156,6 +157,8 @@ public class Main {
 		this.frmPlquiz.setTitle("PLQuiz"); //$NON-NLS-1$
 		this.frmPlquiz.setBounds(100, 100, 1150, 900);
 		this.frmPlquiz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frmPlquiz.setMinimumSize(new Dimension(480, 380));
+
 
 		initMenuBar();
 		initControlPanel();
@@ -290,23 +293,23 @@ public class Main {
 				BoxLayout.Y_AXIS));
 		this.problemasPanel.add(this.contenedorPanel);
 
-		this.aÒadirPanel = new JPanel();
-		this.controlPanel.add(this.aÒadirPanel, BorderLayout.SOUTH);
+		this.a√±adirPanel = new JPanel();
+		this.controlPanel.add(this.a√±adirPanel, BorderLayout.SOUTH);
 
-		this.aÒadirButton = new JButton("+"); //$NON-NLS-1$
-		this.aÒadirButton.addActionListener(new AddButtonActionListener());
+		this.a√±adirButton = new JButton("‚ûï"); //$NON-NLS-1$
+		this.a√±adirButton.addActionListener(new AddButtonActionListener());
 
-		this.aÒadirIzquierdoStrut = Box.createHorizontalStrut(70);
-		this.aÒadirPanel.add(this.aÒadirIzquierdoStrut);
-		this.aÒadirPanel.add(this.aÒadirButton);
+		this.a√±adirIzquierdoStrut = Box.createHorizontalStrut(70);
+		this.a√±adirPanel.add(this.a√±adirIzquierdoStrut);
+		this.a√±adirPanel.add(this.a√±adirButton);
 
-		this.aÒadirBox = new JComboBox<>();
-		this.aÒadirBox.setModel(new DefaultComboBoxModel<String>(new String[] {
+		this.a√±adirBox = new JComboBox<>();
+		this.a√±adirBox.setModel(new DefaultComboBoxModel<String>(new String[] {
 				"Aho-Sethi-Ullman", "McNaughton-Yamada-Thompson" })); //$NON-NLS-1$ //$NON-NLS-2$
-		this.aÒadirPanel.add(this.aÒadirBox);
+		this.a√±adirPanel.add(this.a√±adirBox);
 
-		this.aÒadirDerechoStrut = Box.createHorizontalStrut(70);
-		this.aÒadirPanel.add(this.aÒadirDerechoStrut);
+		this.a√±adirDerechoStrut = Box.createHorizontalStrut(70);
+		this.a√±adirPanel.add(this.a√±adirDerechoStrut);
 	}
 
 	private void initVistaPreviaPanel() {
@@ -330,7 +333,7 @@ public class Main {
 				new ScrollbarVistaPreviaListener());
 	}
 
-	void aÒadeAhoSethiUllman(Problema<AhoSethiUllman> problema) {
+	void a√±adeAhoSethiUllman(Problema<AhoSethiUllman> problema) {
 		AhoSethiUllmanPanel panel = new AhoSethiUllmanPanel(this,
 				contenedorPanel, this.panelesProblema.size() + 1);
 
@@ -343,7 +346,7 @@ public class Main {
 		contenedorPanel.revalidate();
 	}
 
-	void aÒadeConstruccionSubconjuntos(
+	void a√±adeConstruccionSubconjuntos(
 			Problema<ConstruccionSubconjuntos> problema) {
 		ConstruccionSubconjuntosPanel panel = new ConstruccionSubconjuntosPanel(
 				this, contenedorPanel, this.panelesProblema.size() + 1);
@@ -402,10 +405,10 @@ public class Main {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	void aÒadeImagen(BufferedImage imagen) {
+	void a√±adeImagen(BufferedImage imagen) {
 		try {
 			String url = "http:\\" + imagen.hashCode() + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
-			log.debug("AÒadiendo imagen {}.", url); //$NON-NLS-1$
+			log.debug("A√±adiendo imagen {}.", url); //$NON-NLS-1$
 			Dictionary cache = (Dictionary) vistaPreviaText.getDocument()
 					.getProperty("imageCache"); //$NON-NLS-1$
 			if (cache == null) {
@@ -414,7 +417,7 @@ public class Main {
 			}
 			cache.put(new URL(url), imagen);
 		} catch (Exception e) {
-			log.error("Error al aÒadir imagen.", e); //$NON-NLS-1$
+			log.error("Error al a√±adir imagen.", e); //$NON-NLS-1$
 		}
 	}
 
@@ -441,19 +444,19 @@ public class Main {
 	private Documento documento() {
 		Documento documento = new Documento();
 		for (ProblemaPanel<?> panel : this.panelesProblema)
-			documento.aÒadirProblema(panel.problemaActual);
+			documento.a√±adirProblema(panel.problemaActual);
 		return documento;
 	}
 
 	private class AddButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			if (aÒadirBox.getSelectedItem().equals("Aho-Sethi-Ullman")) { //$NON-NLS-1$
-				log.info("AÒadiendo problema tipo Aho-Sethi-Ullman"); //$NON-NLS-1$
-				aÒadeAhoSethiUllman(null);
-			} else if (aÒadirBox.getSelectedItem().equals(
+			if (a√±adirBox.getSelectedItem().equals("Aho-Sethi-Ullman")) { //$NON-NLS-1$
+				log.info("A√±adiendo problema tipo Aho-Sethi-Ullman"); //$NON-NLS-1$
+				a√±adeAhoSethiUllman(null);
+			} else if (a√±adirBox.getSelectedItem().equals(
 					"McNaughton-Yamada-Thompson")) { //$NON-NLS-1$
-				log.info("AÒadiendo problema tipo construcciÛn de subconjuntos"); //$NON-NLS-1$
-				aÒadeConstruccionSubconjuntos(null);
+				log.info("A√±adiendo problema tipo construcci√≥n de subconjuntos"); //$NON-NLS-1$
+				a√±adeConstruccionSubconjuntos(null);
 			}
 		}
 	}
@@ -487,22 +490,22 @@ public class Main {
 						documento().exportaLatex(fichero);
 					} else if (source == menuExportarGraphvizLatexButton) {
 						log.info(
-								"Exportando fichero Latex con im·genes en graphviz a {}.", //$NON-NLS-1$
+								"Exportando fichero Latex con im√°genes en graphviz a {}.", //$NON-NLS-1$
 								fichero);
 						documento().exportaGraphvizLatex(fichero);
 					} else if (source == menuExportarSVGLatexButton) {	// JBA
 						log.info(
-								"Exportando fichero Latex con im·genes en SVG a {}.", //$NON-NLS-1$
+								"Exportando fichero Latex con im√°genes en SVG a {}.", //$NON-NLS-1$
 								fichero);
 						documento().exportaSVGLatex(fichero);
 					} else if (source == menuExportarPDFLatexButton) {	// JBA
 						log.info(
-								"Exportando fichero Latex con im·genes en SVG a {}.", //$NON-NLS-1$
+								"Exportando fichero Latex con im√°genes en SVG a {}.", //$NON-NLS-1$
 								fichero);
 						documento().exportaPDFLatex(fichero);
 					} else if (source == menuExportarTikZLatexButton) {	// JBA
 						log.info(
-								"Exportando fichero Latex con im·genes en TikZ a {}.", //$NON-NLS-1$
+								"Exportando fichero Latex con im√°genes en TikZ a {}.", //$NON-NLS-1$
 								fichero);
 						documento().exportaTikZLatex(fichero);
 					}
@@ -525,12 +528,12 @@ public class Main {
 
 	private class MenuWebActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			log.info("Mostrando p·gina web."); //$NON-NLS-1$
+			log.info("Mostrando p√°gina web."); //$NON-NLS-1$
 			try {
 				Desktop.getDesktop().browse(
 						new URI("http://robertoia.github.com/PLQuiz")); //$NON-NLS-1$
 			} catch (IOException | URISyntaxException e) {
-				log.error("Error abriendo p·gina web de la aplicaciÛn", e); //$NON-NLS-1$
+				log.error("Error abriendo p√°gina web de la aplicaci√≥n", e); //$NON-NLS-1$
 			}
 		}
 	}
@@ -540,7 +543,7 @@ public class Main {
 			log.info("Mostrando acerca de."); //$NON-NLS-1$
 			JOptionPane.showMessageDialog(frmPlquiz, "PLQuiz\n" //$NON-NLS-1$
 					+ Messages.getString("Main.computingScienceFinalProject") //$NON-NLS-1$
-					+ "Escuela PolitÈcnica Superior, Universidad de Burgos\n" //$NON-NLS-1$
+					+ "Escuela Polit√©cnica Superior, Universidad de Burgos\n" //$NON-NLS-1$
 					+ Messages.getString("Main.defendedOnJuly2014") //$NON-NLS-1$
 					+ Messages.getString("Main.authorRobertoIzquierdoAmo") //$NON-NLS-1$
 					+ Messages.getString("Main.supervisorDrCegarIgnacioGarciaOsorio"), Messages.getString("Main.about"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -557,13 +560,13 @@ public class Main {
 
 	private class MenuASUActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			aÒadeAhoSethiUllman(null);
+			a√±adeAhoSethiUllman(null);
 		}
 	}
 
 	private class MenuCSActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			aÒadeConstruccionSubconjuntos(null);
+			a√±adeConstruccionSubconjuntos(null);
 		}
 	}
 
