@@ -63,18 +63,18 @@ public class ConstruccionSubconjuntosPanel extends
 		this.contenedorPanel = contenedor;
 		this.numero = numero;
 
-		inicializaPanel("McNaughton-Yamada-Thompson");
+		inicializaPanel("McNaughton-Yamada-Thompson"); //$NON-NLS-1$
 
-		this.modoA = new JRadioButton("Construir aut\u00F3mata");
+		this.modoA = new JRadioButton(Messages.getString("ConstruccionSubconjuntosPanel.RE2NFA")); //$NON-NLS-1$
 		this.modoA.setSelected(true);
 		modoGroup.add(this.modoA);
 		this.modoA.addActionListener(new ModoButtonChangeListener());
 
-		this.modoB = new JRadioButton("Resolver expresi\u00F3n");
+		this.modoB = new JRadioButton(Messages.getString("ConstruccionSubconjuntosPanel.RE2DFA")); //$NON-NLS-1$
 		modoGroup.add(this.modoB);
 		this.modoB.addActionListener(new ModoButtonChangeListener());
 
-		this.modoC = new JRadioButton("Resolver aut\u00F3mata");
+		this.modoC = new JRadioButton(Messages.getString("ConstruccionSubconjuntosPanel.NFA2DFA")); //$NON-NLS-1$
 		modoGroup.add(this.modoC);
 		this.modoC.addActionListener(new ModoButtonChangeListener());
 
@@ -84,7 +84,7 @@ public class ConstruccionSubconjuntosPanel extends
 		this.simbolosSlider.setMinimum(2);
 		this.simbolosSlider.addChangeListener(new SliderChangeListener());
 
-		this.simbolosEstadoLabel = new JLabel("3");
+		this.simbolosEstadoLabel = new JLabel("3"); //$NON-NLS-1$
 
 		this.estadosSlider = new JSlider();
 		this.estadosSlider.setValue(5);
@@ -92,13 +92,13 @@ public class ConstruccionSubconjuntosPanel extends
 		this.estadosSlider.setMaximum(15);
 		this.estadosSlider.addChangeListener(new SliderChangeListener());
 
-		this.estadosEstadoLabel = new JLabel("5");
+		this.estadosEstadoLabel = new JLabel("5"); //$NON-NLS-1$
 
 		this.expresionPanel = new JPanel();
 		this.mainPanel.add(this.expresionPanel);
 		this.expresionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		this.borrarButton = new JButton("-");
+		this.borrarButton = new JButton("‚ûñ");  // üóë‚å´‚ê°‚ò†√ó //$NON-NLS-1$
 		this.borrarButton.addActionListener(new BotonBorrarActionListener());
 		this.expresionPanel.add(this.borrarButton);
 
@@ -119,11 +119,11 @@ public class ConstruccionSubconjuntosPanel extends
 		this.botonesPanel = new JPanel();
 		this.mainPanel.add(this.botonesPanel);
 
-		this.generarButton = new JButton("Generar");
+		this.generarButton = new JButton(Messages.getString("ConstruccionSubconjuntosPanel.generate")); //$NON-NLS-1$
 		this.generarButton.addActionListener(new BotonGenerarActionListener());
 		this.botonesPanel.add(this.generarButton);
 
-		this.resolverButton = new JButton("Resolver");
+		this.resolverButton = new JButton(Messages.getString("ConstruccionSubconjuntosPanel.solve")); //$NON-NLS-1$
 		this.resolverButton
 				.addActionListener(new BotonResolverActionListener());
 		this.botonesPanel.add(this.resolverButton);
@@ -136,13 +136,13 @@ public class ConstruccionSubconjuntosPanel extends
 		this.vacioPanel = new JPanel();
 		this.opcionesPanel.add(this.vacioPanel);
 
-		this.vacioCheck = new JCheckBox("Incluir \u03B5");
+		this.vacioCheck = new JCheckBox(Messages.getString("ConstruccionSubconjuntosPanel.includeEpsilon")); //$NON-NLS-1$
 		this.vacioPanel.add(this.vacioCheck);
 
 		this.simbolosPanel = new JPanel();
 		this.opcionesPanel.add(this.simbolosPanel);
 
-		this.simbolosLabel = new JLabel("S\u00EDmbolos");
+		this.simbolosLabel = new JLabel(Messages.getString("ConstruccionSubconjuntosPanel.symbols")); //$NON-NLS-1$
 		this.simbolosPanel.add(this.simbolosLabel);
 		this.simbolosPanel.add(this.simbolosSlider);
 		this.simbolosPanel.add(this.simbolosEstadoLabel);
@@ -150,7 +150,7 @@ public class ConstruccionSubconjuntosPanel extends
 		this.estadosPanel = new JPanel();
 		this.opcionesPanel.add(this.estadosPanel);
 
-		this.estadosLabel = new JLabel("Estados");
+		this.estadosLabel = new JLabel(Messages.getString("ConstruccionSubconjuntosPanel.state")); //$NON-NLS-1$
 		this.estadosPanel.add(this.estadosLabel);
 		this.estadosPanel.add(this.estadosSlider);
 		this.estadosPanel.add(this.estadosEstadoLabel);
@@ -174,21 +174,21 @@ public class ConstruccionSubconjuntosPanel extends
 		}
 
 		switch (problema.getTipo()) {
-		case "ConstruccionSubconjuntosConstruccion":
+		case "ConstruccionSubconjuntosConstruccion": //$NON-NLS-1$
 			modoA.setSelected(true);
 			for (BufferedImage imagen : problema.getProblema().alternativas())
-				main.aÒadeImagen(imagen);
+				main.a√±adeImagen(imagen);
 			break;
-		case "ConstruccionSubconjuntosExpresion":
+		case "ConstruccionSubconjuntosExpresion": //$NON-NLS-1$
 			modoB.setSelected(true);
 			break;
-		case "ConstruccionSubconjuntosAutomata":
-			main.aÒadeImagen(problema.getProblema().automata());
+		case "ConstruccionSubconjuntosAutomata": //$NON-NLS-1$
+			main.a√±adeImagen(problema.getProblema().automata());
 			modoC.setSelected(true);
 			break;
 		default:
 			log.error(
-					"Error identificando tipo de problema construcciÛn de subconjuntos, definido como {}",
+					"Error identificando tipo de problema construcci√≥n de subconjuntos, definido como {}", //$NON-NLS-1$
 					problema.getTipo());
 		}
 
@@ -231,8 +231,8 @@ public class ConstruccionSubconjuntosPanel extends
 							main.eliminaImagen(problemaActual.getProblema()
 									.automata());
 							for (BufferedImage imagen : problema.alternativas())
-								main.aÒadeImagen(imagen);
-							main.aÒadeImagen(problema.automata());
+								main.a√±adeImagen(imagen);
+							main.a√±adeImagen(problema.automata());
 							problemaActual = csProblema;
 						}
 					} else {
@@ -245,9 +245,9 @@ public class ConstruccionSubconjuntosPanel extends
 							csProblema = Problema.CSAutomata(problema, numero);
 						else
 							csProblema = Problema.CSExpresion(problema, numero);
-						main.aÒadeImagen(problema.automata());
+						main.a√±adeImagen(problema.automata());
 						for (BufferedImage imagen : problema.alternativas())
-							main.aÒadeImagen(imagen);
+							main.a√±adeImagen(imagen);
 						problemaActual = csProblema;
 					}
 					mostrarVista();
@@ -256,8 +256,8 @@ public class ConstruccionSubconjuntosPanel extends
 				JOptionPane
 						.showMessageDialog(
 								actualPanel,
-								"ExpresiÛn regular no valida.",
-								"Error", JOptionPane.ERROR_MESSAGE);
+								Messages.getString("ConstruccionSubconjuntosPanel.wrongRE"), //$NON-NLS-1$
+								"Error", JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
 //				expresionText.setText("");
 			}
 
@@ -279,7 +279,7 @@ public class ConstruccionSubconjuntosPanel extends
 		@Override
 		protected ConstruccionSubconjuntos doInBackground() throws Exception {
 			generando = true;
-			generarButton.setText("Cancelar");
+			generarButton.setText(Messages.getString("ConstruccionSubconjuntosPanel.cancel")); //$NON-NLS-1$
 			generador = new ConstruccionSubconjuntosGenerador();
 			int nSimbolos = simbolosSlider.getValue();
 			int nEstados = estadosSlider.getValue();
@@ -310,9 +310,9 @@ public class ConstruccionSubconjuntosPanel extends
 							.alternativas())
 						main.eliminaImagen(imagen);
 				}
-				main.aÒadeImagen(problema.automata());
+				main.a√±adeImagen(problema.automata());
 				for (BufferedImage imagen : problema.alternativas())
-					main.aÒadeImagen(imagen);
+					main.a√±adeImagen(imagen);
 
 				problemaActual = csProblema;
 				expresionText.setText(problema.problema());
@@ -320,17 +320,17 @@ public class ConstruccionSubconjuntosPanel extends
 			} catch (InterruptedException | ExecutionException
 					| CancellationException e) {
 				log.error(
-						"Error generando problema de tipo construcciÛn de subconjuntos",
+						"Error generando problema de tipo construcci√≥n de subconjuntos", //$NON-NLS-1$
 						e);
 			} finally {
 				generando = false;
-				generarButton.setText("Generar");
+				generarButton.setText("Generar"); //$NON-NLS-1$
 				progresoBar.setVisible(false);
 			}
 		}
 
 		public void cancel() {
-			log.info("Cancelando generaciÛn de problema ConstruccionSubconjuntos.");
+			log.info("Cancelando generaci√≥n de problema ConstruccionSubconjuntos."); //$NON-NLS-1$
 			generador.cancelar();
 		}
 	}
@@ -343,17 +343,17 @@ public class ConstruccionSubconjuntosPanel extends
 				Problema<ConstruccionSubconjuntos> csProblema = null;
 	
 				if (modoA == modoButton) {
-					log.info("Seleccionado modo construcciÛn de autÛmata en problema de construcciÛn de subconjuntos numero {}.", numero);
+					log.info("Seleccionado modo construcci√≥n de aut√≥mata en problema de construcci√≥n de subconjuntos numero {}.", numero); //$NON-NLS-1$
 					if (problemaActual != null) {
 						csProblema = Problema.CSConstruccion(problema, numero);
 					}
 				} else if (modoC == modoButton) {
-					log.info("Seleccionado modo autÛmata en problema de construcciÛn de subconjuntos numero {}.", numero);
+					log.info("Seleccionado modo aut√≥mata en problema de construcci√≥n de subconjuntos numero {}.", numero); //$NON-NLS-1$
 					if (problemaActual != null) {
 						csProblema = Problema.CSAutomata(problema, numero);
 					}
 				} else if (modoB == modoButton) {
-					log.info("Seleccionado modo expresiÛn en problema de construcciÛn de subconjuntos numero {}.", numero);
+					log.info("Seleccionado modo expresi√≥n en problema de construcci√≥n de subconjuntos numero {}.", numero); //$NON-NLS-1$
 					if (problemaActual != null) {
 						csProblema = Problema.CSExpresion(problema, numero);
 					}

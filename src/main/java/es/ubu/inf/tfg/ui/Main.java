@@ -157,8 +157,7 @@ public class Main {
 		this.frmPlquiz.setTitle("PLQuiz"); //$NON-NLS-1$
 		this.frmPlquiz.setBounds(100, 100, 1150, 900);
 		this.frmPlquiz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.frmPlquiz.setMinimumSize(new Dimension(480, 380));
-
+		this.frmPlquiz.setMinimumSize(new Dimension(480, 360));
 
 		initMenuBar();
 		initControlPanel();
