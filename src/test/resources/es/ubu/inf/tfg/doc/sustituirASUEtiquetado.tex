@@ -47,7 +47,7 @@
 
 
 \paragraph{1.-}\label{p1}
-Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular:
+Given the following regular expression, complete the syntax tree according to the Aho-Sethi-Ullman algorithm.
 \[
     ((a|b^*)a^*c)^*
 \]
@@ -56,25 +56,25 @@ Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para l
 \rowcolors{2}{gray!25}{white}
 \begin{tabular} {c@{\hspace{4mm}}c@{\hspace{4mm}}c@{\hspace{4mm}}c}
 \toprule % =============================
-Nodo & Anulable & Primera-pos & Última-pos\\ 
+\emph{Node} & \emph{Nullable?} & \emph{Firstpos} & \emph{Lastpos}\\ 
 \midrule %-------------------------------
 A & \h{No} & \h{1-5} & \h{5}\\
-B & \h{Sí} & \h{1-4} & \h{4}\\
+B & \h{Yes} & \h{1-4} & \h{4}\\
 C & \h{No} & \h{5} & \h{5}\\
 D & \h{No} & \h{1-4} & \h{4}\\
-E & \h{Sí} & \h{1-3} & \h{1-3}\\
+E & \h{Yes} & \h{1-3} & \h{1-3}\\
 F & \h{No} & \h{4} & \h{4}\\
-G & \h{Sí} & \h{1, 2} & \h{1, 2}\\
-H & \h{Sí} & \h{3} & \h{3}\\
+G & \h{Yes} & \h{1, 2} & \h{1, 2}\\
+H & \h{Yes} & \h{3} & \h{3}\\
 I & \h{No} & \h{1} & \h{1}\\
-J & \h{Sí} & \h{2} & \h{2}\\
+J & \h{Yes} & \h{2} & \h{2}\\
 K & \h{No} & \h{3} & \h{3}\\
 L & \h{No} & \h{2} & \h{2}\\
 \bottomrule % =============================
 \end{tabular}
 
 \paragraph{2.-}\label{p2}
-Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular:
+Given the following regular expression, complete the syntax tree according to the Aho-Sethi-Ullman algorithm.
 \[
     (a|b)^*a(a|b)(a|b)
 \]
@@ -83,7 +83,7 @@ Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para l
 \rowcolors{2}{gray!25}{white}
 \begin{tabular} {c@{\hspace{4mm}}c@{\hspace{4mm}}c@{\hspace{4mm}}c}
 \toprule % =============================
-Nodo & Anulable & Primera-pos & Última-pos\\ 
+\emph{Node} & \emph{Nullable?} & \emph{Firstpos} & \emph{Lastpos}\\ 
 \midrule %-------------------------------
 A & \h{No} & \h{1-3} & \h{8}\\
 B & \h{No} & \h{1-3} & \h{6, 7}\\
@@ -94,7 +94,7 @@ F & \h{No} & \h{1-3} & \h{3}\\
 G & \h{No} & \h{4, 5} & \h{4, 5}\\
 H & \h{No} & \h{6} & \h{6}\\
 I & \h{No} & \h{7} & \h{7}\\
-J & \h{Sí} & \h{1, 2} & \h{1, 2}\\
+J & \h{Yes} & \h{1, 2} & \h{1, 2}\\
 K & \h{No} & \h{3} & \h{3}\\
 L & \h{No} & \h{4} & \h{4}\\
 M & \h{No} & \h{5} & \h{5}\\

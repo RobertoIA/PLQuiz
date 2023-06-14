@@ -90,11 +90,23 @@ public class TraductorLatexTest {
 	 * subtipo tablas.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanTablas() {
+	public void testTraduceAhoSethiUllmanTablas() { //throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*"); //$NON-NLS-1$
 		String esperado = toString("TraductorASUTablas.tex"); //$NON-NLS-1$
 		String encontrado = traductor.traduceASUTablas(problema).toString();
 		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}"); //$NON-NLS-1$ //$NON-NLS-2$
+
+		/*
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("TraductorLatex_TraductorASUTablas_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("TraductorLatex_TraductorASUTablas_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/
+
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo tablas.", //$NON-NLS-1$
 				esperado, encontrado);
@@ -122,12 +134,24 @@ public class TraductorLatexTest {
 	 * subconjuntos subtipo expresión.
 	 */
 	@Test
-	public void testTraduceConstruccionSubconjuntosExpresion() {
+	public void testTraduceConstruccionSubconjuntosExpresion() { //throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*"); //$NON-NLS-1$
 		String esperado = toString("TraductorCSExpresion.tex"); //$NON-NLS-1$
 		String encontrado = traductor.traduceCSExpresion(problema).toString();
 		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}"); //$NON-NLS-1$ //$NON-NLS-2$
+
+		/*
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("TraductorLatex_TraductorCSExpresion_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("TraductorLatex_TraductorCSExpresion_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/
+
 		assertEquals(
 				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo expresión.", //$NON-NLS-1$
 				esperado, encontrado);
@@ -138,13 +162,25 @@ public class TraductorLatexTest {
 	 * subconjuntos subtipo autómata.
 	 */
 	@Test
-	public void testTraduceConstruccionSubconjuntosAutomata()  {
+	public void testTraduceConstruccionSubconjuntosAutomata() { //throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos("((a|b*)a*c)*"); //$NON-NLS-1$
 		String esperado = toString("TraductorCSAutomata.tex"); //$NON-NLS-1$
 		String encontrado = traductor.traduceCSAutomata(problema).toString();
 
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}"); //$NON-NLS-1$ //$NON-NLS-2$
 		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}"); //$NON-NLS-1$
+
+		/*
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("TraductorLatex_TraductorCSAutomata_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("TraductorLatex_TraductorCSAutomata_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/
+
 		assertEquals(
 				"Traducción Latex incorrecta de problema de construcción de subconjuntos subtipo autómata.", //$NON-NLS-1$
 				esperado, encontrado);

@@ -45,33 +45,42 @@ public class TraductorMoodleXMLTest {
 	 */
 	@Test
 	public void testDocumento() {
-		String esperado = toString("TraductorVacio.xml");
+		String esperado = toString("TraductorVacio.xml"); //$NON-NLS-1$
 
-		assertEquals("Generación incorrecta de documento Moodle XML.",
+		assertEquals("Generación incorrecta de documento Moodle XML.", //$NON-NLS-1$
 				esperado, traductor.documento(new ArrayList<Plantilla>()));
 	}
-
+	
 	/**
 	 * Comprueba la correcta traducción de un problema de tipo Aho-Sethi-Ullman
 	 * subtipo construcción.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanConstruccion() {
-		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("TraductorASUConstruccion.xml");
+	public void testTraduceAhoSethiUllmanConstruccion() throws UnsupportedEncodingException, FileNotFoundException, IOException {
+		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*"); //$NON-NLS-1$
+		String esperado = toString("TraductorASUConstruccion.xml"); //$NON-NLS-1$
 		String encontrado = traductor.traduceASUConstruccion(problema)
 				.toString();
 
 		encontrado = encontrado.replaceAll(
-				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
-				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
-		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
-				"<file name=</file>");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
-				"{1:MULTICHOICE:}");
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />", //$NON-NLS-1$
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />"); //$NON-NLS-1$
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>", //$NON-NLS-1$
+				"<file name=</file>"); //$NON-NLS-1$
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}", //$NON-NLS-1$
+				"{1:MULTICHOICE:}"); //$NON-NLS-1$
+
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("TraductorMoodle_TraductorASUConstruccion_encontrado.kk"), "UTF8"))) { //$NON-NLS-1$ //$NON-NLS-2$
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("TraductorMoodle_TraductorASUConstruccion_esperado.kk"), "UTF8"))) { //$NON-NLS-1$ //$NON-NLS-2$
+			writer.write(esperado);
+		}
 
 		assertEquals(
-				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo construcción.",
+				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo construcción.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
@@ -80,21 +89,32 @@ public class TraductorMoodleXMLTest {
 	 * subtipo árbol.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanEtiquetado() {
-		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("TraductorASUEtiquetado.xml");
+	public void testTraduceAhoSethiUllmanEtiquetado() throws UnsupportedEncodingException, FileNotFoundException, IOException {
+		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*"); //$NON-NLS-1$
+		String esperado = toString("TraductorASUEtiquetado.xml"); //$NON-NLS-1$
 		String encontrado = traductor.traduceASUEtiquetado(problema).toString();
 
 		encontrado = encontrado.replaceAll(
-				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
-				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
-		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
-				"<file name=</file>");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
-				"{1:MULTICHOICE:}");
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />", //$NON-NLS-1$
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />"); //$NON-NLS-1$
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>", //$NON-NLS-1$
+				"<file name=</file>"); //$NON-NLS-1$
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}", //$NON-NLS-1$
+				"{1:MULTICHOICE:}"); //$NON-NLS-1$
+		
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("TraductorMoodle_TraductorASUEtiquetado_encontrado.kk"), "UTF8"))) { //$NON-NLS-1$ //$NON-NLS-2$
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("TraductorMoodle_TraductorASUEtiquetado_esperado.kk"), "UTF8"))) { //$NON-NLS-1$ //$NON-NLS-2$
+			writer.write(esperado);
+		}
+		
+		
 
 		assertEquals(
-				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo etiquetado.",
+				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo etiquetado.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
@@ -106,26 +126,27 @@ public class TraductorMoodleXMLTest {
 	 * @throws UnsupportedEncodingException 
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanTablas() throws UnsupportedEncodingException, FileNotFoundException, IOException {
-		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
-		String esperado = toString("TraductorASUTablas.xml");
+	public void testTraduceAhoSethiUllmanTablas() { //throws UnsupportedEncodingException, FileNotFoundException, IOException {
+		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*"); //$NON-NLS-1$
+		String esperado = toString("TraductorASUTablas.xml"); //$NON-NLS-1$
 		String encontrado = traductor.traduceASUTablas(problema).toString();
 
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
-				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}", //$NON-NLS-1$
+				"{1:MULTICHOICE:}"); //$NON-NLS-1$
 
+		/*
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-				new FileOutputStream("encontrado.kk"), "UTF8"))) {
+				new FileOutputStream("TraductorMoodle_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
 		}
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
-				new FileOutputStream("esperado.kk"), "UTF8"))) {
+				new FileOutputStream("TraductorMoodle_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
-
+		*/
 		
 		assertEquals(
-				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo tablas.",
+				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo tablas.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
@@ -136,21 +157,21 @@ public class TraductorMoodleXMLTest {
 	@Test
 	public void testTraduceConstruccionSubconjuntosConstruccion() {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
-				"((a|b*)a*c)*");
-		String esperado = toString("TraductorCSConstruccion.xml");
+				"((a|b*)a*c)*"); //$NON-NLS-1$
+		String esperado = toString("TraductorCSConstruccion.xml"); //$NON-NLS-1$
 		String encontrado = traductor.traduceCSConstruccion(problema)
 				.toString();
 		
 		encontrado = encontrado.replaceAll(
-				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
-				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
-		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
-				"<file name=</file>");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
-				"{1:MULTICHOICE:}");
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />", //$NON-NLS-1$
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />"); //$NON-NLS-1$
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>", //$NON-NLS-1$
+				"<file name=</file>"); //$NON-NLS-1$
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}", //$NON-NLS-1$
+				"{1:MULTICHOICE:}"); //$NON-NLS-1$
 
 		assertEquals(
-				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos subtipo construcción.",
+				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos subtipo construcción.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
@@ -161,15 +182,15 @@ public class TraductorMoodleXMLTest {
 	@Test
 	public void testTraduceConstruccionSubconjuntosExpresion() {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
-				"((a|b*)a*c)*");
-		String esperado = toString("TraductorCSExpresion.xml");
+				"((a|b*)a*c)*"); //$NON-NLS-1$
+		String esperado = toString("TraductorCSExpresion.xml"); //$NON-NLS-1$
 		String encontrado = traductor.traduceCSExpresion(problema).toString();
 
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}",
-				"{1:MULTICHOICE:}");
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", //$NON-NLS-1$
+				"{1:MULTICHOICE:}"); //$NON-NLS-1$
 
 		assertEquals(
-				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos subtipo expresión.",
+				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos subtipo expresión.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
@@ -180,20 +201,20 @@ public class TraductorMoodleXMLTest {
 	@Test
 	public void testTraduceConstruccionSubconjuntosAutomata() {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
-				"((a|b*)a*c)*");
-		String esperado = toString("TraductorCSAutomata.xml");
+				"((a|b*)a*c)*"); //$NON-NLS-1$
+		String esperado = toString("TraductorCSAutomata.xml"); //$NON-NLS-1$
 		String encontrado = traductor.traduceCSAutomata(problema).toString();
 
 		encontrado = encontrado.replaceAll(
-				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />",
-				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />");
-		encontrado = encontrado.replaceAll("<file name=[^<]*</file>",
-				"<file name=</file>");
-		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
-				"{1:MULTICHOICE:}");
+				"<img src=\"@@PLUGINFILE@@/[^.]*.jpg\" alt=\"\" />", //$NON-NLS-1$
+				"<img src=\"@@PLUGINFILE@@/.jpg\" alt=\"\" />"); //$NON-NLS-1$
+		encontrado = encontrado.replaceAll("<file name=[^<]*</file>", //$NON-NLS-1$
+				"<file name=</file>"); //$NON-NLS-1$
+		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}", //$NON-NLS-1$
+				"{1:MULTICHOICE:}"); //$NON-NLS-1$
 
 		assertEquals(
-				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos subtipo autómata.",
+				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos subtipo autómata.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
@@ -208,10 +229,13 @@ public class TraductorMoodleXMLTest {
 		String resultado;
 		StringBuilder contenido;
 		String linea;
+		
+		String languageFolder = Messages.getString("TraductorMoodleXMLTest.lang");  //$NON-NLS-1$
+		fichero = languageFolder + fichero;
 
 		try (InputStream entrada = getClass().getResourceAsStream(fichero);
 				BufferedReader lector = new BufferedReader(
-						new InputStreamReader(entrada, "UTF8"))) {
+						new InputStreamReader(entrada, "UTF8"))) { //$NON-NLS-1$
 
 			contenido = new StringBuilder();
 			linea = lector.readLine();
@@ -219,14 +243,14 @@ public class TraductorMoodleXMLTest {
 				contenido.append(linea);
 				linea = lector.readLine();
 				if (linea != null)
-					contenido.append("\n");
+					contenido.append("\n"); //$NON-NLS-1$
 			}
 
 			resultado = contenido.toString();
 			return resultado;
 		} catch (IOException e) {
-			fail("Error al abrir el archivo " + fichero);
-			return "";
+			fail("Error al abrir el archivo " + fichero); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
 		}
 	}
 }

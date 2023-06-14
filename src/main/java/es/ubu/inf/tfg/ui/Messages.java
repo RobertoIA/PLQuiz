@@ -15,11 +15,22 @@ public class Messages {
 	}
 
 	public static String getString(String key) {
-		System.out.println("ui.Messages: locale_default: " + Locale.getDefault() + ", key: " + key);
+		String res;
+		String pwd;
 		try {
-			return RESOURCE_BUNDLE.getString(key);
+			pwd =  RESOURCE_BUNDLE.getString("pwd");
+			res = RESOURCE_BUNDLE.getString(key);
 		} catch (MissingResourceException e) {
-			return '!' + key + '!';
+			pwd = "pwd error";
+			res = '!' + key + '!';
 		}
+		
+		System.out.println("\u001B[0;1mui.Messages: BUNDLE_NAME:\033[0;0m " + BUNDLE_NAME);
+		System.out.println("\u001B[0;1mui.Messages: pwd:\033[0;0m " + pwd);
+		System.out.println("\u001B[0;1mui.Messages: locale_default:\033[0;0m " + Locale.getDefault());
+		System.out.println("\u001B[0;1mui.Messages: key:\033[0;0m " + key);
+		System.out.println("\u001B[0;1mui.Messages res:\033[0;0m " + res);
+
+		return res;
 	}
 }

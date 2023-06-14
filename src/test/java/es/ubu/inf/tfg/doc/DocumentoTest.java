@@ -9,7 +9,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -182,7 +183,9 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testIncorporarASUEtiquetado() throws IOException {
+	public void testIncorporarASUEtiquetado() throws UnsupportedEncodingException, FileNotFoundException, IOException {
+//throws UnsupportedEncodingException, FileNotFoundException, IOException {
+ //throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -198,6 +201,23 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+		
+
+
+
+
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUEtiquetado_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUEtiquetado_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+
+
+
+
 
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado a vista previa.",
@@ -231,6 +251,22 @@ public class DocumentoTest {
 
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
+		
+
+
+
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUEtiquetado_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUEtiquetado_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+
+
+
+
 
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado a documento Latex exportado.",
@@ -364,7 +400,7 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testEliminarASUEtiquetado() throws IOException {
+	public void testEliminarASUEtiquetado() throws UnsupportedEncodingException, FileNotFoundException, IOException { //throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -400,7 +436,8 @@ public class DocumentoTest {
 				"<file name=</file>");
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
-
+		
+		
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado en documento XML exportado.",
 				esperado, encontrado);
@@ -414,6 +451,20 @@ public class DocumentoTest {
 
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
+	
+		
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_EliminarASUEtiquetado_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_EliminarASUEtiquetado_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		
+
+
+
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado en documento Latex exportado.",
 				esperado, encontrado);
@@ -547,7 +598,8 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testSustituirASUEtiquetado() throws IOException {
+	public void testSustituirASUEtiquetado() throws UnsupportedEncodingException, FileNotFoundException, IOException {
+//throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -564,6 +616,7 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+		
 
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo etiquetado en vista previa.",
@@ -583,6 +636,7 @@ public class DocumentoTest {
 				"<file name=</file>");
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
+		
 
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo etiquetado en documento XML exportado.",
@@ -598,6 +652,22 @@ public class DocumentoTest {
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
 
+
+
+
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_SustituirASUEtiquetado_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_SustituirASUEtiquetado_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+
+
+
+		
+		
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo etiquetado en documento Latex exportado.",
 				esperado, encontrado);
