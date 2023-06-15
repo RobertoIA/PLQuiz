@@ -7,7 +7,7 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Apply the Aho-Sethi-Ullman algorithm to obtain the <em>followpos</em> table and the transition function of the DFA that recognizes the language defined by the following regular expression: {expresion}</p>
+				<p>Apply the Aho-Sethi-Ullman algorithm to obtain the <em>followpos</em> table and the transition function of the DFA that recognizes the language defined by the following regular expression: ((a|b*)a*c)*</p>
 
 				<p>
 					<table border="1" cellspacing="0" align="left">
@@ -71,7 +71,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>The final states are: {finales}</p>
+				<p>The final states are: {1:MULTICHOICE:}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>
@@ -85,7 +85,7 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Apply the Aho-Sethi-Ullman algorithm to obtain the <em>followpos</em> table and the transition function of the DFA that recognizes the language defined by the following regular expression: {expresion}</p>
+				<p>Apply the Aho-Sethi-Ullman algorithm to obtain the <em>followpos</em> table and the transition function of the DFA that recognizes the language defined by the following regular expression: (a|b*)c*a</p>
 
 				<p>
 					<table border="1" cellspacing="0" align="left">
@@ -163,7 +163,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>The final states are: {finales}</p>
+				<p>The final states are: {1:MULTICHOICE:}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>

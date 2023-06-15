@@ -183,9 +183,8 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testIncorporarASUEtiquetado() throws UnsupportedEncodingException, FileNotFoundException, IOException {
-//throws UnsupportedEncodingException, FileNotFoundException, IOException {
- //throws IOException {
+	public void testIncorporarASUEtiquetado() throws IOException {
+		//throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -206,6 +205,7 @@ public class DocumentoTest {
 
 
 
+		/*
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_IncorporarASUEtiquetado_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -214,6 +214,7 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_IncorporarASUEtiquetado_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
+		*/
 
 
 
@@ -255,6 +256,7 @@ public class DocumentoTest {
 
 
 
+		/*
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_IncorporarASUEtiquetado_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -263,6 +265,7 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_IncorporarASUEtiquetado_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
+		*/
 
 
 
@@ -281,7 +284,7 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testIncorporarASUTablas() throws IOException {
+	public void testIncorporarASUTablas() throws UnsupportedEncodingException, FileNotFoundException, IOException { //throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -309,6 +312,20 @@ public class DocumentoTest {
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
+		
+	
+		/*
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUTablas_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUTablas_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/
+
+
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo tablas a documento XML exportado.",
 				esperado, encontrado);
@@ -320,6 +337,19 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
+
+		
+		
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUTablas_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUTablas_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+
+		
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo tablas a documento Latex exportado.",
 				esperado, encontrado);
@@ -400,7 +430,8 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testEliminarASUEtiquetado() throws UnsupportedEncodingException, FileNotFoundException, IOException { //throws IOException {
+	public void testEliminarASUEtiquetado() throws IOException {
+		//throws UnsupportedEncodingException, FileNotFoundException, IOException { 
 		File ficheroTemporal;
 
 		String esperado;
@@ -453,6 +484,7 @@ public class DocumentoTest {
 		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
 	
 		
+		/*
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_EliminarASUEtiquetado_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -461,6 +493,8 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_EliminarASUEtiquetado_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
+		*/
+		
 		
 
 
@@ -478,7 +512,8 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testEliminarASUTablas() throws IOException {
+	public void testEliminarASUTablas() throws UnsupportedEncodingException, FileNotFoundException, IOException { 
+		//throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -492,7 +527,25 @@ public class DocumentoTest {
 
 		esperado = toString("eliminarASUTablas.html");
 		encontrado = documento.vistaPrevia();
+		
+		
+		
 
+		
+		
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_EliminarASUTablas_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_EliminarASUTablas_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+
+
+
+		
+		
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo tablas en vista previa.",
 				esperado, encontrado);
@@ -503,10 +556,8 @@ public class DocumentoTest {
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
-
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo tablas en documento XML exportado.",
 				esperado, encontrado);
@@ -517,6 +568,22 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
+
+		
+
+		
+		
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_EliminarASUTablas_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_EliminarASUTablas_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+
+
+
 
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo tablas en documento Latex exportado.",
@@ -681,7 +748,8 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testSustituirASUTablas() throws IOException {
+	public void testSustituirASUTablas() throws UnsupportedEncodingException, FileNotFoundException, IOException {
+		//throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -709,6 +777,20 @@ public class DocumentoTest {
 
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
+		
+		
+		
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_SustituirASUTablas_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_SustituirASUTablas_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+
+
+
 
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo tablas en documento XML exportado.",

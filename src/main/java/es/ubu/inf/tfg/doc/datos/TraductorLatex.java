@@ -187,7 +187,9 @@ public class TraductorLatex extends Traductor {
 
 		// siguiente-pos
 		stePos.append("\\rowcolors{2}{gray!25}{white}\n"); //$NON-NLS-1$
-		stePos.append("\\begin{tabular} {c@{\\hspace{4mm}}l}\n\\toprule % =============================\n$n$ & stePos($n$) \\\\\n\\midrule %-------------------------------\n"); //$NON-NLS-1$
+		stePos.append("\\begin{tabular} {c@{\\hspace{4mm}}l}\n\\toprule % =============================\n$n$ & \\emph{"); ; //$NON-NLS-1$
+		stePos.append(Messages.getString("TraductorLatex.followpos"));
+		stePos.append("}($n$) \\\\\n\\midrule %-------------------------------\n"); //$NON-NLS-1$
 		for (int n : problema.posiciones()) {
 			stePos.append(n);
 			stePos.append(" & "); //$NON-NLS-1$

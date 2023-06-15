@@ -178,9 +178,9 @@ public class TraductorHTML extends Traductor {
 		Plantilla plantilla = new Plantilla("plantillaASUTablas.html"); //$NON-NLS-1$
 
 		// siguiente-pos
-		stePos.append("<p><table><tr><th>n</th><th>"); //$NON-NLS-1$
+		stePos.append("<p><table><tr><th><em>n</em></th><th><em>"); //$NON-NLS-1$
 		stePos.append(Messages.getString("TraductorHTML.followpos")); //$NON-NLS-1$
-		stePos.append("</th></tr>"); //$NON-NLS-1$
+		stePos.append("</em>(<em>n</em>)</th></tr>"); //$NON-NLS-1$
 		for (int n : problema.posiciones()) {
 			stePos.append("<tr><td>"); //$NON-NLS-1$
 			stePos.append(n);

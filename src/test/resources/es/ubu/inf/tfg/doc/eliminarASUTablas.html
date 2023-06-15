@@ -40,14 +40,14 @@
 <body>
 		<div id="problema">
 		<div id="enunciado">
-			1.- Apply the Aho-Sethi-Ullman algorithm to obtain the \emph{followpos} table and the transition function of the DFA that recognizes the language defined by the following regular expression: ((a|b*)a*c)*
+			1.- Apply the Aho-Sethi-Ullman algorithm to obtain the <em>followpos</em> table and the transition function of the DFA that recognizes the language defined by the following regular expression: ((a|b*)a*c)*
 		</div>
 		<hr />
 		<div id="solucion">
 			Augmented regular expression: ((a|b*)·a*·c)*·$
 			<p>
 			<table><tr><td class="celda-inv">
-				<p><table><tr><th>n</th><th>Followpos(n)</th></tr><tr><td>1</td><td>3, 4</td></tr><tr><td>2</td><td>2-4</td></tr><tr><td>3</td><td>3, 4</td></tr><tr><td>4</td><td>1-5</td></tr><tr><td>5</td><td>∅</td></tr></table></p>
+				<p><table><tr><th><em>n</em></th><th><em>Followpos</em>(<em>n</em>)</th></tr><tr><td>1</td><td>3, 4</td></tr><tr><td>2</td><td>2-4</td></tr><tr><td>3</td><td>3, 4</td></tr><tr><td>4</td><td>1-5</td></tr><tr><td>5</td><td>∅</td></tr></table></p>
 			</td>
 			<td class="celda-inv">
 				<table><tr><th></th><th>a</th><th>b</th><th>c</th><th></th></tr><tr><td>(A)</td><td>B</td><td>C</td><td>A</td><td>1-5</td></tr><tr><td>B</td><td>B</td><td>D</td><td>A</td><td>3, 4</td></tr><tr><td>C</td><td>B</td><td>C</td><td>A</td><td>2-4</td></tr><tr><td>D</td><td>D</td><td>D</td><td>D</td><td>∅</td></tr></table>
@@ -56,14 +56,14 @@
 		</div>
 	</div>	<div id="problema">
 		<div id="enunciado">
-			2.- Apply the Aho-Sethi-Ullman algorithm to obtain the \emph{followpos} table and the transition function of the DFA that recognizes the language defined by the following regular expression: (a|b*)c*a
+			2.- Apply the Aho-Sethi-Ullman algorithm to obtain the <em>followpos</em> table and the transition function of the DFA that recognizes the language defined by the following regular expression: (a|b*)c*a
 		</div>
 		<hr />
 		<div id="solucion">
 			Augmented regular expression: (a|b*)·c*·a·$
 			<p>
 			<table><tr><td class="celda-inv">
-				<p><table><tr><th>n</th><th>Followpos(n)</th></tr><tr><td>1</td><td>3, 4</td></tr><tr><td>2</td><td>2-4</td></tr><tr><td>3</td><td>3, 4</td></tr><tr><td>4</td><td>5</td></tr><tr><td>5</td><td>∅</td></tr></table></p>
+				<p><table><tr><th><em>n</em></th><th><em>Followpos</em>(<em>n</em>)</th></tr><tr><td>1</td><td>3, 4</td></tr><tr><td>2</td><td>2-4</td></tr><tr><td>3</td><td>3, 4</td></tr><tr><td>4</td><td>5</td></tr><tr><td>5</td><td>∅</td></tr></table></p>
 			</td>
 			<td class="celda-inv">
 				<table><tr><th></th><th>a</th><th>b</th><th>c</th><th></th></tr><tr><td>A</td><td>B</td><td>C</td><td>D</td><td>1-4</td></tr><tr><td>(B)</td><td>E</td><td>F</td><td>D</td><td>3-5</td></tr><tr><td>C</td><td>E</td><td>C</td><td>D</td><td>2-4</td></tr><tr><td>D</td><td>E</td><td>F</td><td>D</td><td>3, 4</td></tr><tr><td>(E)</td><td>F</td><td>F</td><td>F</td><td>5</td></tr><tr><td>F</td><td>F</td><td>F</td><td>F</td><td>∅</td></tr></table>

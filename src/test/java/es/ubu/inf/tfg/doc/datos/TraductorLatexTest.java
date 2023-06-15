@@ -73,13 +73,26 @@ public class TraductorLatexTest {
 	 * subtipo etiquetado.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanEtiquetado() {
+	public void testTraduceAhoSethiUllmanEtiquetado() { //throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*"); //$NON-NLS-1$
 		String esperado = toString("TraductorASUEtiquetado.tex"); //$NON-NLS-1$
 		String encontrado = traductor.traduceASUEtiquetado(problema).toString();
 		
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}"); //$NON-NLS-1$ //$NON-NLS-2$
 		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}"); //$NON-NLS-1$ //$NON-NLS-2$
+
+		
+		/*
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("TraductorLatex_TraductorASUEtiquetado_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("TraductorLatex_TraductorASUEtiquetado_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/
+
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo etiquetado.", //$NON-NLS-1$
 				esperado, encontrado);
@@ -96,6 +109,7 @@ public class TraductorLatexTest {
 		String encontrado = traductor.traduceASUTablas(problema).toString();
 		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}"); //$NON-NLS-1$ //$NON-NLS-2$
 
+		
 		/*
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("TraductorLatex_TraductorASUTablas_encontrado.kk"), "UTF8"))) {
@@ -106,6 +120,7 @@ public class TraductorLatexTest {
 			writer.write(esperado);
 		}
 		*/
+
 
 		assertEquals(
 				"Traducción Latex incorrecta de problema AhoSethiUllman subtipo tablas.", //$NON-NLS-1$
