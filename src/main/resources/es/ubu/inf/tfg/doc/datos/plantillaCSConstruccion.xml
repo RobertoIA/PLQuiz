@@ -1,11 +1,11 @@
 	<!-- question: {numero}  -->
 	<question type="cloze">
 		<name>
-			<text>PLQuiz: Construcción de subconjuntos</text>
+			<text>PLQuiz: McNaughton-Yamada-Thompson method</text>
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Selecciona el autómata generado por la expresión regular {expresion} siguiendo el método de Thompson.</p>
+				<p>If the McNaughton-Yamada-Thompson method is applied to the following regular expression: {expresion}, which of the following NFA would be obtained?</p>
 
 				<table>
 					<tr>
@@ -27,7 +27,7 @@
 				</table>
 
 				<p>
-					Solución: {solucion}
+					Solution: {solucion}
 				</p>
 			]]></text>
 			<file name="{urlA}" encoding="base64">{imagenA}</file> 

@@ -3,11 +3,11 @@
 		<!-- question: 1  -->
 	<question type="cloze">
 		<name>
-			<text>PLQuiz: Construcción de subconjuntos</text>
+			<text>PLQuiz: McNaughton-Yamada-Thompson method</text>
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Selecciona el autómata generado por la expresión regular ((a|b*)a*c)* siguiendo el método de Thompson.</p>
+				<p>If the McNaughton-Yamada-Thompson method is applied to the following regular expression: ((a|b*)a*c)*, which of the following NFA would be obtained?</p>
 
 				<table>
 					<tr>
@@ -29,7 +29,7 @@
 				</table>
 
 				<p>
-					Solución: {1:MULTICHOICE:}
+					Solution: {1:MULTICHOICE:}
 				</p>
 			]]></text>
 			<file name=</file> 
@@ -44,11 +44,11 @@
 	</question>	<!-- question: 2  -->
 	<question type="cloze">
 		<name>
-			<text>PLQuiz: Construcción de subconjuntos</text>
+			<text>PLQuiz: McNaughton-Yamada-Thompson method</text>
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Selecciona el autómata generado por la expresión regular (a|b*)c*a siguiendo el método de Thompson.</p>
+				<p>If the McNaughton-Yamada-Thompson method is applied to the following regular expression: (a|b*)c*a, which of the following NFA would be obtained?</p>
 
 				<table>
 					<tr>
@@ -70,7 +70,7 @@
 				</table>
 
 				<p>
-					Solución: {1:MULTICHOICE:}
+					Solution: {1:MULTICHOICE:}
 				</p>
 			]]></text>
 			<file name=</file> 
@@ -85,11 +85,11 @@
 	</question>	<!-- question: 3  -->
 	<question type="cloze">
 		<name>
-			<text>PLQuiz: Construcción de subconjuntos</text>
+			<text>PLQuiz: McNaughton-Yamada-Thompson method</text>
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Selecciona el autómata generado por la expresión regular (a|b)*a(a|b)(a|b) siguiendo el método de Thompson.</p>
+				<p>If the McNaughton-Yamada-Thompson method is applied to the following regular expression: (a|b)*a(a|b)(a|b), which of the following NFA would be obtained?</p>
 
 				<table>
 					<tr>
@@ -111,7 +111,7 @@
 				</table>
 
 				<p>
-					Solución: {1:MULTICHOICE:}
+					Solution: {1:MULTICHOICE:}
 				</p>
 			]]></text>
 			<file name=</file> 
