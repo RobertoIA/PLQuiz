@@ -5,13 +5,13 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa la tabla de la función de transición del AFD que se obtendría de aplicar el método de Aho-Sethi-Ullman a la expresión regular {expresion}</p>
+				<p>Apply the Aho-Sethi-Ullman algorithm to obtain the <em>followpos</em> table and the transition function of the DFA that recognizes the language defined by the following regular expression: {expresion}</p>
 
 				<p>
 					<table border="1" cellspacing="0" align="left">
 						<tr>
-							<th>n</th>
-							<th>stePos(n)</th>
+							<th><em>n</em></th>
+							<th><em>Followpos</em>(<em>n</em>)</th>
 						</tr>
 						{siguientePos}
 					</table>
@@ -35,7 +35,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: {finales}</p>
+				<p>The final states are: {finales}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>

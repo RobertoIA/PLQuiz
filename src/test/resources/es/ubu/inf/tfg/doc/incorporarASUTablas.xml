@@ -7,13 +7,13 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa la tabla de la función de transición del AFD que se obtendría de aplicar el método de Aho-Sethi-Ullman a la expresión regular ((a|b*)a*c)*</p>
+				<p>Apply the Aho-Sethi-Ullman algorithm to obtain the <em>followpos</em> table and the transition function of the DFA that recognizes the language defined by the following regular expression: {expresion}</p>
 
 				<p>
 					<table border="1" cellspacing="0" align="left">
 						<tr>
-							<th>n</th>
-							<th>stePos(n)</th>
+							<th><em>n</em></th>
+							<th><em>Followpos</em>(<em>n</em>)</th>
 						</tr>
 						<tr><td>1</td><td>{1:MULTICHOICE:}</td></tr><tr><td>2</td><td>{1:MULTICHOICE:}</td></tr><tr><td>3</td><td>{1:MULTICHOICE:}</td></tr><tr><td>4</td><td>{1:MULTICHOICE:}</td></tr><tr><td>5</td><td>{1:MULTICHOICE:}</td></tr>
 					</table>
@@ -71,7 +71,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: {1:MULTICHOICE:}</p>
+				<p>The final states are: {finales}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>
@@ -85,13 +85,13 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa la tabla de la función de transición del AFD que se obtendría de aplicar el método de Aho-Sethi-Ullman a la expresión regular (a|b*)c*a</p>
+				<p>Apply the Aho-Sethi-Ullman algorithm to obtain the <em>followpos</em> table and the transition function of the DFA that recognizes the language defined by the following regular expression: {expresion}</p>
 
 				<p>
 					<table border="1" cellspacing="0" align="left">
 						<tr>
-							<th>n</th>
-							<th>stePos(n)</th>
+							<th><em>n</em></th>
+							<th><em>Followpos</em>(<em>n</em>)</th>
 						</tr>
 						<tr><td>1</td><td>{1:MULTICHOICE:}</td></tr><tr><td>2</td><td>{1:MULTICHOICE:}</td></tr><tr><td>3</td><td>{1:MULTICHOICE:}</td></tr><tr><td>4</td><td>{1:MULTICHOICE:}</td></tr><tr><td>5</td><td>{1:MULTICHOICE:}</td></tr>
 					</table>
@@ -163,7 +163,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: {1:MULTICHOICE:}</p>
+				<p>The final states are: {finales}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>
@@ -177,13 +177,13 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa la tabla de la función de transición del AFD que se obtendría de aplicar el método de Aho-Sethi-Ullman a la expresión regular (a|b)*a(a|b)(a|b)</p>
+				<p>Apply the Aho-Sethi-Ullman algorithm to obtain the <em>followpos</em> table and the transition function of the DFA that recognizes the language defined by the following regular expression: {expresion}</p>
 
 				<p>
 					<table border="1" cellspacing="0" align="left">
 						<tr>
-							<th>n</th>
-							<th>stePos(n)</th>
+							<th><em>n</em></th>
+							<th><em>Followpos</em>(<em>n</em>)</th>
 						</tr>
 						<tr><td>1</td><td>{1:MULTICHOICE:}</td></tr><tr><td>2</td><td>{1:MULTICHOICE:}</td></tr><tr><td>3</td><td>{1:MULTICHOICE:}</td></tr><tr><td>4</td><td>{1:MULTICHOICE:}</td></tr><tr><td>5</td><td>{1:MULTICHOICE:}</td></tr><tr><td>6</td><td>{1:MULTICHOICE:}</td></tr><tr><td>7</td><td>{1:MULTICHOICE:}</td></tr><tr><td>8</td><td>{1:MULTICHOICE:}</td></tr>
 					</table>
@@ -260,7 +260,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: {1:MULTICHOICE:}</p>
+				<p>The final states are: {finales}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>
