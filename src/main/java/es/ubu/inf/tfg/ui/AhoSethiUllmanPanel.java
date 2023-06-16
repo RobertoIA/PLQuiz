@@ -345,19 +345,13 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 	
 				if (modoC == modoButton) {
 					log.info("Seleccionado modo etiquetado en problema de Aho-Sethi-Ullman numero {}.", numero);
-					if (problemaActual != null) {
-						asuProblema = Problema.asuEtiquetado(problema, numero);
-					}
+					asuProblema = Problema.asuEtiquetado(problema, numero);
 				} else if (modoB == modoButton) {
 					log.info("Seleccionado modo tablas en problema de Aho-Sethi-Ullman numero {}.", numero);
-					if (problemaActual != null) {
-						asuProblema = Problema.asuTablas(problema, numero);
-					}
+					asuProblema = Problema.asuTablas(problema, numero);
 				} else {
 					log.info("Seleccionado modo construcción en problema de Aho-Sethi-Ullman numero {}.", numero);
-					if (problemaActual != null) {
-						asuProblema = Problema.asuConstruccion(problema, numero);
-					}
+					asuProblema = Problema.asuConstruccion(problema, numero);
 				}
 				problemaActual = asuProblema;
 			}
