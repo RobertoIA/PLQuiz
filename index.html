@@ -20,8 +20,8 @@
     <header>
       <div class="inner">
         <h1>PLQuiz</h1>
-        <h2>Trabajo fin de grado - Ingeniería Informática</h2>
-        <a href="https://github.com/RobertoIA/PLQuiz" class="button"><small>Ver proyecto en </small>GitHub</a>
+        <h2>Computer Science Degree - Final Project</h2>
+        <a href="https://github.com/RobertoIA/PLQuiz" class="button"><small>Watch project in </small>GitHub</a>
       </div>
     </header>
 
@@ -29,89 +29,101 @@
       <div class="inner clearfix">
         <section id="main-content">
           <h3>
-<a name="resumen-del-proyecto" class="anchor" href="#resumen-del-proyecto"><span class="octicon octicon-link"></span></a>Resumen del proyecto</h3>
+<a name="resumen-del-proyecto" class="anchor" href="#resumen-del-proyecto"><span class="octicon octicon-link"></span></a>Project summary</h3>
 
-<p>PLQuiz es una aplicación que permite generar cuestionarios sobre el uso de algoritmos de análisis léxico.
-Los cuestionarios se presentan en formato compatible con Moodle o preparados para imprimir, incluyendo imágenes de alta resolución utilizando gráficos vectoriales.
-Los ejercicios pueden generarse a partir de una expresión regular dada o de manera automática, utilizando algoritmos de búsqueda aleatoria y genéticos.</p>
+<p>
+  PLQuiz is a desktop application that creates problem sheets or questionaries about the usage of lexical analysis algorithms.
+  The questionaries are presented in a Moodle-compatible format or print-ready, including high resolution images in vector format.
+  The exercise can be built from a user-provided regular expresion, or automatically generated via search and genetic algorithms.
+</p>
 
 <h3>
-<a name="citar-este-programa" class="anchor" href="#citar-este-programa"><span class="octicon octicon-link"></span></a>Citar este programa</h3>
+<a name="citar-este-programa" class="anchor" href="#citar-este-programa"><span class="octicon octicon-link"></span></a>Citations</h3>
           <p><i>Izquierdo Amo, R., García-Osorio, C., Latorre Carmona, P. and Barbero Aparicio, J., 2021.</i> <b>Generación automática de preguntas cloze para cuestionarios Moodle sobre análisis léxico.</b> In: Proceedings of the XXVII Jornadas sobre la Enseñanza Universitaria de la Informática (JENUI 2021). Valencia, Spain: AENUI, pp.163-170. Available at: <a href=http://jenui2021.hola-mundo.info/EC0045.pdf>http://jenui2021.hola-mundo.info/EC0045.pdf</a> [Accessed 23 October 2021].
 </p>
           
 <h3>
-<a name="algoritmo-de-aho-sehi-ullman" class="anchor" href="#algoritmo-de-aho-sehi-ullman"><span class="octicon octicon-link"></span></a>Algoritmo de Aho-Sehi-Ullman</h3>
+<a name="algoritmo-de-aho-sehi-ullman" class="anchor" href="#algoritmo-de-aho-sehi-ullman"><span class="octicon octicon-link"></span></a>Aho-Sehi-Ullman algorithm</h3>
 
-<p>Calcula una serie de funciones a partir del árbol sintáctico de la expresión regular, utilizándolas para generar la tabla de transición del autómata.
-Las funciones calculadas son:</p>
-
+<p>
+  Calculate a set of functions from the syntax tree of the regular expression, and use them to generate the corresponding automata transition table.
+  The functions are:
+</p>
 <ul>
-<li>Primera-pos: conjunto de posiciones que corresponden con los primeros símbolos posibles en las cadenas que define.</li>
-<li>Última-pos: conjunto de posiciones que corresponden con los últimos símbolos.</li>
-<li>Siguiente-pos: conjunto de posiciones que siguen a una posición dada en la expresión. </li>
-</ul><h3>
-<a name="algoritmo-de-mcnaughton-yamada-thompson" class="anchor" href="#algoritmo-de-mcnaughton-yamada-thompson"><span class="octicon octicon-link"></span></a>Algoritmo de McNaughton-Yamada-Thompson</h3>
-
-<p>Utiliza una expresión regular para obtener un autómata finito determinista que define el mismo lenguaje.
-Para construir el autómata recorremos el árbol sintáctico de la expresión recursivamente, construyendo el autómata correspondiente a cada nodo a partir de los autómatas de los nodos inferiores.</p>
-
-<h3>
-<a name="generaci%C3%B3n-de-cuestiones" class="anchor" href="#generaci%C3%B3n-de-cuestiones"><span class="octicon octicon-link"></span></a>Generación de cuestiones</h3>
-
-<p>La aplicación utiliza algoritmos de búsqueda para generar expresiones regulares que correspondan con un problema de un tipo y características dadas. Las características que determinan el problema a generar son:</p>
-
-<ul>
-<li>Si contiene o no la cadena vacía.</li>
-<li>El número de símbolos diferentes que contiene.</li>
-<li>El número de estados en su tabla de transición correspondiente.</li>
-</ul><p>Los problemas de resolución de problemas del algoritmo de Aho-Sethi-Ullman utilizan un algoritmo de búsqueda aleatoria, los de McNaughton-Yamada-Thompson un algoritmo genético.</p>
-
-<h3>
-<a name="cuestionarios" class="anchor" href="#cuestionarios"><span class="octicon octicon-link"></span></a>Cuestionarios</h3>
-
-<p>La aplicación genera cuestionarios en tres posibles formatos:</p>
-
-<ul>
-<li>HTML + CSS, utilizado dentro de la propia aplicación para mostrar una vista previa del cuestionario.</li>
-<li>Latex, utilizado para generar cuestionarios que puedan imprimirse en papel, como exámenes.</li>
-<li>Moodle XML, utilizado para generar cuestiones que pueden importarse en la plataforma de aprendizaje virtual.</li>
-</ul><p>y imágenes en otros tres formatos distintos:</p>
-
-<ul>
-<li>Formato de fichero de imagen común, generado al exportar documentos Latex por defecto.</li>
-<li>Formato de programa dot compatible con <a href="http://www.graphviz.org/">Graphviz</a>, generado al exportar documentos Latex de manera alternativa.</li>
-<li>Formato de cadena de texto de 64 bits, que permite codificar la imagen dentro de documentos XML.</li>
+  <li>First-pos: set of positions corresponding to the first possible symbols in the matched strings.</li>
+  <li>Last-pos: set of positions corresponding to the last symbols.</li>
+  <li>Next-pos: set of positions after a given position in the expresion.</li>
 </ul>
+
+<h3>
+<a name="algoritmo-de-mcnaughton-yamada-thompson" class="anchor" href="#algoritmo-de-mcnaughton-yamada-thompson"><span class="octicon octicon-link"></span></a>McNaughton-Yamada-Thompson algorithm</h3>
+
+<p>
+  Uses a regular expression to build the deterministic finite automaton that represents the same language.
+  The expresion's syntax tree is traversed recursively to build the automata, composing each node from tree automata of the nodes below.
+</p>
+
+<h3>
+<a name="generaci%C3%B3n-de-cuestiones" class="anchor" href="#generaci%C3%B3n-de-cuestiones"><span class="octicon octicon-link"></span></a>Generation of exam questions</h3>
+
+<p>
+  The application uses search algorithms to generate regular expressions corresponding to a given type and problem attributes.
+  The possible attributes that define a problem are:
+</p>
+<ul>
+  <li>If it contains the empty string.</li>
+  <li>The number of different symbols available.</li>
+  <li>The number of states in the corresponding transition table.</li>
+</ul>
+<p>
+  The Aho-Sethi-Ullman exercises use random search algorithms, while the McNaughton-Yamada-Thompson use a genetic algorithm.
+</p>
+
+<h3>
+<a name="cuestionarios" class="anchor" href="#cuestionarios"><span class="octicon octicon-link"></span></a>Questionaries</h3>
+
+<p>The application generates questionaries in three possible formats:</p>
+<ul>
+  <li>HTML + CSS, used in the user interface to display a preview.</li>
+  <li>Latex, used to generate print-ready questionaries to use as exams or problem sheets.</li>
+  <li>Moddle XML, used to generate questionaries that can be easily imported in the e-learning platform.</li>
+</ul>
+<p>and also generates images in three possible formats:</p>
+<ul>
+  <li>As regular image files, generated by default when exporting as a Latex document.</li>
+  <li>As a dot program compatible with <a href="http://www.graphviz.org/">Graphviz</a>, as an option when exporting as Latex document.</li>
+  <li>As a 64-bit string, to insert images inside XML documents.</li>
+</ul>
+
         </section>
 
         <aside id="sidebar">
           <a href="https://www.dropbox.com/s/ny4l0izeqvppvks/PLQuiz.pdf" class="button">
-            <small>Descargar</small>
-            memoria
+            <small>Download</small>
+            dossier
           </a>
 
           <a href="https://www.dropbox.com/s/wye5b85b8j3c3pm/Poster.pdf" class="button">
-            <small>Descargar</small>
-            póster
+            <small>Download</small>
+            poster
           </a>
 
           <a href="https://www.dropbox.com/s/wobw460a254nele/PLQuiz-0.0-PROTOTIPO.jar" class="button">
-            <small>Descargar</small>
-            prototipo
+            <small>Download</small>
+            prototype
           </a>
 
           <a href="https://github.com/RobertoIA/PLQuiz/releases/latest" class="button">
-            <small>Descargar</small>
-            aplicación
+            <small>Download</small>
+            application
           </a>
 
           <a href="https://github.com/RobertoIA/PLQuiz/zipball/master" class="button">
-            <small>Descargar</small>
-            repositorio
+            <small>Download</small>
+            source code
           </a>
 
-          <p class="repo-owner"><a href="https://github.com/RobertoIA/PLQuiz">PLQuiz</a> está desarrollado por <a href="https://github.com/RobertoIA">Roberto Izquierdo Amo</a>.</p>
+          <p class="repo-owner"><a href="https://github.com/RobertoIA/PLQuiz">PLQuiz</a> was developed by <a href="https://github.com/RobertoIA">Roberto Izquierdo Amo</a>.</p>
           <hr />
           <!--
             <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
