@@ -7,7 +7,7 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa la tabla de función de transición para el AFD que se obtendría de aplicar el método de construcción de subconjuntos al AFND de la figura
+				<p>Complete the transition function for the DFA that would be obtained by applying the subset construction method to the NFA of the figure.
 					<img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
 
 				<table border="1" cellspacing="0" align="left">
@@ -91,7 +91,7 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa la tabla de función de transición para el AFD que se obtendría de aplicar el método de construcción de subconjuntos al AFND de la figura
+				<p>Complete the transition function for the DFA that would be obtained by applying the subset construction method to the NFA of the figure.
 					<img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
 
 				<table border="1" cellspacing="0" align="left">
@@ -175,7 +175,7 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa la tabla de función de transición para el AFD que se obtendría de aplicar el método de construcción de subconjuntos al AFND de la figura
+				<p>Complete the transition function for the DFA that would be obtained by applying the subset construction method to the NFA of the figure.
 					<img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
 
 				<table border="1" cellspacing="0" align="left">
