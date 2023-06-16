@@ -5,7 +5,8 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa la tabla de la función de transición para el AFD que se obtendría al aplicar el método de construcción de subconjuntos al AFND de la expresión regular {expresion}</p>
+				<p>Dada la siguiente expresión regular: {expresion}, tras aplicar el método de McNaughton-Yamada-Thompson para construir el AFND, ¿cuál sería la función de transición del AFD equivalente que se obtendría al aplicar el método de construcción de subconjuntos?</p>
+
 
 				<table border="1" cellspacing="0" align="left">
 				<tbody>

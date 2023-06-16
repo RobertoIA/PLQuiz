@@ -7,7 +7,7 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa la tabla de la función de transición para el AFD que se obtendría al aplicar el método de construcción de subconjuntos al AFND de la expresión regular ((a|b*)a*c)*</p>
+				<p>Dada la siguiente expresión regular: ((a|b*)a*c)*, tras aplicar el método de McNaughton-Yamada-Thompson para construir el AFND, ¿cuál sería la función de transición del AFD equivalente que se obtendría al aplicar el método de construcción de subconjuntos?</p>
 
 				<table border="1" cellspacing="0" align="left">
 				<tbody>
@@ -89,7 +89,7 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa la tabla de la función de transición para el AFD que se obtendría al aplicar el método de construcción de subconjuntos al AFND de la expresión regular (a|b*)c*a</p>
+				<p>Dada la siguiente expresión regular: (a|b*)c*a, tras aplicar el método de McNaughton-Yamada-Thompson para construir el AFND, ¿cuál sería la función de transición del AFD equivalente que se obtendría al aplicar el método de construcción de subconjuntos?</p>
 
 				<table border="1" cellspacing="0" align="left">
 				<tbody>
@@ -171,7 +171,7 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa la tabla de la función de transición para el AFD que se obtendría al aplicar el método de construcción de subconjuntos al AFND de la expresión regular (a|b)*a(a|b)(a|b)</p>
+				<p>Dada la siguiente expresión regular: (a|b)*a(a|b)(a|b), tras aplicar el método de McNaughton-Yamada-Thompson para construir el AFND, ¿cuál sería la función de transición del AFD equivalente que se obtendría al aplicar el método de construcción de subconjuntos?</p>
 
 				<table border="1" cellspacing="0" align="left">
 				<tbody>

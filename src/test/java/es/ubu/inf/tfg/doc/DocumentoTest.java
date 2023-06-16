@@ -1020,7 +1020,7 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testIncorporarCSExpresion() throws IOException {
+	public void testIncorporarCSExpresion() throws UnsupportedEncodingException, FileNotFoundException, IOException {//throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -1048,6 +1048,25 @@ public class DocumentoTest {
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
+
+
+
+		
+		
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_incorporarCSExpresion_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_incorporarCSExpresion_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+
+
+
+
+
+
 		assertEquals(
 				"Añadido erróneo de problemas de construcción de subconjuntos subtipo expresión a documento XML exportado.",
 				esperado, encontrado);
@@ -1073,7 +1092,7 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testEliminarCSExpresion() throws IOException {
+	public void testEliminarCSExpresion() throws UnsupportedEncodingException, FileNotFoundException, IOException {//throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -1101,6 +1120,26 @@ public class DocumentoTest {
 
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
+		
+
+
+
+
+		
+		
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_eliminarCSExpresion_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_eliminarCSExpresion_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+
+
+
+
+
 
 		assertEquals(
 				"Borrado erróneo de problemas de construcción de subconjuntos subtipo expresión en documento XML exportado.",
@@ -1127,7 +1166,7 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testSustituirCSExpresion() throws IOException {
+	public void testSustituirCSExpresion() throws UnsupportedEncodingException, FileNotFoundException, IOException {//throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -1155,6 +1194,24 @@ public class DocumentoTest {
 
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
+
+
+
+
+		
+		
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_sustituirCSExpresion_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_sustituirCSExpresion_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+
+
+
+
 
 		assertEquals(
 				"Sustitución errónea de problemas de construcción de subconjuntos subtipo expresión en documento XML exportado.",

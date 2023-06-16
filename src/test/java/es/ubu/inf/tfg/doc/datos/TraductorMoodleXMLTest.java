@@ -180,7 +180,7 @@ public class TraductorMoodleXMLTest {
 	 * subconjuntos subtipo expresión.
 	 */
 	@Test
-	public void testTraduceConstruccionSubconjuntosExpresion() {
+	public void testTraduceConstruccionSubconjuntosExpresion() throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*"); //$NON-NLS-1$
 		String esperado = toString("TraductorCSExpresion.xml"); //$NON-NLS-1$
@@ -189,6 +189,19 @@ public class TraductorMoodleXMLTest {
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:.*\\}", //$NON-NLS-1$
 				"{1:MULTICHOICE:}"); //$NON-NLS-1$
 
+		
+		
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("TraductorMoodle_TraductorCSExpresion_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("TraductorMoodle_TraductorCSExpresion_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+
+		
+		
 		assertEquals(
 				"Traducción Moodle XML incorrecta de problema de construcción de subconjuntos subtipo expresión.", //$NON-NLS-1$
 				esperado, encontrado);
