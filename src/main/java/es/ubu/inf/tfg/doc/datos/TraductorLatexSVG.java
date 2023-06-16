@@ -89,7 +89,6 @@ public class TraductorLatexSVG extends Traductor {
 		expresion = expresion.replace("\u03B5", "\\epsilon ");
 		expresion = expresion.replace("$", "\\$ ");
 		expresion = expresion.replace("*", "^*");
-		expresion = "$ " + expresion + " $";
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
@@ -155,7 +154,6 @@ public class TraductorLatexSVG extends Traductor {
 		expresion = expresion.replace("\u03B5", "\\epsilon ");
 		expresion = expresion.replace("$", "\\$");
 		expresion = expresion.replace("*", "^*");
-		expresion = "$ " + expresion + " $";
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
@@ -233,7 +231,6 @@ public class TraductorLatexSVG extends Traductor {
 		expresion = expresion.replace("\u03B5", "\\epsilon ");
 		expresion = expresion.replace("$", "\\$ ");
 		expresion = expresion.replace("*", "^*");
-		expresion = "$ " + expresion + " $";
 		String expresionAumentada = problema.expresionAumentada();
 		expresionAumentada = expresionAumentada.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot ");
 		expresionAumentada = expresionAumentada.replace("\u03B5", "\\epsilon ");
@@ -272,7 +269,6 @@ public class TraductorLatexSVG extends Traductor {
 		expresion = expresion.replace("\u03B5", "\\epsilon ");
 		expresion = expresion.replace("$", "\\$ ");
 		expresion = expresion.replace("*", "^*");
-		expresion = "$ " + expresion + " $";
 		
 		plantilla.set("expresion", expresion);
 		plantilla.set("imagen", imagen);
@@ -334,7 +330,6 @@ public class TraductorLatexSVG extends Traductor {
 		expresion = expresion.replace("\u03B5", "\\epsilon ");
 		expresion = expresion.replace("$", "\\$ ");
 		expresion = expresion.replace("*", "^*");
-		expresion = "$ " + expresion + " $";
 
 		plantilla.set("expresion", expresion);
 		plantilla.set("transicion", fTrans.toString());
