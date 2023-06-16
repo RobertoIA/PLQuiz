@@ -22,9 +22,12 @@ public class Plantilla {
 		String languageFolder = Messages.getString("Plantilla.lang");  // to be ready for full internationalization //$NON-NLS-1$
 		String langfichero = languageFolder + fichero; //$NON-NLS-1$
 
-		System.out.println("\u001B[0;1mPlantilla: Locale default:\033[0;0m " + Locale.getDefault());
-		System.out.println("\u001B[0;1mPlantilla: languageFolder:\033[0;0m " + languageFolder);
-		System.out.println("\u001B[0;1mPlantilla: langfichero:\033[0;0m " + langfichero);
+		
+		/*
+		System.out.println("\u001B[0;1mPlantilla: Locale default:\u001B[0m " + Locale.getDefault());
+		System.out.println("\u001B[0;1mPlantilla: languageFolder:\u001B[0m " + languageFolder);
+		System.out.println("\u001B[0;1mPlantilla: langfichero:\u001B[0m " + langfichero);
+		*/
 		
 		try (InputStream entrada = getClass().getResourceAsStream(langfichero);
 				BufferedReader lector = new BufferedReader(

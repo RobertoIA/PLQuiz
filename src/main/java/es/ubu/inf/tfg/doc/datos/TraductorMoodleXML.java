@@ -450,24 +450,24 @@ public class TraductorMoodleXML extends Traductor {
 		if (similares.size() > 0) { // Opción similar 1
 			index = random.nextInt(similares.size());
 			opciones.append("~");
-			log.debug("AÃ±adiendo opción {} (similar)", similares.get(index));
+			log.debug("Añadiendo opción {} (similar)", similares.get(index));
 			opciones.append(similares.remove(index));
 		}
 		if (similares.size() > 0) { // Opción similar 2
 			index = random.nextInt(similares.size());
 			opciones.append("~");
-			log.debug("AÃ±adiendo opción {} (similar)", similares.get(index));
+			log.debug("Añadiendo opción {} (similar)", similares.get(index));
 			opciones.append(similares.remove(index));
 		}
 		if (diferentes.size() > 0) { // Opción diferente a ser posible
 			index = random.nextInt(diferentes.size());
 			opciones.append("~");
-			log.debug("AÃ±adiendo opción {} (diferente)", diferentes.get(index));
+			log.debug("Añadiendo opción {} (diferente)", diferentes.get(index));
 			opciones.append(diferentes.remove(index));
 		} else {
 			index = random.nextInt(similares.size());
 			opciones.append("~");
-			log.debug("AÃ±adiendo opción {} (similar)", similares.get(index));
+			log.debug("Añadiendo opción {} (similar)", similares.get(index));
 			opciones.append(similares.remove(index));
 		}
 

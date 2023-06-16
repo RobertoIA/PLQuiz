@@ -184,7 +184,6 @@ public class DocumentoTest {
 	 */
 	@Test
 	public void testIncorporarASUEtiquetado() throws IOException {
-		//throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -205,7 +204,7 @@ public class DocumentoTest {
 
 
 
-		/*
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_IncorporarASUEtiquetado_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -214,7 +213,7 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_IncorporarASUEtiquetado_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
-		*/
+		*/  //CGO
 
 
 
@@ -256,7 +255,7 @@ public class DocumentoTest {
 
 
 
-		/*
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_IncorporarASUEtiquetado_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -265,7 +264,7 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_IncorporarASUEtiquetado_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
-		*/
+		*/ //CGO
 
 
 
@@ -284,7 +283,7 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testIncorporarASUTablas() throws UnsupportedEncodingException, FileNotFoundException, IOException { //throws IOException {
+	public void testIncorporarASUTablas() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -314,7 +313,7 @@ public class DocumentoTest {
 
 		
 	
-		/*
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_IncorporarASUTablas_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -323,7 +322,7 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_IncorporarASUTablas_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
-		*/
+		*/  //CGO
 
 
 		assertEquals(
@@ -340,6 +339,7 @@ public class DocumentoTest {
 
 		
 		
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_IncorporarASUTablas_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -348,6 +348,7 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_IncorporarASUTablas_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
+		*/ //CGO
 
 		
 		assertEquals(
@@ -430,8 +431,9 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testEliminarASUEtiquetado() throws IOException {
-		//throws UnsupportedEncodingException, FileNotFoundException, IOException { 
+	public void testEliminarASUEtiquetado()
+			throws IOException {
+//	        throws UnsupportedEncodingException, FileNotFoundException, IOException {  // CGO
 		File ficheroTemporal;
 
 		String esperado;
@@ -484,7 +486,7 @@ public class DocumentoTest {
 		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
 	
 		
-		/*
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_EliminarASUEtiquetado_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -493,7 +495,7 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_EliminarASUEtiquetado_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
-		*/
+		*/ //CGO
 		
 		
 
@@ -512,8 +514,7 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testEliminarASUTablas() throws UnsupportedEncodingException, FileNotFoundException, IOException { 
-		//throws IOException {
+	public void testEliminarASUTablas()	throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -532,7 +533,7 @@ public class DocumentoTest {
 		
 
 		
-		
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_EliminarASUTablas_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -541,6 +542,7 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_EliminarASUTablas_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
+		*/  //CGO
 
 
 
@@ -572,7 +574,7 @@ public class DocumentoTest {
 		
 
 		
-		
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_EliminarASUTablas_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -581,6 +583,7 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_EliminarASUTablas_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
+		*/  //CGO
 
 
 
@@ -665,8 +668,7 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testSustituirASUEtiquetado() throws UnsupportedEncodingException, FileNotFoundException, IOException {
-//throws IOException {
+	public void testSustituirASUEtiquetado() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -722,6 +724,7 @@ public class DocumentoTest {
 
 
 
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_SustituirASUEtiquetado_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -730,6 +733,7 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_SustituirASUEtiquetado_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
+		*/  //CGO
 
 
 
@@ -748,8 +752,7 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testSustituirASUTablas() throws UnsupportedEncodingException, FileNotFoundException, IOException {
-		//throws IOException {
+	public void testSustituirASUTablas() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -780,6 +783,7 @@ public class DocumentoTest {
 		
 		
 		
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_SustituirASUTablas_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -788,6 +792,7 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_SustituirASUTablas_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
+		*/  //CGO
 
 
 
@@ -1020,7 +1025,7 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testIncorporarCSExpresion() throws UnsupportedEncodingException, FileNotFoundException, IOException {//throws IOException {
+	public void testIncorporarCSExpresion() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -1053,6 +1058,7 @@ public class DocumentoTest {
 
 		
 		
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_incorporarCSExpresion_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -1061,6 +1067,7 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_incorporarCSExpresion_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
+		*/  //CGO
 
 
 
@@ -1092,7 +1099,7 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testEliminarCSExpresion() throws UnsupportedEncodingException, FileNotFoundException, IOException {//throws IOException {
+	public void testEliminarCSExpresion() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -1126,7 +1133,7 @@ public class DocumentoTest {
 
 
 		
-		
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_eliminarCSExpresion_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -1135,6 +1142,7 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_eliminarCSExpresion_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
+		*/  //CGO
 
 
 
@@ -1166,7 +1174,7 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testSustituirCSExpresion() throws UnsupportedEncodingException, FileNotFoundException, IOException {//throws IOException {
+	public void testSustituirCSExpresion() throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -1199,7 +1207,7 @@ public class DocumentoTest {
 
 
 		
-		
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("Documento_sustituirCSExpresion_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -1208,6 +1216,7 @@ public class DocumentoTest {
 				new FileOutputStream("Documento_sustituirCSExpresion_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
+		*/  //CGO
 
 
 

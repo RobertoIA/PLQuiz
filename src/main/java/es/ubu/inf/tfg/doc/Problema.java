@@ -138,7 +138,7 @@ public class Problema<T> {
 	}
 
 	public void setNumero(int numero) {
-		log.info(Messages.getString("Problema.NumberOfArgumentsChanged"), numero); //$NON-NLS-1$
+		log.info("Número de problema cambiado a {}", numero); //$NON-NLS-1$
 		
 		this.numero = numero;
 	}

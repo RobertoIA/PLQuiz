@@ -56,7 +56,7 @@ public class TraductorMoodleXMLTest {
 	 * subtipo construcción.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanConstruccion() throws UnsupportedEncodingException, FileNotFoundException, IOException {
+	public void testTraduceAhoSethiUllmanConstruccion() { // throws IOException {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*"); //$NON-NLS-1$
 		String esperado = toString("TraductorASUConstruccion.xml"); //$NON-NLS-1$
 		String encontrado = traductor.traduceASUConstruccion(problema)
@@ -70,6 +70,8 @@ public class TraductorMoodleXMLTest {
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}", //$NON-NLS-1$
 				"{1:MULTICHOICE:}"); //$NON-NLS-1$
 
+		
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("TraductorMoodle_TraductorASUConstruccion_encontrado.kk"), "UTF8"))) { //$NON-NLS-1$ //$NON-NLS-2$
 			writer.write(encontrado);
@@ -78,6 +80,9 @@ public class TraductorMoodleXMLTest {
 				new FileOutputStream("TraductorMoodle_TraductorASUConstruccion_esperado.kk"), "UTF8"))) { //$NON-NLS-1$ //$NON-NLS-2$
 			writer.write(esperado);
 		}
+		*/  //CGO
+		
+		
 
 		assertEquals(
 				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo construcción.", //$NON-NLS-1$
@@ -89,7 +94,7 @@ public class TraductorMoodleXMLTest {
 	 * subtipo árbol.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanEtiquetado() throws UnsupportedEncodingException, FileNotFoundException, IOException {
+	public void testTraduceAhoSethiUllmanEtiquetado() throws IOException {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*"); //$NON-NLS-1$
 		String esperado = toString("TraductorASUEtiquetado.xml"); //$NON-NLS-1$
 		String encontrado = traductor.traduceASUEtiquetado(problema).toString();
@@ -102,6 +107,9 @@ public class TraductorMoodleXMLTest {
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}", //$NON-NLS-1$
 				"{1:MULTICHOICE:}"); //$NON-NLS-1$
 		
+		
+		
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("TraductorMoodle_TraductorASUEtiquetado_encontrado.kk"), "UTF8"))) { //$NON-NLS-1$ //$NON-NLS-2$
 			writer.write(encontrado);
@@ -110,6 +118,8 @@ public class TraductorMoodleXMLTest {
 				new FileOutputStream("TraductorMoodle_TraductorASUEtiquetado_esperado.kk"), "UTF8"))) { //$NON-NLS-1$ //$NON-NLS-2$
 			writer.write(esperado);
 		}
+		*/  //CGO
+		
 		
 		
 
@@ -126,7 +136,7 @@ public class TraductorMoodleXMLTest {
 	 * @throws UnsupportedEncodingException 
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanTablas() { //throws UnsupportedEncodingException, FileNotFoundException, IOException {
+	public void testTraduceAhoSethiUllmanTablas() { //throws IOException {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*"); //$NON-NLS-1$
 		String esperado = toString("TraductorASUTablas.xml"); //$NON-NLS-1$
 		String encontrado = traductor.traduceASUTablas(problema).toString();
@@ -134,7 +144,7 @@ public class TraductorMoodleXMLTest {
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}", //$NON-NLS-1$
 				"{1:MULTICHOICE:}"); //$NON-NLS-1$
 
-		/*
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("TraductorMoodle_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -143,7 +153,7 @@ public class TraductorMoodleXMLTest {
 				new FileOutputStream("TraductorMoodle_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
-		*/
+		*/  //CGO
 		
 		assertEquals(
 				"Traducción Moodle XML incorrecta de problema AhoSethiUllman subtipo tablas.", //$NON-NLS-1$
@@ -180,7 +190,7 @@ public class TraductorMoodleXMLTest {
 	 * subconjuntos subtipo expresión.
 	 */
 	@Test
-	public void testTraduceConstruccionSubconjuntosExpresion() throws UnsupportedEncodingException, FileNotFoundException, IOException {
+	public void testTraduceConstruccionSubconjuntosExpresion() { //throws IOException {
 		ConstruccionSubconjuntos problema = new ConstruccionSubconjuntos(
 				"((a|b*)a*c)*"); //$NON-NLS-1$
 		String esperado = toString("TraductorCSExpresion.xml"); //$NON-NLS-1$
@@ -191,6 +201,7 @@ public class TraductorMoodleXMLTest {
 
 		
 		
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("TraductorMoodle_TraductorCSExpresion_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -199,6 +210,8 @@ public class TraductorMoodleXMLTest {
 				new FileOutputStream("TraductorMoodle_TraductorCSExpresion_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
+		*/  //CGO
+		
 
 		
 		

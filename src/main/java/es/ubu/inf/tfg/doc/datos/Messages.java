@@ -22,23 +22,25 @@ public class Messages {
 			try {
 				pwd = RESOURCE_BUNDLE.getString("pwd");
 			} catch (MissingResourceException ex) {
-				pwd = "pwd error";
+				pwd = "**** PWD error ****";
 			}
 		} catch (MissingResourceException e) {
 			try {
 				pwd = RESOURCE_BUNDLE.getString("pwd");
 			} catch (MissingResourceException ex) {
-				pwd = "pwd error";
+				pwd = "**** PWD error ****";
 			}
-			res = '!' + key + '!';
+			res = "**** KEY error ****";
 		}
 		
+		/*
 		System.out.println("\u001B[0;1mdoc.datos.Messages: BUNDLE_NAME:\033[0;0m " + BUNDLE_NAME);
 		System.out.println("\u001B[0;1mdoc.datos.Messages: pwd:\033[0;0m " + pwd);
 		System.out.println("\u001B[0;1mdoc.datos.Messages: locale_default:\033[0;0m " + locale_default);
 		System.out.println("\u001B[0;1mdoc.datos.Messages: key:\033[0;0m " + key);
 		System.out.println("\u001B[0;1mdoc.datos.Messages: res:\033[0;0m " + res);
-
+		*/
+		
 		return res;
 	}
 }

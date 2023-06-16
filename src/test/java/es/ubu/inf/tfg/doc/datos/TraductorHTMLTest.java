@@ -92,7 +92,7 @@ public class TraductorHTMLTest {
 	 * subtipo tablas.
 	 */
 	@Test
-	public void testTraduceAhoSethiUllmanTablas() throws UnsupportedEncodingException, FileNotFoundException, IOException {
+	public void testTraduceAhoSethiUllmanTablas() throws IOException {
 		AhoSethiUllman problema = new AhoSethiUllman("((a|b*)a*c)*");
 		String esperado = toString("TraductorASUTablas.html");
 		String encontrado = traductor.traduceASUTablas(problema).toString();
@@ -100,6 +100,7 @@ public class TraductorHTMLTest {
 		
 		
 		
+		/* CGO
 		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
 				new FileOutputStream("TraductorHTML_TraductorASUTablas_encontrado.kk"), "UTF8"))) {
 			writer.write(encontrado);
@@ -108,7 +109,7 @@ public class TraductorHTMLTest {
 				new FileOutputStream("TraductorHTML_TraductorASUTablas_esperado.kk"), "UTF8"))) {
 			writer.write(esperado);
 		}
-		
+		*/  //CGO
 
 		
 		
