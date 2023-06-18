@@ -406,7 +406,7 @@ public class Main {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	void añadeImagen(BufferedImage imagen) {
 		try {
-			String url = "http:\\" + imagen.hashCode() + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
+			String url = "http:\\" + Math.abs(imagen.hashCode()) + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
 			log.debug("Añadiendo imagen {}.", url); //$NON-NLS-1$
 			Dictionary cache = (Dictionary) vistaPreviaText.getDocument()
 					.getProperty("imageCache"); //$NON-NLS-1$
@@ -423,7 +423,7 @@ public class Main {
 	@SuppressWarnings("rawtypes")
 	void eliminaImagen(BufferedImage imagen) {
 		try {
-			String url = "http:\\" + imagen.hashCode() + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
+			String url = "http:\\" + Math.abs(imagen.hashCode()) + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
 			Dictionary cache = (Dictionary) vistaPreviaText.getDocument()
 					.getProperty("imageCache"); //$NON-NLS-1$
 			if (cache != null) {

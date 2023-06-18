@@ -266,11 +266,11 @@ public class Documento {
 						p.arbolVacioDot());
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
-				guardar(carpeta + Math.abs(p.alternativas().get(0).hashCode())
+				guardar(carpeta + Math.abs(p.alternativas().get(0).hashCode())  // FIXME ¿p.alternativas().get(0)==p.automata()?
 						+ ".gv", p.alternativasDot().get(0));
 			} else if (problema.getTipo().equals("AhoSethiUllmanTablas")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
-				guardar(carpeta + Math.abs(p.alternativas().get(0).hashCode())
+				guardar(carpeta + Math.abs(p.alternativas().get(0).hashCode()) // FIXME  ¿p.alternativas().get(0)==p.automata()?
 						+ ".gv", p.alternativasDot().get(0));
 			}
 		}

@@ -100,7 +100,7 @@ public class TraductorMoodleXML extends Traductor {
 		String[] alternativasBase64 = new String[4];
 
 		for (int i = 0; i < 4; i++) {
-			imagenes[i] = alternativas.get(i).hashCode() + ".jpg";
+			imagenes[i] = Math.abs(alternativas.get(i).hashCode()) + ".jpg";
 			alternativasBase64[i] = imageToBase64(alternativas.get(i));
 		}
 
@@ -141,7 +141,7 @@ public class TraductorMoodleXML extends Traductor {
 				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresión {}, formato etiquetado",
 				problema.problema());
 
-		String url = problema.arbolVacio().hashCode() + ".jpg";
+		String url = Math.abs(problema.arbolVacio().hashCode()) + ".jpg";
 		Plantilla plantilla = new Plantilla("plantillaASUEtiquetado.xml");
 		StringBuilder soluciones = new StringBuilder();
 
@@ -270,7 +270,7 @@ public class TraductorMoodleXML extends Traductor {
 		String[] alternativasBase64 = new String[4];
 
 		for (int i = 0; i < 4; i++) {
-			imagenes[i] = alternativas.get(i).hashCode() + ".jpg";
+			imagenes[i] = Math.abs(alternativas.get(i).hashCode()) + ".jpg";
 			alternativasBase64[i] = imageToBase64(alternativas.get(i));
 		}
 
@@ -367,7 +367,7 @@ public class TraductorMoodleXML extends Traductor {
 				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresión {}, formato autómata",
 				problema.problema());
 
-		String url = problema.automata().hashCode() + ".jpg";
+		String url = Math.abs(problema.automata().hashCode()) + ".jpg";
 		StringBuilder fTrans = new StringBuilder();
 		StringBuilder eFinales = new StringBuilder();
 

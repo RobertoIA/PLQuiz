@@ -88,7 +88,7 @@ public class TraductorHTML extends Traductor {
 		Collections.shuffle(alternativas);
 
 		for (int i = 0; i < 4; i++)
-			imagenes[i] = "http:\\" + alternativas.get(i).hashCode() + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
+			imagenes[i] = "http:\\" + Math.abs(alternativas.get(i).hashCode()) + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
 
 		int index = alternativas.indexOf(problema.alternativas().get(0));
 		String solucion = "" + (char) ('a' + index); //$NON-NLS-1$
@@ -117,7 +117,7 @@ public class TraductorHTML extends Traductor {
 				"Traduciendo a HTML problema tipo Aho-Sethi-Ullman con expresión {}, formato etiquetado",
 				problema.problema());
 
-		String url = "http:\\" + problema.arbolVacio().hashCode() + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
+		String url = "http:\\" + Math.abs(problema.arbolVacio().hashCode()) + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
 		Plantilla plantilla = new Plantilla("plantillaASUEtiquetado.html"); //$NON-NLS-1$
 		StringBuilder soluciones = new StringBuilder();
 
@@ -242,7 +242,7 @@ public class TraductorHTML extends Traductor {
 		Collections.shuffle(alternativas);
 
 		for (int i = 0; i < 4; i++)
-			imagenes[i] = "http:\\" + alternativas.get(i).hashCode() + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
+			imagenes[i] = "http:\\" + Math.abs(alternativas.get(i).hashCode()) + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
 
 		int index = alternativas.indexOf(problema.alternativas().get(0));
 		String solucion = "" + (char) ('a' + index); //$NON-NLS-1$
@@ -318,7 +318,7 @@ public class TraductorHTML extends Traductor {
 				"Traduciendo a HTML problema tipo construcción de subconjuntos con expresión {}, formato autómata",
 				problema.problema());
 
-		String url = "http:\\" + problema.automata().hashCode() + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
+		String url = "http:\\" + Math.abs(problema.automata().hashCode()) + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
 		StringBuilder fTrans = new StringBuilder();
 
 		Plantilla plantilla = new Plantilla("plantillaCSAutomata.html"); //$NON-NLS-1$
