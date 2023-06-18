@@ -20,6 +20,7 @@ public class TraductorLatex extends Traductor {
 	private static final Logger log = LoggerFactory
 			.getLogger(TraductorLatex.class);
 
+
 	/**
 	 * Genera un documento Latex a partir de una lista de problemas ya
 	 * traducidos.
@@ -46,7 +47,8 @@ public class TraductorLatex extends Traductor {
 
 		return plantilla.toString();
 	}
-	
+
+
 	/**
 	 * Genera un documento Latex a partir de un único problema ya traducido.
 	 * 
@@ -65,6 +67,7 @@ public class TraductorLatex extends Traductor {
 	
 		return plantilla.toString();
 	}
+
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a formato
@@ -96,7 +99,7 @@ public class TraductorLatex extends Traductor {
 
 		return plantilla;
 	}
-	
+
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo etiquetado a formato
@@ -159,9 +162,7 @@ public class TraductorLatex extends Traductor {
 
 		return plantilla;
 	}
-	
-	
-	
+
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo tablas a formato
@@ -248,6 +249,7 @@ public class TraductorLatex extends Traductor {
 		return plantilla;
 	}
 
+
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo
 	 * construcción a formato Latex.
@@ -276,7 +278,7 @@ public class TraductorLatex extends Traductor {
 
 		return plantilla;
 	}
-	
+
 
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo
@@ -341,6 +343,7 @@ public class TraductorLatex extends Traductor {
 		return plantilla;
 	}
 
+
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo autómata
 	 * a formato Latex.
@@ -396,7 +399,7 @@ public class TraductorLatex extends Traductor {
 
 		return plantilla;
 	}
-	
+
 
 	/**
 	 * Devuelve una representación de un conjunto de elementos separados con
@@ -422,6 +425,7 @@ public class TraductorLatex extends Traductor {
 		}
 		return setToString.toString();
 	}
+
 
 	/**
 	 * Devuelve una representación de un conjunto de elementos como rangos separados por comas.
@@ -477,5 +481,4 @@ public class TraductorLatex extends Traductor {
 		}
 		return out.toString();
 	}
-
 }

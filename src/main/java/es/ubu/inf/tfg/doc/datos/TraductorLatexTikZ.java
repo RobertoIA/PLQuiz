@@ -20,6 +20,7 @@ public class TraductorLatexTikZ extends Traductor {
 	private static final Logger log = LoggerFactory
 			.getLogger(TraductorLatexTikZ.class);
 
+
 	/**
 	 * Genera un documento Latex a partir de una lista de problemas ya
 	 * traducidos.
@@ -46,7 +47,8 @@ public class TraductorLatexTikZ extends Traductor {
 
 		return plantilla.toString();
 	}
-	
+
+
 	/**
 	 * Genera un documento Latex a partir de un único problema ya traducido.
 	 * 
@@ -65,6 +67,7 @@ public class TraductorLatexTikZ extends Traductor {
 	
 		return plantilla.toString();
 	}
+
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a formato
@@ -96,7 +99,7 @@ public class TraductorLatexTikZ extends Traductor {
 
 		return plantilla;
 	}
-	
+
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo etiquetado a formato
@@ -159,9 +162,7 @@ public class TraductorLatexTikZ extends Traductor {
 
 		return plantilla;
 	}
-	
-	
-	
+
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo tablas a formato
@@ -249,6 +250,7 @@ public class TraductorLatexTikZ extends Traductor {
 		return plantilla;
 	}
 
+
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo
 	 * construcción a formato Latex.
@@ -277,7 +279,7 @@ public class TraductorLatexTikZ extends Traductor {
 
 		return plantilla;
 	}
-	
+
 
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo
@@ -342,6 +344,7 @@ public class TraductorLatexTikZ extends Traductor {
 		return plantilla;
 	}
 
+
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo autómata
 	 * a formato Latex.
@@ -397,7 +400,7 @@ public class TraductorLatexTikZ extends Traductor {
 
 		return plantilla;
 	}
-	
+
 
 	/**
 	 * Devuelve una representación de un conjunto de elementos separados con
@@ -423,6 +426,7 @@ public class TraductorLatexTikZ extends Traductor {
 		}
 		return setToString.toString();
 	}
+
 
 	/**
 	 * Devuelve una representación de un conjunto de elementos como rangos separados por comas.
@@ -478,5 +482,4 @@ public class TraductorLatexTikZ extends Traductor {
 		}
 		return out.toString();
 	}
-
 }

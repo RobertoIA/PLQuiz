@@ -586,7 +586,7 @@ public class Automata {
 							.collect(Collectors.toList()));
 
 					for (Nodo nodo : siguientes.keySet()) {
-						if (!gNodos.containsKey(nodo.posicion())) { // Aï¿½ade
+						if (!gNodos.containsKey(nodo.posicion())) { // Añade
 																	// nodo
 							gNodo = graph
 									.insertVertex(parent, null,
@@ -596,7 +596,7 @@ public class Automata {
 						} else { // Recupera nodo
 							gNodo = gNodos.get(nodo.posicion());
 						}
-						// Aï¿½ade transiciï¿½n
+						// Añade transición
 						graph.insertEdge(parent, null, siguientes.get(nodo),
 								gActual, gNodo, estiloEdge);
 					}

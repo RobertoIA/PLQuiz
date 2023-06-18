@@ -16,6 +16,7 @@ public class Plantilla {
 
 	String plantilla;
 
+
 	public Plantilla(String fichero) {
 		StringBuilder contenido;
 		String linea;
@@ -47,15 +48,18 @@ public class Plantilla {
 		}
 	}
 
+
 	public void set(String atributo, String valor) {
 		plantilla = plantilla.replace("{" + atributo + "}", valor); //$NON-NLS-1$ //$NON-NLS-2$
 	}
+
 
 	@Override
 	public String toString() {
 		return plantilla;
 	}
-	
+
+
 	public static void main (String [ ] args) {
 		Plantilla plantilla;
 		Locale.setDefault(new Locale("es", "ES"));  // <=== Locale active at the first instantiation of Plantilla

@@ -22,6 +22,7 @@ public class TraductorHTML extends Traductor {
 	private static final Logger log = LoggerFactory
 			.getLogger(TraductorHTML.class);
 
+
 	/**
 	 * Genera un documento HTML a partir de una lista de problemas ya
 	 * traducidos.
@@ -48,7 +49,8 @@ public class TraductorHTML extends Traductor {
 
 		return plantilla.toString();
 	}
-	
+
+
 	/**
 	 * Genera un documento HTML a partir de un único problema ya traducido.
 	 * 
@@ -67,6 +69,7 @@ public class TraductorHTML extends Traductor {
 	
 		return plantilla.toString();
 	}
+
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a formato
@@ -102,6 +105,7 @@ public class TraductorHTML extends Traductor {
 
 		return plantilla;
 	}
+
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo etiquetado a formato
@@ -158,6 +162,7 @@ public class TraductorHTML extends Traductor {
 
 		return plantilla;
 	}
+
 
 	/**
 	 * Traduce un problema de tipo AhoSethiUllman subtipo tablas a formato HTML.
@@ -221,6 +226,7 @@ public class TraductorHTML extends Traductor {
 		return plantilla;
 	}
 
+
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo
 	 * construcción a formato HTML.
@@ -256,6 +262,7 @@ public class TraductorHTML extends Traductor {
 
 		return plantilla;
 	}
+
 
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo
@@ -303,6 +310,7 @@ public class TraductorHTML extends Traductor {
 
 		return plantilla;
 	}
+
 
 	/**
 	 * Traduce un problema de tipo construcción de subconjuntos subtipo
@@ -352,6 +360,7 @@ public class TraductorHTML extends Traductor {
 		return plantilla;
 	}
 
+
 	/**
 	 * Devuelve una representación de un conjunto de elementos separados con
 	 * comas.
@@ -376,6 +385,7 @@ public class TraductorHTML extends Traductor {
 		}
 		return setToString.toString();
 	}
+
 
 	/**
 	 * Devuelve una representación de un conjunto de elementos como rangos separados por comas.
@@ -429,5 +439,4 @@ public class TraductorHTML extends Traductor {
 		}
 		return out.toString();
 	}
-
 }
