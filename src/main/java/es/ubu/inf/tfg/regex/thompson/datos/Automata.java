@@ -10,6 +10,10 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
+// This is needed to access Locale.US and force the use of dot in String.format
+// SEE: https://stackoverflow.com/questions/49069386/make-java-write-floats-with-dot-instead-of-comma
+import java.util.Locale;
+
 import javax.swing.SwingConstants;
 
 import org.w3c.dom.Document;
@@ -747,15 +751,15 @@ public class Automata {
 	    
 		out += "\n% Line INI to 0\n"; 
 		out += "\\begin{tikzpicture}[y=0.80pt, x=0.80pt, yscale=-\\globalscale, xscale=\\globalscale, inner sep=0pt, outer sep=0pt]";
-		out += String.format("\\draw[color=black,line width=0.400pt,line cap=butt,line join=miter -{Stealth[length=2.4mm, width=1.5mm]}] (%d,%f) -- (%f,%f);\n", 0, y, x-12, y);
+		out += String.format(Locale.US, "\\draw[color=black,line width=0.400pt,line cap=butt,line join=miter -{Stealth[length=2.4mm, width=1.5mm]}] (%d,%f) -- (%f,%f);\n", 0, y, x-12, y);
 		out += "% Initial state color\n";
-		out += String.format("\\draw[fill=yellow, fill opacity=0.3] (%f,%f) circle (%d);\n", x, y, r);
+		out += String.format(Locale.US, "\\draw[fill=yellow, fill opacity=0.3] (%f,%f) circle (%d);\n", x, y, r);
 		
 	    x = this.finalStateCoordinatesX;
 	    y = this.finalStateCoordinatesY;
 	    
 	    out += "% Final state inner circle \n";
-	    out += String.format("\\draw[color=black, fill=pink, fill opacity=0.5] (%f,%f) circle (%f);\n", x , y, r-1.5);
+	    out += String.format(Locale.US, "\\draw[color=black, fill=pink, fill opacity=0.5] (%f,%f) circle (%f);\n", x , y, r-1.5);
 	    
 	    //if(bigestState > 99)
 	    //	out = out.replace("\\s{{"+this.bigestState+"}}", "\\s{{\\smaller{"+this.bigestState+"}}}");
@@ -773,16 +777,16 @@ public class Automata {
 
 	private String tz_text(double x, double y, String string, String cls) {
 		idCounter++;
-		return String.format("\\draw (%f, %f) node[above, text=blue] (text%d) {\\car{%s}};\n", (x+r/4), (y-r/5), idCounter, string);
+		return String.format(Locale.US, "\\draw (%f, %f) node[above, text=blue] (text%d) {\\car{%s}};\n", (x+r/4), (y-r/5), idCounter, string);
 	}
 	
 	private String tz_textE(double x, double y) {
 		idCounter++;
-		return String.format("\\draw (%f, %f) node[above right, text=red] (text%d) {$\\varepsilon$};\n", (x+r/4), (y-r/5), idCounter);
+		return String.format(Locale.US, "\\draw (%f, %f) node[above right, text=red] (text%d) {$\\varepsilon$};\n", (x+r/4), (y-r/5), idCounter);
 	}
 	
 	private String tz_line(double xo, double yo, double xd, double yd) {
-		return String.format("\\draw[color=black,line cap=butt,line join=miter,line width=0.400pt, -{Stealth[length=2.4mm, width=1.5mm]}] (%f, %f) -- (%f, %f);\n",
+		return String.format(Locale.US, "\\draw[color=black,line cap=butt,line join=miter,line width=0.400pt, -{Stealth[length=2.4mm, width=1.5mm]}] (%f, %f) -- (%f, %f);\n",
 				xo, yo, xd, yd);
 	}
 	
@@ -822,14 +826,14 @@ public class Automata {
 		}
 		
 		String out = "";
-		out += String.format("\\draw[color=black] (%f, %f) circle (%d);\n", x, y, r);
+		out += String.format(Locale.US, "\\draw[color=black] (%f, %f) circle (%d);\n", x, y, r);
 		
 		String fs = "";
 		
 		if (stateCounter > 999)
 			fs = "\\footnotesize ";
 		
-		out += String.format("\\draw (%f, %f) node[text=green] (s%d) {\\s{%s%d}};\n", x, y, stateCounter, fs, stateCounter);
+		out += String.format(Locale.US, "\\draw (%f, %f) node[text=green] (s%d) {\\s{%s%d}};\n", x, y, stateCounter, fs, stateCounter);
 				
 		return out;
 		
@@ -880,7 +884,7 @@ public class Automata {
 	            d=r*Math.cos(Math.PI/4);
 	            
 	            // First coordinate
-	            out += String.format("(%f, %f)", x1+d*sx, y1+d*sy);
+	            out += String.format(Locale.US, "(%f, %f)", x1+d*sx, y1+d*sy);
 	            
 	            // From quadratic to cubic Bezier
 	            double q1_x = x1+r*sx;
@@ -906,18 +910,18 @@ public class Automata {
 	            c4[1] = qtoc_out[7];
 	             
 	            // Cubic Bezier coordinates
-	            out += String.format("-- (%f, %f)", c1[0], c1[1]);
-	            out += String.format(".. controls (%f, %f)", c2[0],c2[1]);
-	            out += String.format("and (%f, %f)", c3[0],c3[1]);
-	            out += String.format(".. (%f, %f)", c4[0], c4[1]);
+	            out += String.format(Locale.US, "-- (%f, %f)", c1[0], c1[1]);
+	            out += String.format(Locale.US, ".. controls (%f, %f)", c2[0],c2[1]);
+	            out += String.format(Locale.US, "and (%f, %f)", c3[0],c3[1]);
+	            out += String.format(Locale.US, ".. (%f, %f)", c4[0], c4[1]);
 	            
 	            // Last coordinate
-	            out += String.format("-- (%f, %f);\n", x2-d*sx, y1+d*sy);
+	            out += String.format(Locale.US, "-- (%f, %f);\n", x2-d*sx, y1+d*sy);
 	            out += tz_textE((x1+x2)/2, y1+2.4*r*sy);
 	    } else {
 	            // The following are some lines and two cubic Bezier curves
 	            // First coordinate
-	            out += String.format("(%f, %f)", x1+ex*sx, y1+ey*sy);
+	            out += String.format(Locale.US, "(%f, %f)", x1+ex*sx, y1+ey*sy);
 	            
 	            // From quadratic to cubic Bezier
 	            double q1_x = x1+ix*sx;
@@ -943,10 +947,10 @@ public class Automata {
 	            c4[1] = qtoc_out[7];
 	            
 	            // Cubic Bezier coordinates
-	            out += String.format("-- (%f, %f)", c1[0], c1[1]);
-	            out += String.format(".. controls (%f, %f)", c2[0], c2[1]);
-	            out += String.format("and (%f, %f)", c3[0], c3[1]);
-	            out += String.format(".. (%f, %f)", c4[0], c4[1]);
+	            out += String.format(Locale.US, "-- (%f, %f)", c1[0], c1[1]);
+	            out += String.format(Locale.US, ".. controls (%f, %f)", c2[0], c2[1]);
+	            out += String.format(Locale.US, "and (%f, %f)", c3[0], c3[1]);
+	            out += String.format(Locale.US, ".. (%f, %f)", c4[0], c4[1]);
 	            
 	            // From quadratic to cubic Bezier
 	            q1_x = x2-3*r*sx;
@@ -967,13 +971,13 @@ public class Automata {
 	            c4[1] = qtoc_out[7]; 
 	            
 	            // Cubic Bezier coordinates
-	            out += String.format("-- (%f, %f)", c1[0], c1[1]);
-	            out += String.format(".. controls (%f, %f)", c2[0], c2[1]);
-	            out += String.format("and (%f, %f)", c3[0], c3[1]);
-	            out += String.format(".. (%f, %f)", c4[0], c4[1]);
+	            out += String.format(Locale.US, "-- (%f, %f)", c1[0], c1[1]);
+	            out += String.format(Locale.US, ".. controls (%f, %f)", c2[0], c2[1]);
+	            out += String.format(Locale.US, "and (%f, %f)", c3[0], c3[1]);
+	            out += String.format(Locale.US, ".. (%f, %f)", c4[0], c4[1]);
 	            
 	            // Last coordinate
-	            out += String.format("-- (%f, %f);\n", x2-ex*sx, y1+ey*sy);
+	            out += String.format(Locale.US, "-- (%f, %f);\n", x2-ex*sx, y1+ey*sy);
 	            out += tz_textE((x1+x2)/2, y1+ylen*sy);
 	        }
 	    
