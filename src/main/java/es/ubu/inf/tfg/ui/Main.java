@@ -530,7 +530,7 @@ public class Main {
 			log.info("Mostrando página web."); //$NON-NLS-1$
 			try {
 				Desktop.getDesktop().browse(
-						new URI("http://robertoia.github.com/PLQuiz")); //$NON-NLS-1$
+						new URI("http://robertoia.github.io/PLQuiz/")); //$NON-NLS-1$
 			} catch (IOException | URISyntaxException e) {
 				log.error("Error abriendo página web de la aplicación", e); //$NON-NLS-1$
 			}
