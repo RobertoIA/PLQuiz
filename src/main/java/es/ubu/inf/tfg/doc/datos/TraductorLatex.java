@@ -37,7 +37,7 @@ public class TraductorLatex extends Traductor {
 
 		int n = 1;
 		for (Plantilla problema : problemas) {
-			problema.set("numero", "" + n++); //$NON-NLS-1$ //$NON-NLS-2$
+			problema.set("numero", "" + n++); //$NON-NLS-1$
 			documento.append(problema.toString());
 		}
 
@@ -58,7 +58,7 @@ public class TraductorLatex extends Traductor {
 	public String traduceProblema(Plantilla problema, int num){
 		log.info("Generando documento Latex de un único problema."); //$NON-NLS-1$
 		
-		problema.set("numero", "" + num); //$NON-NLS-1$ //$NON-NLS-2$
+		problema.set("numero", "" + num); //$NON-NLS-1$
 		
 		Plantilla plantilla = new Plantilla("plantilla.tex"); //$NON-NLS-1$
 		plantilla.set("documento", problema.toString()); //$NON-NLS-1$
@@ -82,19 +82,17 @@ public class TraductorLatex extends Traductor {
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.tex"); //$NON-NLS-1$
-		String imagen = problema.alternativas().get(0).hashCode() + ""; //$NON-NLS-1$
+		String imagen = Math.abs(problema.alternativas().get(0).hashCode()) + ""; //$NON-NLS-1$
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$ //$NON-NLS-2$
-		expresion = expresion.replace("$", "\\$ "); //$NON-NLS-1$ //$NON-NLS-2$
-		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$ //$NON-NLS-2$
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
+		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$
+		expresion = expresion.replace("$", "\\$ "); //$NON-NLS-1$
+		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$
 
 		plantilla.set("expresion", expresion); //$NON-NLS-1$
 		plantilla.set("imagen", imagen); //$NON-NLS-1$
-		plantilla.set("includetool", "\\myincludegraphicssol"); //$NON-NLS-1$ //$NON-NLS-2$
-		
-		
+		plantilla.set("includetool", "\\myincludegraphicssol"); //$NON-NLS-1$
 
 		return plantilla;
 	}
@@ -114,7 +112,7 @@ public class TraductorLatex extends Traductor {
 				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresión {}, formato etiquetado", //$NON-NLS-1$
 				problema.problema());
 
-		String imagen = "" + problema.arbolVacio().hashCode(); //$NON-NLS-1$
+		String imagen = "" + Math.abs(problema.arbolVacio().hashCode()); //$NON-NLS-1$
 		Plantilla plantilla = new Plantilla("plantillaASUEtiquetado.tex"); //$NON-NLS-1$
 		StringBuilder soluciones = new StringBuilder();
 		
@@ -126,11 +124,11 @@ public class TraductorLatex extends Traductor {
 		while (problema.primeraPos(simboloActual) != null) {
 			soluciones.append(simboloActual + " & "); //$NON-NLS-1$
 			soluciones
-					.append((problema.esAnulable(simboloActual) ? Messages.getString("TraductorLatex.yes") : "\\h{No}") //$NON-NLS-1$ //$NON-NLS-2$
+					.append((problema.esAnulable(simboloActual) ? Messages.getString("TraductorLatex.yes") : "\\h{No}") //$NON-NLS-1$
 							+ " & "); //$NON-NLS-1$
-			soluciones.append("\\h{" + setToRanges(problema.primeraPos(simboloActual)) + "}"  //$NON-NLS-1$ //$NON-NLS-2$
+			soluciones.append("\\h{" + setToRanges(problema.primeraPos(simboloActual)) + "}"  //$NON-NLS-1$
 					+ " & "); //$NON-NLS-1$
-			soluciones.append("\\h{" + setToRanges(problema.ultimaPos(simboloActual)) + "}"   //$NON-NLS-1$ //$NON-NLS-2$
+			soluciones.append("\\h{" + setToRanges(problema.ultimaPos(simboloActual)) + "}"   //$NON-NLS-1$
 					+ "\\\\\n"); //$NON-NLS-1$
 
 			simboloActual++;
@@ -139,25 +137,25 @@ public class TraductorLatex extends Traductor {
 		soluciones.append("\\end{tabular}"); //$NON-NLS-1$
 
 		String solucionesL = soluciones.toString();
-		solucionesL = solucionesL.replace("|", "\\textbar "); //$NON-NLS-1$ //$NON-NLS-2$
-		solucionesL = solucionesL.replace("\u2027", "·"); //$NON-NLS-1$ //$NON-NLS-2$
-		solucionesL = solucionesL.replace("\u03B5", "$\\epsilon$"); //$NON-NLS-1$ //$NON-NLS-2$
-		solucionesL = solucionesL.replace("$", "\\$"); //$NON-NLS-1$ //$NON-NLS-2$
-		solucionesL = solucionesL.replace("\\$\\varnothing\\$", "$ \\varnothing $"); //$NON-NLS-1$ //$NON-NLS-2$
+		solucionesL = solucionesL.replace("|", "\\textbar "); //$NON-NLS-1$
+		solucionesL = solucionesL.replace("\u2027", "·"); //$NON-NLS-1$
+		solucionesL = solucionesL.replace("\u03B5", "$\\epsilon$"); //$NON-NLS-1$
+		solucionesL = solucionesL.replace("$", "\\$"); //$NON-NLS-1$
+		solucionesL = solucionesL.replace("\\$\\varnothing\\$", "$ \\varnothing $"); //$NON-NLS-1$
 		
-		solucionesL = "\\rowcolors{2}{gray!25}{white}\n" + "\\begin{tabular} {c@{\\hspace{4mm}}c@{\\hspace{4mm}}c@{\\hspace{4mm}}c}\n" //$NON-NLS-1$ //$NON-NLS-2$
+		solucionesL = "\\rowcolors{2}{gray!25}{white}\n" + "\\begin{tabular} {c@{\\hspace{4mm}}c@{\\hspace{4mm}}c@{\\hspace{4mm}}c}\n" //$NON-NLS-1$
 				+ solucionesL;
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$ //$NON-NLS-2$
-		expresion = expresion.replace("$", "\\$"); //$NON-NLS-1$ //$NON-NLS-2$
-		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$ //$NON-NLS-2$
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
+		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$
+		expresion = expresion.replace("$", "\\$"); //$NON-NLS-1$
+		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$
 
 		plantilla.set("expresion", expresion); //$NON-NLS-1$
 		plantilla.set("imagen", imagen); //$NON-NLS-1$
 		plantilla.set("tabla", solucionesL); //$NON-NLS-1$
-		plantilla.set("includetool", "\\myincludegraphics"); //$NON-NLS-1$ //$NON-NLS-2$
+		plantilla.set("includetool", "\\myincludegraphics"); //$NON-NLS-1$
 
 		return plantilla;
 	}
@@ -183,7 +181,7 @@ public class TraductorLatex extends Traductor {
 		StringBuilder fTrans = new StringBuilder();
 
 		Plantilla plantilla = new Plantilla("plantillaASUTablas.tex"); //$NON-NLS-1$
-		String imagen = problema.alternativas().get(0).hashCode() + ""; //$NON-NLS-1$
+		String imagen = Math.abs(problema.alternativas().get(0).hashCode()) + ""; //$NON-NLS-1$
 
 		// siguiente-pos
 		stePos.append("\\rowcolors{2}{gray!25}{white}\n"); //$NON-NLS-1$
@@ -193,7 +191,7 @@ public class TraductorLatex extends Traductor {
 		for (int n : problema.posiciones()) {
 			stePos.append(n);
 			stePos.append(" & "); //$NON-NLS-1$
-			stePos.append("\\h{" + setToRanges(problema.siguientePos(n)) + "}"); //$NON-NLS-1$ //$NON-NLS-2$
+			stePos.append("\\h{" + setToRanges(problema.siguientePos(n)) + "}"); //$NON-NLS-1$
 			stePos.append(" \\\\ \n"); //$NON-NLS-1$
 		}
 		stePos.append("\\bottomrule % =============================\n"); //$NON-NLS-1$
@@ -214,14 +212,14 @@ public class TraductorLatex extends Traductor {
 		fTrans.append("}\\\\ \n\\midrule %-------------------------------\n"); //$NON-NLS-1$
 		for (char estado : problema.estados()) {
 			if (problema.esFinal(estado))
-				fTrans.append("\\h{(" + estado + ")} & "); //$NON-NLS-1$ //$NON-NLS-2$
+				fTrans.append("\\h{(" + estado + ")} & "); //$NON-NLS-1$
 			else
-				fTrans.append("\\h{" + estado + "} & "); //$NON-NLS-1$ //$NON-NLS-2$
+				fTrans.append("\\h{" + estado + "} & "); //$NON-NLS-1$
 			for (char simbolo : problema.simbolos()) {
 				if (simbolo != '$')
-					fTrans.append("\\h{" + problema.mueve(estado, simbolo) + "} & "); //$NON-NLS-1$ //$NON-NLS-2$
+					fTrans.append("\\h{" + problema.mueve(estado, simbolo) + "} & "); //$NON-NLS-1$
 			}
-			fTrans.append("\\h{" + setToRanges(problema.estado(estado)) + "}"); //$NON-NLS-1$ //$NON-NLS-2$
+			fTrans.append("\\h{" + setToRanges(problema.estado(estado)) + "}"); //$NON-NLS-1$
 			//for (int posicion : problema.estado(estado)) fTrans.append(posicion + " ");
 			fTrans.append("\\\\ \n"); //$NON-NLS-1$
 		}
@@ -229,23 +227,23 @@ public class TraductorLatex extends Traductor {
 		fTrans.append("\\end{tabular}"); //$NON-NLS-1$
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$ //$NON-NLS-2$
-		expresion = expresion.replace("$", "\\$ "); //$NON-NLS-1$ //$NON-NLS-2$
-		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$ //$NON-NLS-2$
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
+		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$
+		expresion = expresion.replace("$", "\\$ "); //$NON-NLS-1$
+		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$
 		String expresionAumentada = problema.expresionAumentada();
-		expresionAumentada = expresionAumentada.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-		expresionAumentada = expresionAumentada.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$ //$NON-NLS-2$
-		expresionAumentada = expresionAumentada.replace("$", "\\$ "); //$NON-NLS-1$ //$NON-NLS-2$
-		expresionAumentada = expresionAumentada.replace("*", "^*"); //$NON-NLS-1$ //$NON-NLS-2$
-		expresionAumentada = "$ " + expresionAumentada + " $"; //$NON-NLS-1$ //$NON-NLS-2$
+		expresionAumentada = expresionAumentada.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
+		expresionAumentada = expresionAumentada.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$
+		expresionAumentada = expresionAumentada.replace("$", "\\$ "); //$NON-NLS-1$
+		expresionAumentada = expresionAumentada.replace("*", "^*"); //$NON-NLS-1$
+		expresionAumentada = "$ " + expresionAumentada + " $"; //$NON-NLS-1$
 
 		plantilla.set("expresion", expresion); //$NON-NLS-1$
 		plantilla.set("aumentada", expresionAumentada); //$NON-NLS-1$
 		plantilla.set("siguientePos", stePos.toString()); //$NON-NLS-1$
 		plantilla.set("transicion", fTrans.toString()); //$NON-NLS-1$
 		plantilla.set("imagen", imagen); //$NON-NLS-1$
-		plantilla.set("includetool", "\\myincludegraphicssol"); //$NON-NLS-1$ //$NON-NLS-2$
+		plantilla.set("includetool", "\\myincludegraphicssol"); //$NON-NLS-1$
 
 		return plantilla;
 	}
@@ -264,17 +262,17 @@ public class TraductorLatex extends Traductor {
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.tex"); //$NON-NLS-1$
-		String imagen = problema.automata().hashCode() + ""; //$NON-NLS-1$
+		String imagen = Math.abs(problema.automata().hashCode()) + ""; //$NON-NLS-1$
 		
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$ //$NON-NLS-2$
-		expresion = expresion.replace("$", "\\$ "); //$NON-NLS-1$ //$NON-NLS-2$
-		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$ //$NON-NLS-2$
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
+		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$
+		expresion = expresion.replace("$", "\\$ "); //$NON-NLS-1$
+		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$
 		
 		plantilla.set("expresion", expresion); //$NON-NLS-1$
 		plantilla.set("imagen", imagen); //$NON-NLS-1$
-		plantilla.set("includetool", "\\myincludegraphicssol"); //$NON-NLS-1$ //$NON-NLS-2$
+		plantilla.set("includetool", "\\myincludegraphicssol"); //$NON-NLS-1$
 
 		return plantilla;
 	}
@@ -297,7 +295,7 @@ public class TraductorLatex extends Traductor {
 		StringBuilder fTrans = new StringBuilder();
 
 		Plantilla plantilla = new Plantilla("plantillaCSExpresion.tex"); //$NON-NLS-1$
-		String imagen = problema.automata().hashCode() + ""; //$NON-NLS-1$
+		String imagen = Math.abs(problema.automata().hashCode()) + ""; //$NON-NLS-1$
 
 		// Función de transición
 		fTrans.append("\\rowcolors{2}{gray!25}{white}\n"); //$NON-NLS-1$
@@ -315,14 +313,14 @@ public class TraductorLatex extends Traductor {
 		fTrans.append("\\midrule %-------------------------------\n"); //$NON-NLS-1$
 		for (char estado : problema.estados()) {
 			if (problema.esFinal(estado))
-				fTrans.append("\\h{(" + estado + ")} & "); //$NON-NLS-1$ //$NON-NLS-2$
+				fTrans.append("\\h{(" + estado + ")} & "); //$NON-NLS-1$
 			else
-				fTrans.append("\\h{" + estado + "} & "); //$NON-NLS-1$ //$NON-NLS-2$
+				fTrans.append("\\h{" + estado + "} & "); //$NON-NLS-1$
 			for (char simbolo : problema.simbolos()) {
 				if (simbolo != '$')
-					fTrans.append("\\h{" + problema.mueve(estado, simbolo) + "} & "); //$NON-NLS-1$ //$NON-NLS-2$
+					fTrans.append("\\h{" + problema.mueve(estado, simbolo) + "} & "); //$NON-NLS-1$
 			}
-			fTrans.append("\\h{" + setToRanges(problema.posiciones(estado)) + "}"); //$NON-NLS-1$ //$NON-NLS-2$
+			fTrans.append("\\h{" + setToRanges(problema.posiciones(estado)) + "}"); //$NON-NLS-1$
 			//for (int posicion : problema.posiciones(estado)) fTrans.append(posicion + " ");
 			fTrans.append("\\\\\n"); //$NON-NLS-1$
 		}
@@ -330,16 +328,16 @@ public class TraductorLatex extends Traductor {
 		fTrans.append("\\end{tabular}"); //$NON-NLS-1$
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$ //$NON-NLS-2$
-		expresion = expresion.replace("$", "\\$ "); //$NON-NLS-1$ //$NON-NLS-2$
-		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$ //$NON-NLS-2$
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
+		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$
+		expresion = expresion.replace("$", "\\$ "); //$NON-NLS-1$
+		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$
 
 		plantilla.set("expresion", expresion); //$NON-NLS-1$
 		plantilla.set("transicion", fTrans.toString()); //$NON-NLS-1$
 		plantilla.set("imagen", imagen); //$NON-NLS-1$
-		plantilla.set("includetool", "\\myincludegraphicssol"); //$NON-NLS-1$ //$NON-NLS-2$
-		
+		plantilla.set("includetool", "\\myincludegraphicssol"); //$NON-NLS-1$
+
 		return plantilla;
 	}
 
@@ -357,7 +355,7 @@ public class TraductorLatex extends Traductor {
 				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresión {}, formato autómata", //$NON-NLS-1$
 				problema.problema());
 
-		String imagen = "" + problema.automata().hashCode(); //$NON-NLS-1$
+		String imagen = "" + Math.abs(problema.automata().hashCode()); //$NON-NLS-1$
 		StringBuilder fTrans = new StringBuilder();
 
 		Plantilla plantilla = new Plantilla("plantillaCSAutomata.tex"); //$NON-NLS-1$
@@ -379,14 +377,14 @@ public class TraductorLatex extends Traductor {
 
 		for (char estado : problema.estados()) {
 			if (problema.esFinal(estado))
-				fTrans.append("\\h{(" + estado + ")} & "); //$NON-NLS-1$ //$NON-NLS-2$
+				fTrans.append("\\h{(" + estado + ")} & "); //$NON-NLS-1$
 			else
-				fTrans.append("\\h{" + estado + "} & "); //$NON-NLS-1$ //$NON-NLS-2$
+				fTrans.append("\\h{" + estado + "} & "); //$NON-NLS-1$
 			for (char simbolo : problema.simbolos()) {
 				if (simbolo != '$')
-					fTrans.append("\\h{" + problema.mueve(estado, simbolo) + "} & "); //$NON-NLS-1$ //$NON-NLS-2$
+					fTrans.append("\\h{" + problema.mueve(estado, simbolo) + "} & "); //$NON-NLS-1$
 			}
-			fTrans.append("\\h{" + setToRanges(problema.posiciones(estado)) + "}"); //$NON-NLS-1$ //$NON-NLS-2$
+			fTrans.append("\\h{" + setToRanges(problema.posiciones(estado)) + "}"); //$NON-NLS-1$
 			fTrans.append("\\\\\n"); //$NON-NLS-1$
 		}
 		fTrans.append("\\bottomrule % =============================\n"); //$NON-NLS-1$
@@ -394,7 +392,7 @@ public class TraductorLatex extends Traductor {
 
 		plantilla.set("imagen", imagen); //$NON-NLS-1$
 		plantilla.set("transicion", fTrans.toString()); //$NON-NLS-1$
-		plantilla.set("includetool", "\\myincludegraphics"); //$NON-NLS-1$ //$NON-NLS-2$
+		plantilla.set("includetool", "\\myincludegraphics"); //$NON-NLS-1$
 
 		return plantilla;
 	}
@@ -460,9 +458,9 @@ public class TraductorLatex extends Traductor {
 					if (length == 1) {
 						out.append(""+last); //$NON-NLS-1$
 					} else if (length == 2) {
-						out.append(""+first+", "+last); //$NON-NLS-1$ //$NON-NLS-2$
+						out.append(""+first+", "+last); //$NON-NLS-1$
 					} else {
-						out.append(""+first+"-"+last); //$NON-NLS-1$ //$NON-NLS-2$
+						out.append(""+first+"-"+last); //$NON-NLS-1$
 					}
 					last = first = (int) e;
 					length = 1;
@@ -472,9 +470,9 @@ public class TraductorLatex extends Traductor {
 			if (length == 1) {
 				out.append(""+last); //$NON-NLS-1$
 			} else if (length == 2) {
-				out.append(""+first+", "+last); //$NON-NLS-1$ //$NON-NLS-2$
+				out.append(""+first+", "+last); //$NON-NLS-1$
 			} else {
-				out.append(""+first+"-"+last); //$NON-NLS-1$ //$NON-NLS-2$
+				out.append(""+first+"-"+last); //$NON-NLS-1$
 			}
 		}
 		return out.toString();
