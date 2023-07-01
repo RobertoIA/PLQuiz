@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.image.BufferedImage;
+import java.awt.Dimension;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -44,6 +47,7 @@ import org.slf4j.LoggerFactory;
 
 import es.ubu.inf.tfg.doc.Documento;
 import es.ubu.inf.tfg.doc.Problema;
+import es.ubu.inf.tfg.doc.datos.Plantilla;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
@@ -56,12 +60,12 @@ public class Main {
 	private JPanel vistaPreviaPanel;
 	private JScrollPane vistaPreviaScroll;
 	private JTextPane vistaPreviaText;
-	private JPanel aÒadirPanel;
-	private JButton aÒadirButton;
-	private JComboBox<String> aÒadirBox;
+	private JPanel a√±adirPanel;
+	private JButton a√±adirButton;
+	private JComboBox<String> a√±adirBox;
 	private JPanel contenedorPanel;
-	private Component aÒadirDerechoStrut;
-	private Component aÒadirIzquierdoStrut;
+	private Component a√±adirDerechoStrut;
+	private Component a√±adirIzquierdoStrut;
 	private JMenuBar menuBar;
 	private JMenuItem menuNuevo;
 	private JMenuItem menuBloque;
@@ -88,16 +92,44 @@ public class Main {
 
 	private List<ProblemaPanel<?>> panelesProblema = new ArrayList<>();
 
+	public static void printAll(ResourceBundle Messages) {
+		String[] keys = {"Main.about", "Main.authorRobertoIzquierdoAmo", "Main.blankDocument",
+				"Main.computingScienceFinalProject", "Main.defendedOnJuly2014", "Main.export", "Main.exportLaTeX",
+				"Main.exportLaTeXandGraphviz", "Main.exportLaTeXandPDF", "Main.exportLaTeXandSVG", "Main.exportLaTeXandTikZ",
+				"Main.exportMoodleXML", "Main.file", "Main.genQuestionsBlock", "Main.help", "Main.LaTeXFiles",
+				"Main.moveProblemDown", "Main.moveProblemUp", "Main.newQuestionASU", "Main.newQuestionThompson",
+				"Main.supervisorDrCegarIgnacioGarciaOsorio", "Main.webPage", "Main.XMLMoodleFiles", };
+		System.out.println("\n\n---------------------------------------------------");
+		System.out.println("Default locale: " + Locale.getDefault());
+		
+		for (String k: keys) {
+			System.out.println(k + ": " + Messages.getString(k));		
+		}		
+		System.out.println("DONE!"); //$NON-NLS-1$
+	}
+	
+	public static void test_I18N() {
+		String bundle_name = Main.class.getPackageName() + ".messages"; //$NON-NLS-1$
+		ResourceBundle Messages;
+		
+		Locale.setDefault(new Locale("en", "EN"));
+		Messages = ResourceBundle.getBundle(bundle_name);
+		printAll(Messages);
+		
+		Locale.setDefault(new Locale("es", "ES"));
+		Messages = ResourceBundle.getBundle(bundle_name);
+		printAll(Messages);
+	}
+	
 	public static void main(String[] args) {
-		log.info("AplicaciÛn iniciada");
-
+		//test_I18N();
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					Main window = new Main();
 					window.frmPlquiz.setVisible(true);
 				} catch (Exception e) {
-					log.error("Error al iniciar la aplicaciÛn", e);
+					log.error("Error al iniciar la aplicaci√≥n", e); //$NON-NLS-1$
 				}
 			}
 		});
@@ -109,7 +141,7 @@ public class Main {
 					.getCrossPlatformLookAndFeelClassName());
 		} catch (ClassNotFoundException | InstantiationException
 				| IllegalAccessException | UnsupportedLookAndFeelException e) {
-			log.error("Error estableciendo el look and feel", e);
+			log.error("Error estableciendo el look and feel", e); //$NON-NLS-1$
 		}
 		initialize();
 		actualizaVistaPrevia(null);
@@ -122,9 +154,10 @@ public class Main {
 	 */
 	private void initialize() {
 		this.frmPlquiz = new JFrame();
-		this.frmPlquiz.setTitle("PLQuiz");
+		this.frmPlquiz.setTitle("PLQuiz"); //$NON-NLS-1$
 		this.frmPlquiz.setBounds(100, 100, 1150, 900);
 		this.frmPlquiz.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.frmPlquiz.setMinimumSize(new Dimension(480, 360));
 
 		initMenuBar();
 		initControlPanel();
@@ -135,30 +168,30 @@ public class Main {
 		this.menuBar = new JMenuBar();
 		this.frmPlquiz.getContentPane().add(this.menuBar, BorderLayout.NORTH);
 
-		this.menuArchivo = new JMenu("Archivo");
+		this.menuArchivo = new JMenu(Messages.getString("Main.file")); //$NON-NLS-1$
 		this.menuBar.add(this.menuArchivo);
 
-		this.menuExportar = new JMenu("Exportar");
+		this.menuExportar = new JMenu(Messages.getString("Main.export")); //$NON-NLS-1$
 		this.menuBar.add(this.menuExportar);
 
-		this.menuAyuda = new JMenu("Ayuda");
+		this.menuAyuda = new JMenu(Messages.getString("Main.help")); //$NON-NLS-1$
 		this.menuBar.add(this.menuAyuda);
 
-		this.menuWeb = new JMenuItem("P·gina web");
+		this.menuWeb = new JMenuItem(Messages.getString("Main.webPage")); //$NON-NLS-1$
 		this.menuWeb.addActionListener(new MenuWebActionListener());
 		this.menuAyuda.add(this.menuWeb);
 
-		this.menuAcercaDe = new JMenuItem("Acerca de");
+		this.menuAcercaDe = new JMenuItem(Messages.getString("Main.about")); //$NON-NLS-1$
 		this.menuAcercaDe.addActionListener(new MenuAcercaDeActionListener());
 		this.menuAyuda.add(this.menuAcercaDe);
 
-		this.menuNuevo = new JMenuItem("Documento en blanco");
+		this.menuNuevo = new JMenuItem(Messages.getString("Main.blankDocument")); //$NON-NLS-1$
 		this.menuNuevo.addActionListener(new MenuNuevoActionListener());
 		this.menuNuevo.setAccelerator(KeyStroke.getKeyStroke(
 				java.awt.event.KeyEvent.VK_N, java.awt.Event.CTRL_MASK));
 		this.menuArchivo.add(this.menuNuevo);
 
-		this.menuBloque = new JMenuItem("Generar bloque de preguntas");
+		this.menuBloque = new JMenuItem(Messages.getString("Main.genQuestionsBlock")); //$NON-NLS-1$
 		this.menuBloque.addActionListener(new MenuBloqueActionListener());
 		this.menuBloque.setAccelerator(KeyStroke.getKeyStroke(
 				java.awt.event.KeyEvent.VK_B, java.awt.Event.CTRL_MASK));
@@ -166,28 +199,28 @@ public class Main {
 
 		this.menuArchivo.addSeparator();
 
-		this.menuASU = new JMenuItem("Nueva cuestiÛn - Aho-Sethi-Ullman");
+		this.menuASU = new JMenuItem(Messages.getString("Main.newQuestionASU")); //$NON-NLS-1$
 		this.menuASU.addActionListener(new MenuASUActionListener());
 		this.menuASU.setAccelerator(KeyStroke.getKeyStroke(
 				java.awt.event.KeyEvent.VK_A, java.awt.Event.CTRL_MASK));
 		this.menuArchivo.add(this.menuASU);
 
 		this.menuCS = new JMenuItem(
-				"Nueva cuestiÛn - McNaughton-Yamada-Thompson");
+				Messages.getString("Main.newQuestionThompson")); //$NON-NLS-1$
 		this.menuCS.addActionListener(new MenuCSActionListener());
 		this.menuCS.setAccelerator(KeyStroke.getKeyStroke(
 				java.awt.event.KeyEvent.VK_T, java.awt.Event.CTRL_MASK));
 		this.menuArchivo.add(this.menuCS);
 
 		this.menuExportarMoodleXMLButton = new JMenuItem(
-				"Exportar como Moodle XML");
+				Messages.getString("Main.exportMoodleXML")); //$NON-NLS-1$
 		this.menuExportarMoodleXMLButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuExportarMoodleXMLButton.setAccelerator(KeyStroke.getKeyStroke(
 				java.awt.event.KeyEvent.VK_M, java.awt.Event.CTRL_MASK));
 		this.menuExportar.add(this.menuExportarMoodleXMLButton);
 
-		this.menuExportarLatexButton = new JMenuItem("Exportar como LaTeX");
+		this.menuExportarLatexButton = new JMenuItem(Messages.getString("Main.exportLaTeX")); //$NON-NLS-1$
 		this.menuExportarLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuExportarLatexButton.setAccelerator(KeyStroke.getKeyStroke(
@@ -195,7 +228,7 @@ public class Main {
 		this.menuExportar.add(this.menuExportarLatexButton);
 
 		this.menuExportarGraphvizLatexButton = new JMenuItem(
-				"Exportar como LaTeX + Graphviz");
+				Messages.getString("Main.exportLaTeXandGraphviz")); //$NON-NLS-1$
 		this.menuExportarGraphvizLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuExportarGraphvizLatexButton.setAccelerator(KeyStroke
@@ -205,7 +238,7 @@ public class Main {
 		
 		// JBA >>
 		this.menuExportarSVGLatexButton = new JMenuItem(
-				"Exportar como LaTeX + SVG");
+				Messages.getString("Main.exportLaTeXandSVG")); //$NON-NLS-1$
 		this.menuExportarSVGLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuExportarSVGLatexButton.setAccelerator(KeyStroke
@@ -215,7 +248,7 @@ public class Main {
 		
 		
 		this.menuExportarPDFLatexButton = new JMenuItem(
-				"Exportar como LaTeX + PDF");
+				Messages.getString("Main.exportLaTeXandPDF")); //$NON-NLS-1$
 		this.menuExportarPDFLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuExportarPDFLatexButton.setAccelerator(KeyStroke
@@ -225,7 +258,7 @@ public class Main {
 		
 		
 		this.menuExportarTikZLatexButton = new JMenuItem(
-				"Exportar como LaTeX + TikZ");
+				Messages.getString("Main.exportLaTeXandTikZ")); //$NON-NLS-1$
 		this.menuExportarTikZLatexButton
 				.addActionListener(new MenuExportarButtonActionListener());
 		this.menuExportarTikZLatexButton.setAccelerator(KeyStroke
@@ -259,23 +292,23 @@ public class Main {
 				BoxLayout.Y_AXIS));
 		this.problemasPanel.add(this.contenedorPanel);
 
-		this.aÒadirPanel = new JPanel();
-		this.controlPanel.add(this.aÒadirPanel, BorderLayout.SOUTH);
+		this.a√±adirPanel = new JPanel();
+		this.controlPanel.add(this.a√±adirPanel, BorderLayout.SOUTH);
 
-		this.aÒadirButton = new JButton("+");
-		this.aÒadirButton.addActionListener(new AddButtonActionListener());
+		this.a√±adirButton = new JButton("‚ûï"); //$NON-NLS-1$
+		this.a√±adirButton.addActionListener(new AddButtonActionListener());
 
-		this.aÒadirIzquierdoStrut = Box.createHorizontalStrut(70);
-		this.aÒadirPanel.add(this.aÒadirIzquierdoStrut);
-		this.aÒadirPanel.add(this.aÒadirButton);
+		this.a√±adirIzquierdoStrut = Box.createHorizontalStrut(70);
+		this.a√±adirPanel.add(this.a√±adirIzquierdoStrut);
+		this.a√±adirPanel.add(this.a√±adirButton);
 
-		this.aÒadirBox = new JComboBox<>();
-		this.aÒadirBox.setModel(new DefaultComboBoxModel<String>(new String[] {
-				"Aho-Sethi-Ullman", "McNaughton-Yamada-Thompson" }));
-		this.aÒadirPanel.add(this.aÒadirBox);
+		this.a√±adirBox = new JComboBox<>();
+		this.a√±adirBox.setModel(new DefaultComboBoxModel<String>(new String[] {
+				"Aho-Sethi-Ullman", "McNaughton-Yamada-Thompson" })); //$NON-NLS-1$ //$NON-NLS-2$
+		this.a√±adirPanel.add(this.a√±adirBox);
 
-		this.aÒadirDerechoStrut = Box.createHorizontalStrut(70);
-		this.aÒadirPanel.add(this.aÒadirDerechoStrut);
+		this.a√±adirDerechoStrut = Box.createHorizontalStrut(70);
+		this.a√±adirPanel.add(this.a√±adirDerechoStrut);
 	}
 
 	private void initVistaPreviaPanel() {
@@ -289,7 +322,7 @@ public class Main {
 
 		this.vistaPreviaText = new JTextPane();
 		this.vistaPreviaText.setEditable(false);
-		this.vistaPreviaText.setContentType("text/html;charset=UTF-8");
+		this.vistaPreviaText.setContentType("text/html;charset=UTF-8"); //$NON-NLS-1$
 		this.vistaPreviaScroll.add(this.vistaPreviaText);
 		this.vistaPreviaScroll.setViewportView(this.vistaPreviaText);
 
@@ -299,7 +332,7 @@ public class Main {
 				new ScrollbarVistaPreviaListener());
 	}
 
-	void aÒadeAhoSethiUllman(Problema<AhoSethiUllman> problema) {
+	void a√±adeAhoSethiUllman(Problema<AhoSethiUllman> problema) {
 		AhoSethiUllmanPanel panel = new AhoSethiUllmanPanel(this,
 				contenedorPanel, this.panelesProblema.size() + 1);
 
@@ -312,7 +345,7 @@ public class Main {
 		contenedorPanel.revalidate();
 	}
 
-	void aÒadeConstruccionSubconjuntos(
+	void a√±adeConstruccionSubconjuntos(
 			Problema<ConstruccionSubconjuntos> problema) {
 		ConstruccionSubconjuntosPanel panel = new ConstruccionSubconjuntosPanel(
 				this, contenedorPanel, this.panelesProblema.size() + 1);
@@ -334,7 +367,7 @@ public class Main {
 	void moverProblemaArriba(ProblemaPanel<?> problema) {
 		int index = this.panelesProblema.indexOf(problema);
 		if (index > 0) {
-			log.info("Moviendo problema {} hacia arriba", index);
+			log.info(Messages.getString("Main.moveProblemUp"), index); //$NON-NLS-1$
 			this.panelesProblema.remove(problema);
 			this.panelesProblema.add(index - 1, problema);
 
@@ -353,7 +386,7 @@ public class Main {
 	void moverProblemaAbajo(ProblemaPanel<?> problema) {
 		int index = this.panelesProblema.indexOf(problema);
 		if (index < this.panelesProblema.size() - 1) {
-			log.info("Moviendo problema {} hacia abajo", index);
+			log.info(Messages.getString("Main.moveProblemDown"), index); //$NON-NLS-1$
 			this.panelesProblema.remove(problema);
 			this.panelesProblema.add(index + 1, problema);
 			problema.problemaActual.setNumero(index + 2);
@@ -371,34 +404,34 @@ public class Main {
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	void aÒadeImagen(BufferedImage imagen) {
+	void a√±adeImagen(BufferedImage imagen) {
 		try {
-			String url = "http:\\" + imagen.hashCode() + ".jpg";
-			log.debug("AÒadiendo imagen {}.", url);
+			String url = "http:\\" + Math.abs(imagen.hashCode()) + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
+			log.debug("A√±adiendo imagen {}.", url); //$NON-NLS-1$
 			Dictionary cache = (Dictionary) vistaPreviaText.getDocument()
-					.getProperty("imageCache");
+					.getProperty("imageCache"); //$NON-NLS-1$
 			if (cache == null) {
 				cache = new Hashtable();
-				vistaPreviaText.getDocument().putProperty("imageCache", cache);
+				vistaPreviaText.getDocument().putProperty("imageCache", cache); //$NON-NLS-1$
 			}
 			cache.put(new URL(url), imagen);
 		} catch (Exception e) {
-			log.error("Error al aÒadir imagen.", e);
+			log.error("Error al a√±adir imagen.", e); //$NON-NLS-1$
 		}
 	}
 
 	@SuppressWarnings("rawtypes")
 	void eliminaImagen(BufferedImage imagen) {
 		try {
-			String url = "http:\\" + imagen.hashCode() + ".jpg";
+			String url = "http:\\" + Math.abs(imagen.hashCode()) + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
 			Dictionary cache = (Dictionary) vistaPreviaText.getDocument()
-					.getProperty("imageCache");
+					.getProperty("imageCache"); //$NON-NLS-1$
 			if (cache != null) {
-				log.debug("Eliminando imagen {}.", url);
+				log.debug("Eliminando imagen {}.", url); //$NON-NLS-1$
 				cache.remove(new URL(url));
 			}
 		} catch (Exception e) {
-			log.error("Error al eliminar imagen.", e);
+			log.error("Error al eliminar imagen.", e); //$NON-NLS-1$
 		}
 	}
 
@@ -410,19 +443,19 @@ public class Main {
 	private Documento documento() {
 		Documento documento = new Documento();
 		for (ProblemaPanel<?> panel : this.panelesProblema)
-			documento.aÒadirProblema(panel.problemaActual);
+			documento.a√±adirProblema(panel.problemaActual);
 		return documento;
 	}
 
 	private class AddButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			if (aÒadirBox.getSelectedItem().equals("Aho-Sethi-Ullman")) {
-				log.info("AÒadiendo problema tipo Aho-Sethi-Ullman");
-				aÒadeAhoSethiUllman(null);
-			} else if (aÒadirBox.getSelectedItem().equals(
-					"McNaughton-Yamada-Thompson")) {
-				log.info("AÒadiendo problema tipo construcciÛn de subconjuntos");
-				aÒadeConstruccionSubconjuntos(null);
+			if (a√±adirBox.getSelectedItem().equals("Aho-Sethi-Ullman")) { //$NON-NLS-1$
+				log.info("A√±adiendo problema tipo Aho-Sethi-Ullman"); //$NON-NLS-1$
+				a√±adeAhoSethiUllman(null);
+			} else if (a√±adirBox.getSelectedItem().equals(
+					"McNaughton-Yamada-Thompson")) { //$NON-NLS-1$
+				log.info("A√±adiendo problema tipo construcci√≥n de subconjuntos"); //$NON-NLS-1$
+				a√±adeConstruccionSubconjuntos(null);
 			}
 		}
 	}
@@ -449,34 +482,34 @@ public class Main {
 				File fichero = fileChooser.getSelectedFile();
 				try {
 					if (source == menuExportarMoodleXMLButton) {
-						log.info("Exportando fichero XML a {}.", fichero);
+						log.info("Exportando fichero XML a {}.", fichero); //$NON-NLS-1$
 						documento().exportaXML(fichero);
 					} else if (source == menuExportarLatexButton) {
-						log.info("Exportando fichero Latex a {}.", fichero);
+						log.info("Exportando fichero Latex a {}.", fichero); //$NON-NLS-1$
 						documento().exportaLatex(fichero);
 					} else if (source == menuExportarGraphvizLatexButton) {
 						log.info(
-								"Exportando fichero Latex con im·genes en graphviz a {}.",
+								"Exportando fichero Latex con im√°genes en graphviz a {}.", //$NON-NLS-1$
 								fichero);
 						documento().exportaGraphvizLatex(fichero);
 					} else if (source == menuExportarSVGLatexButton) {	// JBA
 						log.info(
-								"Exportando fichero Latex con im·genes en SVG a {}.",
+								"Exportando fichero Latex con im√°genes en SVG a {}.", //$NON-NLS-1$
 								fichero);
 						documento().exportaSVGLatex(fichero);
 					} else if (source == menuExportarPDFLatexButton) {	// JBA
 						log.info(
-								"Exportando fichero Latex con im·genes en SVG a {}.",
+								"Exportando fichero Latex con im√°genes en SVG a {}.", //$NON-NLS-1$
 								fichero);
 						documento().exportaPDFLatex(fichero);
 					} else if (source == menuExportarTikZLatexButton) {	// JBA
 						log.info(
-								"Exportando fichero Latex con im·genes en TikZ a {}.",
+								"Exportando fichero Latex con im√°genes en TikZ a {}.", //$NON-NLS-1$
 								fichero);
 						documento().exportaTikZLatex(fichero);
 					}
 				} catch (IOException e) {
-					log.error("Fallo al exportar fichero", e);
+					log.error("Fallo al exportar fichero", e); //$NON-NLS-1$
 				}
 			}
 		}
@@ -484,7 +517,7 @@ public class Main {
 
 	private class MenuNuevoActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			log.info("Generando un documento nuevo.");
+			log.info("Generando un documento nuevo."); //$NON-NLS-1$
 			actualizaVistaPrevia(null);
 			contenedorPanel.removeAll();
 			panelesProblema.clear();
@@ -494,45 +527,45 @@ public class Main {
 
 	private class MenuWebActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			log.info("Mostrando p·gina web.");
+			log.info("Mostrando p√°gina web."); //$NON-NLS-1$
 			try {
 				Desktop.getDesktop().browse(
-						new URI("http://robertoia.github.com/PLQuiz"));
+						new URI("http://robertoia.github.io/PLQuiz/")); //$NON-NLS-1$
 			} catch (IOException | URISyntaxException e) {
-				log.error("Error abriendo p·gina web de la aplicaciÛn", e);
+				log.error("Error abriendo p√°gina web de la aplicaci√≥n", e); //$NON-NLS-1$
 			}
 		}
 	}
 
 	private class MenuAcercaDeActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			log.info("Mostrando acerca de.");
-			JOptionPane.showMessageDialog(frmPlquiz, "PLQuiz\n"
-					+ "TFG del Grado en IngenierÌa Inform·tica\n"
-					+ "Escuela PolitÈcnica Superior, Universidad de Burgos\n"
-					+ "Presentado en Julio de 2014\n\n"
-					+ "Autor: Roberto Izquierdo Amo\n"
-					+ "Tutor: Dr. Cesar Ignacio GarcÌa Osorio", "Acerca de",
+			log.info("Mostrando acerca de."); //$NON-NLS-1$
+			JOptionPane.showMessageDialog(frmPlquiz, "PLQuiz\n" //$NON-NLS-1$
+					+ Messages.getString("Main.computingScienceFinalProject") //$NON-NLS-1$
+					+ "Escuela Polit√©cnica Superior, Universidad de Burgos\n" //$NON-NLS-1$
+					+ Messages.getString("Main.defendedOnJuly2014") //$NON-NLS-1$
+					+ Messages.getString("Main.authorRobertoIzquierdoAmo") //$NON-NLS-1$
+					+ Messages.getString("Main.supervisorDrCegarIgnacioGarciaOsorio"), Messages.getString("Main.about"), //$NON-NLS-1$ //$NON-NLS-2$
 					JOptionPane.PLAIN_MESSAGE);
 		}
 	}
 
 	private class MenuBloqueActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			log.info("Generando un bloque de problemas.");
+			log.info("Generando un bloque de problemas."); //$NON-NLS-1$
 			new BloquePreguntas(main);
 		}
 	}
 
 	private class MenuASUActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			aÒadeAhoSethiUllman(null);
+			a√±adeAhoSethiUllman(null);
 		}
 	}
 
 	private class MenuCSActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent event) {
-			aÒadeConstruccionSubconjuntos(null);
+			a√±adeConstruccionSubconjuntos(null);
 		}
 	}
 
@@ -540,13 +573,13 @@ public class Main {
 
 		@Override
 		public boolean accept(File f) {
-			return f.getName().toLowerCase().endsWith(".xml")
+			return f.getName().toLowerCase().endsWith(".xml") //$NON-NLS-1$
 					|| f.isDirectory();
 		}
 
 		@Override
 		public String getDescription() {
-			return "Ficheros Moodle XML (*.xml)";
+			return Messages.getString("Main.XMLMoodleFiles"); //$NON-NLS-1$
 		}
 	}
 
@@ -554,13 +587,13 @@ public class Main {
 
 		@Override
 		public boolean accept(File f) {
-			return f.getName().toLowerCase().endsWith(".tex")
+			return f.getName().toLowerCase().endsWith(".tex") //$NON-NLS-1$
 					|| f.isDirectory();
 		}
 
 		@Override
 		public String getDescription() {
-			return "Ficheros LaTeX (*.tex)";
+			return Messages.getString("Main.LaTeXFiles"); //$NON-NLS-1$
 		}
 	}
 

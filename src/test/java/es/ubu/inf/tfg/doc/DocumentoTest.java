@@ -9,7 +9,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
@@ -21,6 +22,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import es.ubu.inf.tfg.doc.datos.Messages;
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
@@ -119,6 +121,8 @@ public class DocumentoTest {
 
 		String esperado;
 		String encontrado;
+		
+		String solution = Messages.getString("DocumentoTest.solution");
 
 		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA, 1));
 		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB, 2));
@@ -128,10 +132,11 @@ public class DocumentoTest {
 		esperado = toString("incorporarASUConstruccion.html");
 		encontrado = documento.vistaPrevia();
 
+
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
-				"<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>" + solution + "[^<]*</p>",
+				"<p>" + solution + "</p>");
 
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo construcción a vista previa.",
@@ -194,6 +199,25 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+		
+
+
+
+
+		/* CGO
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUEtiquetado_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUEtiquetado_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/  //CGO
+
+
+
+
 
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado a vista previa.",
@@ -227,6 +251,24 @@ public class DocumentoTest {
 
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
+		
+
+
+
+		/* CGO
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUEtiquetado_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUEtiquetado_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/ //CGO
+
+
+
+
 
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado a documento Latex exportado.",
@@ -269,6 +311,20 @@ public class DocumentoTest {
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
+		
+	
+		/* CGO
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUTablas_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUTablas_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/  //CGO
+
+
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo tablas a documento XML exportado.",
 				esperado, encontrado);
@@ -280,6 +336,21 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
+
+		
+		
+		/* CGO
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUTablas_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_IncorporarASUTablas_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/ //CGO
+
+		
 		assertEquals(
 				"Añadido erróneo de problemas Aho-Sethi-Ullman subtipo tablas a documento Latex exportado.",
 				esperado, encontrado);
@@ -299,6 +370,8 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
+		String solution = Messages.getString("DocumentoTest.solution");
+		
 		// Vista previa
 		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA, 1));
 		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB, 2));
@@ -310,8 +383,8 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
-				"<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>" + solution + "[^<]*</p>",
+				"<p>" + solution + "</p>");
 
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo construcción en vista previa.",
@@ -358,7 +431,9 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testEliminarASUEtiquetado() throws IOException {
+	public void testEliminarASUEtiquetado()
+			throws IOException {
+//	        throws UnsupportedEncodingException, FileNotFoundException, IOException {  // CGO
 		File ficheroTemporal;
 
 		String esperado;
@@ -394,7 +469,8 @@ public class DocumentoTest {
 				"<file name=</file>");
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
-
+		
+		
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado en documento XML exportado.",
 				esperado, encontrado);
@@ -408,6 +484,23 @@ public class DocumentoTest {
 
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
+	
+		
+		/* CGO
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_EliminarASUEtiquetado_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_EliminarASUEtiquetado_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/ //CGO
+		
+		
+
+
+
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo etiquetado en documento Latex exportado.",
 				esperado, encontrado);
@@ -421,7 +514,7 @@ public class DocumentoTest {
 	 *             Error operando con archivos.
 	 */
 	@Test
-	public void testEliminarASUTablas() throws IOException {
+	public void testEliminarASUTablas()	throws IOException {
 		File ficheroTemporal;
 
 		String esperado;
@@ -435,7 +528,26 @@ public class DocumentoTest {
 
 		esperado = toString("eliminarASUTablas.html");
 		encontrado = documento.vistaPrevia();
+		
+		
+		
 
+		
+		/* CGO
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_EliminarASUTablas_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_EliminarASUTablas_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/  //CGO
+
+
+
+		
+		
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo tablas en vista previa.",
 				esperado, encontrado);
@@ -446,10 +558,8 @@ public class DocumentoTest {
 
 		documento.exportaXML(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
-
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
-
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo tablas en documento XML exportado.",
 				esperado, encontrado);
@@ -460,6 +570,23 @@ public class DocumentoTest {
 		documento.exportaLatex(ficheroTemporal);
 		encontrado = toString(ficheroTemporal);
 		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}");
+
+		
+
+		
+		/* CGO
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_EliminarASUTablas_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_EliminarASUTablas_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/  //CGO
+
+
+
 
 		assertEquals(
 				"Borrado erróneo de problemas Aho-Sethi-Ullman subtipo tablas en documento Latex exportado.",
@@ -480,6 +607,8 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
+		String solution = Messages.getString("DocumentoTest.solution");
+		
 		// Vista previa
 		documento.añadirProblema(Problema.asuConstruccion(asuProblemaA, 1));
 		documento.añadirProblema(Problema.asuConstruccion(asuProblemaB, 2));
@@ -491,8 +620,8 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
-				"<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>" + solution +"[^<]*</p>", 
+				"<p>" + solution + "</p>");
 
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo construcción en vista previa.",
@@ -556,6 +685,7 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
+		
 
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo etiquetado en vista previa.",
@@ -575,6 +705,7 @@ public class DocumentoTest {
 				"<file name=</file>");
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
+		
 
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo etiquetado en documento XML exportado.",
@@ -590,6 +721,24 @@ public class DocumentoTest {
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}");
 		encontrado = encontrado.replaceAll("myincludegraphics\\{[0-9]+\\}", "myincludegraphics{}");
 
+
+
+
+		/* CGO
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_SustituirASUEtiquetado_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_SustituirASUEtiquetado_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/  //CGO
+
+
+
+		
+		
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo etiquetado en documento Latex exportado.",
 				esperado, encontrado);
@@ -631,6 +780,22 @@ public class DocumentoTest {
 
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
+		
+		
+		
+		/* CGO
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_SustituirASUTablas_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_SustituirASUTablas_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/  //CGO
+
+
+
 
 		assertEquals(
 				"Sustitución errónea de problemas Aho-Sethi-Ullman subtipo tablas en documento XML exportado.",
@@ -663,6 +828,8 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
+		String solution = Messages.getString("DocumentoTest.solution");
+
 		documento.añadirProblema(Problema.CSConstruccion(csProblemaA, 1));
 		documento.añadirProblema(Problema.CSConstruccion(csProblemaB, 2));
 		documento.añadirProblema(Problema.CSConstruccion(csProblemaC, 3));
@@ -673,8 +840,8 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
-				"<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>" + solution + "[^<]*</p>",
+				"<p>" + solution + "</p>");
 
 		assertEquals(
 				"Añadido erróneo de problemas de construcción de subconjuntos subtipo construcción a vista previa.",
@@ -729,6 +896,8 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
+		String solution = Messages.getString("DocumentoTest.solution");
+
 		// Vista previa
 		documento.añadirProblema(Problema.CSConstruccion(csProblemaA, 1));
 		documento.añadirProblema(Problema.CSConstruccion(csProblemaB, 2));
@@ -740,8 +909,8 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
-				"<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>" + solution + "[^<]*</p>",
+				"<p>" + solution + "</p>");
 
 		assertEquals(
 				"Borrado erróneo de problemas de construcción de subconjuntos subtipo construcción en vista previa.",
@@ -794,6 +963,8 @@ public class DocumentoTest {
 		String esperado;
 		String encontrado;
 
+		String solution = Messages.getString("DocumentoTest.solution");
+
 		// Vista previa
 		documento.añadirProblema(Problema.CSConstruccion(csProblemaA, 1));
 		documento.añadirProblema(Problema.CSConstruccion(csProblemaB, 2));
@@ -805,8 +976,8 @@ public class DocumentoTest {
 
 		encontrado = encontrado
 				.replaceAll("<img src=\".*\">", "<img src=\"\">");
-		encontrado = encontrado.replaceAll("<p>Solución:[^<]*</p>",
-				"<p>Solución:</p>");
+		encontrado = encontrado.replaceAll("<p>" + solution + "[^<]*</p>",
+				"<p>" + solution + "</p>");
 
 		assertEquals(
 				"Sustitución errónea de problemas de construcción de subconjuntos subtipo construcción en vista previa.",
@@ -882,6 +1053,27 @@ public class DocumentoTest {
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
 
+
+
+
+		
+		
+		/* CGO
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_incorporarCSExpresion_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_incorporarCSExpresion_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/  //CGO
+
+
+
+
+
+
 		assertEquals(
 				"Añadido erróneo de problemas de construcción de subconjuntos subtipo expresión a documento XML exportado.",
 				esperado, encontrado);
@@ -935,6 +1127,27 @@ public class DocumentoTest {
 
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
+		
+
+
+
+
+		
+		/* CGO
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_eliminarCSExpresion_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_eliminarCSExpresion_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/  //CGO
+
+
+
+
+
 
 		assertEquals(
 				"Borrado erróneo de problemas de construcción de subconjuntos subtipo expresión en documento XML exportado.",
@@ -989,6 +1202,25 @@ public class DocumentoTest {
 
 		encontrado = encontrado.replaceAll("\\{1:MULTICHOICE:[^}]*\\}",
 				"{1:MULTICHOICE:}");
+
+
+
+
+		
+		/* CGO
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_sustituirCSExpresion_encontrado.kk"), "UTF8"))) {
+			writer.write(encontrado);
+		}
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(
+				new FileOutputStream("Documento_sustituirCSExpresion_esperado.kk"), "UTF8"))) {
+			writer.write(esperado);
+		}
+		*/  //CGO
+
+
+
+
 
 		assertEquals(
 				"Sustitución errónea de problemas de construcción de subconjuntos subtipo expresión en documento XML exportado.",
@@ -1259,6 +1491,9 @@ public class DocumentoTest {
 		String resultado;
 		StringBuilder contenido;
 		String linea;
+		
+		String languageFolder = Messages.getString("DocumentoTest.lang");
+		fichero = languageFolder + fichero;
 
 		try (InputStream entrada = getClass().getResourceAsStream(fichero);
 				BufferedReader lector = new BufferedReader(

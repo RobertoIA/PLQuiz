@@ -1,3 +1,4 @@
+% !TeX program = xelatex
 \documentclass[11pt,a4paper,table,answers]{exam} % <== Answers are printed
 %\documentclass[11pt,a4paper,table]{exam} % <== Answers are NOT printed
 
@@ -7,7 +8,7 @@
 \usepackage{amssymb}
 
 \usepackage{graphicx}
-\usepackage{adjustbox}	% Some graphs were too wide
+\usepackage{adjustbox} % Some graphs were too wide
 
 \usepackage{xcolor} % table option is passed as documentclass option
 \usepackage{booktabs}
@@ -18,7 +19,7 @@
 \newcommand{\myincludegraphics}[1]{%
 \begin{center}
 \begin{adjustbox}{max size={\textwidth}{\textheight}}
-	\includegraphics{#1}
+    \includegraphics{#1}
 \end{adjustbox}
 \end{center}
 } % /myincludegraphics
@@ -47,18 +48,27 @@
 
 
 \paragraph{1.-}\label{p1}
-Dibuja el árbol sintáctico correspondiente a la siguiente expresión regular $ ((a|b^*)a^*c)^* $.
-	\myincludegraphicssol{}
+Draw the syntactic tree corresponding to the following regular expression (note that the tree will correspond to the augmented regular expression).
+\[
+    ((a|b^*)a^*c)^*
+\]
+\myincludegraphicssol{}
 
 
 \paragraph{2.-}\label{p2}
-Dibuja el árbol sintáctico correspondiente a la siguiente expresión regular $ (a|b^*)c^*a $.
-	\myincludegraphicssol{}
+Draw the syntactic tree corresponding to the following regular expression (note that the tree will correspond to the augmented regular expression).
+\[
+    (a|b^*)c^*a
+\]
+\myincludegraphicssol{}
 
 
 \paragraph{3.-}\label{p3}
-Dibuja el árbol sintáctico correspondiente a la siguiente expresión regular $ (a|b)^*a(a|b)(a|b) $.
-	\myincludegraphicssol{}
+Draw the syntactic tree corresponding to the following regular expression (note that the tree will correspond to the augmented regular expression).
+\[
+    (a|b)^*a(a|b)(a|b)
+\]
+\myincludegraphicssol{}
 
 
 \end{document}

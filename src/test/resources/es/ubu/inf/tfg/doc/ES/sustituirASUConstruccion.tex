@@ -1,0 +1,66 @@
+% !TeX program = xelatex
+\documentclass[11pt,a4paper,table,answers]{exam} % <== Answers are printed
+%\documentclass[11pt,a4paper,table]{exam} % <== Answers are NOT printed
+
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+
+\usepackage{graphicx}
+\usepackage{adjustbox} % Some graphs were too wide
+
+\usepackage{xcolor} % table option is passed as documentclass option
+\usepackage{booktabs}
+\colorlet{azul}{blue!40!black}
+
+\newcommand{\h}[1]{\ifprintanswers\textcolor{azul}{\bf#1}\else{\phantom{\bf#1}}\fi}
+
+\newcommand{\myincludegraphics}[1]{%
+\begin{center}
+\begin{adjustbox}{max size={\textwidth}{\textheight}}
+    \includegraphics{#1}
+\end{adjustbox}
+\end{center}
+} % /myincludegraphics
+
+\newlength{\graphicheigth}
+\newsavebox{\graphicbox}
+\newcommand{\myincludegraphicssol}[1]{%
+    \sbox{\graphicbox}{%
+        \begin{adjustbox}{max size={\textwidth}{\textheight}}
+            \includegraphics{#1}
+        \end{adjustbox}
+    }
+    \settoheight{\graphicheigth}{\usebox{\graphicbox}}
+    \addtolength{\graphicheigth}{4ex} % increase a litle bit the heigth
+    \ifprintanswers
+        \begin{center}
+            \usebox{\graphicbox}
+        \end{center} 
+    \else
+        \makeemptybox{\graphicheigth}
+    \fi
+}
+
+\begin{document}
+
+
+
+\paragraph{1.-}\label{p1}
+Dibuja el árbol sintáctico correspondiente a la siguiente expresión regular:
+\[
+    ((a|b^*)a^*c)^*
+\]
+\myincludegraphicssol{}
+
+
+\paragraph{2.-}\label{p2}
+Dibuja el árbol sintáctico correspondiente a la siguiente expresión regular:
+\[
+    (a|b)^*a(a|b)(a|b)
+\]
+\myincludegraphicssol{}
+
+
+\end{document}

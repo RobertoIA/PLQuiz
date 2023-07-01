@@ -85,12 +85,12 @@ public class ProblemaPanel<T> extends JPanel {
 				BoxLayout.Y_AXIS));
 		add(this.ordenPanel);
 
-		this.arribaButton = new JButton("<<");
+		this.arribaButton = new JButton("▲");
 		this.arribaButton.setMargin(new Insets(0, 1, 0, 1));
 		this.arribaButton.addActionListener(new BotonArribaActionListener());
 		this.ordenPanel.add(this.arribaButton);
 
-		this.abajoButton = new JButton(">>");
+		this.abajoButton = new JButton("▼");
 		this.abajoButton.setMargin(new Insets(0, 1, 0, 1));
 		this.abajoButton.addActionListener(new BotonAbajoActionListener());
 		this.ordenPanel.add(this.abajoButton);
@@ -106,7 +106,7 @@ public class ProblemaPanel<T> extends JPanel {
 		this.mostrarPanel.setLayout(new BorderLayout());
 		add(this.mostrarPanel);
 
-		this.mostrarButton = new JButton(">>");
+		this.mostrarButton = new JButton("▶");
 		this.mostrarButton.setMargin(new Insets(0, 1, 0, 1));
 		this.mostrarButton.addActionListener(new BotonMostrarActionListener());
 		this.mostrarPanel.add(this.mostrarButton, BorderLayout.CENTER);

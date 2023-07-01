@@ -1,0 +1,35 @@
+
+
+\paragraph{{numero}.-}\label{p{numero}}
+Aplicar el algoritmo de Aho-Sethi-Ullman a la expresión regular:
+\[
+    ((a|b^*)a^*c)^*
+\]
+~\\
+Expresión aumentada: \h{$ ((a|b^*)\cdot a^*\cdot c)^*\cdot \$  $} \\
+
+\myincludegraphicssol{}
+\rowcolors{2}{gray!25}{white}
+\begin{tabular} {c@{\hspace{4mm}}l}
+\toprule % =============================
+$n$ & \emph{stePos}($n$) \\
+\midrule %-------------------------------
+1 & \h{3, 4} \\ 
+2 & \h{2-4} \\ 
+3 & \h{3, 4} \\ 
+4 & \h{1-5} \\ 
+5 & \h{$\varnothing$} \\ 
+\bottomrule % =============================
+\end{tabular}
+\quad
+\rowcolors{2}{gray!25}{white}
+\begin{tabular} {c@{\hspace{4mm}}ccc@{\hspace{4mm}}l}
+\toprule % ============================= 
+$\mathcal{Q}$ & a & b & c & \emph{Posiciones}\\ 
+\midrule %-------------------------------
+\h{(A)} & \h{B} & \h{C} & \h{A} & \h{1-5}\\ 
+\h{B} & \h{B} & \h{D} & \h{A} & \h{3, 4}\\ 
+\h{C} & \h{B} & \h{C} & \h{A} & \h{2-4}\\ 
+\h{D} & \h{D} & \h{D} & \h{D} & \h{$\varnothing$}\\ 
+\bottomrule % =============================
+\end{tabular}

@@ -337,11 +337,11 @@ public class AhoSethiUllman {
 	}
 
 	/**
-	 * Devuelve una programa en formato dot para generar la imagen representando
+	 * Devuelve una programa en formato DOT para generar la imagen representando
 	 * el árbol de expresión regular asociado a este problema, sin completar y
 	 * con los nodos etiquetados.
 	 * 
-	 * @return Programa formato dot para representar el árbol vacío.
+	 * @return Programa formato DOT para representar el árbol vacío.
 	 */
 	public String arbolVacioDot() {
 		return this.solucion.imagenDot();
@@ -352,7 +352,7 @@ public class AhoSethiUllman {
 	 * el árbol de expresión regular asociado a este problema, sin completar y
 	 * con los nodos etiquetados.
 	 * 
-	 * @return Programa formato dot para representar el árbol vacío.
+	 * @return Programa formato TikZ para representar el árbol vacío.
 	 */
 	public String arbolVacioTikZ() {
 		return this.solucion.imagenTikZ();
@@ -363,7 +363,7 @@ public class AhoSethiUllman {
 	 * el árbol de expresión regular asociado a este problema, sin completar y
 	 * con los nodos etiquetados.
 	 * 
-	 * @return Programa formato dot para representar el árbol vacío.
+	 * @return Programa formato SVG para representar el árbol vacío.
 	 */
 	public String arbolVacioSvg() {
 		return this.solucion.imagenSvg();
@@ -374,10 +374,10 @@ public class AhoSethiUllman {
 	 * el árbol de expresión regular asociado a este problema, sin completar y
 	 * con los nodos etiquetados.
 	 * 
-	 * @return Programa formato dot para representar el árbol vacío.
+	 * @return Programa formato PDF para representar el árbol vacío.
 	 */
 	public String arbolVacioPdf() {
-		return this.solucion.imagenSvg();
+		return this.solucion.imagenSvg();  // FIXME: no tendría que ser .imagenSvg
 	}
 
 	/**
@@ -405,7 +405,7 @@ public class AhoSethiUllman {
 	 * mutaciones de la misma, como alternativas en un problema de construcción
 	 * de árbol.
 	 * 
-	 * @return Array de cuatro cadenas de caracteres conteniendo programas dot
+	 * @return Array de cuatro cadenas de caracteres conteniendo programas DOT
 	 *         representando árboles de expresión regular, una correspondiente
 	 *         al del problema y tres alternativas.
 	 */
@@ -423,9 +423,9 @@ public class AhoSethiUllman {
 	}
 	
 	/**
-	 * Genera el árbol solución en Svg.
+	 * Genera el árbol solución en SVG.
 	 * 
-	 * @return Array de cuatro cadenas de caracteres conteniendo programas dot
+	 * @return Array de cuatro cadenas de caracteres conteniendo imágenes SVG
 	 *         representando árboles de expresión regular, una correspondiente
 	 *         al del problema y tres alternativas.
 	 *         
@@ -442,9 +442,9 @@ public class AhoSethiUllman {
 	
 	
 	/**
-	 * Genera el árbol solución en Svg.
+	 * Genera el árbol solución en TikZ.
 	 * 
-	 * @return Array de cuatro cadenas de caracteres conteniendo programas dot
+	 * @return Array de cuatro cadenas de caracteres conteniendo programas TikZ
 	 *         representando árboles de expresión regular, una correspondiente
 	 *         al del problema y tres alternativas.
 	 *         

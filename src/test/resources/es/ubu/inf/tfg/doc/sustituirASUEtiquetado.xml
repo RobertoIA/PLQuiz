@@ -7,16 +7,17 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular ((a|b*)a*c)*</p>
+
+				<p>Given the regular expression ((a|b*)a*c)*, complete the syntax tree according to the Aho-Sethi-Ullman algorithm.</p>
 				<p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
 
 				<table border="1" cellspacing="0" align="left">
 				<tbody>
 				<tr>
-					<th></th>
-					<th>anulable?</th>
-					<th>primera-pos</th>
-					<th>última-pos</th>
+					<th><em>Node</em></th>
+					<th><em>Nullable?</em></th>
+					<th><em>Firstpos</em></th>
+					<th><em>Lastpos</em></th>
 				</tr>
 				<tr><td>A</td><td>
 {1:MULTICHOICE:}
@@ -107,16 +108,17 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa el árbol sintáctico siguiendo el algoritmo de Aho-Sethi-Ullman para la expresión regular (a|b)*a(a|b)(a|b)</p>
+
+				<p>Given the regular expression (a|b)*a(a|b)(a|b), complete the syntax tree according to the Aho-Sethi-Ullman algorithm.</p>
 				<p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
 
 				<table border="1" cellspacing="0" align="left">
 				<tbody>
 				<tr>
-					<th></th>
-					<th>anulable?</th>
-					<th>primera-pos</th>
-					<th>última-pos</th>
+					<th><em>Node</em></th>
+					<th><em>Nullable?</em></th>
+					<th><em>Firstpos</em></th>
+					<th><em>Lastpos</em></th>
 				</tr>
 				<tr><td>A</td><td>
 {1:MULTICHOICE:}

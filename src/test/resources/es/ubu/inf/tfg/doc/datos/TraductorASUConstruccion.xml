@@ -5,7 +5,7 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Selecciona el árbol sintáctico correspondiente a la siguiente expresión regular ((a|b*)a*c)*. Ten en cuenta que el árbol corresponderá con la expresión aumentada.</p>
+				<p>Select the syntactic tree corresponding to the following regular expression ((a|b*)a*c)* (note that the tree will correspond to the augmented regular expression).</p>
 
 				<table>
 					<tr>
@@ -27,7 +27,7 @@
 				</table>
 
 				<p>
-					Solución: {1:MULTICHOICE:}
+					Solution: {1:MULTICHOICE:}
 				</p>
 			]]></text>
 			<file name=</file> 

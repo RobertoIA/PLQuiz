@@ -56,7 +56,7 @@ public class BloquePreguntas extends JDialog {
 	private JPanel asuPanel;
 	private JPanel csPanel;
 	private JPanel controlesPanel;
-	private JButton a�adeButton;
+	private JButton añadeButton;
 	private JProgressBar progressBar;
 	private JPanel asuNumPanel;
 	private JLabel asuNumLabel;
@@ -117,7 +117,7 @@ public class BloquePreguntas extends JDialog {
 	public BloquePreguntas(Main main) {
 		this.main = main;
 
-		setTitle("Generar bloque de preguntas");
+		setTitle(Messages.getString("BloquePreguntas.generateQuestions")); //$NON-NLS-1$
 		setResizable(false);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setModal(true);
@@ -134,7 +134,7 @@ public class BloquePreguntas extends JDialog {
 		this.mainPanel.add(this.asuPanel);
 		this.asuPanel.setBorder(new CompoundBorder(
 				new EmptyBorder(5, 5, 15, 5), new TitledBorder(new LineBorder(
-						new Color(0, 0, 0), 1, true), "Aho Sethi Ullman",
+						new Color(0, 0, 0), 1, true), "Aho-Sethi-Ullman", //$NON-NLS-1$
 						TitledBorder.LEADING, TitledBorder.TOP, null,
 						new Color(0, 0, 0))));
 		this.asuPanel.setLayout(new BoxLayout(this.asuPanel, BoxLayout.Y_AXIS));
@@ -145,7 +145,7 @@ public class BloquePreguntas extends JDialog {
 		this.asuNumPanel.setLayout(new BoxLayout(this.asuNumPanel,
 				BoxLayout.X_AXIS));
 
-		this.asuNumLabel = new JLabel("Cantidad");
+		this.asuNumLabel = new JLabel(Messages.getString("BloquePreguntas.questions")); //$NON-NLS-1$
 		this.asuNumLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		this.asuNumPanel.add(this.asuNumLabel);
 
@@ -161,21 +161,20 @@ public class BloquePreguntas extends JDialog {
 		this.asuModoPanelA.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		this.asuModoConstruccionButton = new JRadioButton(
-				"Construcci\u00F3n de \u00E1rbol");
+				Messages.getString("BloquePreguntas.RE2tree")); //$NON-NLS-1$
 		asuModo.add(this.asuModoConstruccionButton);
 		this.asuModoConstruccionButton.setSelected(true);
 		this.asuModoPanelA.add(this.asuModoConstruccionButton);
 
 		this.asuModoEtiquetadoButton = new JRadioButton(
-				"Etiquetado de \u00E1rbol");
+				Messages.getString("BloquePreguntas.treeLabeling")); //$NON-NLS-1$
 		asuModo.add(this.asuModoEtiquetadoButton);
 		this.asuModoPanelA.add(this.asuModoEtiquetadoButton);
 
 		this.asuModoPanelB = new JPanel();
 		this.asuPanel.add(this.asuModoPanelB);
 
-		this.asuModoTablasButton = new JRadioButton(
-				"Construcci\u00F3n de tablas");
+		this.asuModoTablasButton = new JRadioButton(Messages.getString("BloquePreguntas.RE2DFA")); //$NON-NLS-1$
 		asuModo.add(this.asuModoTablasButton);
 		this.asuModoPanelB.add(this.asuModoTablasButton);
 
@@ -185,7 +184,7 @@ public class BloquePreguntas extends JDialog {
 		this.asuVacioPanel.setLayout(new BoxLayout(this.asuVacioPanel,
 				BoxLayout.X_AXIS));
 
-		this.asuVacioCheck = new JCheckBox("Incluir \u03B5");
+		this.asuVacioCheck = new JCheckBox(Messages.getString("BloquePreguntas.includeEpsilon")); //$NON-NLS-1$
 		this.asuVacioPanel.add(this.asuVacioCheck);
 
 		this.asuVacioGlue = Box.createHorizontalGlue();
@@ -197,7 +196,7 @@ public class BloquePreguntas extends JDialog {
 		this.asuEstadosPanel.setLayout(new BoxLayout(this.asuEstadosPanel,
 				BoxLayout.X_AXIS));
 
-		this.asuEstadosLabel = new JLabel("Estados");
+		this.asuEstadosLabel = new JLabel(Messages.getString("BloquePreguntas.states")); //$NON-NLS-1$
 		this.asuEstadosPanel.add(this.asuEstadosLabel);
 
 		this.asuEstadosStrut = Box.createHorizontalStrut(30);
@@ -207,7 +206,7 @@ public class BloquePreguntas extends JDialog {
 		this.asuEstadosSpinner.setModel(new SpinnerNumberModel(3, 3, 15, 1));
 		this.asuEstadosPanel.add(this.asuEstadosSpinner);
 
-		this.asuEstadosVarLabel = new JLabel(" +/- ");
+		this.asuEstadosVarLabel = new JLabel(" ± "); //$NON-NLS-1$
 		this.asuEstadosPanel.add(this.asuEstadosVarLabel);
 
 		this.asuEstadosVarSpinner = new JSpinner();
@@ -220,7 +219,7 @@ public class BloquePreguntas extends JDialog {
 		this.asuSimbolosPanel.setLayout(new BoxLayout(this.asuSimbolosPanel,
 				BoxLayout.X_AXIS));
 
-		this.asuSimbolosLabel = new JLabel("S\u00EDmbolos");
+		this.asuSimbolosLabel = new JLabel(Messages.getString("BloquePreguntas.symbols")); //$NON-NLS-1$
 		this.asuSimbolosPanel.add(this.asuSimbolosLabel);
 
 		this.asuSimbolosStrut = Box.createHorizontalStrut(27);
@@ -230,7 +229,7 @@ public class BloquePreguntas extends JDialog {
 		this.asuSimbolosSpinner.setModel(new SpinnerNumberModel(5, 3, 6, 1));
 		this.asuSimbolosPanel.add(this.asuSimbolosSpinner);
 
-		this.asuSimbolosVarLabel = new JLabel(" +/- ");
+		this.asuSimbolosVarLabel = new JLabel(" ± "); //$NON-NLS-1$
 		this.asuSimbolosPanel.add(this.asuSimbolosVarLabel);
 
 		this.asuSimbolosVarSpinner = new JSpinner();
@@ -241,7 +240,7 @@ public class BloquePreguntas extends JDialog {
 		this.mainPanel.add(this.csPanel);
 		this.csPanel.setBorder(new CompoundBorder(new EmptyBorder(5, 5, 10, 5),
 				new TitledBorder(new LineBorder(new Color(0, 0, 0), 1, true),
-						"McNaughton-Yamada-Thompson", TitledBorder.LEADING,
+						"McNaughton-Yamada-Thompson", TitledBorder.LEADING, //$NON-NLS-1$
 						TitledBorder.TOP, null, new Color(0, 0, 0))));
 		this.csPanel.setLayout(new BoxLayout(this.csPanel, BoxLayout.Y_AXIS));
 
@@ -251,7 +250,7 @@ public class BloquePreguntas extends JDialog {
 		this.csNumPanel.setLayout(new BoxLayout(this.csNumPanel,
 				BoxLayout.X_AXIS));
 
-		this.csNumLabel = new JLabel("Cantidad");
+		this.csNumLabel = new JLabel(Messages.getString("BloquePreguntas.questions")); //$NON-NLS-1$
 		this.csNumPanel.add(this.csNumLabel);
 
 		this.csNumStrut = Box.createHorizontalStrut(25);
@@ -265,19 +264,19 @@ public class BloquePreguntas extends JDialog {
 		this.csPanel.add(this.csModoPanelA);
 
 		this.csModoConstruccionButton = new JRadioButton(
-				"Construir aut\u00F3mata");
+				Messages.getString("BloquePreguntas.RE2NFA")); //$NON-NLS-1$
 		this.csModoConstruccionButton.setSelected(true);
 		csModo.add(this.csModoConstruccionButton);
 		this.csModoPanelA.add(this.csModoConstruccionButton);
 		
-		this.csModoExpresionButton = new JRadioButton("Resolver expresi\u00F3n");
+		this.csModoExpresionButton = new JRadioButton(Messages.getString("BloquePreguntas.RE2DFA")); //$NON-NLS-1$
 		csModo.add(this.csModoExpresionButton);
 		this.csModoPanelA.add(this.csModoExpresionButton);
 
 		this.csModoPanelB = new JPanel();
 		this.csPanel.add(this.csModoPanelB);
 
-		this.csModoAutomataButton = new JRadioButton("Resolver aut\u00F3mata");
+		this.csModoAutomataButton = new JRadioButton(Messages.getString("BloquePreguntas.NFA2DFA")); //$NON-NLS-1$
 		this.csModoPanelB.add(this.csModoAutomataButton);
 		csModo.add(this.csModoAutomataButton);
 
@@ -287,7 +286,7 @@ public class BloquePreguntas extends JDialog {
 		this.csVacioPanel.setLayout(new BoxLayout(this.csVacioPanel,
 				BoxLayout.X_AXIS));
 
-		this.csVacioCheck = new JCheckBox("Incluir \u03B5");
+		this.csVacioCheck = new JCheckBox(Messages.getString("BloquePreguntas.includeEpsilon")); //$NON-NLS-1$
 		this.csVacioPanel.add(this.csVacioCheck);
 
 		this.csVacioGlue = Box.createHorizontalGlue();
@@ -299,7 +298,7 @@ public class BloquePreguntas extends JDialog {
 		this.csEstadosPanel.setLayout(new BoxLayout(this.csEstadosPanel,
 				BoxLayout.X_AXIS));
 
-		this.csEstadosLabel = new JLabel("Estados");
+		this.csEstadosLabel = new JLabel(Messages.getString("BloquePreguntas.states")); //$NON-NLS-1$
 		this.csEstadosPanel.add(this.csEstadosLabel);
 
 		this.csEstadosStrut = Box.createHorizontalStrut(30);
@@ -309,7 +308,7 @@ public class BloquePreguntas extends JDialog {
 		this.csEstadosSpinner.setModel(new SpinnerNumberModel(3, 3, 15, 1));
 		this.csEstadosPanel.add(this.csEstadosSpinner);
 
-		this.csEstadosVarLabel = new JLabel(" +/- ");
+		this.csEstadosVarLabel = new JLabel(" ± "); //$NON-NLS-1$
 		this.csEstadosPanel.add(this.csEstadosVarLabel);
 
 		this.csEstadosVarSpinner = new JSpinner();
@@ -322,7 +321,7 @@ public class BloquePreguntas extends JDialog {
 		this.csSimbolosPanel.setLayout(new BoxLayout(this.csSimbolosPanel,
 				BoxLayout.X_AXIS));
 
-		this.csSimbolosLabel = new JLabel("S\u00EDmbolos");
+		this.csSimbolosLabel = new JLabel(Messages.getString("BloquePreguntas.symbols")); //$NON-NLS-1$
 		this.csSimbolosPanel.add(this.csSimbolosLabel);
 
 		this.csSimbolosStrut = Box.createHorizontalStrut(27);
@@ -332,7 +331,7 @@ public class BloquePreguntas extends JDialog {
 		this.csSimbolosSpinner.setModel(new SpinnerNumberModel(2, 2, 6, 1));
 		this.csSimbolosPanel.add(this.csSimbolosSpinner);
 
-		this.csSimbolosVarLabel = new JLabel(" +/- ");
+		this.csSimbolosVarLabel = new JLabel(" ± "); //$NON-NLS-1$
 		this.csSimbolosPanel.add(this.csSimbolosVarLabel);
 
 		this.csSimbolosVarSpinner = new JSpinner();
@@ -345,10 +344,10 @@ public class BloquePreguntas extends JDialog {
 		this.controlesPanel.setLayout(new BoxLayout(this.controlesPanel,
 				BoxLayout.Y_AXIS));
 
-		this.a�adeButton = new JButton("Genera y a\u00F1ade problemas");
-		this.a�adeButton.addActionListener(new A�adeButtonActionListener());
-		this.a�adeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-		this.controlesPanel.add(this.a�adeButton);
+		this.añadeButton = new JButton(Messages.getString("BloquePreguntas.generateAndAdd")); //$NON-NLS-1$
+		this.añadeButton.addActionListener(new AñadeButtonActionListener());
+		this.añadeButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		this.controlesPanel.add(this.añadeButton);
 
 		this.progressBar = new JProgressBar();
 		this.progressBar.setVisible(false);
@@ -361,7 +360,7 @@ public class BloquePreguntas extends JDialog {
 		setVisible(true);
 	}
 
-	private class A�adeButtonActionListener implements ActionListener {
+	private class AñadeButtonActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			if (!generando) {
 				worker = new Worker();
@@ -380,7 +379,7 @@ public class BloquePreguntas extends JDialog {
 		@Override
 		protected List<Object> doInBackground() throws Exception {
 			generando = true;
-			a�adeButton.setText("Cancelar");
+			añadeButton.setText(Messages.getString("BloquePreguntas.cancel")); //$NON-NLS-1$
 			progressBar.setVisible(true);
 
 			asuGenerador = new AhoSethiUllmanGenerador();
@@ -399,13 +398,13 @@ public class BloquePreguntas extends JDialog {
 			Integer csSimbolosVar = (Integer) csSimbolosVarSpinner.getValue();
 
 			log.info(
-					"Generando bloque de preguntas con {} de tipo Aho-Sethi-Ullman y {} de tipo Construcci�n de Subconjuntos",
+					"Generando bloque de preguntas con {} de tipo Aho-Sethi-Ullman y {} de tipo Construcción de Subconjuntos", //$NON-NLS-1$
 					asuNum, csNum);
 			log.info(
-					"Problemas Aho-Sethi-Ullman con {} +/- {} estados y {} +/- {} s�mbolos",
+					"Problemas Aho-Sethi-Ullman con {} ± {} estados y {} ± {} símbolos", //$NON-NLS-1$
 					asuEstados, asuEstadosVar, asuSimbolos, asuSimbolosVar);
 			log.info(
-					"Problemas Construcci�n de subconjuntos con {} +/- {} estados y {} +/- {} s�mbolos",
+					"Problemas Construcción de subconjuntos con {} ± {} estados y {} ± {} símbolos", //$NON-NLS-1$
 					csEstados, csEstadosVar, csSimbolos, csSimbolosVar);
 
 			List<Object> problemas = new ArrayList<>();
@@ -474,7 +473,7 @@ public class BloquePreguntas extends JDialog {
 						else
 							p = Problema
 									.asuConstruccion((AhoSethiUllman) problema, numero);
-						main.a�adeAhoSethiUllman(p);
+						main.añadeAhoSethiUllman(p);
 						ultimoProblema = p;
 					} else if (problema instanceof ConstruccionSubconjuntos) {
 						Problema<ConstruccionSubconjuntos> p;
@@ -487,20 +486,20 @@ public class BloquePreguntas extends JDialog {
 						else
 							p = Problema
 									.CSAutomata((ConstruccionSubconjuntos) problema, numero);
-						main.a�adeConstruccionSubconjuntos(p);
+						main.añadeConstruccionSubconjuntos(p);
 						ultimoProblema = p;
 					} else
-						log.error("Generado problema de tipo desconocido.");
+						log.error("Generado problema de tipo desconocido."); //$NON-NLS-1$
 					numero++;
 					main.actualizaVistaPrevia(ultimoProblema);
 				}
 
 			} catch (InterruptedException | ExecutionException
 					| CancellationException e) {
-				log.error("Error generando bloque de problemas", e);
+				log.error("Error generando bloque de problemas", e); //$NON-NLS-1$
 			} finally {
 				generando = false;
-				a�adeButton.setText("Genera y a�ade problemas");
+				añadeButton.setText(Messages.getString("BloquePreguntas.generateAndAdd")); //$NON-NLS-1$
 				progressBar.setVisible(false);
 				dispose();
 			}

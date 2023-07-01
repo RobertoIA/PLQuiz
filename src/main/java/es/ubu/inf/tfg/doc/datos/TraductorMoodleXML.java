@@ -43,19 +43,19 @@ public class TraductorMoodleXML extends Traductor {
 	 */
 	@Override
 	public String documento(List<Plantilla> problemas) {
-		log.info("Generando documento Moodle XML a partir de {} problemas.",
+		log.info("Generando documento Moodle XML a partir de {} problemas.", //$NON-NLS-1$
 				problemas.size());
 
 		StringBuilder documento = new StringBuilder();
 
 		int n = 1;
 		for (Plantilla problema : problemas) {
-			problema.set("numero", "" + n++);
+			problema.set("numero", "" + n++); //$NON-NLS-1$
 			documento.append(problema.toString());
 		}
 
-		Plantilla plantilla = new Plantilla("plantilla.xml");
-		plantilla.set("documento", documento.toString());
+		Plantilla plantilla = new Plantilla("plantilla.xml"); //$NON-NLS-1$
+		plantilla.set("documento", documento.toString()); //$NON-NLS-1$
 
 		return plantilla.toString();
 	}
@@ -69,12 +69,12 @@ public class TraductorMoodleXML extends Traductor {
 	 */
 	@Override
 	public String traduceProblema(Plantilla problema, int num){
-		log.info("Generando documento Moodle XML de un único problema.");
+		log.info("Generando documento Moodle XML de un único problema."); //$NON-NLS-1$
 		
-		problema.set("numero", "" + num);
+		problema.set("numero", "" + num); //$NON-NLS-1$
 		
-		Plantilla plantilla = new Plantilla("plantilla.xml");
-		plantilla.set("documento", problema.toString());
+		Plantilla plantilla = new Plantilla("plantilla.xml"); //$NON-NLS-1$
+		plantilla.set("documento", problema.toString()); //$NON-NLS-1$
 	
 		return plantilla.toString();
 	}
@@ -90,17 +90,17 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public Plantilla traduceASUConstruccion(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresión {}, formato construcción",
+				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresión {}, formato construcción", //$NON-NLS-1$
 				problema.problema());
 
-		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.xml");
+		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.xml"); //$NON-NLS-1$
 		String[] imagenes = new String[4];
 		List<BufferedImage> alternativas = problema.alternativas();
 		Collections.shuffle(alternativas);
 		String[] alternativasBase64 = new String[4];
 
 		for (int i = 0; i < 4; i++) {
-			imagenes[i] = alternativas.get(i).hashCode() + ".jpg";
+			imagenes[i] = Math.abs(alternativas.get(i).hashCode()) + ".jpg"; //$NON-NLS-1$
 			alternativasBase64[i] = imageToBase64(alternativas.get(i));
 		}
 
@@ -112,16 +112,16 @@ public class TraductorMoodleXML extends Traductor {
 		opciones.add('c');
 		opciones.add('d');
 
-		plantilla.set("expresion", problema.problema());
-		plantilla.set("urlA", imagenes[0]);
-		plantilla.set("urlB", imagenes[1]);
-		plantilla.set("urlC", imagenes[2]);
-		plantilla.set("urlD", imagenes[3]);
-		plantilla.set("imagenA", alternativasBase64[0]);
-		plantilla.set("imagenB", alternativasBase64[1]);
-		plantilla.set("imagenC", alternativasBase64[2]);
-		plantilla.set("imagenD", alternativasBase64[3]);
-		plantilla.set("solucion", opcionesTransicion(solucion, opciones));
+		plantilla.set("expresion", problema.problema()); //$NON-NLS-1$
+		plantilla.set("urlA", imagenes[0]); //$NON-NLS-1$
+		plantilla.set("urlB", imagenes[1]); //$NON-NLS-1$
+		plantilla.set("urlC", imagenes[2]); //$NON-NLS-1$
+		plantilla.set("urlD", imagenes[3]); //$NON-NLS-1$
+		plantilla.set("imagenA", alternativasBase64[0]); //$NON-NLS-1$
+		plantilla.set("imagenB", alternativasBase64[1]); //$NON-NLS-1$
+		plantilla.set("imagenC", alternativasBase64[2]); //$NON-NLS-1$
+		plantilla.set("imagenD", alternativasBase64[3]); //$NON-NLS-1$
+		plantilla.set("solucion", opcionesTransicion(solucion, opciones)); //$NON-NLS-1$
 
 		return plantilla;
 	}
@@ -138,42 +138,42 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public Plantilla traduceASUEtiquetado(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresión {}, formato etiquetado",
+				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresión {}, formato etiquetado", //$NON-NLS-1$
 				problema.problema());
 
-		String url = problema.arbolVacio().hashCode() + ".jpg";
-		Plantilla plantilla = new Plantilla("plantillaASUEtiquetado.xml");
+		String url = Math.abs(problema.arbolVacio().hashCode()) + ".jpg"; //$NON-NLS-1$
+		Plantilla plantilla = new Plantilla("plantillaASUEtiquetado.xml"); //$NON-NLS-1$
 		StringBuilder soluciones = new StringBuilder();
 
 		// cabecera
-		soluciones.append("");
+		soluciones.append(""); //$NON-NLS-1$
 		// contenido
 		char simboloActual = 'A';
 		while (problema.primeraPos(simboloActual) != null) {
-			soluciones.append("<tr><td>" + simboloActual + "</td>");
+			soluciones.append("<tr><td>" + simboloActual + "</td>"); //$NON-NLS-1$
 			soluciones.append("<td>\n"
 					+ opcionesAnulables(problema.esAnulable(simboloActual))
-					+ "\n</td>");
+					+ "\n</td>"); //$NON-NLS-1$
 			soluciones.append("<td>\n"
 					+ opcionesPosiciones(problema.primeraPos(simboloActual),
-							problema.posiciones()) + "\n</td>");
+							problema.posiciones()) + "\n</td>"); //$NON-NLS-1$
 			soluciones.append("<td>\n"
 					+ opcionesPosiciones(problema.ultimaPos(simboloActual),
-							problema.posiciones()) + "\n</td>");
-			soluciones.append("</tr>");
+							problema.posiciones()) + "\n</td>"); //$NON-NLS-1$
+			soluciones.append("</tr>"); //$NON-NLS-1$
 
 			simboloActual++;
 		}
 
 		String solucionesXML = soluciones.toString();
-		solucionesXML = solucionesXML.replace("\u2027", "·");
+		solucionesXML = solucionesXML.replace("\u2027", "·"); //$NON-NLS-1$
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "·");
+		expresion = expresion.replace("\u2027", "·"); //$NON-NLS-1$
 
-		plantilla.set("expresion", expresion);
-		plantilla.set("url", url);
-		plantilla.set("imagen", imageToBase64(problema.arbolVacio()));
-		plantilla.set("tabla", solucionesXML);
+		plantilla.set("expresion", expresion); //$NON-NLS-1$
+		plantilla.set("url", url); //$NON-NLS-1$
+		plantilla.set("imagen", imageToBase64(problema.arbolVacio())); //$NON-NLS-1$
+		plantilla.set("tabla", solucionesXML); //$NON-NLS-1$
 
 		return plantilla;
 	}
@@ -190,46 +190,46 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public Plantilla traduceASUTablas(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresión {}, formato tablas",
+				"Traduciendo a Moodle XML problema tipo Aho-Sethi-Ullman con expresión {}, formato tablas", //$NON-NLS-1$
 				problema.problema());
 
 		StringBuilder stePos = new StringBuilder();
 		StringBuilder fTrans = new StringBuilder();
 		StringBuilder eFinales = new StringBuilder();
 
-		Plantilla plantilla = new Plantilla("plantillaASUTablas.xml");
+		Plantilla plantilla = new Plantilla("plantillaASUTablas.xml"); //$NON-NLS-1$
 
 		// siguiente-pos
 		for (int n : problema.posiciones()) {
-			stePos.append("<tr><td>");
+			stePos.append("<tr><td>"); //$NON-NLS-1$
 			stePos.append(n);
-			stePos.append("</td><td>");
+			stePos.append("</td><td>"); //$NON-NLS-1$
 			stePos.append(opcionesPosiciones(problema.siguientePos(n),
 					problema.posiciones()));
-			stePos.append("</td></tr>");
+			stePos.append("</td></tr>"); //$NON-NLS-1$
 		}
 
 		// Función de transición
-		fTrans.append("\n\t<tr><th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
+		fTrans.append("\n\t<tr><th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>"); //$NON-NLS-1$
 		for (char simbolo : problema.simbolos())
 			if (simbolo != '$')
-				fTrans.append("\n\t<th scope=\"col\">" + simbolo + "</th>");
-		fTrans.append("\n\t<th scope=\"col\"> </th>\n\t</tr>");
+				fTrans.append("\n\t<th scope=\"col\">" + simbolo + "</th>"); //$NON-NLS-1$
+		fTrans.append("\n\t<th scope=\"col\"> </th>\n\t</tr>"); //$NON-NLS-1$
 
 		for (char estado : problema.estados()) {
-			fTrans.append("\n\t<tr>\n\t<td>" + estado + "</td>");
+			fTrans.append("\n\t<tr>\n\t<td>" + estado + "</td>"); //$NON-NLS-1$
 			for (char simbolo : problema.simbolos()) {
 				if (simbolo != '$') {
-					fTrans.append("\n\t<td>");
+					fTrans.append("\n\t<td>"); //$NON-NLS-1$
 					fTrans.append(opcionesTransicion(
 							problema.mueve(estado, simbolo), problema.estados()));
-					fTrans.append("</td>");
+					fTrans.append("</td>"); //$NON-NLS-1$
 				}
 			}
-			fTrans.append("\n\t<td>");
+			fTrans.append("\n\t<td>"); //$NON-NLS-1$
 			fTrans.append(opcionesPosiciones(problema.estado(estado),
 					problema.posiciones()));
-			fTrans.append("</td>\n\t</tr>");
+			fTrans.append("</td>\n\t</tr>"); //$NON-NLS-1$
 		}
 
 		// Estados finales
@@ -240,10 +240,10 @@ public class TraductorMoodleXML extends Traductor {
 		}
 		eFinales.append(opcionesFinales(finales, problema.estados()));
 
-		plantilla.set("expresion", problema.problema());
-		plantilla.set("siguientePos", stePos.toString());
-		plantilla.set("transicion", fTrans.toString());
-		plantilla.set("finales", eFinales.toString());
+		plantilla.set("expresion", problema.problema()); //$NON-NLS-1$
+		plantilla.set("siguientePos", stePos.toString()); //$NON-NLS-1$
+		plantilla.set("transicion", fTrans.toString()); //$NON-NLS-1$
+		plantilla.set("finales", eFinales.toString()); //$NON-NLS-1$
 
 		return plantilla;
 	}
@@ -259,10 +259,10 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public Plantilla traduceCSConstruccion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresión {}, formato construcción",
+				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresión {}, formato construcción", //$NON-NLS-1$
 				problema.problema());
 
-		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.xml");
+		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.xml"); //$NON-NLS-1$
 
 		String[] imagenes = new String[4];
 		List<BufferedImage> alternativas = problema.alternativas();
@@ -270,7 +270,7 @@ public class TraductorMoodleXML extends Traductor {
 		String[] alternativasBase64 = new String[4];
 
 		for (int i = 0; i < 4; i++) {
-			imagenes[i] = alternativas.get(i).hashCode() + ".jpg";
+			imagenes[i] = Math.abs(alternativas.get(i).hashCode()) + ".jpg"; //$NON-NLS-1$
 			alternativasBase64[i] = imageToBase64(alternativas.get(i));
 		}
 
@@ -282,16 +282,16 @@ public class TraductorMoodleXML extends Traductor {
 		opciones.add('c');
 		opciones.add('d');
 
-		plantilla.set("expresion", problema.problema());
-		plantilla.set("urlA", imagenes[0]);
-		plantilla.set("urlB", imagenes[1]);
-		plantilla.set("urlC", imagenes[2]);
-		plantilla.set("urlD", imagenes[3]);
-		plantilla.set("imagenA", alternativasBase64[0]);
-		plantilla.set("imagenB", alternativasBase64[1]);
-		plantilla.set("imagenC", alternativasBase64[2]);
-		plantilla.set("imagenD", alternativasBase64[3]);
-		plantilla.set("solucion", opcionesTransicion(solucion, opciones));
+		plantilla.set("expresion", problema.problema()); //$NON-NLS-1$
+		plantilla.set("urlA", imagenes[0]); //$NON-NLS-1$
+		plantilla.set("urlB", imagenes[1]); //$NON-NLS-1$
+		plantilla.set("urlC", imagenes[2]); //$NON-NLS-1$
+		plantilla.set("urlD", imagenes[3]); //$NON-NLS-1$
+		plantilla.set("imagenA", alternativasBase64[0]); //$NON-NLS-1$
+		plantilla.set("imagenB", alternativasBase64[1]); //$NON-NLS-1$
+		plantilla.set("imagenC", alternativasBase64[2]); //$NON-NLS-1$
+		plantilla.set("imagenD", alternativasBase64[3]); //$NON-NLS-1$
+		plantilla.set("solucion", opcionesTransicion(solucion, opciones)); //$NON-NLS-1$
 
 		return plantilla;
 	}
@@ -307,35 +307,35 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public Plantilla traduceCSExpresion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresión {}, formato expresión",
+				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresión {}, formato expresión", //$NON-NLS-1$
 				problema.problema());
 
 		StringBuilder fTrans = new StringBuilder();
 		StringBuilder eFinales = new StringBuilder();
 
-		Plantilla plantilla = new Plantilla("plantillaCSExpresion.xml");
+		Plantilla plantilla = new Plantilla("plantillaCSExpresion.xml"); //$NON-NLS-1$
 
 		// Función de transición
-		fTrans.append("\n\t<tr>\n\t<th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
+		fTrans.append("\n\t<tr>\n\t<th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>"); //$NON-NLS-1$
 		for (char simbolo : problema.simbolos())
 			if (simbolo != '$')
-				fTrans.append("\n\t<th scope=\"col\">" + simbolo + "</th>");
-		fTrans.append("\n\t<th scope=\"col\"> </th>\n\t</tr>");
+				fTrans.append("\n\t<th scope=\"col\">" + simbolo + "</th>"); //$NON-NLS-1$
+		fTrans.append("\n\t<th scope=\"col\"> </th>\n\t</tr>"); //$NON-NLS-1$
 
 		for (char estado : problema.estados()) {
-			fTrans.append("\n\t<tr>\n\t<td>" + estado + "</td>");
+			fTrans.append("\n\t<tr>\n\t<td>" + estado + "</td>"); //$NON-NLS-1$
 			for (char simbolo : problema.simbolos()) {
 				if (simbolo != '$') {
-					fTrans.append("\n\t<td>");
+					fTrans.append("\n\t<td>"); //$NON-NLS-1$
 					fTrans.append(opcionesTransicion(
 							problema.mueve(estado, simbolo), problema.estados()));
-					fTrans.append("</td>");
+					fTrans.append("</td>"); //$NON-NLS-1$
 				}
 			}
-			fTrans.append("\n\t<td>");
+			fTrans.append("\n\t<td>"); //$NON-NLS-1$
 			fTrans.append(opcionesPosiciones(problema.posiciones(estado),
 					problema.posiciones()));
-			fTrans.append("</td>\n\t</tr>");
+			fTrans.append("</td>\n\t</tr>"); //$NON-NLS-1$
 		}
 
 		// Estados finales
@@ -346,9 +346,9 @@ public class TraductorMoodleXML extends Traductor {
 		}
 		eFinales.append(opcionesFinales(finales, problema.estados()));
 
-		plantilla.set("expresion", problema.problema());
-		plantilla.set("transicion", fTrans.toString());
-		plantilla.set("finales", eFinales.toString());
+		plantilla.set("expresion", problema.problema()); //$NON-NLS-1$
+		plantilla.set("transicion", fTrans.toString()); //$NON-NLS-1$
+		plantilla.set("finales", eFinales.toString()); //$NON-NLS-1$
 
 		return plantilla;
 	}
@@ -364,36 +364,36 @@ public class TraductorMoodleXML extends Traductor {
 	@Override
 	public Plantilla traduceCSAutomata(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresión {}, formato autómata",
+				"Traduciendo a Moodle XML problema tipo construcción de subconjuntos con expresión {}, formato autómata", //$NON-NLS-1$
 				problema.problema());
 
-		String url = problema.automata().hashCode() + ".jpg";
+		String url = Math.abs(problema.automata().hashCode()) + ".jpg"; //$NON-NLS-1$
 		StringBuilder fTrans = new StringBuilder();
 		StringBuilder eFinales = new StringBuilder();
 
-		Plantilla plantilla = new Plantilla("plantillaCSAutomata.xml");
+		Plantilla plantilla = new Plantilla("plantillaCSAutomata.xml"); //$NON-NLS-1$
 
 		// Función de transición
-		fTrans.append("\n\t<tr>\n\t<th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>");
+		fTrans.append("\n\t<tr>\n\t<th scope=\"col\">$$\\mathcal{Q}/\\Sigma$$</th>"); //$NON-NLS-1$
 		for (char simbolo : problema.simbolos())
 			if (simbolo != '$')
-				fTrans.append("\n\t<th scope=\"col\">" + simbolo + "</th>");
-		fTrans.append("\n\t<th scope=\"col\"> </th>\n\t</tr>");
+				fTrans.append("\n\t<th scope=\"col\">" + simbolo + "</th>"); //$NON-NLS-1$
+		fTrans.append("\n\t<th scope=\"col\"> </th>\n\t</tr>"); //$NON-NLS-1$
 
 		for (char estado : problema.estados()) {
-			fTrans.append("\n\t<tr>\n\t<td>" + estado + "</td>");
+			fTrans.append("\n\t<tr>\n\t<td>" + estado + "</td>"); //$NON-NLS-1$
 			for (char simbolo : problema.simbolos()) {
 				if (simbolo != '$') {
-					fTrans.append("\n\t<td>");
+					fTrans.append("\n\t<td>"); //$NON-NLS-1$
 					fTrans.append(opcionesTransicion(
 							problema.mueve(estado, simbolo), problema.estados()));
-					fTrans.append("</td>");
+					fTrans.append("</td>"); //$NON-NLS-1$
 				}
 			}
-			fTrans.append("\n\t<td>");
+			fTrans.append("\n\t<td>"); //$NON-NLS-1$
 			fTrans.append(opcionesPosiciones(problema.posiciones(estado),
 					problema.posiciones()));
-			fTrans.append("</td>\n\t</tr>");
+			fTrans.append("</td>\n\t</tr>"); //$NON-NLS-1$
 		}
 
 		// Estados finales
@@ -404,10 +404,10 @@ public class TraductorMoodleXML extends Traductor {
 		}
 		eFinales.append(opcionesFinales(finales, problema.estados()));
 
-		plantilla.set("url", url);
-		plantilla.set("imagen", imageToBase64(problema.automata()));
-		plantilla.set("transicion", fTrans.toString());
-		plantilla.set("finales", eFinales.toString());
+		plantilla.set("url", url); //$NON-NLS-1$
+		plantilla.set("imagen", imageToBase64(problema.automata())); //$NON-NLS-1$
+		plantilla.set("transicion", fTrans.toString()); //$NON-NLS-1$
+		plantilla.set("finales", eFinales.toString()); //$NON-NLS-1$
 
 		return plantilla;
 	}
@@ -429,7 +429,7 @@ public class TraductorMoodleXML extends Traductor {
 	 */
 	private String opcionesTransicion(char solucion, Set<Character> estados) {
 		log.debug(
-				"Generando opciones para transición a estado {} con estados {}",
+				"Generando opciones para transición a estado {} con estados {}", //$NON-NLS-1$
 				solucion, estados);
 
 		estados.remove(solucion);
@@ -443,35 +443,35 @@ public class TraductorMoodleXML extends Traductor {
 		diferentes.removeAll(similares);
 
 		StringBuilder opciones = new StringBuilder();
-		opciones.append("{1:MULTICHOICE:%100%");
+		opciones.append("{1:MULTICHOICE:%100%"); //$NON-NLS-1$
 		opciones.append(solucion);
 
 		int index;
 		if (similares.size() > 0) { // Opción similar 1
 			index = random.nextInt(similares.size());
-			opciones.append("~");
-			log.debug("Añadiendo opción {} (similar)", similares.get(index));
+			opciones.append("~"); //$NON-NLS-1$
+			log.debug("Añadiendo opción {} (similar)", similares.get(index)); //$NON-NLS-1$
 			opciones.append(similares.remove(index));
 		}
 		if (similares.size() > 0) { // Opción similar 2
 			index = random.nextInt(similares.size());
-			opciones.append("~");
-			log.debug("Añadiendo opción {} (similar)", similares.get(index));
+			opciones.append("~"); //$NON-NLS-1$
+			log.debug("Añadiendo opción {} (similar)", similares.get(index)); //$NON-NLS-1$
 			opciones.append(similares.remove(index));
 		}
 		if (diferentes.size() > 0) { // Opción diferente a ser posible
 			index = random.nextInt(diferentes.size());
-			opciones.append("~");
-			log.debug("Añadiendo opción {} (diferente)", diferentes.get(index));
+			opciones.append("~"); //$NON-NLS-1$
+			log.debug("Añadiendo opción {} (diferente)", diferentes.get(index)); //$NON-NLS-1$
 			opciones.append(diferentes.remove(index));
 		} else {
 			index = random.nextInt(similares.size());
-			opciones.append("~");
-			log.debug("Añadiendo opción {} (similar)", similares.get(index));
+			opciones.append("~"); //$NON-NLS-1$
+			log.debug("Añadiendo opción {} (similar)", similares.get(index)); //$NON-NLS-1$
 			opciones.append(similares.remove(index));
 		}
 
-		opciones.append("}");
+		opciones.append("}"); //$NON-NLS-1$
 		return opciones.toString();
 	}
 
@@ -496,11 +496,11 @@ public class TraductorMoodleXML extends Traductor {
 	private String opcionesFinales(Set<Character> solucion,
 			Set<Character> estados) {
 		log.debug(
-				"Generando opciones para estados finales con finales {} y estados {}",
+				"Generando opciones para estados finales con finales {} y estados {}", //$NON-NLS-1$
 				solucion, estados);
 
 		StringBuilder opciones = new StringBuilder();
-		opciones.append("{1:MULTICHOICE:%100%");
+		opciones.append("{1:MULTICHOICE:%100%"); //$NON-NLS-1$
 		opciones.append(listToString(new ArrayList<>(solucion)));
 
 		List<Character> complementarios = new ArrayList<>(estados);
@@ -512,24 +512,24 @@ public class TraductorMoodleXML extends Traductor {
 		if (conjunto.size() > 0) {
 			index = random.nextInt(conjunto.size());
 			conjunto.remove(index);
-			log.debug("Añadiendo opción {} (similar)", conjunto);
-			opciones.append("~" + listToString(conjunto)); 
+			log.debug("Añadiendo opción {} (similar)", conjunto); //$NON-NLS-1$
+			opciones.append("~" + listToString(conjunto)); //$NON-NLS-1$ 
 		}
 
-		// Opción similar 2 (añadimos un estado)
+		// Opción similar 2 (aÃ±adimos un estado)
 		conjunto = new ArrayList<>(solucion);
 		if (conjunto.size() < solucion.size()) {
 			index = random.nextInt(complementarios.size());
 			conjunto.add(complementarios.get(index));
-			log.debug("Añadiendo opción {} (similar)", conjunto);
-			opciones.append("~" + listToString(conjunto)); 
+			log.debug("Añadiendo opción {} (similar)", conjunto); //$NON-NLS-1$
+			opciones.append("~" + listToString(conjunto)); //$NON-NLS-1$ 
 		}
 
 		// Opción diferente
-		log.debug("Añadiendo opción {} (diferente)", complementarios);
-		opciones.append("~" + listToString(complementarios)); 
+		log.debug("Añadiendo opción {} (diferente)", complementarios); //$NON-NLS-1$
+		opciones.append("~" + listToString(complementarios)); //$NON-NLS-1$ 
 
-		opciones.append("}");
+		opciones.append("}"); //$NON-NLS-1$
 		return opciones.toString();
 	}
 
@@ -554,11 +554,11 @@ public class TraductorMoodleXML extends Traductor {
 	private String opcionesPosiciones(Set<Integer> solucion,
 			Set<Integer> posiciones) {
 		log.debug(
-				"Generando opciones para posiciones {} con posiciones totales {}",
+				"Generando opciones para posiciones {} con posiciones totales {}", //$NON-NLS-1$
 				solucion, posiciones);
 
 		StringBuilder opciones = new StringBuilder();
-		opciones.append("{1:MULTICHOICE:%100%");
+		opciones.append("{1:MULTICHOICE:%100%"); //$NON-NLS-1$
 		opciones.append(listToRanges(new ArrayList<>(solucion)));
 
 		List<Integer> complementarios = new ArrayList<>(posiciones);
@@ -570,31 +570,31 @@ public class TraductorMoodleXML extends Traductor {
 		if (conjunto.size() > 0) {
 			index = random.nextInt(conjunto.size());
 			conjunto.remove(index);
-			log.debug("Añadiendo opción {} (similar)", conjunto);
-			opciones.append("~" + listToRanges(conjunto));
+			log.debug("Añadiendo opción {} (similar)", conjunto); //$NON-NLS-1$
+			opciones.append("~" + listToRanges(conjunto)); //$NON-NLS-1$
 		}
 
-		// Opción similar 2 (añadimos un estado si es posible)
+		// Opción similar 2 (aÃ±adimos un estado si es posible)
 		conjunto = new ArrayList<>(solucion);
 		if (conjunto.size() < solucion.size()) {
 			index = random.nextInt(complementarios.size());
 			conjunto.add(complementarios.get(index));
-			log.debug("Añadiendo opción {} (similar)", conjunto);
-			opciones.append("~" + listToRanges(conjunto));
+			log.debug("Añadiendo opción {} (similar)", conjunto); //$NON-NLS-1$
+			opciones.append("~" + listToRanges(conjunto)); //$NON-NLS-1$
 		}
 
 		// Opción diferente
-		log.debug("Añadiendo opción {} (diferente)", complementarios);
-		opciones.append("~" + listToRanges(complementarios));
+		log.debug("Añadiendo opción {} (diferente)", complementarios); //$NON-NLS-1$
+		opciones.append("~" + listToRanges(complementarios)); //$NON-NLS-1$
 
-		opciones.append("}");
+		opciones.append("}"); //$NON-NLS-1$
 		return opciones.toString();
 	}
 
 	/**
 	 * Genera opciones para decidir si un nodo es anulable o no (Si/No),
-	 * recibiendo la opción correcta como parámetro booleano (<code>true</code>
-	 * para sí, <code>false</code> para no).
+	 * recibiendo la opción correcta como parÃ¡metro booleano (<code>true</code>
+	 * para sÃ­, <code>false</code> para no).
 	 * 
 	 * @param esAnulable
 	 *            Opción correcta.
@@ -602,14 +602,14 @@ public class TraductorMoodleXML extends Traductor {
 	 *         opciones.
 	 */
 	private String opcionesAnulables(boolean esAnulable) {
-		log.debug("Generando opciones para anulable {}", esAnulable);
+		log.debug("Generando opciones para anulable {}", esAnulable); //$NON-NLS-1$
 
 		StringBuilder opciones = new StringBuilder();
-		opciones.append("{1:MULTICHOICE:%100%");
-		opciones.append((esAnulable ? "Si" : "No"));
-		opciones.append("~");
-		opciones.append((esAnulable ? "No" : "Si"));
-		opciones.append("}");
+		opciones.append("{1:MULTICHOICE:%100%"); //$NON-NLS-1$
+		opciones.append((esAnulable ? Messages.getString("TraductorMoodle.yes") : "No")); //$NON-NLS-1$
+		opciones.append("~"); //$NON-NLS-1$
+		opciones.append((esAnulable ? "No" : Messages.getString("TraductorMoodle.yes"))); //$NON-NLS-1$
+		opciones.append("}"); //$NON-NLS-1$
 
 		return opciones.toString();
 	}
@@ -627,41 +627,41 @@ public class TraductorMoodleXML extends Traductor {
 		StringBuilder setToString = new StringBuilder();
 
 		if (lista.size() > 0) {
-			String prefijo = "";
+			String prefijo = ""; //$NON-NLS-1$
 			for (Object elemento : lista) {
 				setToString.append(prefijo);
-				prefijo = ", ";
+				prefijo = ", "; //$NON-NLS-1$
 				setToString.append(elemento.toString());
 			}
 		} else {
-			setToString.append("Cjto. vacío");
+			setToString.append(Messages.getString("TraductorMoodle.emptySet")); //$NON-NLS-1$
 		}
 		return setToString.toString();
 	}
 
 	/**
-	 * Devuelve una representaci�n de un conjunto de elementos como rangos separados por comas.
+	 * Devuelve una representación de un conjunto de elementos como rangos separados por comas.
 	 * 
 	 * @param lista
 	 *            Conjunto de elementos.
-	 * @return Representaci�n del conjunto como rangos separados por comas.
+	 * @return Representación del conjunto como rangos separados por comas.
 	 */
-	// TODO: �se podr�a mover a la clase padre?
-	// TODO: �setToRanges y listToRanges se podr�an fusionar?
+	// TODO: ¿se podría mover a la clase padre?
+	// TODO: ¿setToRanges y listToRanges se podrían fusionar?
 	private String listToRanges(List<?> lista) {
 		StringBuilder out = new StringBuilder();
 		int last=0, first=0, length=0; // inicializo para evitar warnings
 		
-		log.info("***** lista {}.", lista);
+		log.info("***** lista {}.", lista); //$NON-NLS-1$
 
 		
 		if (lista.size() == 0) {
-			out.append("\u2205"); // Unicode empty set
+			out.append("\u2205"); //$NON-NLS-1$ // Unicode empty set
 		} else {
-			String sep = "";
+			String sep = ""; //$NON-NLS-1$
 			boolean isFirst = true;
 			for (Object e: lista) {
-				log.info("***** lista {}.", e);
+				log.info("***** lista {}.", e); //$NON-NLS-1$
 				if (isFirst) {
 					last = first = (int) e;
 					length = 1;
@@ -673,13 +673,13 @@ public class TraductorMoodleXML extends Traductor {
 					length++;
 				} else {
 					out.append(sep);
-					sep = ", ";
+					sep = ", "; //$NON-NLS-1$
 					if (length == 1) {
-						out.append(""+last);
+						out.append(""+last); //$NON-NLS-1$
 					} else if (length == 2) {
-						out.append(""+first+", "+last);
+						out.append(""+first+", "+last); //$NON-NLS-1$
 					} else {
-						out.append(""+first+"-"+last);
+						out.append(""+first+"-"+last); //$NON-NLS-1$
 					}
 					last = first = (int) e;
 					length = 1;
@@ -687,11 +687,11 @@ public class TraductorMoodleXML extends Traductor {
 			}
 			out.append(sep);
 			if (length == 1) {
-				out.append(""+last);
+				out.append(""+last); //$NON-NLS-1$
 			} else if (length == 2) {
-				out.append(""+first+", "+last);
+				out.append(""+first+", "+last); //$NON-NLS-1$
 			} else {
-				out.append(""+first+"-"+last);
+				out.append(""+first+"-"+last); //$NON-NLS-1$
 			}
 		}
 		return out.toString();
@@ -705,16 +705,16 @@ public class TraductorMoodleXML extends Traductor {
 	 * @return Cadena en base 64 representando la imagen dada.
 	 */
 	private String imageToBase64(BufferedImage imagen) {
-		String imagenBase64 = "";
+		String imagenBase64 = ""; //$NON-NLS-1$
 
 		try (ByteArrayOutputStream output = new ByteArrayOutputStream();) {
-			ImageIO.write(imagen, "JPG", output);
+			ImageIO.write(imagen, "JPG", output); //$NON-NLS-1$
 			byte[] imageBytes = output.toByteArray();
 
 			imagenBase64 = Base64.getEncoder().encodeToString(imageBytes);
 
 		} catch (IOException e) {
-			log.error("Error convirtiendo imagen a base 64", e);
+			log.error("Error convirtiendo imagen a base 64", e); //$NON-NLS-1$
 		}
 
 		return imagenBase64;

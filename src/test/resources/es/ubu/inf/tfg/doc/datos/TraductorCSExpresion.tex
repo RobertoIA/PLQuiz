@@ -1,12 +1,15 @@
 
 
 \paragraph{{numero}.-}\label{p{numero}}
-Aplicar el algoritmo de construcción de subconjuntos para obtener el AFD capaz de reconocer el lenguaje definido por la siguiente expresión regular: \textbf{$ ((a|b^*)a^*c)^* $} \\
+Given the following regular expression, after applying the McNaughton-Yamada-Thompson method to build the NFA, what would be the transition function of the equivalent DFA that would be obtained by applying the subset construction method?
+\[
+    ((a|b^*)a^*c)^*
+\]
 \myincludegraphicssol{}
 \rowcolors{2}{gray!25}{white}
 \begin{tabular} {c@{\hspace{4mm}}ccc@{\hspace{4mm}}l}
 \toprule % =============================
-$\mathcal{Q}$ & a & b & c & \emph{Estados del AFND}\\
+$\mathcal{Q}$ & a & b & c & \emph{NFA states}\\
 \midrule %-------------------------------
 \h{(A)} & \h{B} & \h{C} & \h{D} & \h{0-2, 4, 5, 7-9, 11, 13}\\
 \h{B} & \h{E} & \h{F} & \h{D} & \h{3, 8-11}\\

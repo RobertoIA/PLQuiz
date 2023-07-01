@@ -82,20 +82,20 @@ public class Problema<T> {
 	public String getTipo() {
 		switch (tipo) {
 		case AHOSETHIULLMAN_CONSTRUCCION:
-			return "AhoSethiUllmanConstruccion";
+			return "AhoSethiUllmanConstruccion"; //$NON-NLS-1$
 		case AHOSETHIULLMAN_ETIQUETADO:
-			return "AhoSethiUllmanEtiquetado";
+			return "AhoSethiUllmanEtiquetado"; //$NON-NLS-1$
 		case AHOSETHIULLMAN_TABLAS:
-			return "AhoSethiUllmanTablas";
+			return "AhoSethiUllmanTablas"; //$NON-NLS-1$
 		case CONSTRUCCIONSUBCONJUNTOS_CONSTRUCCION:
-			return "ConstruccionSubconjuntosConstruccion";
+			return "ConstruccionSubconjuntosConstruccion"; //$NON-NLS-1$
 		case CONSTRUCCIONSUBCONJUNTOS_EXPRESION:
-			return "ConstruccionSubconjuntosExpresion";
+			return "ConstruccionSubconjuntosExpresion"; //$NON-NLS-1$
 		case CONSTRUCCIONSUBCONJUNTOS_AUTOMATA:
-			return "ConstruccionSubconjuntosAutomata";
+			return "ConstruccionSubconjuntosAutomata"; //$NON-NLS-1$
 		default:
 			throw new UnsupportedOperationException(
-					"Argumento tipo no soportado.");
+					Messages.getString("Problema.UnsupportedTypeArgument")); //$NON-NLS-1$
 		}
 	}
 
@@ -138,7 +138,7 @@ public class Problema<T> {
 	}
 
 	public void setNumero(int numero) {
-		log.info("Numero de problema cambiado a {}", numero);
+		log.info("Número de problema cambiado a {}", numero); //$NON-NLS-1$
 		
 		this.numero = numero;
 	}

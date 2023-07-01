@@ -1,3 +1,4 @@
+% !TeX program = xelatex
 \documentclass[11pt,a4paper,table,answers]{exam} % <== Answers are printed
 %\documentclass[11pt,a4paper,table]{exam} % <== Answers are NOT printed
 
@@ -7,7 +8,7 @@
 \usepackage{amssymb}
 
 \usepackage{graphicx}
-\usepackage{adjustbox}	% Some graphs were too wide
+\usepackage{adjustbox} % Some graphs were too wide
 
 \usepackage{xcolor} % table option is passed as documentclass option
 \usepackage{booktabs}
@@ -18,7 +19,7 @@
 \newcommand{\myincludegraphics}[1]{%
 \begin{center}
 \begin{adjustbox}{max size={\textwidth}{\textheight}}
-	\includegraphics{#1}
+    \includegraphics{#1}
 \end{adjustbox}
 \end{center}
 } % /myincludegraphics
@@ -47,15 +48,18 @@
 
 
 \paragraph{1.-}\label{p1}
-Aplicar el algoritmo de Aho-Sethi-Ullman a la expresión regular: \textbf{$ ((a|b^*)a^*c)^* $} \\
-\\
-Expresión aumentada: \h{$ ((a|b^*)\cdot a^*\cdot c)^*\cdot \$  $} \\
+Apply the Aho-Sethi-Ullman algorithm to obtain the \emph{followpos} table and the transition function of the DFA that recognizes the language defined by the following regular expression:
+\[
+    ((a|b^*)a^*c)^*
+\]
+~\\
+Augmented regular expression: \h{$ ((a|b^*)\cdot a^*\cdot c)^*\cdot \$  $} \\
 
 \myincludegraphicssol{}
 \rowcolors{2}{gray!25}{white}
 \begin{tabular} {c@{\hspace{4mm}}l}
 \toprule % =============================
-$n$ & stePos($n$) \\
+$n$ & \emph{Followpos}($n$) \\
 \midrule %-------------------------------
 1 & \h{3, 4} \\ 
 2 & \h{2-4} \\ 
@@ -68,7 +72,7 @@ $n$ & stePos($n$) \\
 \rowcolors{2}{gray!25}{white}
 \begin{tabular} {c@{\hspace{4mm}}ccc@{\hspace{4mm}}l}
 \toprule % ============================= 
-$\mathcal{Q}$ & a & b & c & \emph{Posiciones}\\ 
+$\mathcal{Q}$ & a & b & c & \emph{Positions}\\ 
 \midrule %-------------------------------
 \h{(A)} & \h{B} & \h{C} & \h{A} & \h{1-5}\\ 
 \h{B} & \h{B} & \h{D} & \h{A} & \h{3, 4}\\ 
@@ -78,15 +82,18 @@ $\mathcal{Q}$ & a & b & c & \emph{Posiciones}\\
 \end{tabular}
 
 \paragraph{2.-}\label{p2}
-Aplicar el algoritmo de Aho-Sethi-Ullman a la expresión regular: \textbf{$ (a|b^*)c^*a $} \\
-\\
-Expresión aumentada: \h{$ (a|b^*)\cdot c^*\cdot a\cdot \$  $} \\
+Apply the Aho-Sethi-Ullman algorithm to obtain the \emph{followpos} table and the transition function of the DFA that recognizes the language defined by the following regular expression:
+\[
+    (a|b^*)c^*a
+\]
+~\\
+Augmented regular expression: \h{$ (a|b^*)\cdot c^*\cdot a\cdot \$  $} \\
 
 \myincludegraphicssol{}
 \rowcolors{2}{gray!25}{white}
 \begin{tabular} {c@{\hspace{4mm}}l}
 \toprule % =============================
-$n$ & stePos($n$) \\
+$n$ & \emph{Followpos}($n$) \\
 \midrule %-------------------------------
 1 & \h{3, 4} \\ 
 2 & \h{2-4} \\ 
@@ -99,7 +106,7 @@ $n$ & stePos($n$) \\
 \rowcolors{2}{gray!25}{white}
 \begin{tabular} {c@{\hspace{4mm}}ccc@{\hspace{4mm}}l}
 \toprule % ============================= 
-$\mathcal{Q}$ & a & b & c & \emph{Posiciones}\\ 
+$\mathcal{Q}$ & a & b & c & \emph{Positions}\\ 
 \midrule %-------------------------------
 \h{A} & \h{B} & \h{C} & \h{D} & \h{1-4}\\ 
 \h{(B)} & \h{E} & \h{F} & \h{D} & \h{3-5}\\ 

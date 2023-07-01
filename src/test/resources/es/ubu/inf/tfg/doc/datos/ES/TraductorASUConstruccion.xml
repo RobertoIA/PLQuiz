@@ -1,0 +1,42 @@
+	<!-- question: {numero}  -->
+	<question type="cloze">
+		<name>
+			<text>PLQuiz: Aho-Sethi-Ullman</text>
+		</name>
+		<questiontext>
+			<text><![CDATA[
+				<p>Selecciona el árbol sintáctico correspondiente a la siguiente expresión regular ((a|b*)a*c)*. Ten en cuenta que el árbol corresponderá con la expresión aumentada.</p>
+
+				<table>
+					<tr>
+						<td>
+						<h2>a)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+						<td>
+							<h2>b)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h2>c)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+						<td>
+							<h2>d)</h2><p><img src="@@PLUGINFILE@@/.jpg" alt="" /></p>
+						</td>
+					</tr>
+				</table>
+
+				<p>
+					Solución: {1:MULTICHOICE:}
+				</p>
+			]]></text>
+			<file name=</file> 
+			<file name=</file> 
+			<file name=</file> 
+			<file name=</file> 
+		</questiontext>
+		<generalfeedback>
+			<text></text>
+		</generalfeedback>
+		<shuffleanswers>0</shuffleanswers>
+	</question>

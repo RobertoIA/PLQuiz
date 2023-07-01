@@ -1,0 +1,21 @@
+
+
+\paragraph{{numero}.-}\label{p{numero}}
+Dada la siguiente expresión regular, tras aplicar el método de McNaughton-Yamada-Thompson para construir el AFND, ¿cuál sería la función de transición del AFD equivalente que se obtendría al aplicar el método de construcción de subconjuntos?
+\[
+    ((a|b^*)a^*c)^*
+\]
+\myincludegraphicssol{}
+\rowcolors{2}{gray!25}{white}
+\begin{tabular} {c@{\hspace{4mm}}ccc@{\hspace{4mm}}l}
+\toprule % =============================
+$\mathcal{Q}$ & a & b & c & \emph{Estados del AFND}\\
+\midrule %-------------------------------
+\h{(A)} & \h{B} & \h{C} & \h{D} & \h{0-2, 4, 5, 7-9, 11, 13}\\
+\h{B} & \h{E} & \h{F} & \h{D} & \h{3, 8-11}\\
+\h{C} & \h{E} & \h{C} & \h{D} & \h{5-9, 11}\\
+\h{(D)} & \h{B} & \h{C} & \h{D} & \h{1, 2, 4, 5, 7-9, 11-13}\\
+\h{E} & \h{E} & \h{F} & \h{D} & \h{9-11}\\
+\h{F} & \h{F} & \h{F} & \h{F} & \h{$\varnothing$}\\
+\bottomrule % =============================
+\end{tabular}

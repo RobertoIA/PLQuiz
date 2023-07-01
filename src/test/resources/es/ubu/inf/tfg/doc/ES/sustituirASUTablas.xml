@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+		<!-- question: 1  -->
+	<question type="cloze">
+		<name>
+			<text>PLQuiz: Aho-Sethi-Ullman</text>
+		</name>
+		<questiontext>
+			<text><![CDATA[
+				<p>Completa la tabla de la función de transición del AFD que se obtendría de aplicar el método de Aho-Sethi-Ullman a la expresión regular ((a|b*)a*c)*</p>
+
+				<p>
+					<table border="1" cellspacing="0" align="left">
+						<tr>
+							<th>n</th>
+							<th>stePos(n)</th>
+						</tr>
+						<tr><td>1</td><td>{1:MULTICHOICE:}</td></tr><tr><td>2</td><td>{1:MULTICHOICE:}</td></tr><tr><td>3</td><td>{1:MULTICHOICE:}</td></tr><tr><td>4</td><td>{1:MULTICHOICE:}</td></tr><tr><td>5</td><td>{1:MULTICHOICE:}</td></tr>
+					</table>
+				</p>
+				<p>
+					<table border="1" cellspacing="0" align="left">
+						<tbody>
+							
+	<tr><th scope="col">$$\mathcal{Q}/\Sigma$$</th>
+	<th scope="col">a</th>
+	<th scope="col">b</th>
+	<th scope="col">c</th>
+	<th scope="col"> </th>
+	</tr>
+	<tr>
+	<td>A</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>B</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>C</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>D</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+						</tbody>
+					</table>
+				</p>
+
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+
+				<p>Los estados finales son: {1:MULTICHOICE:}</p>
+			]]></text>
+		</questiontext>
+		<generalfeedback>
+			<text></text>
+		</generalfeedback>
+		<shuffleanswers>0</shuffleanswers>
+	</question>	<!-- question: 2  -->
+	<question type="cloze">
+		<name>
+			<text>PLQuiz: Aho-Sethi-Ullman</text>
+		</name>
+		<questiontext>
+			<text><![CDATA[
+				<p>Completa la tabla de la función de transición del AFD que se obtendría de aplicar el método de Aho-Sethi-Ullman a la expresión regular (a|b)*a(a|b)(a|b)</p>
+
+				<p>
+					<table border="1" cellspacing="0" align="left">
+						<tr>
+							<th>n</th>
+							<th>stePos(n)</th>
+						</tr>
+						<tr><td>1</td><td>{1:MULTICHOICE:}</td></tr><tr><td>2</td><td>{1:MULTICHOICE:}</td></tr><tr><td>3</td><td>{1:MULTICHOICE:}</td></tr><tr><td>4</td><td>{1:MULTICHOICE:}</td></tr><tr><td>5</td><td>{1:MULTICHOICE:}</td></tr><tr><td>6</td><td>{1:MULTICHOICE:}</td></tr><tr><td>7</td><td>{1:MULTICHOICE:}</td></tr><tr><td>8</td><td>{1:MULTICHOICE:}</td></tr>
+					</table>
+				</p>
+				<p>
+					<table border="1" cellspacing="0" align="left">
+						<tbody>
+							
+	<tr><th scope="col">$$\mathcal{Q}/\Sigma$$</th>
+	<th scope="col">a</th>
+	<th scope="col">b</th>
+	<th scope="col"> </th>
+	</tr>
+	<tr>
+	<td>A</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>B</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>C</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>D</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>E</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>F</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>G</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+	<tr>
+	<td>H</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	<td>{1:MULTICHOICE:}</td>
+	</tr>
+						</tbody>
+					</table>
+				</p>
+
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+				<p><br /></p><p><br /></p>
+
+				<p>Los estados finales son: {1:MULTICHOICE:}</p>
+			]]></text>
+		</questiontext>
+		<generalfeedback>
+			<text></text>
+		</generalfeedback>
+		<shuffleanswers>0</shuffleanswers>
+	</question>
+</quiz>

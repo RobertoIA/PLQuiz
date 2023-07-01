@@ -5,7 +5,7 @@
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Selecciona el árbol sintáctico correspondiente a la siguiente expresión regular {expresion}. Ten en cuenta que el árbol corresponderá con la expresión aumentada.</p>
+				<p>Select the syntactic tree corresponding to the following regular expression {expresion} (note that the tree will correspond to the augmented regular expression).</p>
 
 				<table>
 					<tr>
@@ -27,7 +27,7 @@
 				</table>
 
 				<p>
-					Solución: {solucion}
+					Solution: {solucion}
 				</p>
 			]]></text>
 			<file name="{urlA}" encoding="base64">{imagenA}</file> 

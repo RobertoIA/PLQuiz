@@ -62,18 +62,18 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 		this.contenedorPanel = contenedor;
 		this.numero = numero;
 
-		inicializaPanel("Aho-Sethi-Ullman");
+		inicializaPanel("Aho-Sethi-Ullman"); //$NON-NLS-1$
 
-		this.modoA = new JRadioButton("Construcci\u00F3n de \u00E1rbol");
+		this.modoA = new JRadioButton(Messages.getString("AhoSethiUllmanPanel.RE2tree"));  // âŸ¾ âŸ¿  â­† //$NON-NLS-1$
 		this.modoA.addActionListener(new ModoButtonChangeListener());
 		this.modoA.setSelected(true);
 		modoGroup.add(this.modoA);
 
-		this.modoC = new JRadioButton("Etiquetado de \u00E1rbol");
+		this.modoC = new JRadioButton(Messages.getString("AhoSethiUllmanPanel.treelLabeling")); //$NON-NLS-1$
 		this.modoC.addActionListener(new ModoButtonChangeListener());
 		modoGroup.add(this.modoC);
 
-		this.modoB = new JRadioButton("Construcci\u00F3n de tablas");
+		this.modoB = new JRadioButton(Messages.getString("AhoSethiUllmanPanel.RE2DFA")); //$NON-NLS-1$
 		this.modoB.addActionListener(new ModoButtonChangeListener());
 		modoGroup.add(this.modoB);
 
@@ -83,7 +83,7 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 		this.simbolosSlider.setMinimum(2);
 		this.simbolosSlider.addChangeListener(new SliderChangeListener());
 
-		this.simbolosEstadoLabel = new JLabel("3");
+		this.simbolosEstadoLabel = new JLabel("3"); //$NON-NLS-1$
 
 		this.estadosSlider = new JSlider();
 		this.estadosSlider.setValue(5);
@@ -91,13 +91,13 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 		this.estadosSlider.setMaximum(15);
 		this.estadosSlider.addChangeListener(new SliderChangeListener());
 
-		this.estadosEstadoLabel = new JLabel("5");
+		this.estadosEstadoLabel = new JLabel("5"); //$NON-NLS-1$
 
 		this.expresionPanel = new JPanel();
 		this.mainPanel.add(this.expresionPanel);
 		this.expresionPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-		this.borrarButton = new JButton("-");
+		this.borrarButton = new JButton("âž–");  // ðŸ—‘ //$NON-NLS-1$
 		this.borrarButton.addActionListener(new BotonBorrarActionListener());
 		this.expresionPanel.add(this.borrarButton);
 
@@ -118,11 +118,11 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 		this.botonesPanel = new JPanel();
 		this.mainPanel.add(this.botonesPanel);
 
-		this.generarButton = new JButton("Generar");
+		this.generarButton = new JButton(Messages.getString("AhoSethiUllmanPanel.generate")); //$NON-NLS-1$
 		this.generarButton.addActionListener(new BotonGenerarActionListener());
 		this.botonesPanel.add(this.generarButton);
 
-		this.resolverButton = new JButton("Resolver");
+		this.resolverButton = new JButton(Messages.getString("AhoSethiUllmanPanel.Solve")); //$NON-NLS-1$
 		this.resolverButton
 				.addActionListener(new BotonResolverActionListener());
 		this.botonesPanel.add(this.resolverButton);
@@ -135,13 +135,13 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 		this.vacioPanel = new JPanel();
 		this.opcionesPanel.add(this.vacioPanel);
 
-		this.vacioCheck = new JCheckBox("Incluir \u03B5");
+		this.vacioCheck = new JCheckBox(Messages.getString("AhoSethiUllmanPanel.includeEpsilon")); //$NON-NLS-1$
 		this.vacioPanel.add(this.vacioCheck);
 
 		this.simbolosPanel = new JPanel();
 		this.opcionesPanel.add(this.simbolosPanel);
 
-		this.simbolosLabel = new JLabel("S\u00EDmbolos");
+		this.simbolosLabel = new JLabel(Messages.getString("AhoSethiUllmanPanel.symbol")); //$NON-NLS-1$
 		this.simbolosPanel.add(this.simbolosLabel);
 		this.simbolosPanel.add(this.simbolosSlider);
 		this.simbolosPanel.add(this.simbolosEstadoLabel);
@@ -149,7 +149,7 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 		this.estadosPanel = new JPanel();
 		this.opcionesPanel.add(this.estadosPanel);
 
-		this.estadosLabel = new JLabel("Estados");
+		this.estadosLabel = new JLabel(Messages.getString("AhoSethiUllmanPanel.states")); //$NON-NLS-1$
 		this.estadosPanel.add(this.estadosLabel);
 		this.estadosPanel.add(this.estadosSlider);
 		this.estadosPanel.add(this.estadosEstadoLabel);
@@ -172,21 +172,21 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 		}
 
 		switch (problema.getTipo()) {
-		case "AhoSethiUllmanConstruccion":
+		case "AhoSethiUllmanConstruccion": //$NON-NLS-1$
 			for (BufferedImage imagen : problema.getProblema().alternativas())
-				main.añadeImagen(imagen);
+				main.aÃ±adeImagen(imagen);
 			modoA.setSelected(true);
 			break;
-		case "AhoSethiUllmanTablas":
+		case "AhoSethiUllmanTablas": //$NON-NLS-1$
 			modoB.setSelected(true);
 			break;
-		case "AhoSethiUllmanEtiquetado":
-			main.añadeImagen(problema.getProblema().arbolVacio());
+		case "AhoSethiUllmanEtiquetado": //$NON-NLS-1$
+			main.aÃ±adeImagen(problema.getProblema().arbolVacio());
 			modoC.setSelected(true);
 			break;
 		default:
 			log.error(
-					"Error identificando tipo de problema Aho-Sethi-Ullman, definido como {}",
+					"Error identificando tipo de problema Aho-Sethi-Ullman, definido como {}", //$NON-NLS-1$
 					problema.getTipo());
 		}
 
@@ -231,9 +231,9 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 							for (BufferedImage imagen : problemaActual
 									.getProblema().alternativas())
 								main.eliminaImagen(imagen);
-							main.añadeImagen(problema.arbolVacio());
+							main.aÃ±adeImagen(problema.arbolVacio());
 							for (BufferedImage imagen : problema.alternativas())
-								main.añadeImagen(imagen);
+								main.aÃ±adeImagen(imagen);
 							problemaActual = asuProblema;
 						}
 					} else {
@@ -247,9 +247,9 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 						else
 							asuProblema = Problema.asuConstruccion(problema, numero);
 
-						main.añadeImagen(problema.arbolVacio());
+						main.aÃ±adeImagen(problema.arbolVacio());
 						for (BufferedImage imagen : problema.alternativas())
-							main.añadeImagen(imagen);
+							main.aÃ±adeImagen(imagen);
 						problemaActual = asuProblema;
 					}
 					mostrarVista();
@@ -258,8 +258,8 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 				JOptionPane
 						.showMessageDialog(
 								actualPanel,
-								"Expresión regular no valida.",
-								"Error", JOptionPane.ERROR_MESSAGE);
+								Messages.getString("AhoSethiUllmanPanel.wrongRE"), //$NON-NLS-1$
+								"Error", JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
 //				expresionText.setText("");
 			}
 		}
@@ -280,7 +280,7 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 		@Override
 		protected AhoSethiUllman doInBackground() throws Exception {
 			generando = true;
-			generarButton.setText("Cancelar");
+			generarButton.setText(Messages.getString("AhoSethiUllmanPanel.cancel")); //$NON-NLS-1$
 			generador = new AhoSethiUllmanGenerador();
 			int nSimbolos = simbolosSlider.getValue();
 			int nEstados = estadosSlider.getValue();
@@ -312,10 +312,10 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 							.alternativas())
 						main.eliminaImagen(imagen);
 				}
-				main.añadeImagen(asuProblema.getProblema().arbolVacio());
+				main.aÃ±adeImagen(asuProblema.getProblema().arbolVacio());
 				for (BufferedImage imagen : asuProblema.getProblema()
 						.alternativas())
-					main.añadeImagen(imagen);
+					main.aÃ±adeImagen(imagen);
 
 				problemaActual = asuProblema;
 				expresionText.setText(problema.problema());
@@ -325,13 +325,13 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 				log.error("Error generando problema de tipo AhoSethiUllman", e);
 			} finally {
 				generando = false;
-				generarButton.setText("Generar");
+				generarButton.setText(Messages.getString("AhoSethiUllmanPanel.generate")); //$NON-NLS-1$
 				progresoBar.setVisible(false);
 			}
 		}
 
 		public void cancel() {
-			log.info("Cancelando generación de problema AhoSethiUllman.");
+			log.info("Cancelando generaciÃ³n de problema AhoSethiUllman.");
 			generador.cancelar();
 		}
 	}
@@ -345,19 +345,13 @@ public class AhoSethiUllmanPanel extends ProblemaPanel<AhoSethiUllman> {
 	
 				if (modoC == modoButton) {
 					log.info("Seleccionado modo etiquetado en problema de Aho-Sethi-Ullman numero {}.", numero);
-					if (problemaActual != null) {
-						asuProblema = Problema.asuEtiquetado(problema, numero);
-					}
+					asuProblema = Problema.asuEtiquetado(problema, numero);
 				} else if (modoB == modoButton) {
 					log.info("Seleccionado modo tablas en problema de Aho-Sethi-Ullman numero {}.", numero);
-					if (problemaActual != null) {
-						asuProblema = Problema.asuTablas(problema, numero);
-					}
+					asuProblema = Problema.asuTablas(problema, numero);
 				} else {
-					log.info("Seleccionado modo construcción en problema de Aho-Sethi-Ullman numero {}.", numero);
-					if (problemaActual != null) {
-						asuProblema = Problema.asuConstruccion(problema, numero);
-					}
+					log.info("Seleccionado modo construcciÃ³n en problema de Aho-Sethi-Ullman numero {}.", numero);
+					asuProblema = Problema.asuConstruccion(problema, numero);
 				}
 				problemaActual = asuProblema;
 			}

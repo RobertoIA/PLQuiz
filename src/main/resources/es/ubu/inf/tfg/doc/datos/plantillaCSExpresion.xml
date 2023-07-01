@@ -1,11 +1,12 @@
 	<!-- question: {numero}  -->
 	<question type="cloze">
 		<name>
-			<text>PLQuiz: Construcción de subconjuntos</text>
+			<text>PLQuiz: Subset construction method</text>
 		</name>
 		<questiontext>
 			<text><![CDATA[
-				<p>Completa la tabla de la función de transición para el AFD que se obtendría al aplicar el método de construcción de subconjuntos al AFND de la expresión regular {expresion}</p>
+				<p>Given the following regular expression: {expresion}, after applying the McNaughton-Yamada-Thompson method to build the NFA, what would be the transition function of the equivalent DFA that would be obtained by applying the subset construction method?</p>
+
 
 				<table border="1" cellspacing="0" align="left">
 				<tbody>
@@ -24,7 +25,7 @@
 				<p><br /></p><p><br /></p>
 				<p><br /></p><p><br /></p>
 
-				<p>Los estados finales son: {finales}</p>
+				<p>The final states are: {finales}</p>
 			]]></text>
 		</questiontext>
 		<generalfeedback>

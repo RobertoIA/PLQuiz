@@ -54,7 +54,7 @@ public class GeneradorTest {
 	 * correctas (profundidad dada +/- 1).
 	 */
 	@Test
-	public void testMutacion() {
+	public void testMutacion() {  // FIXME once in a while this fails
 		Generador generador = new Generador(2, true, false);
 		ExpresionRegular expresion = generador.arbol(8);
 		ExpresionRegular mutante = generador.mutacion(expresion);
