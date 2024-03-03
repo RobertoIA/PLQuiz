@@ -6,9 +6,9 @@ import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 
 /**
- * Traductor presenta una interfaz com鷑 para aquellas clases que se encarguen de
- * traducir los problemas a una representaci髇 textual espec韋ica, con la
- * funci髇 de agruparlos en un documento de tipo concreto.
+ * Traductor presenta una interfaz com煤n para aquellas clases que se encarguen de
+ * traducir los problemas a una representaci贸n textual espec铆fica, con la
+ * funci贸n de agruparlos en un documento de tipo concreto.
  * 
  * @author Roberto Izquierdo Amo
  * 
@@ -26,19 +26,19 @@ public abstract class Traductor {
 	public abstract String documento(List<Plantilla> problemas);
 
 	/**
-	 * Genera un documento de un formato concreto a partir de un 鷑ico problema
+	 * Genera un documento de un formato concreto a partir de un 煤nico problema
 	 * ya traducido.
 	 * 
 	 * @param problema
 	 *            Problema traducido.
 	 * @param num
-	 *            N鷐ero del problema.
+	 *            N煤mero del problema.
 	 * @return Documento completo.
 	 */
 	public abstract String traduceProblema(Plantilla problema, int num);
 
 	/**
-	 * Traduce un problema de tipo AhoSethiUllman subtipo construcci髇 a un
+	 * Traduce un problema de tipo AhoSethiUllman subtipo construcci贸n a un
 	 * formato concreto.
 	 * 
 	 * @param problema
@@ -68,33 +68,33 @@ public abstract class Traductor {
 	public abstract Plantilla traduceASUTablas(AhoSethiUllman problema);
 
 	/**
-	 * Traduce un problema de tipo construcci髇 de subconjuntos subtipo
-	 * construcci髇 a un formato concreto.
+	 * Traduce un problema de tipo construcci贸n de subconjuntos subtipo
+	 * construcci贸n a un formato concreto.
 	 * 
 	 * @param problema
-	 *            Problema construcci髇 de subconjuntos.
+	 *            Problema construcci贸n de subconjuntos.
 	 * @return Problema traducido.
 	 */
 	public abstract Plantilla traduceCSConstruccion(
 			ConstruccionSubconjuntos problema);
 
 	/**
-	 * Traduce un problema de tipo construcci髇 de subconjuntos subtipo
-	 * expresi髇 a un formato concreto.
+	 * Traduce un problema de tipo construcci贸n de subconjuntos subtipo
+	 * expresi贸n a un formato concreto.
 	 * 
 	 * @param problema
-	 *            Problema construcci髇 de subconjuntos.
+	 *            Problema construcci贸n de subconjuntos.
 	 * @return Problema traducido.
 	 */
 	public abstract Plantilla traduceCSExpresion(
 			ConstruccionSubconjuntos problema);
 
 	/**
-	 * Traduce un problema de tipo construcci髇 de subconjuntos subtipo aut髆ata
+	 * Traduce un problema de tipo construcci贸n de subconjuntos subtipo aut贸mata
 	 * a un formato concreto.
 	 * 
 	 * @param problema
-	 *            Problema construcci髇 de subconjuntos.
+	 *            Problema construcci贸n de subconjuntos.
 	 * @return Problema traducido.
 	 */
 	public abstract Plantilla traduceCSAutomata(

@@ -29,10 +29,10 @@ import com.mxgraph.view.mxGraph;
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
 
 /**
- * Automata implementa el modelo l骻ico de un aut髆ata finito no determinista,
+ * Automata implementa el modelo l贸gico de un aut贸mata finito no determinista,
  * compuesto por una serie de nodos y de transiciones entre dichos nodos.
  * Permite obtener los nodos obtenidos a partir de uno dado utilizando un tipo
- * de transici髇 determinado, y consumiendo o no un car醕ter dado.
+ * de transici贸n determinado, y consumiendo o no un car谩cter dado.
  * 
  * @author Roberto Izquierdo Amo
  * 
@@ -67,12 +67,12 @@ public class Automata {
 	public Automata hijoD;
 
 	/**
-	 * Constructor. Define un aut髆ata finito no determinista a partir de un
-	 * 醨bol de expresi髇 regular dado, de manera recursiva.
+	 * Constructor. Define un aut贸mata finito no determinista a partir de un
+	 * 谩rbol de expresi贸n regular dado, de manera recursiva.
 	 * 
 	 * @param expresion
-	 *            羠bol de expresi髇 regular a partir del cual generar el
-	 *            aut髆ata.
+	 *            脕rbol de expresi贸n regular a partir del cual generar el
+	 *            aut贸mata.
 	 */
 	public Automata(ExpresionRegular expresion, int posicionInicial) {
 		
@@ -84,7 +84,7 @@ public class Automata {
 			// Automata
 			this.nodoInicial = new Nodo(posicionInicial, false);
 			this.nodoFinal = new Nodo(posicionInicial + 1, true);
-			this.nodoInicial.a馻deTransicionVacia(this.nodoFinal);
+			this.nodoInicial.a帽adeTransicionVacia(this.nodoFinal);
 			
 			//TikZ
 			this.tipo = "EPS";
@@ -103,7 +103,7 @@ public class Automata {
 			// Automata
 			this.nodoInicial = new Nodo(posicionInicial, false);
 			this.nodoFinal = new Nodo(posicionInicial + 1, true);
-			this.nodoInicial.a馻deTransicion(expresion.simbolo(),
+			this.nodoInicial.a帽adeTransicion(expresion.simbolo(),
 					this.nodoFinal);
 			this.simbolos.add(expresion.simbolo());
 			
@@ -126,10 +126,10 @@ public class Automata {
 					posicionInicial + 1);
 			this.nodoFinal = new Nodo(hijo.nodoFinal().posicion() + 1, true);
 
-			this.nodoInicial.a馻deTransicionVacia(hijo.nodoInicial());
-			this.nodoInicial.a馻deTransicionVacia(this.nodoFinal);
-			hijo.nodoFinal().a馻deTransicionVacia(hijo.nodoInicial());
-			hijo.nodoFinal().a馻deTransicionVacia(this.nodoFinal);
+			this.nodoInicial.a帽adeTransicionVacia(hijo.nodoInicial());
+			this.nodoInicial.a帽adeTransicionVacia(this.nodoFinal);
+			hijo.nodoFinal().a帽adeTransicionVacia(hijo.nodoInicial());
+			hijo.nodoFinal().a帽adeTransicionVacia(this.nodoFinal);
 
 			this.simbolos.addAll(hijo.simbolos());
 			
@@ -253,10 +253,10 @@ public class Automata {
 			this.nodoFinal = new Nodo(hijoDerecho.nodoFinal().posicion() + 1,
 					true);
 
-			this.nodoInicial.a馻deTransicionVacia(hijoIzquierdo.nodoInicial());
-			this.nodoInicial.a馻deTransicionVacia(hijoDerecho.nodoInicial());
-			hijoIzquierdo.nodoFinal().a馻deTransicionVacia(this.nodoFinal);
-			hijoDerecho.nodoFinal().a馻deTransicionVacia(this.nodoFinal);
+			this.nodoInicial.a帽adeTransicionVacia(hijoIzquierdo.nodoInicial());
+			this.nodoInicial.a帽adeTransicionVacia(hijoDerecho.nodoInicial());
+			hijoIzquierdo.nodoFinal().a帽adeTransicionVacia(this.nodoFinal);
+			hijoDerecho.nodoFinal().a帽adeTransicionVacia(this.nodoFinal);
 
 			this.simbolos.addAll(hijoIzquierdo.simbolos());
 			this.simbolos.addAll(hijoDerecho.simbolos());
@@ -310,14 +310,14 @@ public class Automata {
 			
 		} else { // runtime exception
 			throw new IllegalArgumentException(
-					"Expresi髇 regular de tipo desconocido.");
+					"Expresi贸n regular de tipo desconocido.");
 		}
 		resetAllIds(this.nodoInicialTikZ, -1);
 	}
 	
 
 	/**
-	 * Nodo de entrada del aut髆ata.
+	 * Nodo de entrada del aut贸mata.
 	 * 
 	 * @return Nodo inicial.
 	 */
@@ -326,7 +326,7 @@ public class Automata {
 	}
 
 	/**
-	 * Nodo final del aut髆ata.
+	 * Nodo final del aut贸mata.
 	 * 
 	 * @return Nodo final.
 	 */
@@ -335,11 +335,11 @@ public class Automata {
 	}
 
 	/**
-	 * Devuelve el conjunto de s韒bolos que el aut髆ata utiliza en sus
+	 * Devuelve el conjunto de s铆mbolos que el aut贸mata utiliza en sus
 	 * transiciones. No se incluye epsilon ni cualquier otro indicador de
-	 * transici髇 vac韆.
+	 * transici贸n vac铆a.
 	 * 
-	 * @return Conjunto de s韒bolos del aut髆ata.
+	 * @return Conjunto de s铆mbolos del aut贸mata.
 	 */
 	public Set<Character> simbolos() {
 		return new TreeSet<>(this.simbolos);
@@ -347,13 +347,13 @@ public class Automata {
 
 	/**
 	 * Obtiene el conjunto de nodos al que se llega a partir de un nodo inicial
-	 * y tras consumir un s韒bolo determinado. Solo se cuentan las transiciones
-	 * vac韆s efectuadas tras consumir la entrada.
+	 * y tras consumir un s铆mbolo determinado. Solo se cuentan las transiciones
+	 * vac铆as efectuadas tras consumir la entrada.
 	 * 
 	 * @param inicio
 	 *            Nodo de inicio.
 	 * @param simbolo
-	 *            S韒bolo de entrada.
+	 *            S铆mbolo de entrada.
 	 * @return Conjunto de nodos de llegada.
 	 */
 	public Set<Nodo> transicion(Nodo inicio, char simbolo) {
@@ -381,7 +381,7 @@ public class Automata {
 
 	/**
 	 * Obtiene el conjunto de nodos al que se llega a partir de un nodo inicial
-	 * y sin consumir ning鷑 s韒bolo.
+	 * y sin consumir ning煤n s铆mbolo.
 	 * 
 	 * @param inicio
 	 *            Nodo de inicio.
@@ -406,11 +406,11 @@ public class Automata {
 	}
 
 	/**
-	 * Genera un grafo representando el aut髆ata. La imagen generada se cachea
-	 * al ser solicitada por primera vez para evitar realizar los c醠culos
+	 * Genera un grafo representando el aut贸mata. La imagen generada se cachea
+	 * al ser solicitada por primera vez para evitar realizar los c谩lculos
 	 * repetidas veces.
 	 * 
-	 * @return Imagen conteniendo el grafo que representa al aut髆ata.
+	 * @return Imagen conteniendo el grafo que representa al aut贸mata.
 	 */
 	public BufferedImage imagen() {
 		if (this.imagen == null) {
@@ -452,7 +452,7 @@ public class Automata {
 							.collect(Collectors.toList()));
 
 					for (Nodo nodo : siguientes.keySet()) {
-						if (!gNodos.containsKey(nodo.posicion())) { // A馻de
+						if (!gNodos.containsKey(nodo.posicion())) { // A帽ade
 																	// nodo
 							gNodo = graph
 									.insertVertex(parent, null,
@@ -462,7 +462,7 @@ public class Automata {
 						} else { // Recupera nodo
 							gNodo = gNodos.get(nodo.posicion());
 						}
-						// A馻de transici髇
+						// A帽ade transici贸n
 						graph.insertEdge(parent, null, siguientes.get(nodo),
 								gActual, gNodo, estiloEdge);
 					}
@@ -490,11 +490,11 @@ public class Automata {
 
 	/**
 	 * Genera el programa en formato dot para generar la imagen representando el
-	 * aut髆ata asociado a la expresi髇, con los nodos marcados pero vac韔s. El
+	 * aut贸mata asociado a la expresi贸n, con los nodos marcados pero vac铆os. El
 	 * programa generado se cachea al ser solicitado por primera vez para evitar
-	 * realizar los c醠culos repetidas veces.
+	 * realizar los c谩lculos repetidas veces.
 	 * 
-	 * @return Programa dot conteniendo el aut髆ata que genera la expresi髇.
+	 * @return Programa dot conteniendo el aut贸mata que genera la expresi贸n.
 	 */
 	public String imagenDot() {
 		if (this.imagenDot == null) {
@@ -540,11 +540,11 @@ public class Automata {
 
 	/**
 	 * Genera el programa en formato SVG para generar la imagen representando el
-	 * aut髆ata asociado a la expresi髇, con los nodos marcados pero vac韔s. El
+	 * aut贸mata asociado a la expresi贸n, con los nodos marcados pero vac铆os. El
 	 * programa generado se cachea al ser solicitado por primera vez para evitar
-	 * realizar los c醠culos repetidas veces.
+	 * realizar los c谩lculos repetidas veces.
 	 * 
-	 * @return Programa SVG conteniendo el aut髆ata que genera la expresi髇.
+	 * @return Programa SVG conteniendo el aut贸mata que genera la expresi贸n.
 	 */
 	public String imagenSvg() {
 		if (this.imagenSvg == null) {
@@ -586,7 +586,7 @@ public class Automata {
 							.collect(Collectors.toList()));
 
 					for (Nodo nodo : siguientes.keySet()) {
-						if (!gNodos.containsKey(nodo.posicion())) { // A馻de
+						if (!gNodos.containsKey(nodo.posicion())) { // A帽ade
 																	// nodo
 							gNodo = graph
 									.insertVertex(parent, null,
@@ -596,7 +596,7 @@ public class Automata {
 						} else { // Recupera nodo
 							gNodo = gNodos.get(nodo.posicion());
 						}
-						// A馻de transici髇
+						// A帽ade transici贸n
 						graph.insertEdge(parent, null, siguientes.get(nodo),
 								gActual, gNodo, estiloEdge);
 					}
@@ -624,11 +624,11 @@ public class Automata {
 	
 	/**
 	 * Genera el programa en formato SVG para generar la imagen representando el
-	 * aut髆ata asociado a la expresi髇, con los nodos marcados pero vac韔s. El
+	 * aut贸mata asociado a la expresi贸n, con los nodos marcados pero vac铆os. El
 	 * programa generado se cachea al ser solicitado por primera vez para evitar
-	 * realizar los c醠culos repetidas veces.
+	 * realizar los c谩lculos repetidas veces.
 	 * 
-	 * @return Programa TikZ conteniendo el aut髆ata que genera la expresi髇.
+	 * @return Programa TikZ conteniendo el aut贸mata que genera la expresi贸n.
 	 */
 	public String imagenTikZ() {
 		return tz_printAll(this);
@@ -871,7 +871,7 @@ public class Automata {
 	    ylen=sy*ylen;
 	    double d = Math.sqrt(ylen*ylen+4*r*r);
 
-	    // Coordenadas del punto sobre el c韗culo del estado
+	    // Coordenadas del punto sobre el c铆rculo del estado
 	    double ex = 2*r*r/d;  // d es a 2r, como r es a ex
 	    double ey = r*ylen/d; // d es a ylen, como r es a ey 
 	    

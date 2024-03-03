@@ -11,12 +11,12 @@ public class Problema<T> {
 	private static final Logger log = LoggerFactory.getLogger(Problema.class);
 
 	private enum Tipo {
-		AHOSETHIULLMAN_CONSTRUCCION, // Aho-Sethi-Ullman construcci髇 de 醨bol
-		AHOSETHIULLMAN_ETIQUETADO, // Aho-Sethi-Ullman etiquetado de 醨bol
-		AHOSETHIULLMAN_TABLAS, // Aho-Sethi-Ullman tablas stePos y transici髇
-		CONSTRUCCIONSUBCONJUNTOS_CONSTRUCCION, // Construcci髇 de aut髆ata
-		CONSTRUCCIONSUBCONJUNTOS_EXPRESION, // Subconjuntos desde expresi髇
-		CONSTRUCCIONSUBCONJUNTOS_AUTOMATA, // Subconjuntos desde aut髆ata
+		AHOSETHIULLMAN_CONSTRUCCION, // Aho-Sethi-Ullman construcci贸n de 谩rbol
+		AHOSETHIULLMAN_ETIQUETADO, // Aho-Sethi-Ullman etiquetado de 谩rbol
+		AHOSETHIULLMAN_TABLAS, // Aho-Sethi-Ullman tablas stePos y transici贸n
+		CONSTRUCCIONSUBCONJUNTOS_CONSTRUCCION, // Construcci贸n de aut贸mata
+		CONSTRUCCIONSUBCONJUNTOS_EXPRESION, // Subconjuntos desde expresi贸n
+		CONSTRUCCIONSUBCONJUNTOS_AUTOMATA, // Subconjuntos desde aut贸mata
 	}
 
 	private Tipo tipo;
@@ -138,7 +138,7 @@ public class Problema<T> {
 	}
 
 	public void setNumero(int numero) {
-		log.info("N鷐ero de problema cambiado a {}", numero); //$NON-NLS-1$
+		log.info("N煤mero de problema cambiado a {}", numero); //$NON-NLS-1$
 		
 		this.numero = numero;
 	}

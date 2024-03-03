@@ -40,7 +40,7 @@ public class TraductorLatexTest {
 	}
 
 	/**
-	 * Comprueba la correcta generaci髇 de un documento que contenga los datos
+	 * Comprueba la correcta generaci贸n de un documento que contenga los datos
 	 * dados.
 	 */
 	@Test
@@ -48,12 +48,12 @@ public class TraductorLatexTest {
 		String esperado = toString("TraductorVacio.tex"); //$NON-NLS-1$
 		String encontrado = traductor.documento(new ArrayList<Plantilla>());
 
-		assertEquals("Generaci髇 incorrecta de documento Latex.", esperado, encontrado); //$NON-NLS-1$
+		assertEquals("Generaci贸n incorrecta de documento Latex.", esperado, encontrado); //$NON-NLS-1$
 	}
 
 	/**
-	 * Comprueba la correcta traducci髇 de un problema de tipo Aho-Sethi-Ullman
-	 * subtipo construcci髇.
+	 * Comprueba la correcta traducci贸n de un problema de tipo Aho-Sethi-Ullman
+	 * subtipo construcci贸n.
 	 */
 	@Test
 	public void testTraduceAhoSethiUllmanConstruccion() {
@@ -64,12 +64,12 @@ public class TraductorLatexTest {
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}"); //$NON-NLS-1$ //$NON-NLS-2$
 		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}"); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(
-				"Traducci髇 Latex incorrecta de problema AhoSethiUllman subtipo construcci髇.", //$NON-NLS-1$
+				"Traducci贸n Latex incorrecta de problema AhoSethiUllman subtipo construcci贸n.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba la correcta traducci髇 de un problema de tipo Aho-Sethi-Ullman
+	 * Comprueba la correcta traducci贸n de un problema de tipo Aho-Sethi-Ullman
 	 * subtipo etiquetado.
 	 */
 	@Test
@@ -97,12 +97,12 @@ public class TraductorLatexTest {
 		
 
 		assertEquals(
-				"Traducci髇 Latex incorrecta de problema AhoSethiUllman subtipo etiquetado.", //$NON-NLS-1$
+				"Traducci贸n Latex incorrecta de problema AhoSethiUllman subtipo etiquetado.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba la correcta traducci髇 de un problema de tipo Aho-Sethi-Ullman
+	 * Comprueba la correcta traducci贸n de un problema de tipo Aho-Sethi-Ullman
 	 * subtipo tablas.
 	 */
 	@Test
@@ -126,13 +126,13 @@ public class TraductorLatexTest {
 
 
 		assertEquals(
-				"Traducci髇 Latex incorrecta de problema AhoSethiUllman subtipo tablas.", //$NON-NLS-1$
+				"Traducci贸n Latex incorrecta de problema AhoSethiUllman subtipo tablas.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba la correcta traducci髇 de un problema de construcci髇 de
-	 * subconjuntos subtipo construcci髇.
+	 * Comprueba la correcta traducci贸n de un problema de construcci贸n de
+	 * subconjuntos subtipo construcci贸n.
 	 */
 	@Test
 	public void testTraduceConstruccionSubconjuntosConstruccion() {
@@ -143,13 +143,13 @@ public class TraductorLatexTest {
 		encontrado = encontrado.replaceAll("\\[width=90mm\\]\\{[^\\}]*\\}", "[width=90mm]{}"); //$NON-NLS-1$ //$NON-NLS-2$
 		encontrado = encontrado.replaceAll("myincludegraphicssol\\{[0-9]+\\}", "myincludegraphicssol{}"); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(
-				"Traducci髇 Latex incorrecta de problema de construcci髇 de subconjuntos subtipo construcci髇.", //$NON-NLS-1$
+				"Traducci贸n Latex incorrecta de problema de construcci贸n de subconjuntos subtipo construcci贸n.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba la correcta traducci髇 de un problema de construcci髇 de
-	 * subconjuntos subtipo expresi髇.
+	 * Comprueba la correcta traducci贸n de un problema de construcci贸n de
+	 * subconjuntos subtipo expresi贸n.
 	 */
 	@Test
 	public void testTraduceConstruccionSubconjuntosExpresion() { //throws IOException {
@@ -176,13 +176,13 @@ public class TraductorLatexTest {
 		
 
 		assertEquals(
-				"Traducci髇 Latex incorrecta de problema de construcci髇 de subconjuntos subtipo expresi髇.", //$NON-NLS-1$
+				"Traducci贸n Latex incorrecta de problema de construcci贸n de subconjuntos subtipo expresi贸n.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba la correcta traducci髇 de un problema de construcci髇 de
-	 * subconjuntos subtipo aut髆ata.
+	 * Comprueba la correcta traducci贸n de un problema de construcci贸n de
+	 * subconjuntos subtipo aut贸mata.
 	 */
 	@Test
 	public void testTraduceConstruccionSubconjuntosAutomata() { //throws IOException {
@@ -209,7 +209,7 @@ public class TraductorLatexTest {
 		
 
 		assertEquals(
-				"Traducci髇 Latex incorrecta de problema de construcci髇 de subconjuntos subtipo aut髆ata.", //$NON-NLS-1$
+				"Traducci贸n Latex incorrecta de problema de construcci贸n de subconjuntos subtipo aut贸mata.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 

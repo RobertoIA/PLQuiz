@@ -6,12 +6,12 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
- * Nodo implementa cada uno de los estados del autÛmata finito no determinista
- * definido por una expresiÛn regular dada. Contiene referencias a su posiciÛn,
+ * Nodo implementa cada uno de los estados del aut√≥mata finito no determinista
+ * definido por una expresi√≥n regular dada. Contiene referencias a su posici√≥n,
  * una serie de transiciones que no consumen entrada y una serie de transiciones
- * que consumen cada una un sÌmbolo dado.
+ * que consumen cada una un s√≠mbolo dado.
  * <p>
- * Implementa sus propios mÈtodos <code>equals</code> y <code>compareTo</code>
+ * Implementa sus propios m√©todos <code>equals</code> y <code>compareTo</code>
  * para su uso dentro de sets ordenados.
  * 
  * @author Roberto Izquierdo Amo
@@ -25,11 +25,11 @@ public class Nodo implements Comparable<Nodo> {
 	private Set<Nodo> transicionesVacias;
 
 	/**
-	 * Constructor. Define un nodo desconectado con la posiciÛn dada y un estado
+	 * Constructor. Define un nodo desconectado con la posici√≥n dada y un estado
 	 * final o no.
 	 * 
 	 * @param posicion
-	 *            PosiciÛn del nodo.
+	 *            Posici√≥n del nodo.
 	 * @param esFinal
 	 *            Si el nodo es final.
 	 */
@@ -42,9 +42,9 @@ public class Nodo implements Comparable<Nodo> {
 	}
 
 	/**
-	 * Devuelve la posiciÛn de nodo dentro del autÛmata.
+	 * Devuelve la posici√≥n de nodo dentro del aut√≥mata.
 	 * 
-	 * @return PosiciÛn del nodo.
+	 * @return Posici√≥n del nodo.
 	 */
 	public int posicion() {
 		return this.posicion;
@@ -60,38 +60,38 @@ public class Nodo implements Comparable<Nodo> {
 	}
 
 	/**
-	 * AÒade al nodo una transiciÛn que consumir· una entrada determinada. Si el
-	 * nodo ya contenÌa una transiciÛn para dicha entrada, este mÈtodo la
+	 * A√±ade al nodo una transici√≥n que consumir√° una entrada determinada. Si el
+	 * nodo ya conten√≠a una transici√≥n para dicha entrada, este m√©todo la
 	 * sobreescribe con la nueva.
 	 * 
 	 * @param simbolo
-	 *            SÌmbolo a consumir.
+	 *            S√≠mbolo a consumir.
 	 * @param destino
 	 *            Nodo de destino.
 	 */
-	public void aÒadeTransicion(char simbolo, Nodo destino) {
+	public void a√±adeTransicion(char simbolo, Nodo destino) {
 		this.transiciones.put(simbolo, destino);
 		this.esFinal = false;
 	}
 
 	/**
-	 * AÒade al nodo una transiciÛn que no consume entrada.
+	 * A√±ade al nodo una transici√≥n que no consume entrada.
 	 * 
 	 * @param destino
 	 *            Nodo de destino.
 	 */
-	public void aÒadeTransicionVacia(Nodo destino) {
+	public void a√±adeTransicionVacia(Nodo destino) {
 		this.transicionesVacias.add(destino);
 		this.esFinal = false;
 	}
 
 	/**
-	 * Obtiene el nodo de destino para la transiciÛn que consume una entrada
-	 * determinada, o null si no hay una transiciÛn para dicha entrada.
+	 * Obtiene el nodo de destino para la transici√≥n que consume una entrada
+	 * determinada, o null si no hay una transici√≥n para dicha entrada.
 	 * 
 	 * @param simbolo
-	 *            SÌmbolo a consumir.
-	 * @return Nodo de destino o <code>null</code> si no existe la transiciÛn.
+	 *            S√≠mbolo a consumir.
+	 * @return Nodo de destino o <code>null</code> si no existe la transici√≥n.
 	 */
 	public Nodo transicion(char simbolo) {
 		return this.transiciones.get(simbolo);
@@ -99,7 +99,7 @@ public class Nodo implements Comparable<Nodo> {
 
 	/**
 	 * Obtiene los nodos de destino a los que podemos llegar sin consumir
-	 * entrada. Si no hay ninguno se devuelve el conjunto vacÌo.
+	 * entrada. Si no hay ninguno se devuelve el conjunto vac√≠o.
 	 * 
 	 * @return Conjunto de nodos de destino.
 	 */
@@ -108,7 +108,7 @@ public class Nodo implements Comparable<Nodo> {
 	}
 
 	/**
-	 * Utilizado para unir dos nodos, aÒade todas las transiciones del segundo
+	 * Utilizado para unir dos nodos, a√±ade todas las transiciones del segundo
 	 * nodo a este. Este nodo deja de ser final, si es que lo era antes.
 	 * 
 	 * @param otro
@@ -121,7 +121,7 @@ public class Nodo implements Comparable<Nodo> {
 	}
 
 	/**
-	 * Un nodo se representa utilizando su posiciÛn.
+	 * Un nodo se representa utilizando su posici√≥n.
 	 */
 	@Override
 	public String toString() {
@@ -137,7 +137,7 @@ public class Nodo implements Comparable<Nodo> {
 		if (!(o instanceof Nodo))
 			return false;
 
-		// Consideramos dos nodos iguales si tienen la misma posiciÛn.
+		// Consideramos dos nodos iguales si tienen la misma posici√≥n.
 		if (!(((Nodo) o).posicion() == posicion()))
 			return false;
 

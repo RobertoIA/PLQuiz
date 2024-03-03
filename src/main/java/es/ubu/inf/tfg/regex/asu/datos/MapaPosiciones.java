@@ -7,26 +7,26 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
- * MapaPosiciones implementa una interfaz simple para acceder a un mapa genérico
- * que almacena un conjunto de posiciones como valores. Provee métodos para
- * añadir elementos al mapa en distintos formatos, así como métodos que permiten
- * acceder a las partes útiles de la información del mapa.
+ * MapaPosiciones implementa una interfaz simple para acceder a un mapa genÃ©rico
+ * que almacena un conjunto de posiciones como valores. Provee mÃ©todos para
+ * aÃ±adir elementos al mapa en distintos formatos, asÃ­ como mÃ©todos que permiten
+ * acceder a las partes Ãºtiles de la informaciÃ³n del mapa.
  * <p>
- * La única manera de modificar la información de un MapaPosiciones es a través
- * de los métodos {@link #add(E) add}, {@link #add(E, int) add}, {@link #add(E,
- * Set<Integer>) add} y {@link #add(Set<E>, Set<Integer>) add}. La información
+ * La Ãºnica manera de modificar la informaciÃ³n de un MapaPosiciones es a travÃ©s
+ * de los mÃ©todos {@link #add(E) add}, {@link #add(E, int) add}, {@link #add(E,
+ * Set<Integer>) add} y {@link #add(Set<E>, Set<Integer>) add}. La informaciÃ³n
  * obtenida no es nunca una referencia directa al elemento almacenado, sino una
  * copia.
  * <p>
- * La clase provee métodos estáticos que permiten realizar operaciones de unión
+ * La clase provee mÃ©todos estÃ¡ticos que permiten realizar operaciones de uniÃ³n
  * y copia sobre instancias de esta clase.
  * 
  * @author Roberto Izquierdo Amo
  * 
  * @param <E>
- *            Tipo de claves que manejará el mapa interno. Normalmente será
- *            <code>Integer</code> (función stePos) o <code>Character</code>
- *            (diccionario de símbolos).
+ *            Tipo de claves que manejarÃ¡ el mapa interno. Normalmente serÃ¡
+ *            <code>Integer</code> (funciÃ³n stePos) o <code>Character</code>
+ *            (diccionario de sÃ­mbolos).
  */
 public class MapaPosiciones<E> {
 	private Map<E, Set<Integer>> mapaPosiciones;
@@ -40,11 +40,11 @@ public class MapaPosiciones<E> {
 	}
 
 	/**
-	 * Añade una clave al mapa, asociada a un conjunto de posiciones vacío. Si
+	 * AÃ±ade una clave al mapa, asociada a un conjunto de posiciones vacÃ­o. Si
 	 * el mapa ya contiene la clave, no hace nada.
 	 * 
 	 * @param n
-	 *            Clave que añadir al mapa.
+	 *            Clave que aÃ±adir al mapa.
 	 */
 	public void add(E n) {
 		if (!this.mapaPosiciones.containsKey(n))
@@ -52,13 +52,13 @@ public class MapaPosiciones<E> {
 	}
 
 	/**
-	 * Añade una posición al conjunto de posiciones de una clave dada. Si la
-	 * clave ya existe en el mapa, la posición se añade al conjunto existente.
+	 * AÃ±ade una posiciÃ³n al conjunto de posiciones de una clave dada. Si la
+	 * clave ya existe en el mapa, la posiciÃ³n se aÃ±ade al conjunto existente.
 	 * 
 	 * @param n
 	 *            Clave del conjunto.
 	 * @param posicion
-	 *            Posición a añadir.
+	 *            PosiciÃ³n a aÃ±adir.
 	 */
 	public void add(E n, int posicion) {
 		if (this.mapaPosiciones.containsKey(n)) {
@@ -71,14 +71,14 @@ public class MapaPosiciones<E> {
 	}
 
 	/**
-	 * Añade un conjunto de posiciones al conjunto de posiciones de una clave
-	 * dada. Si la clave ya existe en el mapa, las posiciones se añaden al
+	 * AÃ±ade un conjunto de posiciones al conjunto de posiciones de una clave
+	 * dada. Si la clave ya existe en el mapa, las posiciones se aÃ±aden al
 	 * conjunto existente.
 	 * 
 	 * @param n
 	 *            Clave del conjunto.
 	 * @param posiciones
-	 *            Posiciones a añadir.
+	 *            Posiciones a aÃ±adir.
 	 */
 	public void add(E n, Set<Integer> posiciones) {
 		if (this.mapaPosiciones.containsKey(n))
@@ -88,8 +88,8 @@ public class MapaPosiciones<E> {
 	}
 
 	/**
-	 * Añade un conjunto de posiciones al conjunto de posiciones de una serie de
-	 * clave dadas. Esta implementación utiliza el método {@link #add(E,
+	 * AÃ±ade un conjunto de posiciones al conjunto de posiciones de una serie de
+	 * clave dadas. Esta implementaciÃ³n utiliza el mÃ©todo {@link #add(E,
 	 * Set<Integer>) add}.
 	 * 
 	 * @param ns
@@ -102,10 +102,10 @@ public class MapaPosiciones<E> {
 
 	/**
 	 * Devuelve una copia del conjunto de claves del mapa de posiciones. Si se
-	 * devolviera el conjunto de claves original podrían introducirse cambios al
+	 * devolviera el conjunto de claves original podrÃ­an introducirse cambios al
 	 * mapa desde el exterior.
 	 * 
-	 * @return Conjunto de claves de posición.
+	 * @return Conjunto de claves de posiciÃ³n.
 	 */
 	public Set<E> keys() {
 		return new TreeSet<>(this.mapaPosiciones.keySet());
@@ -113,7 +113,7 @@ public class MapaPosiciones<E> {
 
 	/**
 	 * Devuelve una copia del conjunto de posiciones asociado a una determinada
-	 * clave. Si la clave no existe, se devuelve el conjunto vacío.
+	 * clave. Si la clave no existe, se devuelve el conjunto vacÃ­o.
 	 * 
 	 * @param key
 	 *            Clave que buscar.
@@ -127,25 +127,25 @@ public class MapaPosiciones<E> {
 	}
 
 	/**
-	 * Devuelve el número de claves contenidas en el mapa.
+	 * Devuelve el nÃºmero de claves contenidas en el mapa.
 	 * 
-	 * @return Tamaño del mapa.
+	 * @return TamaÃ±o del mapa.
 	 */
 	public int size() {
 		return this.mapaPosiciones.size();
 	}
 
 	/**
-	 * Devuelve un mapa que constituye la unión de otros dos mapas. Si una clave
+	 * Devuelve un mapa que constituye la uniÃ³n de otros dos mapas. Si una clave
 	 * se encuentra en ambos mapas, sus conjuntos de posiciones se unen. Si una
-	 * clave se encuentra en solo un mapa, esta se añade al mapa tal cual. Esta
-	 * implementación utiliza el método {@link #add(E, Set<Integer>) add}.
+	 * clave se encuentra en solo un mapa, esta se aÃ±ade al mapa tal cual. Esta
+	 * implementaciÃ³n utiliza el mÃ©todo {@link #add(E, Set<Integer>) add}.
 	 * 
 	 * @param a
 	 *            Primer mapa.
 	 * @param b
 	 *            Segundo mapa.
-	 * @return Mapa unión del primer y segundo mapa.
+	 * @return Mapa uniÃ³n del primer y segundo mapa.
 	 */
 	public static <E> MapaPosiciones<E> union(MapaPosiciones<E> a,
 			MapaPosiciones<E> b) {
@@ -162,7 +162,7 @@ public class MapaPosiciones<E> {
 
 	/**
 	 * Devuelve un mapa copia del mapa dado, pero sin compartir referencias al
-	 * mismo. Esta implementación utiliza el método {@link #add(E, Set<Integer>)
+	 * mismo. Esta implementaciÃ³n utiliza el mÃ©todo {@link #add(E, Set<Integer>)
 	 * add}.
 	 * 
 	 * @param original

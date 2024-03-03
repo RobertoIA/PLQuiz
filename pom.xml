@@ -4,14 +4,14 @@
 
 	<groupId>es.ubu.inf.tfg</groupId>
 	<artifactId>PLQuiz</artifactId>
-	<version>1.5-SNAPSHOT</version>
+	<version>1.7-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>PLQuiz</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<project.build.sourceEncoding>Cp1252</project.build.sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<slf4j.version>1.7.6</slf4j.version>
 		<logback.version>1.2.9</logback.version>
 	</properties>

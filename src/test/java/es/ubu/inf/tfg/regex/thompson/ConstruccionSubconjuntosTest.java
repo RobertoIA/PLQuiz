@@ -33,11 +33,11 @@ public class ConstruccionSubconjuntosTest {
 	}
 
 	/**
-	 * Comprueba que los s韒bolos del aut髆ata se calculan correctamente.
+	 * Comprueba que los s铆mbolos del aut贸mata se calculan correctamente.
 	 */
 	@Test
 	public void testSimbolos() {
-		assertEquals("Conjunto de s韒bolos incorrecto.", set('a', 'b'),
+		assertEquals("Conjunto de s铆mbolos incorrecto.", set('a', 'b'),
 				th.simbolos());
 	}
 
@@ -70,30 +70,30 @@ public class ConstruccionSubconjuntosTest {
 	}
 
 	/**
-	 * Comprueba que el ejercicio es capaz de calcular correctamente una funci髇
-	 * de transici髇.
+	 * Comprueba que el ejercicio es capaz de calcular correctamente una funci贸n
+	 * de transici贸n.
 	 */
 	@Test
 	public void testMueve() {
-		assertEquals("Funci髇 de transici髇 incorrecta.", 'B',
+		assertEquals("Funci贸n de transici贸n incorrecta.", 'B',
 				th.mueve('A', 'a'));
-		assertEquals("Funci髇 de transici髇 incorrecta.", 'C',
+		assertEquals("Funci贸n de transici贸n incorrecta.", 'C',
 				th.mueve('A', 'b'));
-		assertEquals("Funci髇 de transici髇 incorrecta.", 'B',
+		assertEquals("Funci贸n de transici贸n incorrecta.", 'B',
 				th.mueve('B', 'a'));
-		assertEquals("Funci髇 de transici髇 incorrecta.", 'D',
+		assertEquals("Funci贸n de transici贸n incorrecta.", 'D',
 				th.mueve('B', 'b'));
-		assertEquals("Funci髇 de transici髇 incorrecta.", 'B',
+		assertEquals("Funci贸n de transici贸n incorrecta.", 'B',
 				th.mueve('C', 'a'));
-		assertEquals("Funci髇 de transici髇 incorrecta.", 'C',
+		assertEquals("Funci贸n de transici贸n incorrecta.", 'C',
 				th.mueve('C', 'b'));
-		assertEquals("Funci髇 de transici髇 incorrecta.", 'B',
+		assertEquals("Funci贸n de transici贸n incorrecta.", 'B',
 				th.mueve('D', 'a'));
-		assertEquals("Funci髇 de transici髇 incorrecta.", 'E',
+		assertEquals("Funci贸n de transici贸n incorrecta.", 'E',
 				th.mueve('D', 'b'));
-		assertEquals("Funci髇 de transici髇 incorrecta.", 'B',
+		assertEquals("Funci贸n de transici贸n incorrecta.", 'B',
 				th.mueve('E', 'a'));
-		assertEquals("Funci髇 de transici髇 incorrecta.", 'C',
+		assertEquals("Funci贸n de transici贸n incorrecta.", 'C',
 				th.mueve('E', 'b'));
 	}
 

@@ -6,9 +6,9 @@ import java.util.TreeMap;
 
 /**
  * MapaEstados implementa una interfaz simple para trabajar con un mapa de mapas
- * que almacena una tabla de transici髇. Permite obtener tanto una lista de
- * estados existentes, como el resultado de una operaci髇 mueve, tal que
- * mueve(estado, s韒bolo) -> destino.
+ * que almacena una tabla de transici贸n. Permite obtener tanto una lista de
+ * estados existentes, como el resultado de una operaci贸n mueve, tal que
+ * mueve(estado, s铆mbolo) -> destino.
  * 
  * @author Roberto Izquierdo Amo
  * 
@@ -24,12 +24,12 @@ public class MapaEstados {
 	}
 
 	/**
-	 * A馻de una nueva transici髇 al mapa de estados.
+	 * A帽ade una nueva transici贸n al mapa de estados.
 	 * 
 	 * @param estado
 	 *            Estado de origen.
 	 * @param simbolo
-	 *            S韒bolo con el que realizamos la transici髇.
+	 *            S铆mbolo con el que realizamos la transici贸n.
 	 * @param destino
 	 *            Estado de destino.
 	 */
@@ -47,13 +47,13 @@ public class MapaEstados {
 	}
 
 	/**
-	 * Obtiene un estado de destino para una combinaci髇 de estado de origen y
-	 * s韒bolo de transici髇.
+	 * Obtiene un estado de destino para una combinaci贸n de estado de origen y
+	 * s铆mbolo de transici贸n.
 	 * 
 	 * @param estado
 	 *            Estado de origen.
 	 * @param simbolo
-	 *            S韒bolo con el que realizamos la transici髇.
+	 *            S铆mbolo con el que realizamos la transici贸n.
 	 * @return Estado de destino.
 	 */
 	public char get(char estado, char simbolo) {

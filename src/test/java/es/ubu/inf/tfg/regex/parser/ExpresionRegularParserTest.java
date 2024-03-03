@@ -12,7 +12,7 @@ import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
 public class ExpresionRegularParserTest {
 
 	/**
-	 * Comprueba que un simple símbolo es considerado una expresión regular
+	 * Comprueba que un simple sÃ­mbolo es considerado una expresiÃ³n regular
 	 * 
 	 * @throws ParseException
 	 *             Error del parser.
@@ -27,11 +27,11 @@ public class ExpresionRegularParserTest {
 		
 		//System.out.println(out);
 		
-		assertEquals("Parser produce expresión incorrecta.", out, "a·$");
+		assertEquals("Parser produce expresiÃ³n incorrecta.", out, "aÂ·$");
 	}
 
 	/**
-	 * Comprueba que épsilon es considerado una expresión regular
+	 * Comprueba que Ã©psilon es considerado una expresiÃ³n regular
 	 * 
 	 * @throws ParseException
 	 *             Error del parser.
@@ -46,12 +46,12 @@ public class ExpresionRegularParserTest {
 		
 		//System.out.println(out);
 		
-		assertEquals("Parser produce expresión incorrecta.", out, "\u03B5·$");
+		assertEquals("Parser produce expresiÃ³n incorrecta.", out, "\u03B5Â·$");
 	}
 	
 	/**
 	 * Comprueba que las cadenas que no terminan en salto de linea son no
-	 * válidas, aunque por lo demás sean correctas.
+	 * vÃ¡lidas, aunque por lo demÃ¡s sean correctas.
 	 * 
 	 * @throws ParseException
 	 *             Error del parser.
@@ -79,12 +79,12 @@ public class ExpresionRegularParserTest {
 		ExpresionRegularParser parser1 = new ExpresionRegularParser(input1);
 		ExpresionRegularParser parser2 = new ExpresionRegularParser(input2);
 		
-		assertEquals("Parser produce expresión incorrecta.", parser1.expresion(),
+		assertEquals("Parser produce expresiÃ³n incorrecta.", parser1.expresion(),
 				parser2.expresion());
 	}
 
 	/**
-	 * Comprueba que se la selección preserva el orden de los operandos
+	 * Comprueba que se la selecciÃ³n preserva el orden de los operandos
 	 * 
 	 * @throws ParseException
 	 *             Error del parser.
@@ -99,11 +99,11 @@ public class ExpresionRegularParserTest {
 		
 		//System.out.println(out);
 		
-		assertEquals("Parser produce expresión incorrecta.", out, "(a|b)·$");
+		assertEquals("Parser produce expresiÃ³n incorrecta.", out, "(a|b)Â·$");
 	}
 
 	/**
-	 * Comprueba que se la concatenación preserva el orden de los operandos
+	 * Comprueba que se la concatenaciÃ³n preserva el orden de los operandos
 	 * 
 	 * @throws ParseException
 	 *             Error del parser.
@@ -118,11 +118,11 @@ public class ExpresionRegularParserTest {
 		
 		//System.out.println(out);
 		
-		assertEquals("Parser produce expresión incorrecta.", out, "a·b·$");
+		assertEquals("Parser produce expresiÃ³n incorrecta.", out, "aÂ·bÂ·$");
 	}
 
 	/**
-	 * Comprueba que se la concatenación sea opcional
+	 * Comprueba que se la concatenaciÃ³n sea opcional
 	 * 
 	 * @throws ParseException
 	 *             Error del parser.
@@ -139,11 +139,11 @@ public class ExpresionRegularParserTest {
 		out1 = parser1.expresion().toString();
 		out2 = parser2.expresion().toString();
 		
-		assertEquals("Parser produce expresión incorrecta.", out1, out2);
+		assertEquals("Parser produce expresiÃ³n incorrecta.", out1, out2);
 	}
 	
 	/**
-	 * Comprueba las precedencias de la selección y la concatenación
+	 * Comprueba las precedencias de la selecciÃ³n y la concatenaciÃ³n
 	 * 
 	 * @throws ParseException
 	 *             Error del parser.
@@ -160,11 +160,11 @@ public class ExpresionRegularParserTest {
 		out1 = parser1.expresion().toString();
 		out2 = parser2.expresion().toString();
 		
-		assertEquals("Parser produce expresión incorrecta.", out1, out2);
+		assertEquals("Parser produce expresiÃ³n incorrecta.", out1, out2);
 	}
 	
 	/**
-	 * Comprueba las precedencias de la selección y el cierre
+	 * Comprueba las precedencias de la selecciÃ³n y el cierre
 	 * 
 	 * @throws ParseException
 	 *             Error del parser.
@@ -184,11 +184,11 @@ public class ExpresionRegularParserTest {
 		//System.out.println(out1);
 		//System.out.println(out2);
 		
-		assertEquals("Parser produce expresión incorrecta.", out1, out2);
+		assertEquals("Parser produce expresiÃ³n incorrecta.", out1, out2);
 	}
 
 	/**
-	 * Comprueba las precedencias de la concatenación y el cierre
+	 * Comprueba las precedencias de la concatenaciÃ³n y el cierre
 	 * 
 	 * @throws ParseException
 	 *             Error del parser.
@@ -208,11 +208,11 @@ public class ExpresionRegularParserTest {
 		//System.out.println(out1);
 		//System.out.println(out2);
 		
-		assertEquals("Parser produce expresión incorrecta.", out1, out2);
+		assertEquals("Parser produce expresiÃ³n incorrecta.", out1, out2);
 	}
 
 	/**
-	 * Comprueba las precedencias de la concatenación y el cierre
+	 * Comprueba las precedencias de la concatenaciÃ³n y el cierre
 	 * 
 	 * @throws ParseException
 	 *             Error del parser.
@@ -236,13 +236,13 @@ public class ExpresionRegularParserTest {
 		//System.out.println(out1);
 		//System.out.println(out2);
 				
-		assertEquals("Parser produce expresión incorrecta.", "(a·b)*·$", out2);
-		assertFalse("Parser produce expresión incorrecta.", out1.equals(out2));
+		assertEquals("Parser produce expresiÃ³n incorrecta.", "(aÂ·b)*Â·$", out2);
+		assertFalse("Parser produce expresiÃ³n incorrecta.", out1.equals(out2));
 	}
 
 	/**
-	 * Comprueba que el parser produce la expresión regular correcta,
-	 * comparándola con una construida a mano.
+	 * Comprueba que el parser produce la expresiÃ³n regular correcta,
+	 * comparÃ¡ndola con una construida a mano.
 	 * 
 	 * @throws ParseException
 	 *             Error del parser.
@@ -270,12 +270,12 @@ public class ExpresionRegularParserTest {
 		//System.out.println(resultado.toString());
 		//System.out.println(expresion.toString());
 
-		assertEquals("Parser produce expresión incorrecta.", expresion, resultado);
+		assertEquals("Parser produce expresiÃ³n incorrecta.", expresion, resultado);
 	}
 
 	/**
 	 * Comprueba que el parser es capaz de procesar correctamente la salida de
-	 * una expresión existente.
+	 * una expresiÃ³n existente.
 	 * 
 	 * @throws ParseException
 	 *             Error del parser.
@@ -294,7 +294,7 @@ public class ExpresionRegularParserTest {
 		expresion = ExpresionRegular.nodoConcat(expresion,                     // ((a|b*)a*c)*
 				ExpresionRegular.nodoAumentado(5));                            // ((a|b*)a*c)*$
 
-		// Utilizamos el hijo izquierdo porque nos interesa la expresión
+		// Utilizamos el hijo izquierdo porque nos interesa la expresiÃ³n
 		// original, sin aumentar.
 		CharStream input = new JavaCharStream(new StringReader(expresion
 				.hijoIzquierdo().toString() + '\n'));

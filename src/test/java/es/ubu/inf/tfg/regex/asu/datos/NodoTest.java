@@ -47,7 +47,7 @@ public class NodoTest {
 	 */
 	@Test
 	public void testExpresion() {
-		assertEquals("Referencia inválida a expresión regular", expresion,
+		assertEquals("Referencia invÃ¡lida a expresiÃ³n regular", expresion,
 				nodo.expresion());
 	}
 
@@ -57,9 +57,9 @@ public class NodoTest {
 	/*
 	@Test
 	public void testExpresionHijos() {
-		assertEquals("Referencia inválida a expresión regular",
+		assertEquals("Referencia invÃ¡lida a expresiÃ³n regular",
 				expresion.hijoDerecho(), nodo.hijoDerecho().expresion());
-		assertEquals("Referencia inválida a expresión regular",
+		assertEquals("Referencia invÃ¡lida a expresiÃ³n regular",
 				expresion.hijoIzquierdo(), nodo.hijoIzquierdo().expresion());
 	}
 	*/
@@ -70,7 +70,7 @@ public class NodoTest {
 	/*
 	@Test
 	public void testEsAnulable() {
-		// raíz
+		// raÃ­z
 		assertFalse("Nodo incorrectamente anulable.", nodo.esAnulable());
 
 		// profundidad 1
@@ -119,7 +119,7 @@ public class NodoTest {
 	/*
 	@Test
 	public void testPrimeraPos() {
-		// raíz
+		// raÃ­z
 		assertEquals("Primera-pos incorrecta.", set(1, 2, 3, 4, 5),
 				nodo.primeraPos());
 
@@ -164,12 +164,12 @@ public class NodoTest {
 	*/
 
 	/**
-	 * Comprueba que la última-pos de cada nodo sea la correcta.
+	 * Comprueba que la Ãºltima-pos de cada nodo sea la correcta.
 	 */
 	/*
 	@Test
 	public void testUltimaPos() {
-		// raíz
+		// raÃ­z
 		assertEquals("Ultima-pos incorrecta.", set(5), nodo.ultimaPos());
 
 		// profundidad 1
@@ -213,7 +213,7 @@ public class NodoTest {
 	*/
 
 	/**
-	 * Comprueba que el diccionario de símbolos sea el correcto.
+	 * Comprueba que el diccionario de sÃ­mbolos sea el correcto.
 	 */
 	/*
 	@Test
@@ -224,7 +224,7 @@ public class NodoTest {
 		simbolos.add('c', 4);
 		simbolos.add('$', 5);
 
-		assertEquals("Diccionario de símbolos incorrecto", simbolos,
+		assertEquals("Diccionario de sÃ­mbolos incorrecto", simbolos,
 				nodo.simbolos());
 	}
 	*/
@@ -248,7 +248,7 @@ public class NodoTest {
 	*/
 
 	/**
-	 * Comprueba que los gráficos graphviz se generan correctamente.
+	 * Comprueba que los grÃ¡ficos graphviz se generan correctamente.
 	 */
 	/*
 	@Test
@@ -264,7 +264,7 @@ public class NodoTest {
 				+ "J [label=\"J\n*\"];\n\tH -> K\n\tK [label=\"K\na\"];\n\t"
 				+ "J -> L\n\tL [label=\"L\nb\"];\n}";
 
-		assertEquals("Error generando imagen de árbol en formato dot.",
+		assertEquals("Error generando imagen de Ã¡rbol en formato dot.",
 				esperado, nodo.imagenDot());
 	}
 	*/

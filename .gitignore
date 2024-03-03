@@ -311,3 +311,6 @@ TokenMgrError.java
 ParseException.java
 Token.java
 CharStream.java
+
+## VIM
+[._]*.un~
