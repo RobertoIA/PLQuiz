@@ -109,7 +109,10 @@ public class Main {
 	}
 	
 	public static void test_I18N() {
-		String bundle_name = Main.class.getPackageName() + ".messages"; //$NON-NLS-1$
+		// This for Java 9
+		// String bundle_name = Main.class.getPackageName() + ".messages"; //$NON-NLS-1$
+		// This for Java 8
+		String bundle_name = Main.class.getPackage().getName() + ".messages"; //$NON-NLS-1$
 		ResourceBundle Messages;
 		
 		Locale.setDefault(new Locale("en", "EN"));
