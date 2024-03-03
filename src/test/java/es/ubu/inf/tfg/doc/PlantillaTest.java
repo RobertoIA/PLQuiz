@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import java.util.Locale;
+//import java.util.Locale;  // commented as now it not used
 
 import es.ubu.inf.tfg.doc.datos.Plantilla;
 

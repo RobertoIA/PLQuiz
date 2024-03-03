@@ -19,6 +19,7 @@ public class Messages {
 
 	public static String getString(String key) {
 		String res;
+		@SuppressWarnings("unused")
 		String pwd;
 		try {
 			res = RESOURCE_BUNDLE.getString(key);

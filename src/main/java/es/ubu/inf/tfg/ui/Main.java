@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
 
 import es.ubu.inf.tfg.doc.Documento;
 import es.ubu.inf.tfg.doc.Problema;
-import es.ubu.inf.tfg.doc.datos.Plantilla;
+//import es.ubu.inf.tfg.doc.datos.Plantilla; // commented as now it nos used
 import es.ubu.inf.tfg.regex.asu.AhoSethiUllman;
 import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 

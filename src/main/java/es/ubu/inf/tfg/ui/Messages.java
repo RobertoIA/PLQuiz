@@ -3,7 +3,7 @@ package es.ubu.inf.tfg.ui;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import java.util.Locale;
+//import java.util.Locale;  // commented as now it not used
 
 public class Messages {
 	// This is for Java 9
@@ -19,6 +19,7 @@ public class Messages {
 
 	public static String getString(String key) {
 		String res;
+		@SuppressWarnings("unused")
 		String pwd;
 		try {
 			res = RESOURCE_BUNDLE.getString(key);

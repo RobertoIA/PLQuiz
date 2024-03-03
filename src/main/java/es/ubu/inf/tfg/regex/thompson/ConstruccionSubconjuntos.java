@@ -1,9 +1,9 @@
 package es.ubu.inf.tfg.regex.thompson;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
+//import java.io.File;   // commented as now it not used
+//import java.io.InputStream;   // commented as now it not used
+//import java.io.OutputStream;   // commented as now it not used
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,14 +13,14 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.apache.batik.transcoder.Transcoder;
-import org.apache.batik.transcoder.TranscoderException;
-import org.apache.batik.transcoder.TranscoderInput;
-import org.apache.batik.transcoder.TranscoderOutput;
-import org.apache.fop.svg.PDFTranscoder;
+//import org.apache.batik.transcoder.Transcoder;   // commented as now it not used
+//import org.apache.batik.transcoder.TranscoderException;  // commented as now it not used
+//import org.apache.batik.transcoder.TranscoderInput;  // commented as now it not used
+//import org.apache.batik.transcoder.TranscoderOutput;  // commented as now it not used
+//import org.apache.fop.svg.PDFTranscoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
+//import org.w3c.dom.Document;  // commented as now it not used
 
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
 import es.ubu.inf.tfg.regex.datos.Generador;

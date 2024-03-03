@@ -22,7 +22,7 @@ import com.mxgraph.layout.mxParallelEdgeLayout;
 import com.mxgraph.layout.hierarchical.mxHierarchicalLayout;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxCellRenderer;
-import com.mxgraph.util.mxUtils;
+// import com.mxgraph.util.mxUtils; // commented as now it not used
 import com.mxgraph.util.mxXmlUtils;
 import com.mxgraph.view.mxGraph;
 
