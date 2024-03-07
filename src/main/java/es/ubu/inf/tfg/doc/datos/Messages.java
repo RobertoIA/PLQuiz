@@ -5,7 +5,10 @@ import java.util.ResourceBundle;
 import java.util.Locale;
 
 public class Messages {
-	private static final String BUNDLE_NAME = Messages.class.getPackageName() + ".messages"; //$NON-NLS-1$
+	// This is for Java 9
+	// private static final String BUNDLE_NAME = Messages.class.getPackageName() + ".messages"; //$NON-NLS-1$
+	// This is for Java 8
+	private static final String BUNDLE_NAME = Messages.class.getPackage().getName() + ".messages"; //$NON-NLS-1$
 	
 	private static final Locale locale_default = Locale.getDefault();
 
@@ -16,6 +19,7 @@ public class Messages {
 
 	public static String getString(String key) {
 		String res;
+		@SuppressWarnings("unused")
 		String pwd;
 		try {
 			res = RESOURCE_BUNDLE.getString(key);

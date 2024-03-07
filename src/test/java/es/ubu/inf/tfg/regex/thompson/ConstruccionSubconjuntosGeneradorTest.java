@@ -12,7 +12,7 @@ import org.junit.Test;
 
 public class ConstruccionSubconjuntosGeneradorTest {
 
-	private final int MIN_CORRECTOS = 80; // Mínimo porcentaje de correctos
+	private final int MIN_CORRECTOS = 80; // MÃ­nimo porcentaje de correctos
 	private final int N_ITERACIONES = 10; // Total de problemas generados por
 											// test
 
@@ -30,9 +30,9 @@ public class ConstruccionSubconjuntosGeneradorTest {
 	}
 
 	/**
-	 * Comprueba que la clase genera un problema sin incluir nodos vacíos y con
-	 * los parámetros pedidos. Debe generar el problema pedido o diferir de el
-	 * en uno en como máximo uno de los parámetros en al menos un 80% de los
+	 * Comprueba que la clase genera un problema sin incluir nodos vacÃ­os y con
+	 * los parÃ¡metros pedidos. Debe generar el problema pedido o diferir de el
+	 * en uno en como mÃ¡ximo uno de los parÃ¡metros en al menos un 80% de los
 	 * casos.
 	 */
 	@Ignore
@@ -56,15 +56,15 @@ public class ConstruccionSubconjuntosGeneradorTest {
 				correctos++;
 		}
 
-		assertTrue("Probabilidad insuficiente de generar problemas válidos: "
+		assertTrue("Probabilidad insuficiente de generar problemas vÃ¡lidos: "
 				+ (correctos * 100 / N_ITERACIONES) + "%",
 				(correctos * 100 / N_ITERACIONES) >= MIN_CORRECTOS);
 	}
 
 	/**
-	 * Comprueba que la clase genera un problema incluyendo nodos vacíos y con
-	 * los parámetros pedidos o similares. Debe generar el problema pedido o
-	 * diferir de el en uno en como máximo uno de los parámetros en al menos un
+	 * Comprueba que la clase genera un problema incluyendo nodos vacÃ­os y con
+	 * los parÃ¡metros pedidos o similares. Debe generar el problema pedido o
+	 * diferir de el en uno en como mÃ¡ximo uno de los parÃ¡metros en al menos un
 	 * 80% de los casos.
 	 */
 	@Ignore
@@ -88,7 +88,7 @@ public class ConstruccionSubconjuntosGeneradorTest {
 				correctos++;
 		}
 
-		assertTrue("Probabilidad insuficiente de generar problemas válidos: "
+		assertTrue("Probabilidad insuficiente de generar problemas vÃ¡lidos: "
 				+ (correctos * 100 / N_ITERACIONES) + "%",
 				(correctos * 100 / N_ITERACIONES) >= MIN_CORRECTOS);
 	}

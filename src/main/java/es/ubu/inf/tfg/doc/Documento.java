@@ -35,9 +35,9 @@ import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.fop.svg.PDFTranscoder;
 
 /**
- * Documento implementa un documento completo generado por la aplicaciÛn, sin
- * dependencia del formato. Implementa operaciones de aÒadido, eliminaciÛn y
- * sustituciÛn de problemas.
+ * Documento implementa un documento completo generado por la aplicaci√≥n, sin
+ * dependencia del formato. Implementa operaciones de a√±adido, eliminaci√≥n y
+ * sustituci√≥n de problemas.
  * <p>
  * Un documento puede exportarse a disco en cualquiera de los formatos
  * objetivos. Asimismo Documento nos permite obtener una vista previa de los
@@ -53,7 +53,7 @@ public class Documento {
 	private List<Problema<?>> problemas;
 
 	/**
-	 * Crea un nuevo documento vacÌo.
+	 * Crea un nuevo documento vac√≠o.
 	 */
 	public Documento() {
 		this.problemas = new ArrayList<>();
@@ -61,7 +61,7 @@ public class Documento {
 
 	/**
 	 * Devuelve un documento HTML en forma de cadena de caracteres que se
-	 * utilizar· como vista previa de un problema.
+	 * utilizar√° como vista previa de un problema.
 	 * 
 	 * @param problema
 	 *            Problema del que mostrar la vista previa.
@@ -111,7 +111,7 @@ public class Documento {
 	
 	/**
 	 * Devuelve un documento HTML en forma de cadena de caracteres que se
-	 * utilizar· como vista previa del documento.
+	 * utilizar√° como vista previa del documento.
 	 * 
 	 * @return Vista previa del documento en formato HTML.
 	 */
@@ -120,13 +120,13 @@ public class Documento {
 	}
 
 	/**
-	 * AÒade un problema al documento.
+	 * A√±ade un problema al documento.
 	 * 
 	 * @param problema
 	 *            Nuevo problema.
 	 */
-	public void aÒadirProblema(Problema<?> problema) {
-		log.info("AÒadiendo problema de tipo {} al documento.",
+	public void a√±adirProblema(Problema<?> problema) {
+		log.info("A√±adiendo problema de tipo {} al documento.",
 				problema.getTipo());
 		this.problemas.add(problema);
 	}
@@ -145,12 +145,12 @@ public class Documento {
 
 	/**
 	 * Sustituye un problema en el documento por otro nuevo. Si el problema a
-	 * sustituir no existe, aÒade el nuevo al documento.
+	 * sustituir no existe, a√±ade el nuevo al documento.
 	 * 
 	 * @param anterior
 	 *            Problema a sustituir.
 	 * @param nuevo
-	 *            Problema a aÒadir.
+	 *            Problema a a√±adir.
 	 */
 	public void sustituirProblema(Problema<?> anterior, Problema<?> nuevo) {
 		log.info("Sustituyendo problema de tipo {} en el documento.",
@@ -160,7 +160,7 @@ public class Documento {
 		if (index >= 0)
 			this.problemas.set(index, nuevo);
 		else
-			aÒadirProblema(nuevo);
+			a√±adirProblema(nuevo);
 	}
 
 	/**
@@ -170,7 +170,7 @@ public class Documento {
 	 * @param fichero
 	 *            Fichero destino.
 	 * @throws IOException
-	 *             Indica un error durante la exportaciÛn.
+	 *             Indica un error durante la exportaci√≥n.
 	 */
 	public void exportaXML(File fichero) throws IOException {
 		log.info("Exportando documento como Moodle XML a {}", fichero);
@@ -188,7 +188,7 @@ public class Documento {
 	 * @param fichero
 	 *            Fichero destino.
 	 * @throws IOException
-	 *             Indica un error durante la exportaciÛn.
+	 *             Indica un error durante la exportaci√≥n.
 	 */
 	public void exportaLatex(File fichero) throws IOException {
 		log.info("Exportando documento como Latex a {}", fichero);
@@ -226,15 +226,15 @@ public class Documento {
 
 	/**
 	 * Exporta el documento como un fichero de formato XML al fichero destino
-	 * especificado, guardando las im·genes que contenga en formato dot.
+	 * especificado, guardando las im√°genes que contenga en formato dot.
 	 * 
 	 * @param fichero
 	 *            Fichero destino.
 	 * @throws IOException
-	 *             Indica un error durante la exportaciÛn.
+	 *             Indica un error durante la exportaci√≥n.
 	 */
 	public void exportaGraphvizLatex(File fichero) throws IOException {
-		log.info("Exportando documento como Latex con im·genes graphviz a {}",
+		log.info("Exportando documento como Latex con im√°genes graphviz a {}",
 				fichero);
 		String ruta = fichero.toString();
 		if (!ruta.toLowerCase().endsWith(".tex"))
@@ -266,11 +266,11 @@ public class Documento {
 						p.arbolVacioDot());
 			} else if (problema.getTipo().equals("AhoSethiUllmanConstruccion")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
-				guardar(carpeta + Math.abs(p.alternativas().get(0).hashCode())  // FIXME øp.alternativas().get(0)==p.automata()?
+				guardar(carpeta + Math.abs(p.alternativas().get(0).hashCode())  // FIXME ¬øp.alternativas().get(0)==p.automata()?
 						+ ".gv", p.alternativasDot().get(0));
 			} else if (problema.getTipo().equals("AhoSethiUllmanTablas")) {
 				AhoSethiUllman p = (AhoSethiUllman) problema.getProblema();
-				guardar(carpeta + Math.abs(p.alternativas().get(0).hashCode()) // FIXME  øp.alternativas().get(0)==p.automata()?
+				guardar(carpeta + Math.abs(p.alternativas().get(0).hashCode()) // FIXME  ¬øp.alternativas().get(0)==p.automata()?
 						+ ".gv", p.alternativasDot().get(0));
 			}
 		}
@@ -280,17 +280,17 @@ public class Documento {
 
 	/**
 	 * Exporta el documento como un fichero de formato LaTeX al fichero destino
-	 * especificado, guardando las im·genes que contenga en formato SVG.
+	 * especificado, guardando las im√°genes que contenga en formato SVG.
 	 * 
 	 * @param fichero
 	 *            Fichero destino.
 	 * @throws IOException
-	 *             Indica un error durante la exportaciÛn.
+	 *             Indica un error durante la exportaci√≥n.
 	 * @author JBA
 	 * @throws IOException
 	 */
 	public void exportaSVGLatex(File fichero) throws IOException {
-		log.info("Exportando documento como Latex con im·genes SVG a {}",
+		log.info("Exportando documento como Latex con im√°genes SVG a {}",
 				fichero);
 		String ruta = fichero.toString();
 		if (!ruta.toLowerCase().endsWith(".tex"))
@@ -339,17 +339,17 @@ public class Documento {
 	
 	/**
 	 * Exporta el documento como un fichero de formato LaTeX al fichero destino
-	 * especificado, guardando las im·genes que contenga en formato SVG.
+	 * especificado, guardando las im√°genes que contenga en formato SVG.
 	 * 
 	 * @param fichero
 	 *            Fichero destino.
 	 * @throws IOException
-	 *             Indica un error durante la exportaciÛn.
+	 *             Indica un error durante la exportaci√≥n.
 	 * @author JBA
 	 * @throws IOException
 	 */
 	public void exportaPDFLatex(File fichero) throws IOException {
-		log.info("Exportando documento como Latex con im·genes PDF a {}",
+		log.info("Exportando documento como Latex con im√°genes PDF a {}",
 				fichero);
 		String ruta = fichero.toString();
 		if (!ruta.toLowerCase().endsWith(".tex"))
@@ -398,17 +398,17 @@ public class Documento {
 	
 	/**
 	 * Exporta el documento como un fichero de formato LaTeX al fichero destino
-	 * especificado, incluyendo las im·genes que contenga en formato TikZ dentro del propio LaTeX.
+	 * especificado, incluyendo las im√°genes que contenga en formato TikZ dentro del propio LaTeX.
 	 * 
 	 * @param fichero
 	 *            Fichero destino.
 	 * @throws IOException
-	 *             Indica un error durante la exportaciÛn.
+	 *             Indica un error durante la exportaci√≥n.
 	 * @author JBA
 	 * @throws IOException
 	 */
 	public void exportaTikZLatex(File fichero) throws IOException {
-		log.info("Exportando documento como Latex con im·genes TikZ a {}",
+		log.info("Exportando documento como Latex con im√°genes TikZ a {}",
 				fichero);
 		String ruta = fichero.toString();
 		if (!ruta.toLowerCase().endsWith(".tex"))
@@ -524,7 +524,7 @@ public class Documento {
         try {
 			transcoder.transcode(transcoderInput, transcoderOutput);
 		} catch (TranscoderException e) {
-			log.error("Encontrado error durante el guardado de im·genes pdf", e);
+			log.error("Encontrado error durante el guardado de im√°genes pdf", e);
 		}
         File tmpsvg = new File(rutaSvg); 
         if (tmpsvg.delete()) { 
@@ -536,15 +536,15 @@ public class Documento {
 	
 
 	/**
-	 * Crea o sobreescribe una serie de im·genes en la ruta dada.
+	 * Crea o sobreescribe una serie de im√°genes en la ruta dada.
 	 * 
 	 * @param ruta
-	 *            Ruta en la que guardar las im·genes.
+	 *            Ruta en la que guardar las im√°genes.
 	 * @param imagenes
-	 *            Im·genes que guardar en disco.
+	 *            Im√°genes que guardar en disco.
 	 */
 	private void guardar(String ruta, List<BufferedImage> imagenes) {
-		log.info("Guardando {} im·genes", imagenes.size());
+		log.info("Guardando {} im√°genes", imagenes.size());
 
 		try {
 			File parent = new File(ruta);
@@ -555,7 +555,7 @@ public class Documento {
 				ImageIO.write(imagen, "jpg", salida);
 			}
 		} catch (IOException e) {
-			log.error("Encontrado error durante el guardado de im·genes", e);
+			log.error("Encontrado error durante el guardado de im√°genes", e);
 		}
 	}
 	

@@ -48,10 +48,10 @@ public class AutomataTest {
 
 		assertFalse("Error identificando el nodo inicial como no final.",
 				nodo.esFinal());
-		assertEquals("Error identificando la posici髇 del nodo inicial.", 0,
+		assertEquals("Error identificando la posici贸n del nodo inicial.", 0,
 				nodo.posicion());
 		assertEquals(
-				"Error identificando transiciones vac韆s del nodo inicial.",
+				"Error identificando transiciones vac铆as del nodo inicial.",
 				set(new Nodo(1, false), new Nodo(7, false)),
 				nodo.transicionVacia());
 		assertEquals("Error identificando transiciones del nodo inicial.",
@@ -69,9 +69,9 @@ public class AutomataTest {
 
 		assertTrue("Error identificando el nodo final como final.",
 				nodo.esFinal());
-		assertEquals("Error identificando la posici髇 del nodo final.", 10,
+		assertEquals("Error identificando la posici贸n del nodo final.", 10,
 				nodo.posicion());
-		assertEquals("Error identificando transiciones vac韆s del nodo final.",
+		assertEquals("Error identificando transiciones vac铆as del nodo final.",
 				set(), nodo.transicionVacia());
 		assertEquals("Error identificando transiciones del nodo final.", null,
 				nodo.transicion('a'));
@@ -80,7 +80,7 @@ public class AutomataTest {
 	}
 
 	/**
-	 * Comprueba el funcionamiento de las transiciones vac韆s.
+	 * Comprueba el funcionamiento de las transiciones vac铆as.
 	 */
 	@Test
 	public void testTransicionVacia() {
@@ -88,7 +88,7 @@ public class AutomataTest {
 		Set<Nodo> esperados = set(new Nodo(0, false), new Nodo(1, false),
 				new Nodo(2, false), new Nodo(4, false), new Nodo(7, false));
 
-		assertEquals("Error comprobando transiciones vac韆s del nodo inicial.",
+		assertEquals("Error comprobando transiciones vac铆as del nodo inicial.",
 				esperados, iniciales);
 	}
 
@@ -117,8 +117,8 @@ public class AutomataTest {
 	}
 
 	/**
-	 * Comprueba la correcta generaci髇 del programa dot que construye la imagen
-	 * del aut髆ata.
+	 * Comprueba la correcta generaci贸n del programa dot que construye la imagen
+	 * del aut贸mata.
 	 */
 	@Test
 	public void testAutomataDot() {
@@ -128,7 +128,7 @@ public class AutomataTest {
 				+ "8 -> 9[label=\"b\"];\n\t3 -> 6\n\t5 -> 6\n\t"
 				+ "9 -> 10[label=\"b\"];\n\t6 -> 1\n\t6 -> 7\n}";
 
-		assertEquals("Error generando imagen dot del aut髆ata.", esperado,
+		assertEquals("Error generando imagen dot del aut贸mata.", esperado,
 				automata.imagenDot());
 	}
 

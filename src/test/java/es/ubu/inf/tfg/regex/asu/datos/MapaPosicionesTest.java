@@ -28,7 +28,7 @@ public class MapaPosicionesTest {
 	}
 
 	/**
-	 * Comprueba que las claves sueltas se añaden y recuperan correctamente.
+	 * Comprueba que las claves sueltas se aÃ±aden y recuperan correctamente.
 	 */
 	@Test
 	public void testAddClave() {
@@ -44,35 +44,35 @@ public class MapaPosicionesTest {
 	}
 
 	/**
-	 * Comprueba que las claves sueltas a las que añadimos una posición suelta
-	 * se añaden y recuperan correctamente, existieran ya o no.
+	 * Comprueba que las claves sueltas a las que aÃ±adimos una posiciÃ³n suelta
+	 * se aÃ±aden y recuperan correctamente, existieran ya o no.
 	 */
 	@Test
 	public void testAddClavePosicion() {
 		// MapaPosiciones<Integer>
 		mapaInteger.add(1, 1);
 		assertEquals(
-				"Error recuperando el contenido de clave nueva con posición suelta.",
+				"Error recuperando el contenido de clave nueva con posiciÃ³n suelta.",
 				set(1), mapaInteger.get(1));
 		mapaInteger.add(1, 2);
 		assertEquals(
-				"Error recuperando el contenido de clave existente con posición suelta.",
+				"Error recuperando el contenido de clave existente con posiciÃ³n suelta.",
 				set(1, 2), mapaInteger.get(1));
 
 		// MapaPosiciones<Character>
 		mapaCharacter.add('a', 1);
 		assertEquals(
-				"Error recuperando el contenido de clave nueva con posición suelta.",
+				"Error recuperando el contenido de clave nueva con posiciÃ³n suelta.",
 				set(1), mapaCharacter.get('a'));
 		mapaCharacter.add('a', 2);
 		assertEquals(
-				"Error recuperando el contenido de clave existente con posición suelta.",
+				"Error recuperando el contenido de clave existente con posiciÃ³n suelta.",
 				set(1, 2), mapaCharacter.get('a'));
 	}
 
 	/**
-	 * Comprueba que las claves sueltas a las que añadimos un conjunto de
-	 * posiciones se añaden y recuperan correctamente, existieran ya o no.
+	 * Comprueba que las claves sueltas a las que aÃ±adimos un conjunto de
+	 * posiciones se aÃ±aden y recuperan correctamente, existieran ya o no.
 	 */
 	@Test
 	public void testAddClavePosiciones() {
@@ -98,8 +98,8 @@ public class MapaPosicionesTest {
 	}
 
 	/**
-	 * Comprueba que los conjuntos de claves a las que añadimos un conjunto de
-	 * posiciones se añaden y recuperan correctamente, existieran ya o no.
+	 * Comprueba que los conjuntos de claves a las que aÃ±adimos un conjunto de
+	 * posiciones se aÃ±aden y recuperan correctamente, existieran ya o no.
 	 */
 	@Test
 	public void testAddClavesPosiciones() {
@@ -162,7 +162,7 @@ public class MapaPosicionesTest {
 	}
 
 	/**
-	 * Comprueba que la unión de dos mapas tiene los contenidos correctos.
+	 * Comprueba que la uniÃ³n de dos mapas tiene los contenidos correctos.
 	 */
 	@Test
 	public void testUnion() {
@@ -184,7 +184,7 @@ public class MapaPosicionesTest {
 				"La union no trata correctamente claves y posiciones duplicadas.",
 				set(1, 2, 3), unionInteger.get(2));
 		assertEquals(
-				"La union no añade correctamente claves existentes en una sola parte.",
+				"La union no aÃ±ade correctamente claves existentes en una sola parte.",
 				set(1, 2, 3), unionInteger.get(3));
 
 		// MapaPosiciones<Character>
@@ -205,7 +205,7 @@ public class MapaPosicionesTest {
 				"La union no trata correctamente claves y posiciones duplicadas.",
 				set(1, 2, 3), unionCharacter.get('b'));
 		assertEquals(
-				"La union no añade correctamente claves existentes en una sola parte.",
+				"La union no aÃ±ade correctamente claves existentes en una sola parte.",
 				set(1, 2, 3), unionCharacter.get('c'));
 	}
 

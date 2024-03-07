@@ -27,7 +27,7 @@ public class AhoSethiUllmanTest {
 
 	/**
 	 * Comprueba que el ejercicio lanza UnsupportedOperationException ante
-	 * expresiones no válidas.
+	 * expresiones no vÃ¡lidas.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testParserException() {
@@ -36,7 +36,7 @@ public class AhoSethiUllmanTest {
 
 	/**
 	 * Comprueba que el ejercicio lanza UnsupportedOperationException ante
-	 * expresiones no válidas.
+	 * expresiones no vÃ¡lidas.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testTokenManagerException() {
@@ -48,18 +48,18 @@ public class AhoSethiUllmanTest {
 	 */
 	@Test
 	public void testProblema() {
-		assertEquals("El ejercicio almacena el problema erróneo.",
+		assertEquals("El ejercicio almacena el problema errÃ³neo.",
 				"((a|b*)a*c)*", asu.problema());
 	}
 
 	/**
-	 * Comprueba que el ejercicio devuelve la expresión aumentada correcta.
+	 * Comprueba que el ejercicio devuelve la expresiÃ³n aumentada correcta.
 	 */
 	@Test
 	public void testExpresionAumentada() {
 		System.out.println(asu.expresionAumentada());
-		assertEquals("El ejercicio almacena la expresión aumentada errónea.",
-				"((a|b*)·a*·c)*·$", asu.expresionAumentada());
+		assertEquals("El ejercicio almacena la expresiÃ³n aumentada errÃ³nea.",
+				"((a|b*)Â·a*Â·c)*Â·$", asu.expresionAumentada());
 	}
 
 	/**
@@ -72,27 +72,27 @@ public class AhoSethiUllmanTest {
 	}
 
 	/**
-	 * Comprueba que el ejercicio mantiene una lista de símbolos correcta.
+	 * Comprueba que el ejercicio mantiene una lista de sÃ­mbolos correcta.
 	 */
 	@Test
 	public void testSimbolos() {
-		assertEquals("Conjunto de símbolos incorrecto.",
+		assertEquals("Conjunto de sÃ­mbolos incorrecto.",
 				set('a', 'b', 'c', '$'), asu.simbolos());
 	}
 
 	/**
 	 * Comprueba que el ejercicio es capaz de devolver las posiciones correctas
-	 * para cada símbolo.
+	 * para cada sÃ­mbolo.
 	 */
 	@Test
 	public void testPosicion() {
-		assertEquals("Incorrecta posición para un símbolo dado.", set(1, 3),
+		assertEquals("Incorrecta posiciÃ³n para un sÃ­mbolo dado.", set(1, 3),
 				asu.posiciones('a'));
-		assertEquals("Incorrecta posición para un símbolo dado.", set(2),
+		assertEquals("Incorrecta posiciÃ³n para un sÃ­mbolo dado.", set(2),
 				asu.posiciones('b'));
-		assertEquals("Incorrecta posición para un símbolo dado.", set(4),
+		assertEquals("Incorrecta posiciÃ³n para un sÃ­mbolo dado.", set(4),
 				asu.posiciones('c'));
-		assertEquals("Incorrecta posición para un símbolo dado.", set(5),
+		assertEquals("Incorrecta posiciÃ³n para un sÃ­mbolo dado.", set(5),
 				asu.posiciones('$'));
 	}
 
@@ -111,15 +111,15 @@ public class AhoSethiUllmanTest {
 	 */
 	@Test
 	public void testSiguientePos() {
-		assertEquals("Función siguiente-pos errónea.", set(3, 4),
+		assertEquals("FunciÃ³n siguiente-pos errÃ³nea.", set(3, 4),
 				asu.siguientePos(1));
-		assertEquals("Función siguiente-pos errónea.", set(2, 3, 4),
+		assertEquals("FunciÃ³n siguiente-pos errÃ³nea.", set(2, 3, 4),
 				asu.siguientePos(2));
-		assertEquals("Función siguiente-pos errónea.", set(3, 4),
+		assertEquals("FunciÃ³n siguiente-pos errÃ³nea.", set(3, 4),
 				asu.siguientePos(3));
-		assertEquals("Función siguiente-pos errónea.", set(1, 2, 3, 4, 5),
+		assertEquals("FunciÃ³n siguiente-pos errÃ³nea.", set(1, 2, 3, 4, 5),
 				asu.siguientePos(4));
-		assertEquals("Función siguiente-pos errónea.", new TreeSet<Integer>(),
+		assertEquals("FunciÃ³n siguiente-pos errÃ³nea.", new TreeSet<Integer>(),
 				asu.siguientePos(5));
 	}
 
@@ -150,34 +150,34 @@ public class AhoSethiUllmanTest {
 	}
 
 	/**
-	 * Comprueba que el ejercicio es capaz de calcular correctamente una función
-	 * de transición.
+	 * Comprueba que el ejercicio es capaz de calcular correctamente una funciÃ³n
+	 * de transiciÃ³n.
 	 */
 	@Test
 	public void testMueve() {
-		assertEquals("Función de transición incorrecta.", 'B',
+		assertEquals("FunciÃ³n de transiciÃ³n incorrecta.", 'B',
 				asu.mueve('A', 'a'));
-		assertEquals("Función de transición incorrecta.", 'C',
+		assertEquals("FunciÃ³n de transiciÃ³n incorrecta.", 'C',
 				asu.mueve('A', 'b'));
-		assertEquals("Función de transición incorrecta.", 'A',
+		assertEquals("FunciÃ³n de transiciÃ³n incorrecta.", 'A',
 				asu.mueve('A', 'c'));
-		assertEquals("Función de transición incorrecta.", 'B',
+		assertEquals("FunciÃ³n de transiciÃ³n incorrecta.", 'B',
 				asu.mueve('B', 'a'));
-		assertEquals("Función de transición incorrecta.", 'D',
+		assertEquals("FunciÃ³n de transiciÃ³n incorrecta.", 'D',
 				asu.mueve('B', 'b'));
-		assertEquals("Función de transición incorrecta.", 'A',
+		assertEquals("FunciÃ³n de transiciÃ³n incorrecta.", 'A',
 				asu.mueve('B', 'c'));
-		assertEquals("Función de transición incorrecta.", 'B',
+		assertEquals("FunciÃ³n de transiciÃ³n incorrecta.", 'B',
 				asu.mueve('C', 'a'));
-		assertEquals("Función de transición incorrecta.", 'C',
+		assertEquals("FunciÃ³n de transiciÃ³n incorrecta.", 'C',
 				asu.mueve('C', 'b'));
-		assertEquals("Función de transición incorrecta.", 'A',
+		assertEquals("FunciÃ³n de transiciÃ³n incorrecta.", 'A',
 				asu.mueve('C', 'c'));
-		assertEquals("Función de transición incorrecta.", 'D',
+		assertEquals("FunciÃ³n de transiciÃ³n incorrecta.", 'D',
 				asu.mueve('D', 'a'));
-		assertEquals("Función de transición incorrecta.", 'D',
+		assertEquals("FunciÃ³n de transiciÃ³n incorrecta.", 'D',
 				asu.mueve('D', 'b'));
-		assertEquals("Función de transición incorrecta.", 'D',
+		assertEquals("FunciÃ³n de transiciÃ³n incorrecta.", 'D',
 				asu.mueve('D', 'c'));
 	}
 

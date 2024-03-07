@@ -3,10 +3,13 @@ package es.ubu.inf.tfg.ui;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import java.util.Locale;
+//import java.util.Locale;  // commented as now it not used
 
 public class Messages {
-	private static final String BUNDLE_NAME = Messages.class.getPackageName() + ".messages"; //$NON-NLS-1$
+	// This is for Java 9
+	// private static final String BUNDLE_NAME = Messages.class.getPackageName() + ".messages"; //$NON-NLS-1$
+	// This is for Java 8
+	private static final String BUNDLE_NAME = Messages.class.getPackage().getName() + ".messages"; //$NON-NLS-1$
 
 	private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME);  // default initialization
 	//private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle(BUNDLE_NAME, new Locale("en", "EN"));  // to test English
@@ -16,6 +19,7 @@ public class Messages {
 
 	public static String getString(String key) {
 		String res;
+		@SuppressWarnings("unused")
 		String pwd;
 		try {
 			res = RESOURCE_BUNDLE.getString(key);

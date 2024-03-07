@@ -17,22 +17,22 @@ import com.mxgraph.util.mxCellRenderer;
 import com.mxgraph.view.mxGraph;
 
 /**
- * ExpresionRegular implementa un nodo de una expresión regular en forma de
- * árbol. Únicamente mantiene información acerca del tipo de nodo y referencias
- * a los nodos que cuelgan de él. Cualquier sub-árbol podría transplantarse de
- * expresión o utilizarse por separado sin encontrar inconsistencias. Admite los
+ * ExpresionRegular implementa un nodo de una expresiÃ³n regular en forma de
+ * Ã¡rbol. Ãšnicamente mantiene informaciÃ³n acerca del tipo de nodo y referencias
+ * a los nodos que cuelgan de Ã©l. Cualquier sub-Ã¡rbol podrÃ­a transplantarse de
+ * expresiÃ³n o utilizarse por separado sin encontrar inconsistencias. Admite los
  * siguientes tipos de nodo:
  * <ul>
- * <li>Nodo símbolo
- * <li>Nodo vacío
- * <li>Nodo concatenación
- * <li>Nodo unión
+ * <li>Nodo sÃ­mbolo
+ * <li>Nodo vacÃ­o
+ * <li>Nodo concatenaciÃ³n
+ * <li>Nodo uniÃ³n
  * <li>Nodo cierre
  * </ul>
  * <p>
- * ExpresionRegular proporciona métodos estáticos builder que se encargan de la
- * creación de cada tipo de nodo. Incluye un método extra para construir el nodo
- * con el que se aumenta una expresión, que se trata de un nodo símbolo '$'.
+ * ExpresionRegular proporciona mÃ©todos estÃ¡ticos builder que se encargan de la
+ * creaciÃ³n de cada tipo de nodo. Incluye un mÃ©todo extra para construir el nodo
+ * con el que se aumenta una expresiÃ³n, que se trata de un nodo sÃ­mbolo '$'.
  * 
  * @author Roberto Izquierdo Amo
  * 
@@ -63,23 +63,23 @@ public class ExpresionRegular {
 	}
 
 	/**
-	 * Construye y devuelve un nodo hoja de tipo símbolo, en la posición dada y
-	 * conteniendo el carácter especificado.
+	 * Construye y devuelve un nodo hoja de tipo sÃ­mbolo, en la posiciÃ³n dada y
+	 * conteniendo el carÃ¡cter especificado.
 	 * 
 	 * @param posicion
-	 *            Posición del nodo.
+	 *            PosiciÃ³n del nodo.
 	 * @param simbolo
-	 *            Símbolo contenido.
-	 * @return Nodo símbolo.
+	 *            SÃ­mbolo contenido.
+	 * @return Nodo sÃ­mbolo.
 	 */
 	public static ExpresionRegular nodoSimbolo(int posicion, char simbolo) {
 		return new ExpresionRegular(Tipo.SIMBOLO, posicion, simbolo, null, null);
 	}
 
 	/**
-	 * Construye y devuelve un nodo hoja vacío.
+	 * Construye y devuelve un nodo hoja vacÃ­o.
 	 * 
-	 * @return Nodo vacío.
+	 * @return Nodo vacÃ­o.
 	 */
 	public static ExpresionRegular nodoVacio() {
 		return new ExpresionRegular(Tipo.VACIO, Integer.MIN_VALUE, '\u0000',
@@ -87,28 +87,28 @@ public class ExpresionRegular {
 	}
 
 	/**
-	 * Construye y devuelve un nodo hoja de tipo símbolo en la posición dada,
-	 * con el símbolo '$', y que se usa para aumentar una expresión. Esta
-	 * implementación referencia al método {@link #nodoSimbolo(int, char)
-	 * nodoSimbolo} para la creación del nodo.
+	 * Construye y devuelve un nodo hoja de tipo sÃ­mbolo en la posiciÃ³n dada,
+	 * con el sÃ­mbolo '$', y que se usa para aumentar una expresiÃ³n. Esta
+	 * implementaciÃ³n referencia al mÃ©todo {@link #nodoSimbolo(int, char)
+	 * nodoSimbolo} para la creaciÃ³n del nodo.
 	 * 
 	 * @param posicion
-	 *            Posición del nodo.
-	 * @return Nodo símbolo.
+	 *            PosiciÃ³n del nodo.
+	 * @return Nodo sÃ­mbolo.
 	 */
 	public static ExpresionRegular nodoAumentado(int posicion) {
 		return nodoSimbolo(posicion, '$');
 	}
 
 	/**
-	 * Construye y devuelve un nodo concatenación del cual cuelgan los dos nodos
+	 * Construye y devuelve un nodo concatenaciÃ³n del cual cuelgan los dos nodos
 	 * hijo especificados.
 	 * 
 	 * @param hijoIzquierdo
-	 *            Operando izquierdo en la concatenación.
+	 *            Operando izquierdo en la concatenaciÃ³n.
 	 * @param hijoDerecho
-	 *            Operando derecho en la concatenación.
-	 * @return Nodo concatenación.
+	 *            Operando derecho en la concatenaciÃ³n.
+	 * @return Nodo concatenaciÃ³n.
 	 */
 	public static ExpresionRegular nodoConcat(ExpresionRegular hijoIzquierdo,
 			ExpresionRegular hijoDerecho) {
@@ -117,14 +117,14 @@ public class ExpresionRegular {
 	}
 
 	/**
-	 * Construye y devuelve un nodo concatenación del cual cuelgan los dos nodos
+	 * Construye y devuelve un nodo concatenaciÃ³n del cual cuelgan los dos nodos
 	 * hijo especificados.
 	 * 
 	 * @param hijoIzquierdo
-	 *            Operando izquierdo en la concatenación.
+	 *            Operando izquierdo en la concatenaciÃ³n.
 	 * @param hijoDerecho
-	 *            Operando derecho en la concatenación.
-	 * @return Nodo unión.
+	 *            Operando derecho en la concatenaciÃ³n.
+	 * @return Nodo uniÃ³n.
 	 */
 	public static ExpresionRegular nodoUnion(ExpresionRegular hijoIzquierdo,
 			ExpresionRegular hijoDerecho) {
@@ -146,9 +146,9 @@ public class ExpresionRegular {
 	}
 
 	/**
-	 * Comprueba si el nodo es de tipo símbolo.
+	 * Comprueba si el nodo es de tipo sÃ­mbolo.
 	 * 
-	 * @return <code>true</code> si el nodo es de tipo símbolo,
+	 * @return <code>true</code> si el nodo es de tipo sÃ­mbolo,
 	 *         <code>false</code> si no.
 	 */
 	public boolean esSimbolo() {
@@ -156,9 +156,9 @@ public class ExpresionRegular {
 	}
 
 	/**
-	 * Comprueba si el nodo es de tipo vacío.
+	 * Comprueba si el nodo es de tipo vacÃ­o.
 	 * 
-	 * @return <code>true</code> si el nodo es de tipo vacío, <code>false</code>
+	 * @return <code>true</code> si el nodo es de tipo vacÃ­o, <code>false</code>
 	 *         si no.
 	 */
 	public boolean esVacio() {
@@ -166,9 +166,9 @@ public class ExpresionRegular {
 	}
 
 	/**
-	 * Comprueba si el nodo es de tipo concatenación.
+	 * Comprueba si el nodo es de tipo concatenaciÃ³n.
 	 * 
-	 * @return <code>true</code> si el nodo es de tipo concatenación,
+	 * @return <code>true</code> si el nodo es de tipo concatenaciÃ³n,
 	 *         <code>false</code> si no.
 	 */
 	public boolean esConcat() {
@@ -176,9 +176,9 @@ public class ExpresionRegular {
 	}
 
 	/**
-	 * Comprueba si el nodo es de tipo unión.
+	 * Comprueba si el nodo es de tipo uniÃ³n.
 	 * 
-	 * @return <code>true</code> si el nodo es de tipo unión, <code>false</code>
+	 * @return <code>true</code> si el nodo es de tipo uniÃ³n, <code>false</code>
 	 *         si no.
 	 */
 	public boolean esUnion() {
@@ -196,44 +196,44 @@ public class ExpresionRegular {
 	}
 
 	/**
-	 * Devuelve el símbolo asociado al nodo si el nodo es de tipo símbolo, lanza
+	 * Devuelve el sÃ­mbolo asociado al nodo si el nodo es de tipo sÃ­mbolo, lanza
 	 * <code>UnsupportedOperationException</code> en caso contrario.
 	 * 
 	 * @throws UnsupportedOperationException
-	 *             en caso de que el nodo no sea de tipo símbolo.
+	 *             en caso de que el nodo no sea de tipo sÃ­mbolo.
 	 * 
-	 * @return Símbolo asociado al nodo.
+	 * @return SÃ­mbolo asociado al nodo.
 	 */
 	public char simbolo() {
 		if (!esSimbolo())
 			throw new UnsupportedOperationException(
-					"Solo los nodos símbolo tienen símbolo.");
+					"Solo los nodos sÃ­mbolo tienen sÃ­mbolo.");
 		return this.simbolo;
 	}
 
 	/**
-	 * Devuelve la posición del nodo si el nodo es de tipo símbolo, lanza
+	 * Devuelve la posiciÃ³n del nodo si el nodo es de tipo sÃ­mbolo, lanza
 	 * <code>UnsupportedOperationException</code> en caso contrario.
 	 * 
 	 * @throws UnsupportedOperationException
-	 *             en caso de que el nodo no sea de tipo símbolo.
+	 *             en caso de que el nodo no sea de tipo sÃ­mbolo.
 	 * 
-	 * @return Posición del nodo.
+	 * @return PosiciÃ³n del nodo.
 	 */
 	public int posicion() {
 		if (!esSimbolo())
 			throw new UnsupportedOperationException(
-					"Solo los nodos símbolo tienen posición");
+					"Solo los nodos sÃ­mbolo tienen posiciÃ³n");
 		return this.posicion;
 	}
 
 	/**
 	 * Devuelve el hijo izquierdo del nodo en caso de que lo tenga. Los nodos de
-	 * tipo símbolo o vacío no tienen hijo izquierdo, y lanzan
+	 * tipo sÃ­mbolo o vacÃ­o no tienen hijo izquierdo, y lanzan
 	 * <code>UnsupportedOperationException</code>.
 	 * 
 	 * @throws UnsupportedOperationException
-	 *             en caso de que el nodo sea de tipo símbolo o vacío.
+	 *             en caso de que el nodo sea de tipo sÃ­mbolo o vacÃ­o.
 	 * @return Referencia al operando izquierdo del nodo.
 	 */
 	public ExpresionRegular hijoIzquierdo() {
@@ -245,11 +245,11 @@ public class ExpresionRegular {
 
 	/**
 	 * Devuelve el hijo derecho del nodo en caso de que lo tenga. Los nodos de
-	 * tipo símbolo, vacío o cierre no tienen hijo derecho, y lanzan
+	 * tipo sÃ­mbolo, vacÃ­o o cierre no tienen hijo derecho, y lanzan
 	 * <code>UnsupportedOperationException</code>.
 	 * 
 	 * @throws UnsupportedOperationException
-	 *             en caso de que el nodo sea de tipo símbolo, vacío o cierre.
+	 *             en caso de que el nodo sea de tipo sÃ­mbolo, vacÃ­o o cierre.
 	 * @return Referencia al operando derecho del nodo.
 	 */
 	public ExpresionRegular hijoDerecho() {
@@ -260,9 +260,9 @@ public class ExpresionRegular {
 	}
 
 	/**
-	 * Devuelve la lista de nodos que constituyen la expresión.
+	 * Devuelve la lista de nodos que constituyen la expresiÃ³n.
 	 * 
-	 * @return Nodos que forman la expresión.
+	 * @return Nodos que forman la expresiÃ³n.
 	 */
 	public List<ExpresionRegular> nodos() {
 		List<ExpresionRegular> nodos = new ArrayList<>();
@@ -288,7 +288,7 @@ public class ExpresionRegular {
 
 	/**
 	 * Calcula la profundidad de un nodo dado, siendo 0 para los nodos hoja y
-	 * creciendo hacia la raíz.
+	 * creciendo hacia la raÃ­z.
 	 * 
 	 * @return Profundidad del nodo.
 	 */
@@ -303,9 +303,9 @@ public class ExpresionRegular {
 	}
 
 	/**
-	 * Dibuja el árbol de la expresión regular como grafo.
+	 * Dibuja el Ã¡rbol de la expresiÃ³n regular como grafo.
 	 * 
-	 * @return Imagen representando el árbol de la expresión regular.
+	 * @return Imagen representando el Ã¡rbol de la expresiÃ³n regular.
 	 */
 	public BufferedImage imagen() {
 		if (this.imagen == null) {
@@ -382,7 +382,7 @@ public class ExpresionRegular {
 	/**
 	 * Devuelve el tipo del nodo como una cadena de caracteres.
 	 * 
-	 * @return Representación del nodo en caracteres.
+	 * @return RepresentaciÃ³n del nodo en caracteres.
 	 */
 	private String tipo() {
 		switch (this.tipo) {
@@ -393,22 +393,22 @@ public class ExpresionRegular {
 		case CONCAT:
 			// CGO changed this
 			//return "\u2027";
-			return "·"; // Esto hace más fácil el depurado, «a·b» vs «a\u2027b»
+			return "Â·"; // Esto hace mÃ¡s fÃ¡cil el depurado, Â«aÂ·bÂ» vs Â«a\u2027bÂ»
 		case UNION:
 			return "|";
 		case VACIO:
 			// CGO changed this
 			return "\u03B5";
-			//return "E"; // Esto podría hacer más fácil el depurado, «a|E» vs «a|\u03B5»
+			//return "E"; // Esto podrÃ­a hacer mÃ¡s fÃ¡cil el depurado, Â«a|EÂ» vs Â«a|\u03B5Â»
 		default:
 			return "";
 		}
 	}
 
 	/**
-	 * Construye una representación de la expresión regular, utilizando
+	 * Construye una representaciÃ³n de la expresiÃ³n regular, utilizando
 	 * caracteres especiales para representar las concatenaciones y los nodos
-	 * vacíos.
+	 * vacÃ­os.
 	 * <p>
 	 * Formato UTF-8.
 	 */
@@ -475,7 +475,7 @@ public class ExpresionRegular {
 	/**
 	 * Devuelve la precedencia del del nodo como un valor entero.
 	 * 
-	 * @return Precedencia del operador como valor numérico.
+	 * @return Precedencia del operador como valor numÃ©rico.
 	 */
 	public int precedence() {
 		switch (this.tipo) {
@@ -491,11 +491,11 @@ public class ExpresionRegular {
 	}
 
 	/**
-	 * Construye una representación de la expresión regular, utilizando
+	 * Construye una representaciÃ³n de la expresiÃ³n regular, utilizando
 	 * caracteres especiales para representar las concatenaciones y los nodos
-	 * vacíos y eliminando los paréntesis cuando estos sean redundantes debido
+	 * vacÃ­os y eliminando los parÃ©ntesis cuando estos sean redundantes debido
 	 * a que con las precedencias de los operadores que combinan las sub-expresiones
-	 * es suficiente para que no haya ambigüedades en la interpretación de la expresión regular.
+	 * es suficiente para que no haya ambigÃ¼edades en la interpretaciÃ³n de la expresiÃ³n regular.
 	 * <p>
 	 * Formato UTF-8.
 	 */
@@ -508,7 +508,7 @@ public class ExpresionRegular {
 		case VACIO:
 			// CGO changed this
 			string.append('\u03B5');
-			//string.append('E'); // Esto podría hacer más fácil el depurado
+			//string.append('E'); // Esto podrÃ­a hacer mÃ¡s fÃ¡cil el depurado
 			break;
 		case SIMBOLO:
 			string.append(this.simbolo);

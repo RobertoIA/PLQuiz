@@ -17,7 +17,7 @@ public class AhoSethiUllmanGeneradorTest {
 	private static final Logger log = LoggerFactory
 			.getLogger(AhoSethiUllmanGeneradorTest.class);
 
-	private final int MIN_CORRECTOS = 90; // Mínimo porcentaje de correctos
+	private final int MIN_CORRECTOS = 90; // MÃ­nimo porcentaje de correctos
 	private final int N_ITERACIONES = 10; // Total de problemas generados por
 											// test
 
@@ -41,7 +41,7 @@ public class AhoSethiUllmanGeneradorTest {
 		long tiempo;
 		AhoSethiUllman problema;
 
-		log.warn("No vacío");
+		log.warn("No vacÃ­o");
 		for (simbolos = 2; simbolos <= 6; simbolos++) {
 			for (estados = 3; estados <= 15; estados++) {
 				tiempo = System.nanoTime();
@@ -55,7 +55,7 @@ public class AhoSethiUllmanGeneradorTest {
 			}
 		}
 
-		log.warn("vacío");
+		log.warn("vacÃ­o");
 		for (simbolos = 2; simbolos <= 6; simbolos++) {
 			for (estados = 3; estados <= 15; estados++) {
 				tiempo = System.nanoTime();
@@ -71,8 +71,8 @@ public class AhoSethiUllmanGeneradorTest {
 	}
 
 	/**
-	 * Comprueba que la clase genera un problema sin incluir nodos vacíos y con
-	 * los parámetros pedidos. Debe generar el problema pedido en al menos un
+	 * Comprueba que la clase genera un problema sin incluir nodos vacÃ­os y con
+	 * los parÃ¡metros pedidos. Debe generar el problema pedido en al menos un
 	 * 90% de los casos.
 	 */
 	@Ignore
@@ -97,14 +97,14 @@ public class AhoSethiUllmanGeneradorTest {
 				correctos++;
 		}
 
-		assertTrue("Probabilidad insuficiente de generar problemas válidos: "
+		assertTrue("Probabilidad insuficiente de generar problemas vÃ¡lidos: "
 				+ (correctos * 100 / N_ITERACIONES) + "%",
 				(correctos * 100 / N_ITERACIONES) >= MIN_CORRECTOS);
 	}
 
 	/**
-	 * Comprueba que la clase genera un problema incluyendo nodos vacíos y con
-	 * los parámetros pedidos o similares. Debe generar el problema pedido en al
+	 * Comprueba que la clase genera un problema incluyendo nodos vacÃ­os y con
+	 * los parÃ¡metros pedidos o similares. Debe generar el problema pedido en al
 	 * menos un 90% de los casos.
 	 */
 	@Ignore
@@ -129,7 +129,7 @@ public class AhoSethiUllmanGeneradorTest {
 				correctos++;
 		}
 
-		assertTrue("Probabilidad insuficiente de generar problemas válidos: "
+		assertTrue("Probabilidad insuficiente de generar problemas vÃ¡lidos: "
 				+ (correctos * 100 / N_ITERACIONES) + "%",
 				(correctos * 100 / N_ITERACIONES) >= MIN_CORRECTOS);
 	}

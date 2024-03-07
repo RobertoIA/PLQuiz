@@ -23,18 +23,18 @@ import com.mxgraph.view.mxGraph;
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
 
 /**
- * Nodo implementa la información calculada sobre un nodo ExpresionRegular. El
- * cálculo se realiza de forma recursiva recorriendo el árbol hacia abajo. El
+ * Nodo implementa la informaciÃ³n calculada sobre un nodo ExpresionRegular. El
+ * cÃ¡lculo se realiza de forma recursiva recorriendo el Ã¡rbol hacia abajo. El
  * valor de los atributos de un nodo depende directamente de los valores de los
  * atributos de los nodos de sus descendientes.
  * <p>
- * Nodo forma una estructura de árbol paralela a la de ExpresionRegular,
- * pudiendo accederse desde el nodo a la expresión correspondiente.
+ * Nodo forma una estructura de Ã¡rbol paralela a la de ExpresionRegular,
+ * pudiendo accederse desde el nodo a la expresiÃ³n correspondiente.
  * <p>
  * Nodo es una estructura de datos inmutable. Aunque la estructura de la
- * expresión regular sobre la que se calculó cambie, los datos y la estructura
- * de Nodo continuarán siendo válidos ya que mantiene una referencia nodo Nodo a
- * nodo ExpresionRegular, sin depender de la estructura de estos últimos.
+ * expresiÃ³n regular sobre la que se calculÃ³ cambie, los datos y la estructura
+ * de Nodo continuarÃ¡n siendo vÃ¡lidos ya que mantiene una referencia nodo Nodo a
+ * nodo ExpresionRegular, sin depender de la estructura de estos Ãºltimos.
  * 
  * @author Roberto Izquierdo Amo
  * 
@@ -71,18 +71,18 @@ public class Nodo {
 
 	/**
 	 * Calcula los atributos de un nodo ExpresionRegular a partir de los de sus
-	 * descendientes. La forma de realizar estos cálculos dependerá del tipo de
+	 * descendientes. La forma de realizar estos cÃ¡lculos dependerÃ¡ del tipo de
 	 * nodo ExpresionRegular.
 	 * 
 	 * @param expresion
-	 *            ExpresionRegular sobre la que realizar los cálculos.
+	 *            ExpresionRegular sobre la que realizar los cÃ¡lculos.
 	 * @throws IllegalArgumentException
-	 *             En caso de que el nodo no pertenezca a ningún tipo conocido.
+	 *             En caso de que el nodo no pertenezca a ningÃºn tipo conocido.
 	 */
 	public Nodo(ExpresionRegular expresion) {
 		this.expresion = expresion;
 
-		if (expresion.esVacio()) { // nodo vació
+		if (expresion.esVacio()) { // nodo vaciÃ³
 			this.hijoIzquierdo = null;
 			this.hijoDerecho = null;
 
@@ -96,7 +96,7 @@ public class Nodo {
 			this.tipo = "EPS";
 			
 
-		} else if (expresion.esSimbolo()) { // nodo símbolo / aumentado
+		} else if (expresion.esSimbolo()) { // nodo sÃ­mbolo / aumentado
 			this.hijoIzquierdo = null;
 			this.hijoDerecho = null;
 
@@ -172,7 +172,7 @@ public class Nodo {
 
 		} else { // runtime exception
 			throw new IllegalArgumentException(
-					"Expresión regular de tipo desconocido.");
+					"ExpresiÃ³n regular de tipo desconocido.");
 		}
 
 		this.primerasPos = new TreeMap<>();
@@ -182,9 +182,9 @@ public class Nodo {
 	}
 
 	/**
-	 * Devuelve una referencia a la expresión regular sobre la que se calculó
-	 * este nodo. La manera correcta de recorrer el árbol es a través del nodo,
-	 * no de la expresión regular obtenida mediante este método, ya que su
+	 * Devuelve una referencia a la expresiÃ³n regular sobre la que se calculÃ³
+	 * este nodo. La manera correcta de recorrer el Ã¡rbol es a travÃ©s del nodo,
+	 * no de la expresiÃ³n regular obtenida mediante este mÃ©todo, ya que su
 	 * estructura se considera mutable.
 	 * 
 	 * @return ExpresionRegular de la que se obtuvo este nodo.
@@ -195,36 +195,36 @@ public class Nodo {
 
 	/**
 	 * Devuelve una referencia al nodo hijo izquierdo de este nodo. Los nodos
-	 * cuya expresión regular asociada sean tipo símbolo o vacío no tienen hijo
+	 * cuya expresiÃ³n regular asociada sean tipo sÃ­mbolo o vacÃ­o no tienen hijo
 	 * izquierdo, y lanzan <code>UnsupportedOperationException</code>.
 	 * 
 	 * @throws UnsupportedOperationException
-	 *             en caso de que el nodo de la expresión asociada sea de tipo
-	 *             símbolo o vacío.
+	 *             en caso de que el nodo de la expresiÃ³n asociada sea de tipo
+	 *             sÃ­mbolo o vacÃ­o.
 	 * @return Referencia al operando izquierdo del nodo.
 	 */
 	public Nodo hijoIzquierdo() {
 		if (this.expresion.esSimbolo() || this.expresion.esVacio())
 			throw new UnsupportedOperationException(
-					"Los nodos símbolo y vacío no tienen hijo izquierdo.");
+					"Los nodos sÃ­mbolo y vacÃ­o no tienen hijo izquierdo.");
 		return this.hijoIzquierdo;
 	}
 
 	/**
 	 * Devuelve una referencia al nodo hijo izquierdo de este nodo. Los nodos
-	 * cuya expresión regular asociada sean símbolo, vacío o cierre no tienen
+	 * cuya expresiÃ³n regular asociada sean sÃ­mbolo, vacÃ­o o cierre no tienen
 	 * hijo derecho, y lanzan <code>UnsupportedOperationException</code>.
 	 * 
 	 * @throws UnsupportedOperationException
-	 *             en caso de que el nodo de la expresión asociada sea de tipo
-	 *             símbolo, vacío o cierre.
+	 *             en caso de que el nodo de la expresiÃ³n asociada sea de tipo
+	 *             sÃ­mbolo, vacÃ­o o cierre.
 	 * @return Referencia al operando derecho del nodo.
 	 */
 	public Nodo hijoDerecho() {
 		if (this.expresion.esSimbolo() || this.expresion.esVacio()
 				|| this.expresion.esCierre())
 			throw new UnsupportedOperationException(
-					"Los nodos símbolo, vacío y cierre no tienen hijo derecho.");
+					"Los nodos sÃ­mbolo, vacÃ­o y cierre no tienen hijo derecho.");
 		return this.hijoDerecho;
 	}
 
@@ -249,7 +249,7 @@ public class Nodo {
 
 	/**
 	 * Obtiene el conjunto de posiciones que definen la primera-pos de uno de
-	 * los nodos hijos del árbol, definidos con un carácter comenzando por 'A',
+	 * los nodos hijos del Ã¡rbol, definidos con un carÃ¡cter comenzando por 'A',
 	 * y etiquetando cada nivel de izquierda a derecha.
 	 * 
 	 * @param simbolo
@@ -261,30 +261,30 @@ public class Nodo {
 	}
 
 	/**
-	 * Obtiene el conjunto de posiciones que definen la última-pos del nodo.
+	 * Obtiene el conjunto de posiciones que definen la Ãºltima-pos del nodo.
 	 * 
-	 * @return última-pos del nodo.
+	 * @return Ãºltima-pos del nodo.
 	 */
 	public Set<Integer> ultimaPos() {
 		return new TreeSet<>(this.ultimaPos);
 	}
 
 	/**
-	 * Obtiene el conjunto de posiciones que definen la última-pos de uno de los
-	 * nodos hijos del árbol, definidos con un carácter comenzando por 'A', y
+	 * Obtiene el conjunto de posiciones que definen la Ãºltima-pos de uno de los
+	 * nodos hijos del Ã¡rbol, definidos con un carÃ¡cter comenzando por 'A', y
 	 * etiquetando cada nivel de izquierda a derecha.
 	 * 
 	 * @param simbolo
 	 *            Etiqueta del nodo.
-	 * @return última-pos del nodo.
+	 * @return Ãºltima-pos del nodo.
 	 */
 	public Set<Integer> ultimaPos(char simbolo) {
 		return ultimasPos.get(simbolo);
 	}
 
 	/**
-	 * Comprueba si uno de los nodos hijos del árbol es anulable, definidos con
-	 * un carácter comenzando por 'A', y etiquetando cada nivel de izquierda a
+	 * Comprueba si uno de los nodos hijos del Ã¡rbol es anulable, definidos con
+	 * un carÃ¡cter comenzando por 'A', y etiquetando cada nivel de izquierda a
 	 * derecha.
 	 * 
 	 * @param simbolo
@@ -296,10 +296,10 @@ public class Nodo {
 	}
 
 	/**
-	 * Devuelve un diccionario de los símbolos encontrados en la expresión, y
+	 * Devuelve un diccionario de los sÃ­mbolos encontrados en la expresiÃ³n, y
 	 * sus posiciones.
 	 * 
-	 * @return Diccionario de símbolos.
+	 * @return Diccionario de sÃ­mbolos.
 	 */
 	public MapaPosiciones<Character> simbolos() {
 		return MapaPosiciones.copia(this.simbolos);
@@ -315,12 +315,12 @@ public class Nodo {
 	}
 
 	/**
-	 * Genera una imagen representando la estructura del árbol de la expresión,
-	 * con los nodos marcados pero vacíos. La imagen generada se cachea al ser
-	 * solicitada por primera vez para evitar realizar los cálculos repetidas
+	 * Genera una imagen representando la estructura del Ã¡rbol de la expresiÃ³n,
+	 * con los nodos marcados pero vacÃ­os. La imagen generada se cachea al ser
+	 * solicitada por primera vez para evitar realizar los cÃ¡lculos repetidas
 	 * veces.
 	 * 
-	 * @return Imagen conteniendo el árbol que representa a la expresión.
+	 * @return Imagen conteniendo el Ã¡rbol que representa a la expresiÃ³n.
 	 */
 	public BufferedImage imagen() {
 		if (this.imagen == null) {
@@ -421,11 +421,11 @@ public class Nodo {
 
 	/**
 	 * Genera el programa en formato dot para generar la imagen representando la
-	 * estructura del árbol de la expresión. El programa generado se cachea al
-	 * ser solicitado por primera vez para evitar realizar los cálculos
+	 * estructura del Ã¡rbol de la expresiÃ³n. El programa generado se cachea al
+	 * ser solicitado por primera vez para evitar realizar los cÃ¡lculos
 	 * repetidas veces.
 	 * 
-	 * @return Programa dot conteniendo el árbol que representa a la expresión.
+	 * @return Programa dot conteniendo el Ã¡rbol que representa a la expresiÃ³n.
 	 */
 	public String imagenDot() {
 		if (this.imagenDot == null) {
@@ -486,12 +486,12 @@ public class Nodo {
 	
 	
 	/**
-	 * Genera una imagen representando la estructura del ï¿½rbol de la expresiï¿½n,
-	 * con los nodos marcados pero vacï¿½os. La imagen generada se cachea al ser
-	 * solicitada por primera vez para evitar realizar los cï¿½lculos repetidas
+	 * Genera una imagen representando la estructura del Ã¯Â¿Â½rbol de la expresiÃ¯Â¿Â½n,
+	 * con los nodos marcados pero vacÃ¯Â¿Â½os. La imagen generada se cachea al ser
+	 * solicitada por primera vez para evitar realizar los cÃ¯Â¿Â½lculos repetidas
 	 * veces.
 	 * 
-	 * @return Imagen conteniendo el ï¿½rbol que representa a la expresiï¿½n.
+	 * @return Imagen conteniendo el Ã¯Â¿Â½rbol que representa a la expresiÃ¯Â¿Â½n.
 	 */
 	public String imagenSvg() {
 		if (this.imagenSvg == null) {
@@ -592,12 +592,12 @@ public class Nodo {
 	
 	
 	/**
-	 * Genera una imagen representando la estructura del ï¿½rbol de la expresiï¿½n,
-	 * con los nodos marcados pero vacï¿½os. La imagen generada se cachea al ser
-	 * solicitada por primera vez para evitar realizar los cï¿½lculos repetidas
+	 * Genera una imagen representando la estructura del Ã¯Â¿Â½rbol de la expresiÃ¯Â¿Â½n,
+	 * con los nodos marcados pero vacÃ¯Â¿Â½os. La imagen generada se cachea al ser
+	 * solicitada por primera vez para evitar realizar los cÃ¯Â¿Â½lculos repetidas
 	 * veces.
 	 * 
-	 * @return Imagen conteniendo el ï¿½rbol que representa a la expresiï¿½n.
+	 * @return Imagen conteniendo el Ã¯Â¿Â½rbol que representa a la expresiÃ¯Â¿Â½n.
 	 */
 	public String imagenTikZ() {
 
@@ -745,7 +745,7 @@ public class Nodo {
 	}
 
 	/**
-	 * Devuelve una cadena describiendo el tipo del nodo de la expresión regular
+	 * Devuelve una cadena describiendo el tipo del nodo de la expresiÃ³n regular
 	 * asociada a este nodo.
 	 * 
 	 * @return Tipo del nodo.
@@ -760,12 +760,12 @@ public class Nodo {
 		else if (expresion.esUnion())
 			return "|";
 		else
-			// vacío
+			// vacÃ­o
 			return "\u03B5";
 	}
 	
 	/**
-	 * Soluciona problemas de encodificación de ciertos caracteres.
+	 * Soluciona problemas de encodificaciÃ³n de ciertos caracteres.
 	 * 
 	 * @param imagenSgv
 	 */

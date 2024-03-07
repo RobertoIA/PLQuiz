@@ -19,38 +19,38 @@ public class GeneradorTest {
 	private final int MAX_PROFUNDIDAD = 8;
 
 	/**
-	 * Comprueba que el generador produce árboles de la profundidad correcta,
-	 * utilizando símbolos correctos.
+	 * Comprueba que el generador produce Ã¡rboles de la profundidad correcta,
+	 * utilizando sÃ­mbolos correctos.
 	 */
 	@Test
 	public void testArbol() {
 		Generador generador = new Generador(2, true, false);
 		ExpresionRegular expresion = generador.arbol(8);
 
-		assertEquals("Generado árbol de profundidad errónea", 8,
+		assertEquals("Generado Ã¡rbol de profundidad errÃ³nea", 8,
 				expresion.profundidad());
 
 		generador = new Generador(2, true, true);
 		expresion = generador.arbol(8);
 
-		assertEquals("Generado árbol de profundidad errónea", 9,
+		assertEquals("Generado Ã¡rbol de profundidad errÃ³nea", 9,
 				expresion.profundidad());
 
 		generador = new Generador(5, false, false);
 		expresion = generador.arbol(12);
 
-		assertEquals("Generado árbol de profundidad errónea", 12,
+		assertEquals("Generado Ã¡rbol de profundidad errÃ³nea", 12,
 				expresion.profundidad());
 
 		generador = new Generador(5, false, true);
 		expresion = generador.arbol(12);
 
-		assertEquals("Generado árbol de profundidad errónea", 13,
+		assertEquals("Generado Ã¡rbol de profundidad errÃ³nea", 13,
 				expresion.profundidad());
 	}
 
 	/**
-	 * Comprueba que las mutaciones sobre una expresión devuelven expresiones
+	 * Comprueba que las mutaciones sobre una expresiÃ³n devuelven expresiones
 	 * correctas (profundidad dada +/- 1).
 	 */
 	@Test
@@ -59,17 +59,17 @@ public class GeneradorTest {
 		ExpresionRegular expresion = generador.arbol(8);
 		ExpresionRegular mutante = generador.mutacion(expresion);
 
-		assertFalse("La expresión mutada es igual a la original.",
+		assertFalse("La expresiÃ³n mutada es igual a la original.",
 				expresion.equals(mutante));
-		assertTrue("La expresión mutada tiene una profundidad errónea.",
+		assertTrue("La expresiÃ³n mutada tiene una profundidad errÃ³nea.",
 				Math.abs(8 - mutante.profundidad()) <= 1);
 	}
 
 	/**
 	 * Genera una serie de problemas Aho-Sethi-Ullman a partir de expresiones
-	 * regulares aleatorias y almacena sus características.
+	 * regulares aleatorias y almacena sus caracterÃ­sticas.
 	 * <p>
-	 * No incluye nodos vacíos.
+	 * No incluye nodos vacÃ­os.
 	 */
 	@Test
 	@Ignore
@@ -78,10 +78,10 @@ public class GeneradorTest {
 	}
 
 	/**
-	 * Genera una serie de problemas de Construcción de Subconjuntos a partir de
-	 * expresiones regulares aleatorias y almacena sus características.
+	 * Genera una serie de problemas de ConstrucciÃ³n de Subconjuntos a partir de
+	 * expresiones regulares aleatorias y almacena sus caracterÃ­sticas.
 	 * <p>
-	 * No incluye nodos vacíos.
+	 * No incluye nodos vacÃ­os.
 	 */
 	@Test
 	@Ignore
@@ -91,9 +91,9 @@ public class GeneradorTest {
 
 	/**
 	 * Genera una serie de problemas Aho-Sethi-Ullman a partir de expresiones
-	 * regulares aleatorias y almacena sus características.
+	 * regulares aleatorias y almacena sus caracterÃ­sticas.
 	 * <p>
-	 * Incluye nodos vacíos.
+	 * Incluye nodos vacÃ­os.
 	 */
 	@Test
 	@Ignore
@@ -102,10 +102,10 @@ public class GeneradorTest {
 	}
 
 	/**
-	 * Genera una serie de problemas de Construcción de Subconjuntos a partir de
-	 * expresiones regulares aleatorias y almacena sus características.
+	 * Genera una serie de problemas de ConstrucciÃ³n de Subconjuntos a partir de
+	 * expresiones regulares aleatorias y almacena sus caracterÃ­sticas.
 	 * <p>
-	 * Incluye nodos vacíos.
+	 * Incluye nodos vacÃ­os.
 	 */
 	@Test
 	@Ignore
@@ -115,7 +115,7 @@ public class GeneradorTest {
 
 	/**
 	 * Genera una serie de instancias de expresiones regulares, con o sin nodos
-	 * vacíos, y analiza sus características de acuerdo con un tipo de problema
+	 * vacÃ­os, y analiza sus caracterÃ­sticas de acuerdo con un tipo de problema
 	 * dado.
 	 * <p>
 	 * Los resultados se almacenan en el log.
@@ -167,7 +167,7 @@ public class GeneradorTest {
 	}
 
 	/**
-	 * Realiza un muestrario de tiempos de generación de expresiones, tomando la
+	 * Realiza un muestrario de tiempos de generaciÃ³n de expresiones, tomando la
 	 * media de una serie de expresiones aleatorias para cada profundidad.
 	 */
 	@Test

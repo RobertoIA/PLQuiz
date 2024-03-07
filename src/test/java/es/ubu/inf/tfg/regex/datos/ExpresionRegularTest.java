@@ -12,39 +12,39 @@ import org.junit.Test;
 public class ExpresionRegularTest {
 
 	/**
-	 * Comprueba que el tipo de un nodo símbolo únicamente pueda ser símbolo.
+	 * Comprueba que el tipo de un nodo sÃ­mbolo Ãºnicamente pueda ser sÃ­mbolo.
 	 */
 	@Test
 	public void testNodoSimboloTipo() {
 		ExpresionRegular nodo = ExpresionRegular.nodoSimbolo(1, 'a');
 
-		assertTrue("Nodo símbolo no reconocido como tal.", nodo.esSimbolo());
-		assertFalse("Nodo símbolo reconocido como otro tipo.", nodo.esVacio()
+		assertTrue("Nodo sÃ­mbolo no reconocido como tal.", nodo.esSimbolo());
+		assertFalse("Nodo sÃ­mbolo reconocido como otro tipo.", nodo.esVacio()
 				|| nodo.esConcat() || nodo.esUnion() || nodo.esCierre());
 	}
 
 	/**
-	 * Comprueba que el símbolo de un nodo símbolo es el correcto.
+	 * Comprueba que el sÃ­mbolo de un nodo sÃ­mbolo es el correcto.
 	 */
 	@Test
 	public void testNodoSimboloSimbolo() {
 		ExpresionRegular nodo = ExpresionRegular.nodoSimbolo(1, 'a');
 
-		assertEquals("Símbolo incorrecto en nodo símbolo.", 'a', nodo.simbolo());
+		assertEquals("SÃ­mbolo incorrecto en nodo sÃ­mbolo.", 'a', nodo.simbolo());
 	}
 
 	/**
-	 * Comprueba que la posición de un nodo símbolo es la correcta.
+	 * Comprueba que la posiciÃ³n de un nodo sÃ­mbolo es la correcta.
 	 */
 	@Test
 	public void testNodoSimboloPosicion() {
 		ExpresionRegular nodo = ExpresionRegular.nodoSimbolo(1, 'a');
 
-		assertEquals("Posición incorrecta en nodo símbolo", 1, nodo.posicion());
+		assertEquals("PosiciÃ³n incorrecta en nodo sÃ­mbolo", 1, nodo.posicion());
 	}
 
 	/**
-	 * Comprueba que un nodo símbolo no tenga hijo izquierdo.
+	 * Comprueba que un nodo sÃ­mbolo no tenga hijo izquierdo.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testNodoSimboloHijoIzquierdo() {
@@ -54,7 +54,7 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba que un nodo símbolo no tenga hijo derecho.
+	 * Comprueba que un nodo sÃ­mbolo no tenga hijo derecho.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testNodoSimboloHijoDerecho() {
@@ -64,30 +64,30 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba la correcta impresión de un nodo símbolo.
+	 * Comprueba la correcta impresiÃ³n de un nodo sÃ­mbolo.
 	 */
 	@Test
 	public void testNodoSimboloString() {
 		ExpresionRegular nodo = ExpresionRegular.nodoSimbolo(1, 'a');
 
-		assertEquals("Incorrecta impresión de nodo símbolo.", "a",
+		assertEquals("Incorrecta impresiÃ³n de nodo sÃ­mbolo.", "a",
 				nodo.toString());
 	}
 
 	/**
-	 * Comprueba que el tipo de un nodo vacío únicamente pueda ser vacío.
+	 * Comprueba que el tipo de un nodo vacÃ­o Ãºnicamente pueda ser vacÃ­o.
 	 */
 	@Test
 	public void testNodoVacioTipo() {
 		ExpresionRegular nodo = ExpresionRegular.nodoVacio();
 
-		assertTrue("Nodo vacío no reconocido como tal.", nodo.esVacio());
-		assertFalse("Nodo vacío reconocido como otro tipo.", nodo.esSimbolo()
+		assertTrue("Nodo vacÃ­o no reconocido como tal.", nodo.esVacio());
+		assertFalse("Nodo vacÃ­o reconocido como otro tipo.", nodo.esSimbolo()
 				|| nodo.esConcat() || nodo.esUnion() || nodo.esCierre());
 	}
 
 	/**
-	 * Comprueba que los nodos vacíos no tengan símbolo.
+	 * Comprueba que los nodos vacÃ­os no tengan sÃ­mbolo.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testNodoVacioSimbolo() {
@@ -97,7 +97,7 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba que los nodos vacíos no tengan posición.
+	 * Comprueba que los nodos vacÃ­os no tengan posiciÃ³n.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testNodoVacioPosicion() {
@@ -107,7 +107,7 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba que los nodos vacíos no tengan hijo izquierdo.
+	 * Comprueba que los nodos vacÃ­os no tengan hijo izquierdo.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testNodoVacioHijoIzquierdo() {
@@ -117,7 +117,7 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba que los nodos vacíos no tengan hijo derecho.
+	 * Comprueba que los nodos vacÃ­os no tengan hijo derecho.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testNodoVacioHijoDerecho() {
@@ -127,7 +127,7 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba la correcta impresión de un nodo vacío.
+	 * Comprueba la correcta impresiÃ³n de un nodo vacÃ­o.
 	 */
 	@Test
 	public void testNodoVacioString() {
@@ -137,44 +137,44 @@ public class ExpresionRegularTest {
 		System.out.println(nodo.toString());
 		*/
 		
-		assertEquals("Incorrecta impresión de nodo vacío.", "\u03B5",
+		assertEquals("Incorrecta impresiÃ³n de nodo vacÃ­o.", "\u03B5",
 				nodo.toString());
 	}
 
 	/**
-	 * Comprueba que el tipo de un nodo aumentado únicamente pueda ser símbolo.
+	 * Comprueba que el tipo de un nodo aumentado Ãºnicamente pueda ser sÃ­mbolo.
 	 */
 	@Test
 	public void testNodoAumentadoTipo() {
 		ExpresionRegular nodo = ExpresionRegular.nodoAumentado(1);
 
-		assertTrue("Nodo aumentado no reconocido como símbolo.",
+		assertTrue("Nodo aumentado no reconocido como sÃ­mbolo.",
 				nodo.esSimbolo());
 		assertFalse(
-				"Nodo aumentado reconocido como otro tipo distinto a símbolo.",
+				"Nodo aumentado reconocido como otro tipo distinto a sÃ­mbolo.",
 				nodo.esVacio() || nodo.esConcat() || nodo.esUnion()
 						|| nodo.esCierre());
 	}
 
 	/**
-	 * Comprueba que el símbolo de un nodo aumentado sea '$'.
+	 * Comprueba que el sÃ­mbolo de un nodo aumentado sea '$'.
 	 */
 	@Test
 	public void testNodoAumentadoSimbolo() {
 		ExpresionRegular nodo = ExpresionRegular.nodoAumentado(1);
 
-		assertEquals("Símbolo incorrecto en nodo aumentado.", '$',
+		assertEquals("SÃ­mbolo incorrecto en nodo aumentado.", '$',
 				nodo.simbolo());
 	}
 
 	/**
-	 * Comprueba que la posición de un nodo aumentado sea la correcta.
+	 * Comprueba que la posiciÃ³n de un nodo aumentado sea la correcta.
 	 */
 	@Test
 	public void testNodoAumentadoPosicion() {
 		ExpresionRegular nodo = ExpresionRegular.nodoAumentado(1);
 
-		assertEquals("Posición incorrecta en nodo aumentado", 1,
+		assertEquals("PosiciÃ³n incorrecta en nodo aumentado", 1,
 				nodo.posicion());
 	}
 
@@ -199,19 +199,19 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba la correcta impresión de un nodo aumentado.
+	 * Comprueba la correcta impresiÃ³n de un nodo aumentado.
 	 */
 	@Test
 	public void testNodoAumentadoString() {
 		ExpresionRegular nodo = ExpresionRegular.nodoAumentado(1);
 
-		assertEquals("Incorrecta impresión de nodo aumentado.", "$",
+		assertEquals("Incorrecta impresiÃ³n de nodo aumentado.", "$",
 				nodo.toString());
 	}
 
 	/**
-	 * Comprueba que el tipo de un nodo concatenación únicamente pueda ser
-	 * concatenación.
+	 * Comprueba que el tipo de un nodo concatenaciÃ³n Ãºnicamente pueda ser
+	 * concatenaciÃ³n.
 	 */
 	@Test
 	public void testNodoConcatTipo() {
@@ -220,16 +220,16 @@ public class ExpresionRegularTest {
 		ExpresionRegular nodo = ExpresionRegular.nodoConcat(hijoDerecho,
 				hijoIzquierdo);
 
-		assertTrue("Nodo concatenación no reconocido como tal.",
+		assertTrue("Nodo concatenaciÃ³n no reconocido como tal.",
 				nodo.esConcat());
 		assertFalse(
-				"Nodo concatenación reconocido como otro tipo.",
+				"Nodo concatenaciÃ³n reconocido como otro tipo.",
 				nodo.esSimbolo() || nodo.esVacio() || nodo.esUnion()
 						|| nodo.esCierre());
 	}
 
 	/**
-	 * Comprueba que los nodos concatenación no tengan símbolo.
+	 * Comprueba que los nodos concatenaciÃ³n no tengan sÃ­mbolo.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testNodoConcatSimbolo() {
@@ -242,7 +242,7 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba que los nodos concatenación no tengan posición.
+	 * Comprueba que los nodos concatenaciÃ³n no tengan posiciÃ³n.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testNodoConcatPosicion() {
@@ -255,7 +255,7 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba que los nodos concatenación tengan el hijo izquierdo correcto.
+	 * Comprueba que los nodos concatenaciÃ³n tengan el hijo izquierdo correcto.
 	 */
 	@Test
 	public void testNodoConcatHijoIzquierdo() {
@@ -264,12 +264,12 @@ public class ExpresionRegularTest {
 		ExpresionRegular nodo = ExpresionRegular.nodoConcat(hijoDerecho,
 				hijoIzquierdo);
 
-		assertEquals("Hijo izquierdo incorrecto en nodo concatenación",
+		assertEquals("Hijo izquierdo incorrecto en nodo concatenaciÃ³n",
 				hijoIzquierdo, nodo.hijoIzquierdo());
 	}
 
 	/**
-	 * Comprueba que los nodos concatenación tengan el hijo derecho correcto.
+	 * Comprueba que los nodos concatenaciÃ³n tengan el hijo derecho correcto.
 	 */
 	@Test
 	public void testNodoConcatHijoDerecho() {
@@ -278,12 +278,12 @@ public class ExpresionRegularTest {
 		ExpresionRegular nodo = ExpresionRegular.nodoConcat(hijoDerecho,
 				hijoIzquierdo);
 
-		assertEquals("Hijo derecho incorrecto en nodo concatenación",
+		assertEquals("Hijo derecho incorrecto en nodo concatenaciÃ³n",
 				hijoDerecho, nodo.hijoDerecho());
 	}
 
 	/**
-	 * Comprueba la correcta impresión de un nodo concatenación.
+	 * Comprueba la correcta impresiÃ³n de un nodo concatenaciÃ³n.
 	 */
 	@Test
 	public void testNodoConcatString() {
@@ -296,12 +296,12 @@ public class ExpresionRegularTest {
 		*/
 		
 
-		assertEquals("Incorrecta impresión de nodo concatenación.",
-				"a·b", nodo.toString());
+		assertEquals("Incorrecta impresiÃ³n de nodo concatenaciÃ³n.",
+				"aÂ·b", nodo.toString());
 	}
 
 	/**
-	 * Comprueba que el tipo de un nodo unión únicamente pueda ser unión.
+	 * Comprueba que el tipo de un nodo uniÃ³n Ãºnicamente pueda ser uniÃ³n.
 	 */
 	@Test
 	public void testNodoUnionTipo() {
@@ -310,13 +310,13 @@ public class ExpresionRegularTest {
 		ExpresionRegular nodo = ExpresionRegular.nodoUnion(hijoDerecho,
 				hijoIzquierdo);
 
-		assertTrue("Nodo unión no reconocido como tal.", nodo.esUnion());
-		assertFalse("Nodo unión reconocido como otro tipo.", nodo.esSimbolo()
+		assertTrue("Nodo uniÃ³n no reconocido como tal.", nodo.esUnion());
+		assertFalse("Nodo uniÃ³n reconocido como otro tipo.", nodo.esSimbolo()
 				|| nodo.esVacio() || nodo.esConcat() || nodo.esCierre());
 	}
 
 	/**
-	 * Comprueba que los nodos unión no tengan símbolo.
+	 * Comprueba que los nodos uniÃ³n no tengan sÃ­mbolo.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testNodoUnionSimbolo() {
@@ -329,7 +329,7 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba que los nodos unión no tengan posición.
+	 * Comprueba que los nodos uniÃ³n no tengan posiciÃ³n.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testNodoUnionPosicion() {
@@ -342,7 +342,7 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba que los nodos unión tengan el hijo izquierdo correcto.
+	 * Comprueba que los nodos uniÃ³n tengan el hijo izquierdo correcto.
 	 */
 	@Test
 	public void testNodoUnionHijoIzquierdo() {
@@ -351,12 +351,12 @@ public class ExpresionRegularTest {
 		ExpresionRegular nodo = ExpresionRegular.nodoUnion(hijoDerecho,
 				hijoIzquierdo);
 
-		assertEquals("Hijo izquierdo incorrecto en nodo unión", hijoIzquierdo,
+		assertEquals("Hijo izquierdo incorrecto en nodo uniÃ³n", hijoIzquierdo,
 				nodo.hijoIzquierdo());
 	}
 
 	/**
-	 * Comprueba que los nodos unión tengan el hijo derecho correcto.
+	 * Comprueba que los nodos uniÃ³n tengan el hijo derecho correcto.
 	 */
 	@Test
 	public void testNodoUnionHijoDerecho() {
@@ -365,12 +365,12 @@ public class ExpresionRegularTest {
 		ExpresionRegular nodo = ExpresionRegular.nodoUnion(hijoDerecho,
 				hijoIzquierdo);
 
-		assertEquals("Hijo derecho incorrecto en nodo unión", hijoDerecho,
+		assertEquals("Hijo derecho incorrecto en nodo uniÃ³n", hijoDerecho,
 				nodo.hijoDerecho());
 	}
 
 	/**
-	 * Comprueba la correcta impresión de un nodo unión.
+	 * Comprueba la correcta impresiÃ³n de un nodo uniÃ³n.
 	 */
 	@Test
 	public void testNodoUnionString() {
@@ -382,12 +382,12 @@ public class ExpresionRegularTest {
 		System.out.println(nodo.toString());
 		*/
 		
-		assertEquals("Incorrecta impresión de nodo unión.", "a|b",
+		assertEquals("Incorrecta impresiÃ³n de nodo uniÃ³n.", "a|b",
 				nodo.toString());
 	}
 
 	/**
-	 * Comprueba que el tipo de un nodo cierre únicamente pueda ser cierre.
+	 * Comprueba que el tipo de un nodo cierre Ãºnicamente pueda ser cierre.
 	 */
 	@Test
 	public void testNodoCierreTipo() {
@@ -400,7 +400,7 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba que los nodos cierre no tengan símbolo.
+	 * Comprueba que los nodos cierre no tengan sÃ­mbolo.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testNodoCierreSimbolo() {
@@ -411,7 +411,7 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba que los nodos cierre no tengan posición.
+	 * Comprueba que los nodos cierre no tengan posiciÃ³n.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testNodoCierrePosicion() {
@@ -445,14 +445,14 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba la correcta impresión de un nodo cierre.
+	 * Comprueba la correcta impresiÃ³n de un nodo cierre.
 	 */
 	@Test
 	public void testNodoCierreString() {
 		ExpresionRegular hijo = ExpresionRegular.nodoSimbolo(1, 'a');
 		ExpresionRegular nodo = ExpresionRegular.nodoCierre(hijo);
 
-		assertEquals("Incorrecta impresión de nodo cierre.", "a*",
+		assertEquals("Incorrecta impresiÃ³n de nodo cierre.", "a*",
 				nodo.toString());
 	}
 
@@ -485,7 +485,7 @@ public class ExpresionRegularTest {
 	}
 
 	/**
-	 * Comprueba el correcto cálculo de la profundidad de un nodo.
+	 * Comprueba el correcto cÃ¡lculo de la profundidad de un nodo.
 	 */
 	@Test
 	public void testProfundidad() {
@@ -494,17 +494,17 @@ public class ExpresionRegularTest {
 		ExpresionRegular abuelo = ExpresionRegular.nodoConcat(padre,
 				ExpresionRegular.nodoVacio());
 
-		assertEquals("Error calculando la profundidad del árbol", 0,
+		assertEquals("Error calculando la profundidad del Ã¡rbol", 0,
 				hijo.profundidad());
-		assertEquals("Error calculando la profundidad del árbol", 1,
+		assertEquals("Error calculando la profundidad del Ã¡rbol", 1,
 				padre.profundidad());
-		assertEquals("Error calculando la profundidad del árbol", 2,
+		assertEquals("Error calculando la profundidad del Ã¡rbol", 2,
 				abuelo.profundidad());
 	}
 
 	//CGO added these	
 	/**
-	 * Comprueba que la expresión regular se imprime solo con los paréntesis indispensables
+	 * Comprueba que la expresiÃ³n regular se imprime solo con los parÃ©ntesis indispensables
 	 */
 	@Test
 	public void testParentheses1() {
@@ -535,12 +535,12 @@ public class ExpresionRegularTest {
 		*/
 		
 
-		assertEquals("Problemas en la parentización de la expresión regular.", nodoER.toString(), "((\u03B5|a*·b)*·c|a)·$");
+		assertEquals("Problemas en la parentizaciÃ³n de la expresiÃ³n regular.", nodoER.toString(), "((\u03B5|a*Â·b)*Â·c|a)Â·$");
 	}
 
 	//CGO added these	
 	/**
-	 * Comprueba que la expresión regular se imprime solo con los paréntesis indispensables
+	 * Comprueba que la expresiÃ³n regular se imprime solo con los parÃ©ntesis indispensables
 	 */
 	@Test
 	public void testParentheses2() {
@@ -562,14 +562,14 @@ public class ExpresionRegularTest {
 		System.out.println(nodoABCDE.toString2());	
 		*/
 
-		// Ahora es "(a|b·c)·(d|e)", en vez de "((a|(b·c))·(d|e))"
+		// Ahora es "(a|bÂ·c)Â·(d|e)", en vez de "((a|(bÂ·c))Â·(d|e))"
 		
-		assertEquals("Problemas en la parentización de la expresión regular.", nodoABCDE.toString2(), "(a|b·c)·(d|e)");
+		assertEquals("Problemas en la parentizaciÃ³n de la expresiÃ³n regular.", nodoABCDE.toString2(), "(a|bÂ·c)Â·(d|e)");
 	}
 
 	//CGO added these	
 	/**
-	 * Comprueba que la expresión regular se imprime solo con los paréntesis indispensables
+	 * Comprueba que la expresiÃ³n regular se imprime solo con los parÃ©ntesis indispensables
 	 */
 	@Test
 	public void testParentheses3() {
@@ -593,8 +593,8 @@ public class ExpresionRegularTest {
 		System.out.println(nodoABCDE.toString2());	
 		*/
 
-		// Ahora es "a·(b·c)·(d|e)*", en vez de "((a·(b·c))·(d|e)*)"
-		assertEquals("Problemas en la parentización de la expresión regular.", nodoABCDE.toString2(), "a·(b·c)·(d|e)*");
+		// Ahora es "aÂ·(bÂ·c)Â·(d|e)*", en vez de "((aÂ·(bÂ·c))Â·(d|e)*)"
+		assertEquals("Problemas en la parentizaciÃ³n de la expresiÃ³n regular.", nodoABCDE.toString2(), "aÂ·(bÂ·c)Â·(d|e)*");
 	}
 
 }

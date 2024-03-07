@@ -40,20 +40,20 @@ public class TraductorMoodleXMLTest {
 	}
 
 	/**
-	 * Comprueba la correcta generaci髇 de un documento que contenga los datos
+	 * Comprueba la correcta generaci贸n de un documento que contenga los datos
 	 * dados.
 	 */
 	@Test
 	public void testDocumento() {
 		String esperado = toString("TraductorVacio.xml"); //$NON-NLS-1$
 
-		assertEquals("Generaci髇 incorrecta de documento Moodle XML.", //$NON-NLS-1$
+		assertEquals("Generaci贸n incorrecta de documento Moodle XML.", //$NON-NLS-1$
 				esperado, traductor.documento(new ArrayList<Plantilla>()));
 	}
 	
 	/**
-	 * Comprueba la correcta traducci髇 de un problema de tipo Aho-Sethi-Ullman
-	 * subtipo construcci髇.
+	 * Comprueba la correcta traducci贸n de un problema de tipo Aho-Sethi-Ullman
+	 * subtipo construcci贸n.
 	 */
 	@Test
 	public void testTraduceAhoSethiUllmanConstruccion() { // throws IOException {
@@ -85,13 +85,13 @@ public class TraductorMoodleXMLTest {
 		
 
 		assertEquals(
-				"Traducci髇 Moodle XML incorrecta de problema AhoSethiUllman subtipo construcci髇.", //$NON-NLS-1$
+				"Traducci贸n Moodle XML incorrecta de problema AhoSethiUllman subtipo construcci贸n.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba la correcta traducci髇 de un problema de tipo Aho-Sethi-Ullman
-	 * subtipo 醨bol.
+	 * Comprueba la correcta traducci贸n de un problema de tipo Aho-Sethi-Ullman
+	 * subtipo 谩rbol.
 	 */
 	@Test
 	public void testTraduceAhoSethiUllmanEtiquetado() throws IOException {
@@ -124,12 +124,12 @@ public class TraductorMoodleXMLTest {
 		
 
 		assertEquals(
-				"Traducci髇 Moodle XML incorrecta de problema AhoSethiUllman subtipo etiquetado.", //$NON-NLS-1$
+				"Traducci贸n Moodle XML incorrecta de problema AhoSethiUllman subtipo etiquetado.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba la correcta traducci髇 de un problema de tipo Aho-Sethi-Ullman
+	 * Comprueba la correcta traducci贸n de un problema de tipo Aho-Sethi-Ullman
 	 * subtipo tablas.
 	 * @throws IOException 
 	 * @throws FileNotFoundException 
@@ -156,13 +156,13 @@ public class TraductorMoodleXMLTest {
 		*/  //CGO
 		
 		assertEquals(
-				"Traducci髇 Moodle XML incorrecta de problema AhoSethiUllman subtipo tablas.", //$NON-NLS-1$
+				"Traducci贸n Moodle XML incorrecta de problema AhoSethiUllman subtipo tablas.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba la correcta traducci髇 de un problema de construcci髇 de
-	 * subconjuntos subtipo construcci髇.
+	 * Comprueba la correcta traducci贸n de un problema de construcci贸n de
+	 * subconjuntos subtipo construcci贸n.
 	 */
 	@Test
 	public void testTraduceConstruccionSubconjuntosConstruccion() {
@@ -181,13 +181,13 @@ public class TraductorMoodleXMLTest {
 				"{1:MULTICHOICE:}"); //$NON-NLS-1$
 
 		assertEquals(
-				"Traducci髇 Moodle XML incorrecta de problema de construcci髇 de subconjuntos subtipo construcci髇.", //$NON-NLS-1$
+				"Traducci贸n Moodle XML incorrecta de problema de construcci贸n de subconjuntos subtipo construcci贸n.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba la correcta traducci髇 de un problema de construcci髇 de
-	 * subconjuntos subtipo expresi髇.
+	 * Comprueba la correcta traducci贸n de un problema de construcci贸n de
+	 * subconjuntos subtipo expresi贸n.
 	 */
 	@Test
 	public void testTraduceConstruccionSubconjuntosExpresion() { //throws IOException {
@@ -216,13 +216,13 @@ public class TraductorMoodleXMLTest {
 		
 		
 		assertEquals(
-				"Traducci髇 Moodle XML incorrecta de problema de construcci髇 de subconjuntos subtipo expresi髇.", //$NON-NLS-1$
+				"Traducci贸n Moodle XML incorrecta de problema de construcci贸n de subconjuntos subtipo expresi贸n.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 
 	/**
-	 * Comprueba la correcta traducci髇 de un problema de construcci髇 de
-	 * subconjuntos subtipo aut髆ata.
+	 * Comprueba la correcta traducci贸n de un problema de construcci贸n de
+	 * subconjuntos subtipo aut贸mata.
 	 */
 	@Test
 	public void testTraduceConstruccionSubconjuntosAutomata() {
@@ -240,7 +240,7 @@ public class TraductorMoodleXMLTest {
 				"{1:MULTICHOICE:}"); //$NON-NLS-1$
 
 		assertEquals(
-				"Traducci髇 Moodle XML incorrecta de problema de construcci髇 de subconjuntos subtipo aut髆ata.", //$NON-NLS-1$
+				"Traducci贸n Moodle XML incorrecta de problema de construcci贸n de subconjuntos subtipo aut贸mata.", //$NON-NLS-1$
 				esperado, encontrado);
 	}
 

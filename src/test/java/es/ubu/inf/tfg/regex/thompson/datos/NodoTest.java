@@ -15,10 +15,10 @@ public class NodoTest {
 	@Test
 	public void testPosicion() {
 		Nodo nodo = new Nodo(1, false);
-		assertEquals("Error asignando posici髇 al nodo.", 1, nodo.posicion());
+		assertEquals("Error asignando posici贸n al nodo.", 1, nodo.posicion());
 
 		nodo = new Nodo(15, true);
-		assertEquals("Error asignando posici髇 al nodo.", 15, nodo.posicion());
+		assertEquals("Error asignando posici贸n al nodo.", 15, nodo.posicion());
 	}
 
 	/**
@@ -35,8 +35,8 @@ public class NodoTest {
 	}
 
 	/**
-	 * Comprueba que las transiciones se a馻den y recuperan correctamente, y que
-	 * no se confunden con las transiciones vac韆s.
+	 * Comprueba que las transiciones se a帽aden y recuperan correctamente, y que
+	 * no se confunden con las transiciones vac铆as.
 	 */
 	@Test
 	public void testTransicion() {
@@ -46,51 +46,51 @@ public class NodoTest {
 		Nodo nodo3 = new Nodo(3, false);
 		Nodo nodo4 = new Nodo(4, true);
 
-		nodo0.a馻deTransicionVacia(nodo1);
-		nodo1.a馻deTransicion('a', nodo2);
-		nodo1.a馻deTransicionVacia(nodo3);
-		nodo2.a馻deTransicion('b', nodo4);
-		nodo3.a馻deTransicion('c', nodo4);
+		nodo0.a帽adeTransicionVacia(nodo1);
+		nodo1.a帽adeTransicion('a', nodo2);
+		nodo1.a帽adeTransicionVacia(nodo3);
+		nodo2.a帽adeTransicion('b', nodo4);
+		nodo3.a帽adeTransicion('c', nodo4);
 
 		// nodo0
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				null, nodo0.transicion('a'));
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				null, nodo0.transicion('b'));
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				null, nodo0.transicion('c'));
 		// nodo1
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				nodo2, nodo1.transicion('a'));
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				null, nodo1.transicion('b'));
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				null, nodo1.transicion('c'));
 		// nodo2
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				null, nodo2.transicion('a'));
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				nodo4, nodo2.transicion('b'));
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				null, nodo2.transicion('c'));
 		// nodo3
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				null, nodo3.transicion('a'));
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				null, nodo3.transicion('b'));
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				nodo4, nodo3.transicion('c'));
 		// nodo4
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				null, nodo4.transicion('a'));
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				null, nodo4.transicion('b'));
-		assertEquals("Error al recuperar transici髇 que consume entrada.",
+		assertEquals("Error al recuperar transici贸n que consume entrada.",
 				null, nodo4.transicion('c'));
 	}
 
 	/**
-	 * Comprueba que las transiciones vac韆s se a馻den y recuperan
+	 * Comprueba que las transiciones vac铆as se a帽aden y recuperan
 	 * correctamente, y que no se confunden con las transiciones que consumen
 	 * entrada.
 	 */
@@ -102,26 +102,26 @@ public class NodoTest {
 		Nodo nodo3 = new Nodo(3, false);
 		Nodo nodo4 = new Nodo(4, true);
 
-		nodo0.a馻deTransicionVacia(nodo1);
-		nodo1.a馻deTransicion('a', nodo2);
-		nodo1.a馻deTransicionVacia(nodo3);
-		nodo2.a馻deTransicion('b', nodo4);
-		nodo3.a馻deTransicion('c', nodo4);
+		nodo0.a帽adeTransicionVacia(nodo1);
+		nodo1.a帽adeTransicion('a', nodo2);
+		nodo1.a帽adeTransicionVacia(nodo3);
+		nodo2.a帽adeTransicion('b', nodo4);
+		nodo3.a帽adeTransicion('c', nodo4);
 
 		// nodo0
-		assertEquals("Error al recuperar transici髇 que no consume entrada.",
+		assertEquals("Error al recuperar transici贸n que no consume entrada.",
 				set(nodo1), nodo0.transicionVacia());
 		// nodo1
-		assertEquals("Error al recuperar transici髇 que no consume entrada.",
+		assertEquals("Error al recuperar transici贸n que no consume entrada.",
 				set(nodo3), nodo1.transicionVacia());
 		// nodo2
-		assertEquals("Error al recuperar transici髇 que no consume entrada.",
+		assertEquals("Error al recuperar transici贸n que no consume entrada.",
 				set(), nodo2.transicionVacia());
 		// nodo3
-		assertEquals("Error al recuperar transici髇 que no consume entrada.",
+		assertEquals("Error al recuperar transici贸n que no consume entrada.",
 				set(), nodo3.transicionVacia());
 		// nodo4
-		assertEquals("Error al recuperar transici髇 que no consume entrada.",
+		assertEquals("Error al recuperar transici贸n que no consume entrada.",
 				set(), nodo4.transicionVacia());
 	}
 
@@ -136,18 +136,18 @@ public class NodoTest {
 		Nodo nodo3 = new Nodo(3, false);
 		Nodo nodo4 = new Nodo(4, true);
 
-		nodo0.a馻deTransicionVacia(nodo1);
-		nodo1.a馻deTransicion('a', nodo2);
-		nodo2.a馻deTransicion('b', nodo4);
-		nodo3.a馻deTransicion('c', nodo4);
+		nodo0.a帽adeTransicionVacia(nodo1);
+		nodo1.a帽adeTransicion('a', nodo2);
+		nodo2.a帽adeTransicion('b', nodo4);
+		nodo3.a帽adeTransicion('c', nodo4);
 
 		nodo2.unir(nodo3);
 
 		assertEquals(
-				"Error al recuperar transiciones tras realizar una uni髇.",
+				"Error al recuperar transiciones tras realizar una uni贸n.",
 				nodo4, nodo2.transicion('b'));
 		assertEquals(
-				"Error al recuperar transiciones tras realizar una uni髇.",
+				"Error al recuperar transiciones tras realizar una uni贸n.",
 				nodo4, nodo2.transicion('c'));
 	}
 

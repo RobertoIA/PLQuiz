@@ -11,12 +11,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Generador implementa una clase encargada de generar ·rboles de expresiÛn
- * regular de un tamaÒo y caracterÌsticas dadas, con generaciÛn de ·rboles
+ * Generador implementa una clase encargada de generar √°rboles de expresi√≥n
+ * regular de un tama√±o y caracter√≠sticas dadas, con generaci√≥n de √°rboles
  * basada en el algoritmo GROW.
  * <p>
- * Permite tambiÈn realizar mutaciones aleatorias sobre dichos ·rboles, en las
- * cuales un sub·rbol de la expresiÛn se intercambia por uno nuevo generado
+ * Permite tambi√©n realizar mutaciones aleatorias sobre dichos √°rboles, en las
+ * cuales un sub√°rbol de la expresi√≥n se intercambia por uno nuevo generado
  * aleatoriamente.
  * 
  * @author Roberto Izquierdo Amo.
@@ -38,10 +38,10 @@ public class Generador {
 
 	/**
 	 * Operador implementa un tipo enumerado que contiene los tipos de
-	 * operadores que utilizar· el ·rbol, los conjuntos de operadores que se
+	 * operadores que utilizar√° el √°rbol, los conjuntos de operadores que se
 	 * utilizan en cada circunstancia, y una serie de operaciones relacionadas.
 	 * <p>
-	 * Se utiliza tambiÈn para almacenar el estado del ·rbol en un momento
+	 * Se utiliza tambi√©n para almacenar el estado del √°rbol en un momento
 	 * determinado.
 	 * 
 	 * @author Roberto Izquierdo Amo
@@ -62,16 +62,16 @@ public class Generador {
 
 	/**
 	 * Constructor. Prepara un generador para expresiones con unas
-	 * caracterÌsticas dadas.
+	 * caracter√≠sticas dadas.
 	 * 
 	 * @param nSimbolos
-	 *            N˙mero de sÌmbolos a utilizar en la expresiÛn, empezando por
+	 *            N√∫mero de s√≠mbolos a utilizar en la expresi√≥n, empezando por
 	 *            la 'a'.
 	 * @param usaVacio
-	 *            <code>true</code> en caso de que la expresiÛn contenga nodos
-	 *            vacÌos, <code>false</code> en caso contrario.
+	 *            <code>true</code> en caso de que la expresi√≥n contenga nodos
+	 *            vac√≠os, <code>false</code> en caso contrario.
 	 * @param esAumentada
-	 *            Especifica si el algoritmo trabajar· con expresiones
+	 *            Especifica si el algoritmo trabajar√° con expresiones
 	 *            aumentadas (<code>true</code>), o no (<code>false</code>).
 	 */
 	public Generador(int nSimbolos, boolean usaVacio, boolean esAumentada) {
@@ -89,34 +89,34 @@ public class Generador {
 	}
 
 	/**
-	 * Comprueba si el generador devolver· expresiones que contenga nodos
-	 * vacÌos.
+	 * Comprueba si el generador devolver√° expresiones que contenga nodos
+	 * vac√≠os.
 	 * 
 	 * @return <code>true</code> en caso de que las expresiones generadas puedan
-	 *         contener nodos vacÌos, <code>false</code> en caso contrario.
+	 *         contener nodos vac√≠os, <code>false</code> en caso contrario.
 	 */
 	public boolean usaVacio() {
 		return usaVacio;
 	}
 
 	/**
-	 * Reemplaza un sub·rbol al azar de la expresiÛn por uno nuevo generado. En
-	 * caso de que se le proporcione una expresiÛn aumentada, la expresiÛn
-	 * mutada ser· tambiÈn una expresiÛn aumentada v·lida.
+	 * Reemplaza un sub√°rbol al azar de la expresi√≥n por uno nuevo generado. En
+	 * caso de que se le proporcione una expresi√≥n aumentada, la expresi√≥n
+	 * mutada ser√° tambi√©n una expresi√≥n aumentada v√°lida.
 	 * <p>
-	 * Toda modificaciÛn realizada afecta a una copia de la expresiÛn original,
-	 * no a la propia expresiÛn.
+	 * Toda modificaci√≥n realizada afecta a una copia de la expresi√≥n original,
+	 * no a la propia expresi√≥n.
 	 * 
 	 * @param expresion
-	 *            ExpresiÛn a partir de la cual obtenemos la mutaciÛn.
-	 * @return ExpresiÛn mutada.
+	 *            Expresi√≥n a partir de la cual obtenemos la mutaci√≥n.
+	 * @return Expresi√≥n mutada.
 	 */
 	public ExpresionRegular mutacion(ExpresionRegular expresion) {
 		boolean esAumentada = expresion.esConcat()
 				&& expresion.hijoDerecho().esSimbolo()
 				&& expresion.hijoDerecho().simbolo() == '$';
 
-		// Trabaja con la expresiÛn sin aumentar.
+		// Trabaja con la expresi√≥n sin aumentar.
 		if (esAumentada)
 			expresion = expresion.hijoIzquierdo();
 
@@ -129,7 +129,7 @@ public class Generador {
 			nodo = nodos.get(random.nextInt(nodos.size()));
 		else
 			throw new UnsupportedOperationException(
-					"Imposible aplicar operaciÛn de mutaciÛn sobre expresiÛn de profundidad " + expresion.profundidad());
+					"Imposible aplicar operaci√≥n de mutaci√≥n sobre expresi√≥n de profundidad " + expresion.profundidad());
 		log.debug("Nodo: {}", nodo);
 		// ExpresionRegular nuevo = arbol(nodo.profundidad());
 		this.esAumentada = false;
@@ -140,31 +140,31 @@ public class Generador {
 		posicion = 0;
 		ExpresionRegular mutante = sustituir(expresion, nodo, nuevo);
 
-		// Vuelve a aumentar la expresiÛn.
+		// Vuelve a aumentar la expresi√≥n.
 		if (esAumentada)
 			mutante = ExpresionRegular.nodoConcat(mutante,
 					ExpresionRegular.nodoAumentado(posicion++));
 
-		log.debug("MutaciÛn de {} -> {}", expresion, mutante);
+		log.debug("Mutaci√≥n de {} -> {}", expresion, mutante);
 
 		return mutante;
 	}
 
 	/**
-	 * Sustituye un sub·rbol en un nodo dado de una expresiÛn regular existente,
-	 * sin modificar la expresiÛn original. Los nodos se numeran correctamente,
-	 * incluyendo el nuevo sub·rbol.
+	 * Sustituye un sub√°rbol en un nodo dado de una expresi√≥n regular existente,
+	 * sin modificar la expresi√≥n original. Los nodos se numeran correctamente,
+	 * incluyendo el nuevo sub√°rbol.
 	 * <p>
-	 * Construye la expresiÛn de manera recursiva.
+	 * Construye la expresi√≥n de manera recursiva.
 	 * 
 	 * @param original
-	 *            ExpresiÛn regular original.
+	 *            Expresi√≥n regular original.
 	 * @param nodo
-	 *            Nodo en el que realizar la sustituciÛn. Ser· reemplazado por
-	 *            la raÌz del sub·rbol.
+	 *            Nodo en el que realizar la sustituci√≥n. Ser√° reemplazado por
+	 *            la ra√≠z del sub√°rbol.
 	 * @param nuevo
-	 *            Sub·rbol a introducir en la expresiÛn.
-	 * @return Nueva expresiÛn regular con la sustituciÛn realizada.
+	 *            Sub√°rbol a introducir en la expresi√≥n.
+	 * @return Nueva expresi√≥n regular con la sustituci√≥n realizada.
 	 */
 	private ExpresionRegular sustituir(ExpresionRegular original,
 			ExpresionRegular nodo, ExpresionRegular nuevo) {
@@ -204,18 +204,18 @@ public class Generador {
 		}
 
 		log.error(
-				"Encontrado nodo de tipo no v·lido al sustituir sub·rbol, en expresiÛn {}, nodo {}, sub·rbol {}",
+				"Encontrado nodo de tipo no v√°lido al sustituir sub√°rbol, en expresi√≥n {}, nodo {}, sub√°rbol {}",
 				original, nodo, nuevo);
-		throw new UnsupportedOperationException("Nodo de tipo no v·lido.");
+		throw new UnsupportedOperationException("Nodo de tipo no v√°lido.");
 	}
 
 	/**
-	 * Obtiene un ·rbol de la profundidad dada, con los par·metros establecidos
+	 * Obtiene un √°rbol de la profundidad dada, con los par√°metros establecidos
 	 * en el generador.
 	 * 
 	 * @param profundidad
-	 *            Profundidad del ·rbol de expresiÛn regular a obtener.
-	 * @return ExpresiÛn regular con un ·rbol correspondiente de la profundidad
+	 *            Profundidad del √°rbol de expresi√≥n regular a obtener.
+	 * @return Expresi√≥n regular con un √°rbol correspondiente de la profundidad
 	 *         dada.
 	 */
 	public ExpresionRegular arbol(int profundidad) {
@@ -226,16 +226,16 @@ public class Generador {
 	}
 
 	/**
-	 * Genera un sub-·rbol de expresiÛn regular con la profundidad dada y
+	 * Genera un sub-√°rbol de expresi√≥n regular con la profundidad dada y
 	 * utilizando un conjunto de operadores concreto. Se llama a si mismo de
-	 * manera recursiva para completar la construcciÛn.
+	 * manera recursiva para completar la construcci√≥n.
 	 * 
 	 * @param profundidad
-	 *            Profundidad del ·rbol pedido.
+	 *            Profundidad del √°rbol pedido.
 	 * @param operadores
 	 *            Operadores a utilizar. Cuando se llama desde el exterior de la
-	 *            clase, este argumento ser· <code>null</code>.
-	 * @return ExpresiÛn regular generada.
+	 *            clase, este argumento ser√° <code>null</code>.
+	 * @return Expresi√≥n regular generada.
 	 */
 	private ExpresionRegular subArbol(int profundidad,
 			EnumSet<Operador> operadores) {
@@ -253,7 +253,7 @@ public class Generador {
 			}
 		}
 
-		// Hoja del ·rbol.
+		// Hoja del √°rbol.
 		if (profundidad <= 0) {
 			if (operadores.equals(Operador.COMPLETO) && usaVacio())
 				operadores = Operador.FINAL_COMPLETO;
@@ -263,7 +263,7 @@ public class Generador {
 
 		// Nodo operador.
 		switch (operador(operadores)) {
-		case VACIO: // VacÌo solo act˙a como marcador.
+		case VACIO: // Vac√≠o solo act√∫a como marcador.
 		case SIMBOLO:
 			char simbolo;
 			if (operadores.equals(Operador.FINAL_COMPLETO))
@@ -303,11 +303,11 @@ public class Generador {
 	}
 
 	/**
-	 * Genera un sÌmbolo cualquiera de aquellos que puede incluir el ·rbol.
-	 * Puede contener el sÌmbolo vacÌo. Prioritiza sÌmbolos que a˙n no hayan
+	 * Genera un s√≠mbolo cualquiera de aquellos que puede incluir el √°rbol.
+	 * Puede contener el s√≠mbolo vac√≠o. Prioritiza s√≠mbolos que a√∫n no hayan
 	 * aparecido.
 	 * 
-	 * @return Un sÌmbolo cualquiera o el sÌmbolo vacÌo.
+	 * @return Un s√≠mbolo cualquiera o el s√≠mbolo vac√≠o.
 	 */
 	private char simbolo() {
 		int index;
@@ -324,11 +324,11 @@ public class Generador {
 	}
 
 	/**
-	 * Genera un sÌmbolo cualquiera de aquellos que puede incluir el ·rbol,
-	 * excluyendo el sÌmbolo vacÌo. Prioritiza sÌmbolos que a˙n no hayan
+	 * Genera un s√≠mbolo cualquiera de aquellos que puede incluir el √°rbol,
+	 * excluyendo el s√≠mbolo vac√≠o. Prioritiza s√≠mbolos que a√∫n no hayan
 	 * aparecido.
 	 * 
-	 * @return Un sÌmbolo cualquiera, exceptuando el sÌmbolo vacÌo.
+	 * @return Un s√≠mbolo cualquiera, exceptuando el s√≠mbolo vac√≠o.
 	 */
 	private char simboloNoVacio() {
 		int index;

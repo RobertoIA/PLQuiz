@@ -50,7 +50,7 @@ public class TraductorLatexTikZ extends Traductor {
 
 
 	/**
-	 * Genera un documento Latex a partir de un único problema ya traducido.
+	 * Genera un documento Latex a partir de un Ãºnico problema ya traducido.
 	 * 
 	 * @param problema
 	 *            Problema traducido.
@@ -58,7 +58,7 @@ public class TraductorLatexTikZ extends Traductor {
 	 */
 	@Override
 	public String traduceProblema(Plantilla problema, int num){
-		log.info("Generando documento Latex de un único problema."); //$NON-NLS-1$
+		log.info("Generando documento Latex de un Ãºnico problema."); //$NON-NLS-1$
 		
 		problema.set("numero", "" + num); //$NON-NLS-1$
 		
@@ -70,8 +70,8 @@ public class TraductorLatexTikZ extends Traductor {
 
 
 	/**
-	 * Traduce un problema de tipo AhoSethiUllman subtipo construcción a formato
-	 * Latex. En latex el problema de construcción consiste en dibujar el árbol,
+	 * Traduce un problema de tipo AhoSethiUllman subtipo construcciÃ³n a formato
+	 * Latex. En latex el problema de construcciÃ³n consiste en dibujar el Ã¡rbol,
 	 * no en identificar el correcto.
 	 * 
 	 * @param problema
@@ -81,14 +81,14 @@ public class TraductorLatexTikZ extends Traductor {
 	@Override
 	public Plantilla traduceASUConstruccion(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresión {}, formato construcción", //$NON-NLS-1$
+				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresiÃ³n {}, formato construcciÃ³n", //$NON-NLS-1$
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.tex"); //$NON-NLS-1$
 		String imagen = problema.tikZSolucion();
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("Â·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
 		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$
 		expresion = expresion.replace("$", "\\$ "); //$NON-NLS-1$
 		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$
@@ -112,7 +112,7 @@ public class TraductorLatexTikZ extends Traductor {
 	@Override
 	public Plantilla traduceASUEtiquetado(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresión {}, formato etiquetado", //$NON-NLS-1$
+				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresiÃ³n {}, formato etiquetado", //$NON-NLS-1$
 				problema.problema());
 
 		String imagen = "" + problema.arbolVacioTikZ(); //$NON-NLS-1$
@@ -141,7 +141,7 @@ public class TraductorLatexTikZ extends Traductor {
 
 		String solucionesL = soluciones.toString();
 		solucionesL = solucionesL.replace("|", "\\textbar "); //$NON-NLS-1$
-		solucionesL = solucionesL.replace("\u2027", "·"); //$NON-NLS-1$
+		solucionesL = solucionesL.replace("\u2027", "Â·"); //$NON-NLS-1$
 		solucionesL = solucionesL.replace("\u03B5", "$\\epsilon$"); //$NON-NLS-1$
 		solucionesL = solucionesL.replace("$", "\\$"); //$NON-NLS-1$
 		solucionesL = solucionesL.replace("\\$\\varnothing\\$", "$ \\varnothing $"); //$NON-NLS-1$
@@ -150,7 +150,7 @@ public class TraductorLatexTikZ extends Traductor {
 				+ solucionesL;
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("Â·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
 		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$
 		expresion = expresion.replace("$", "\\$"); //$NON-NLS-1$
 		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$
@@ -175,7 +175,7 @@ public class TraductorLatexTikZ extends Traductor {
 	@Override
 	public Plantilla traduceASUTablas(AhoSethiUllman problema) {
 		log.info(
-				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresión {}, formato tablas", //$NON-NLS-1$
+				"Traduciendo a Latex problema tipo Aho-Sethi-Ullman con expresiÃ³n {}, formato tablas", //$NON-NLS-1$
 				problema.problema());
 
 		StringBuilder stePos = new StringBuilder();
@@ -197,7 +197,7 @@ public class TraductorLatexTikZ extends Traductor {
 		stePos.append("\\bottomrule % =============================\n"); //$NON-NLS-1$
 		stePos.append("\\end{tabular}"); //$NON-NLS-1$
 
-		// Función de transición
+		// FunciÃ³n de transiciÃ³n
 		fTrans.append("\\rowcolors{2}{gray!25}{white}\n"); //$NON-NLS-1$
 		fTrans.append("\\begin{tabular} {c@{\\hspace{4mm}}"); //$NON-NLS-1$
 		for (char simbolo : problema.simbolos())
@@ -227,12 +227,12 @@ public class TraductorLatexTikZ extends Traductor {
 		fTrans.append("\\end{tabular}"); //$NON-NLS-1$
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("Â·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
 		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$
 		expresion = expresion.replace("$", "\\$ "); //$NON-NLS-1$
 		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$
 		String expresionAumentada = problema.expresionAumentada();
-		expresionAumentada = expresionAumentada.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
+		expresionAumentada = expresionAumentada.replace("\u2027", "\\cdot ").replace("Â·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
 		expresionAumentada = expresionAumentada.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$
 		expresionAumentada = expresionAumentada.replace("$", "\\$ "); //$NON-NLS-1$
 		expresionAumentada = expresionAumentada.replace("*", "^*"); //$NON-NLS-1$
@@ -252,23 +252,23 @@ public class TraductorLatexTikZ extends Traductor {
 
 
 	/**
-	 * Traduce un problema de tipo construcción de subconjuntos subtipo
-	 * construcción a formato Latex.
+	 * Traduce un problema de tipo construcciÃ³n de subconjuntos subtipo
+	 * construcciÃ³n a formato Latex.
 	 * 
 	 * @param problema
-	 *            Problema de construcción de subconjuntos.
+	 *            Problema de construcciÃ³n de subconjuntos.
 	 * @return Problema traducido a Latex.
 	 */
 	@Override
 	public Plantilla traduceCSConstruccion(ConstruccionSubconjuntos problema) {
-		log.info("Traduciendo a Latex problema tipo construcción de subconjuntos con expresión {}, formato construcción", //$NON-NLS-1$
+		log.info("Traduciendo a Latex problema tipo construcciÃ³n de subconjuntos con expresiÃ³n {}, formato construcciÃ³n", //$NON-NLS-1$
 				problema.problema());
 
 		Plantilla plantilla = new Plantilla("plantillaCSConstruccion.tex"); //$NON-NLS-1$
 		String imagen = problema.automataTikZSolucion();
 		
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("Â·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
 		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$
 		expresion = expresion.replace("$", "\\$ "); //$NON-NLS-1$
 		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$
@@ -282,17 +282,17 @@ public class TraductorLatexTikZ extends Traductor {
 
 
 	/**
-	 * Traduce un problema de tipo construcción de subconjuntos subtipo
-	 * expresión a formato Latex.
+	 * Traduce un problema de tipo construcciÃ³n de subconjuntos subtipo
+	 * expresiÃ³n a formato Latex.
 	 * 
 	 * @param problema
-	 *            Problema de construcción de subconjuntos.
+	 *            Problema de construcciÃ³n de subconjuntos.
 	 * @return Problema traducido a Latex.
 	 */
 	@Override
 	public Plantilla traduceCSExpresion(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresión {}, formato expresión", //$NON-NLS-1$
+				"Traduciendo a Latex problema tipo construcciÃ³n de subconjuntos con expresiÃ³n {}, formato expresiÃ³n", //$NON-NLS-1$
 				problema.problema());
 
 		StringBuilder fTrans = new StringBuilder();
@@ -300,7 +300,7 @@ public class TraductorLatexTikZ extends Traductor {
 		Plantilla plantilla = new Plantilla("plantillaCSExpresion.tex"); //$NON-NLS-1$
 		String imagen = problema.automataTikZSolucion();
 
-		// Función de transición
+		// FunciÃ³n de transiciÃ³n
 		fTrans.append("\\rowcolors{2}{gray!25}{white}\n"); //$NON-NLS-1$
 		fTrans.append("\\begin{tabular} {c@{\\hspace{4mm}}"); //$NON-NLS-1$
 		for (char simbolo : problema.simbolos())
@@ -331,7 +331,7 @@ public class TraductorLatexTikZ extends Traductor {
 		fTrans.append("\\end{tabular}"); //$NON-NLS-1$
 
 		String expresion = problema.problema();
-		expresion = expresion.replace("\u2027", "\\cdot ").replace("·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
+		expresion = expresion.replace("\u2027", "\\cdot ").replace("Â·", "\\cdot ").replace(".", "\\cdot "); //$NON-NLS-1$
 		expresion = expresion.replace("\u03B5", "\\epsilon "); //$NON-NLS-1$
 		expresion = expresion.replace("$", "\\$ "); //$NON-NLS-1$
 		expresion = expresion.replace("*", "^*"); //$NON-NLS-1$
@@ -346,17 +346,17 @@ public class TraductorLatexTikZ extends Traductor {
 
 
 	/**
-	 * Traduce un problema de tipo construcción de subconjuntos subtipo autómata
+	 * Traduce un problema de tipo construcciÃ³n de subconjuntos subtipo autÃ³mata
 	 * a formato Latex.
 	 * 
 	 * @param problema
-	 *            Problema de construcción de subconjuntos.
+	 *            Problema de construcciÃ³n de subconjuntos.
 	 * @return Problema traducido a Latex.
 	 */
 	@Override
 	public Plantilla traduceCSAutomata(ConstruccionSubconjuntos problema) {
 		log.info(
-				"Traduciendo a Latex problema tipo construcción de subconjuntos con expresión {}, formato autómata", //$NON-NLS-1$
+				"Traduciendo a Latex problema tipo construcciÃ³n de subconjuntos con expresiÃ³n {}, formato autÃ³mata", //$NON-NLS-1$
 				problema.problema());
 
 		String imagen = "" + problema.automataTikZ(); //$NON-NLS-1$
@@ -364,7 +364,7 @@ public class TraductorLatexTikZ extends Traductor {
 
 		Plantilla plantilla = new Plantilla("plantillaCSAutomata.tex"); //$NON-NLS-1$
 
-		// Función de transición
+		// FunciÃ³n de transiciÃ³n
 		fTrans.append("\\rowcolors{2}{gray!25}{white}\n"); //$NON-NLS-1$
 		fTrans.append("\\begin{tabular} {c@{\\hspace{4mm}}"); //$NON-NLS-1$
 		for (char simbolo : problema.simbolos())
@@ -403,12 +403,12 @@ public class TraductorLatexTikZ extends Traductor {
 
 
 	/**
-	 * Devuelve una representación de un conjunto de elementos separados con
+	 * Devuelve una representaciÃ³n de un conjunto de elementos separados con
 	 * comas.
 	 * 
 	 * @param lista
 	 *            Conjunto de elementos.
-	 * @return Representación del conjunto como elementos separados por comas.
+	 * @return RepresentaciÃ³n del conjunto como elementos separados por comas.
 	 */
 	@SuppressWarnings("unused")
 	private String setToString(Set<?> lista) {
@@ -429,13 +429,13 @@ public class TraductorLatexTikZ extends Traductor {
 
 
 	/**
-	 * Devuelve una representación de un conjunto de elementos como rangos separados por comas.
+	 * Devuelve una representaciÃ³n de un conjunto de elementos como rangos separados por comas.
 	 * 
 	 * @param lista
 	 *            Conjunto de elementos.
-	 * @return Representación del conjunto como rangos separados por comas.
+	 * @return RepresentaciÃ³n del conjunto como rangos separados por comas.
 	 */
-	// TODO: ¿se podría mover a la clase padre?
+	// TODO: Â¿se podrÃ­a mover a la clase padre?
 	private String setToRanges(Set<?> lista) {
 		StringBuilder out = new StringBuilder();
 		log.info("Ejecutando setToRanges({})", lista); //$NON-NLS-1$

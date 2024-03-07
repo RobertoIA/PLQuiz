@@ -1,9 +1,9 @@
 package es.ubu.inf.tfg.regex.thompson;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
+//import java.io.File;   // commented as now it not used
+//import java.io.InputStream;   // commented as now it not used
+//import java.io.OutputStream;   // commented as now it not used
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -13,14 +13,14 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import org.apache.batik.transcoder.Transcoder;
-import org.apache.batik.transcoder.TranscoderException;
-import org.apache.batik.transcoder.TranscoderInput;
-import org.apache.batik.transcoder.TranscoderOutput;
-import org.apache.fop.svg.PDFTranscoder;
+//import org.apache.batik.transcoder.Transcoder;   // commented as now it not used
+//import org.apache.batik.transcoder.TranscoderException;  // commented as now it not used
+//import org.apache.batik.transcoder.TranscoderInput;  // commented as now it not used
+//import org.apache.batik.transcoder.TranscoderOutput;  // commented as now it not used
+//import org.apache.fop.svg.PDFTranscoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
+//import org.w3c.dom.Document;  // commented as now it not used
 
 import es.ubu.inf.tfg.regex.datos.ExpresionRegular;
 import es.ubu.inf.tfg.regex.datos.Generador;
@@ -34,14 +34,14 @@ import es.ubu.inf.tfg.regex.thompson.datos.Automata;
 import es.ubu.inf.tfg.regex.thompson.datos.Nodo;
 
 /**
- * * Resuelve un problema de construcciÛn de subconjuntos a partir de un AFND,
- * generado a partir de una expresiÛn regular con el mÈtodo de
+ * * Resuelve un problema de construcci√≥n de subconjuntos a partir de un AFND,
+ * generado a partir de una expresi√≥n regular con el m√©todo de
  * McNaughton-Yamada-Thompson. Es capaz de trabajar tanto con una cadena de
  * caracteres como con una ExpresionRegular ya construida.
  * <p>
- * Asimismo act˙a como fachada del subsistema es.ubu.inf.tfg.regex.thompson,
+ * Asimismo act√∫a como fachada del subsistema es.ubu.inf.tfg.regex.thompson,
  * evitando dependencias con los tipos de datos internos. Todas las salidas se
- * codifican en tipos de datos est·ndar.
+ * codifican en tipos de datos est√°ndar.
  * 
  * @author Roberto Izquierdo Amo
  * 
@@ -61,16 +61,16 @@ public class ConstruccionSubconjuntos {
 	private List<String> alternativasDot;
 
 	/**
-	 * Resuelve un problema de construcciÛn de subconjuntos a partir de una
-	 * expresiÛn regular en forma de String, construyendo el autÛmata seg˙n el
+	 * Resuelve un problema de construcci√≥n de subconjuntos a partir de una
+	 * expresi√≥n regular en forma de String, construyendo el aut√≥mata seg√∫n el
 	 * algoritmo de McNaughton-Yamada-Thompson.
 	 * 
 	 * @param problema
-	 *            Cadena de caracteres conteniendo la expresiÛn regular a
+	 *            Cadena de caracteres conteniendo la expresi√≥n regular a
 	 *            resolver.
 	 * @throws UnsupportedOperationException
-	 *             Error del parser o del token manager. Indica que la expresiÛn
-	 *             no es v·lida o que contiene caracteres no reconocidos.
+	 *             Error del parser o del token manager. Indica que la expresi√≥n
+	 *             no es v√°lida o que contiene caracteres no reconocidos.
 	 */
 	public ConstruccionSubconjuntos(String problema)
 			throws UnsupportedOperationException {
@@ -84,10 +84,10 @@ public class ConstruccionSubconjuntos {
 
 		try {
 			this.expresion = parser.expresion();
-			// No utilizamos la expresiÛn aumentada
+			// No utilizamos la expresi√≥n aumentada
 			this.expresion = this.expresion.hijoIzquierdo();
 		} catch (ParseException | TokenMgrError e) {
-			throw new UnsupportedOperationException("ExpresiÛn no v·lida.");
+			throw new UnsupportedOperationException("Expresi√≥n no v√°lida.");
 		}
 
 		this.automata = new Automata(this.expresion, 0);
@@ -110,15 +110,15 @@ public class ConstruccionSubconjuntos {
 	}
 
 	/**
-	 * Resuelve un problema de construcciÛn de subconjuntos a partir de una
-	 * expresiÛn regular en forma de ExpresionRegular, construyendo el autÛmata
-	 * seg˙n el algoritmo de McNaughton-Yamada-Thompson.
+	 * Resuelve un problema de construcci√≥n de subconjuntos a partir de una
+	 * expresi√≥n regular en forma de ExpresionRegular, construyendo el aut√≥mata
+	 * seg√∫n el algoritmo de McNaughton-Yamada-Thompson.
 	 * 
 	 * @param expresionExpresionRegular
-	 *            conteniendo la expresiÛn regular a resolver.
+	 *            conteniendo la expresi√≥n regular a resolver.
 	 */
 	public ConstruccionSubconjuntos(ExpresionRegular expresion) {
-		// ExpresiÛn sin aumentar.
+		// Expresi√≥n sin aumentar.
 		this.expresion = expresion.hijoIzquierdo();
 		this.problema = this.expresion.toString();
 
@@ -142,13 +142,13 @@ public class ConstruccionSubconjuntos {
 	}
 
 	/**
-	 * Calcula la transiciÛn a partir de un estado dado mediante un sÌmbolo
+	 * Calcula la transici√≥n a partir de un estado dado mediante un s√≠mbolo
 	 * concreto.
 	 * 
 	 * @param estado
 	 *            Estado de origen.
 	 * @param simbolo
-	 *            SÌmbolo de transiciÛn.
+	 *            S√≠mbolo de transici√≥n.
 	 * @return Estado de destino.
 	 */
 	private char transicion(char estado, char simbolo) {
@@ -171,7 +171,7 @@ public class ConstruccionSubconjuntos {
 	}
 
 	/**
-	 * Devuelve el problema original, la expresiÛn regular. Puede contener
+	 * Devuelve el problema original, la expresi√≥n regular. Puede contener
 	 * caracteres especiales.
 	 * 
 	 * @return Problema a resolver.
@@ -181,9 +181,9 @@ public class ConstruccionSubconjuntos {
 	}
 
 	/**
-	 * Devuelve el conjunto de sÌmbolos que se utilizan en la expresiÛn regular.
+	 * Devuelve el conjunto de s√≠mbolos que se utilizan en la expresi√≥n regular.
 	 * 
-	 * @return SÌmbolos que utiliza la expresiÛn regular.
+	 * @return S√≠mbolos que utiliza la expresi√≥n regular.
 	 */
 	public Set<Character> simbolos() {
 		return automata.simbolos();
@@ -191,9 +191,9 @@ public class ConstruccionSubconjuntos {
 
 	/**
 	 * Devuelve un conjunto de caracteres representando los estados existentes
-	 * en la tabla de transiciÛn.
+	 * en la tabla de transici√≥n.
 	 * 
-	 * @return Conjunto de estados en la tabla de transiciÛn.
+	 * @return Conjunto de estados en la tabla de transici√≥n.
 	 */
 	public Set<Character> estados() {
 		return new TreeSet<>(estados.keySet());
@@ -201,7 +201,7 @@ public class ConstruccionSubconjuntos {
 
 	/**
 	 * Devuelve el conjunto de posiciones asociadas a un estado dado en la tabla
-	 * de transiciÛn.
+	 * de transici√≥n.
 	 * 
 	 * @param estado
 	 *            Estado del que queremos calcular posiciones.
@@ -217,10 +217,10 @@ public class ConstruccionSubconjuntos {
 	}
 
 	/**
-	 * Devuelve el conjunto de posiciones encontradas en la expresiÛn regular.
-	 * El conjunto ser· un rango [1, n].
+	 * Devuelve el conjunto de posiciones encontradas en la expresi√≥n regular.
+	 * El conjunto ser√° un rango [1, n].
 	 * 
-	 * @return Conjunto de posiciones en la expresiÛn regular.
+	 * @return Conjunto de posiciones en la expresi√≥n regular.
 	 */
 	public Set<Integer> posiciones() {
 		Set<Integer> posiciones = new TreeSet<Integer>();
@@ -232,13 +232,13 @@ public class ConstruccionSubconjuntos {
 	}
 
 	/**
-	 * Calcula el estado de destino para un estado de origen y un sÌmbolo de
-	 * transiciÛn.
+	 * Calcula el estado de destino para un estado de origen y un s√≠mbolo de
+	 * transici√≥n.
 	 * 
 	 * @param estado
 	 *            Estado de origen.
 	 * @param simbolo
-	 *            SÌmbolo de transiciÛn.
+	 *            S√≠mbolo de transici√≥n.
 	 * @return Estado de destino.
 	 */
 	public char mueve(char estado, char simbolo) {
@@ -265,9 +265,9 @@ public class ConstruccionSubconjuntos {
 	}
 
 	/**
-	 * Devuelve una imagen representando el autÛmata asociado a este problema.
+	 * Devuelve una imagen representando el aut√≥mata asociado a este problema.
 	 * 
-	 * @return Imagen del autÛmata.
+	 * @return Imagen del aut√≥mata.
 	 */
 	public BufferedImage automata() {
 		return automata.imagen();
@@ -275,9 +275,9 @@ public class ConstruccionSubconjuntos {
 
 	/**
 	 * Devuelve una programa en formato dot para generar la imagen representando
-	 * el autÛmata asociado a este problema.
+	 * el aut√≥mata asociado a este problema.
 	 * 
-	 * @return Programa formato dot para representar el autÛmata.
+	 * @return Programa formato dot para representar el aut√≥mata.
 	 */
 	public String automataDot() {
 		return automata.imagenDot();
@@ -286,9 +286,9 @@ public class ConstruccionSubconjuntos {
 	
 	/**
 	 * Devuelve una programa en formato TikZ para generar la imagen representando
-	 * el autÛmata asociado a este problema.
+	 * el aut√≥mata asociado a este problema.
 	 * 
-	 * @return Programa formato dot para representar el autÛmata.
+	 * @return Programa formato dot para representar el aut√≥mata.
 	 */
 	public String automataTikZ() {			//TODO
 		return automata.imagenTikZ();
@@ -297,19 +297,19 @@ public class ConstruccionSubconjuntos {
 	
 	/**
 	 * Devuelve una programa en formato svg para generar la imagen representando
-	 * el autÛmata asociado a este problema.
+	 * el aut√≥mata asociado a este problema.
 	 * 
-	 * @return Programa formato svg para representar el autÛmata.
+	 * @return Programa formato svg para representar el aut√≥mata.
 	 */
 	public String automataSvg() {
 		return automata.imagenSvg();
 	}
 	
 	/**
-	 * Devuelve una soluciÛn (en azul) en formato svg para generar la imagen representando
-	 * el autÛmata asociado a este problema.
+	 * Devuelve una soluci√≥n (en azul) en formato svg para generar la imagen representando
+	 * el aut√≥mata asociado a este problema.
 	 * 
-	 * @return Programa formato svg para representar el autÛmata.
+	 * @return Programa formato svg para representar el aut√≥mata.
 	 */
 	public String automataSvgSolucion() {
 		String imagensvg = automata.imagenSvg();
@@ -320,10 +320,10 @@ public class ConstruccionSubconjuntos {
 	
 	
 	/**
-	 * Devuelve una soluciÛn (en azul) en formato svg para generar la imagen representando
-	 * el autÛmata asociado a este problema.
+	 * Devuelve una soluci√≥n (en azul) en formato svg para generar la imagen representando
+	 * el aut√≥mata asociado a este problema.
 	 * 
-	 * @return Programa formato svg para representar el autÛmata.
+	 * @return Programa formato svg para representar el aut√≥mata.
 	 */
 	public String automataTikZSolucion() {			//TODO
 		String imagentikz = automata.imagenTikZ();
@@ -334,11 +334,11 @@ public class ConstruccionSubconjuntos {
 	
 
 	/**
-	 * Genera una serie de cuatro im·genes correspondientes a los autÛmatas de
-	 * la expresiÛn regular original del problema y de tres mutaciones de la
-	 * misma, como alternativas en un problema de construcciÛn de ·rbol.
+	 * Genera una serie de cuatro im√°genes correspondientes a los aut√≥matas de
+	 * la expresi√≥n regular original del problema y de tres mutaciones de la
+	 * misma, como alternativas en un problema de construcci√≥n de √°rbol.
 	 * 
-	 * @return Array de cuatro im·genes representando ·rboles de expresiÛn
+	 * @return Array de cuatro im√°genes representando √°rboles de expresi√≥n
 	 *         regular, una correspondiente al del problema y tres alternativas.
 	 */
 	public List<BufferedImage> alternativas() {
@@ -356,13 +356,13 @@ public class ConstruccionSubconjuntos {
 	}
 
 	/**
-	 * Genera una serie de cuatro programas dot con las im·genes
-	 * correspondientes los autÛmatas de la expresiÛn regular original del
+	 * Genera una serie de cuatro programas dot con las im√°genes
+	 * correspondientes los aut√≥matas de la expresi√≥n regular original del
 	 * problema y de tres mutaciones de la misma, como alternativas en un
-	 * problema de construcciÛn de ·rbol.
+	 * problema de construcci√≥n de √°rbol.
 	 * 
 	 * @return Array de cuatro cadenas de caracteres conteniendo programas dot
-	 *         representando autÛmatas de expresiÛn regular, una correspondiente
+	 *         representando aut√≥matas de expresi√≥n regular, una correspondiente
 	 *         al del problema y tres alternativas.
 	 */
 	public List<String> alternativasDot() {
@@ -379,13 +379,13 @@ public class ConstruccionSubconjuntos {
 	}
 
 	/**
-	 * Genera un set de alternativas para una expresiÛn regular, incluyendo la
+	 * Genera un set de alternativas para una expresi√≥n regular, incluyendo la
 	 * original y tres otras.
 	 * 
 	 * @return Set completo de alternativas.
 	 */
 	public Set<ExpresionRegular> expresionesAlternativas() {
-		log.info("Generando im·genes alternativas");
+		log.info("Generando im√°genes alternativas");
 
 		int nSimbolos = simbolos().size();
 		boolean usaVacio = simbolos().contains('\u0000');
@@ -398,7 +398,7 @@ public class ConstruccionSubconjuntos {
 		ExpresionRegular alternativa;
 		while (expresiones.size() < 4) {
 			alternativa = generador.mutacion(expresion);
-			log.debug("Generada expresiÛn alternativa {}", alternativa);
+			log.debug("Generada expresi√≥n alternativa {}", alternativa);
 			expresiones.add(alternativa);
 		}
 

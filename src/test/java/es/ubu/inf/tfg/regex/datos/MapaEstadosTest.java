@@ -27,8 +27,8 @@ public class MapaEstadosTest {
 	}
 
 	/**
-	 * Comprueba que las transiciones se a馻den correctamente al mapa, y que se
-	 * obtiene el destino correcto para un par estado-s韒bolo dado.
+	 * Comprueba que las transiciones se a帽aden correctamente al mapa, y que se
+	 * obtiene el destino correcto para un par estado-s铆mbolo dado.
 	 */
 	@Test
 	public void testAddTransicionGetTransicion() {
@@ -37,13 +37,13 @@ public class MapaEstadosTest {
 		mapaEstados.add('B', 'a', 'A');
 		mapaEstados.add('B', 'b', 'B');
 
-		assertEquals("Obtenida transici髇 incorrecta.", 'B',
+		assertEquals("Obtenida transici贸n incorrecta.", 'B',
 				mapaEstados.get('A', 'a'));
-		assertEquals("Obtenida transici髇 incorrecta.", 'A',
+		assertEquals("Obtenida transici贸n incorrecta.", 'A',
 				mapaEstados.get('A', 'b'));
-		assertEquals("Obtenida transici髇 incorrecta.", 'A',
+		assertEquals("Obtenida transici贸n incorrecta.", 'A',
 				mapaEstados.get('B', 'a'));
-		assertEquals("Obtenida transici髇 incorrecta.", 'B',
+		assertEquals("Obtenida transici贸n incorrecta.", 'B',
 				mapaEstados.get('B', 'b'));
 	}
 

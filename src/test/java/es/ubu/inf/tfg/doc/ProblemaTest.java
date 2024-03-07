@@ -10,7 +10,7 @@ import es.ubu.inf.tfg.regex.thompson.ConstruccionSubconjuntos;
 public class ProblemaTest {
 	
 	/**
-	 * Comprueba que los problemas de tipo Aho-Sethi-Ullman subtipo construcci髇 se
+	 * Comprueba que los problemas de tipo Aho-Sethi-Ullman subtipo construcci贸n se
 	 * crean correctamente.
 	 */
 	@Test
@@ -18,8 +18,8 @@ public class ProblemaTest {
 		AhoSethiUllman asu = new AhoSethiUllman("a*");
 		Problema<AhoSethiUllman> problema = Problema.asuConstruccion(asu, 1);
 		
-		assertEquals("Error recuperando problema original tipo AhoSethiUllman subtipo construcci髇",  asu, problema.getProblema());
-		assertEquals("Error identificando problema tipo AhoSethiUllman subtipo construcci髇", "AhoSethiUllmanConstruccion", problema.getTipo());
+		assertEquals("Error recuperando problema original tipo AhoSethiUllman subtipo construcci贸n",  asu, problema.getProblema());
+		assertEquals("Error identificando problema tipo AhoSethiUllman subtipo construcci贸n", "AhoSethiUllmanConstruccion", problema.getTipo());
 	}
 	
 	/**
@@ -49,41 +49,41 @@ public class ProblemaTest {
 	}
 	
 	/**
-	 * Comprueba que los problemas de tipo construcci髇 de subconjuntos subtipo
-	 * construcci髇 se crean correctamente.
+	 * Comprueba que los problemas de tipo construcci贸n de subconjuntos subtipo
+	 * construcci贸n se crean correctamente.
 	 */
 	@Test
-	public void testCSConstrucci髇() {
+	public void testCSConstrucci贸n() {
 		ConstruccionSubconjuntos cs = new ConstruccionSubconjuntos("a*");
 		Problema<ConstruccionSubconjuntos> problema = Problema.CSConstruccion(cs, 1);
 		
-		assertEquals("Error recuperando problema original tipo ConstruccionSubconjuntos subtipo construcci髇",  cs, problema.getProblema());
-		assertEquals("Error identificando problema tipo ConstruccionSubconjuntos subtipo construcci髇", "ConstruccionSubconjuntosConstruccion", problema.getTipo());
+		assertEquals("Error recuperando problema original tipo ConstruccionSubconjuntos subtipo construcci贸n",  cs, problema.getProblema());
+		assertEquals("Error identificando problema tipo ConstruccionSubconjuntos subtipo construcci贸n", "ConstruccionSubconjuntosConstruccion", problema.getTipo());
 	}
 
 	/**
-	 * Comprueba que los problemas de tipo construcci髇 de subconjuntos subtipo
-	 * expresi髇 se crean correctamente.
+	 * Comprueba que los problemas de tipo construcci贸n de subconjuntos subtipo
+	 * expresi贸n se crean correctamente.
 	 */
 	@Test
 	public void testCSExpresion() {
 		ConstruccionSubconjuntos cs = new ConstruccionSubconjuntos("a*");
 		Problema<ConstruccionSubconjuntos> problema = Problema.CSExpresion(cs, 1);
 		
-		assertEquals("Error recuperando problema original tipo ConstruccionSubconjuntos subtipo expresi髇",  cs, problema.getProblema());
-		assertEquals("Error identificando problema tipo ConstruccionSubconjuntos subtipo expresi髇", "ConstruccionSubconjuntosExpresion", problema.getTipo());
+		assertEquals("Error recuperando problema original tipo ConstruccionSubconjuntos subtipo expresi贸n",  cs, problema.getProblema());
+		assertEquals("Error identificando problema tipo ConstruccionSubconjuntos subtipo expresi贸n", "ConstruccionSubconjuntosExpresion", problema.getTipo());
 	}
 
 	/**
-	 * Comprueba que los problemas de tipo construcci髇 de subconjuntos subtipo
-	 * aut髆ata se crean correctamente.
+	 * Comprueba que los problemas de tipo construcci贸n de subconjuntos subtipo
+	 * aut贸mata se crean correctamente.
 	 */
 	@Test
 	public void testCSAutomata() {
 		ConstruccionSubconjuntos cs = new ConstruccionSubconjuntos("a*");
 		Problema<ConstruccionSubconjuntos> problema = Problema.CSAutomata(cs, 1);
 		
-		assertEquals("Error recuperando problema original tipo ConstruccionSubconjuntos subtipo aut髆ata",  cs, problema.getProblema());
-		assertEquals("Error identificando problema tipo ConstruccionSubconjuntos subtipo aut髆ata", "ConstruccionSubconjuntosAutomata", problema.getTipo());
+		assertEquals("Error recuperando problema original tipo ConstruccionSubconjuntos subtipo aut贸mata",  cs, problema.getProblema());
+		assertEquals("Error identificando problema tipo ConstruccionSubconjuntos subtipo aut贸mata", "ConstruccionSubconjuntosAutomata", problema.getTipo());
 	}
 }

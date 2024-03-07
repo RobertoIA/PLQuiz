@@ -16,12 +16,12 @@ import es.ubu.inf.tfg.regex.datos.Generador;
 
 /**
  * ConstruccionSubconjuntosGenerador implementa una clase encargada de generar
- * problemas de tipo construcción de subconjuntos con los parámetros
- * especificados, siguiendo un algoritmo de búsqueda aleatoria.
+ * problemas de tipo construcciÃ³n de subconjuntos con los parÃ¡metros
+ * especificados, siguiendo un algoritmo de bÃºsqueda aleatoria.
  * <p>
  * El generador no garantiza que los resultados se adapten perfectamente a los
- * parámetros de entrada, pero intenta que los resultados difieran como mucho en
- * uno de uno solo de los parámetros pedidos.
+ * parÃ¡metros de entrada, pero intenta que los resultados difieran como mucho en
+ * uno de uno solo de los parÃ¡metros pedidos.
  * 
  * @author Roberto Izquierdo Amo
  * 
@@ -45,25 +45,25 @@ public class ConstruccionSubconjuntosGenerador {
 	private AtomicBoolean cancelar = new AtomicBoolean();
 
 	/**
-	 * Genera un nuevo problema de tipo ConstruccionSubconjuntos. Intentará
-	 * acercarse lo más posible al número de símbolos y de estados especificado.
-	 * El algoritmo es capaz de variar la profundidad a la que busca en función
-	 * de los resultados que vaya obteniendo, entre ciertos márgenes.
+	 * Genera un nuevo problema de tipo ConstruccionSubconjuntos. IntentarÃ¡
+	 * acercarse lo mÃ¡s posible al nÃºmero de sÃ­mbolos y de estados especificado.
+	 * El algoritmo es capaz de variar la profundidad a la que busca en funciÃ³n
+	 * de los resultados que vaya obteniendo, entre ciertos mÃ¡rgenes.
 	 * 
 	 * @param nSimbolos
-	 *            Número de símbolos que se quiere que el problema utilice.
+	 *            NÃºmero de sÃ­mbolos que se quiere que el problema utilice.
 	 * @param nEstados
-	 *            Número de estados que se quiere que contenga la tabla de
-	 *            transición del problema.
+	 *            NÃºmero de estados que se quiere que contenga la tabla de
+	 *            transiciÃ³n del problema.
 	 * @param usaVacio
-	 *            Si queremos que el problema genere nodos vacíos. Su aparición
+	 *            Si queremos que el problema genere nodos vacÃ­os. Su apariciÃ³n
 	 *            no se garantiza.
 	 * @return Un nuevo problema de tipo ConstruccionSubconjuntos.
 	 */
 	public ConstruccionSubconjuntos nuevo(int nSimbolos, int nEstados,
 			boolean usaVacio) {
 		log.info(
-				"Generando problema de construcción de subconjuntos con {} símbolos y {} estados, vacíos = {}.",
+				"Generando problema de construcciÃ³n de subconjuntos con {} sÃ­mbolos y {} estados, vacÃ­os = {}.",
 				nSimbolos, nEstados, usaVacio);
 
 		List<ExpresionRegular> poblacion = new ArrayList<>();
@@ -79,7 +79,7 @@ public class ConstruccionSubconjuntosGenerador {
 		Comparator<ExpresionRegular> evalua = Comparator.comparing(e -> evalua(
 				new ConstruccionSubconjuntos(e), nEstados, nSimbolos));
 
-		// inicializa población
+		// inicializa poblaciÃ³n
 		for (int i = 0; i < (ELITISMO + MUTACION + NUEVOS); i++) {
 			profundidad = random.nextInt(MAX_PROFUNDIDAD - MIN_PROFUNDIDAD)
 					+ MIN_PROFUNDIDAD;
@@ -128,25 +128,25 @@ public class ConstruccionSubconjuntosGenerador {
 		} while (candidatoEvalua != 0 && iteraciones < MAX_ITERACIONES
 				&& !cancelar.get());
 
-		log.info("Solución encontrada en {} iteraciones (fitness {}).", iteraciones,
+		log.info("SoluciÃ³n encontrada en {} iteraciones (fitness {}).", iteraciones,
 				candidatoEvalua);
 
 		return candidato;
 	}
 
 	/**
-	 * Evalúa un problema en función a como se adapta a los parámetros pedidos.
-	 * Tiene en cuenta tanto que el número de estados sea el pedido, como que
-	 * use todos los símbolos.
+	 * EvalÃºa un problema en funciÃ³n a como se adapta a los parÃ¡metros pedidos.
+	 * Tiene en cuenta tanto que el nÃºmero de estados sea el pedido, como que
+	 * use todos los sÃ­mbolos.
 	 * <p>
-	 * Cuanto más cerca este del número, más cerca esta el problema de la
-	 * solución.
+	 * Cuanto mÃ¡s cerca este del nÃºmero, mÃ¡s cerca esta el problema de la
+	 * soluciÃ³n.
 	 * 
 	 * @param problema
 	 *            Problema a evaluar.
 	 * @param nEstados
-	 *            Número de estados en el problema pedido.
-	 * @return Función de evaluación del problema.
+	 *            NÃºmero de estados en el problema pedido.
+	 * @return FunciÃ³n de evaluaciÃ³n del problema.
 	 */
 	private int evalua(ConstruccionSubconjuntos problema, int nEstados,
 			int nSimbolos) {
@@ -158,11 +158,11 @@ public class ConstruccionSubconjuntosGenerador {
 	}
 
 	/**
-	 * Cancela la generación del problema, devolviendo el resultado de la
-	 * iteración actual.
+	 * Cancela la generaciÃ³n del problema, devolviendo el resultado de la
+	 * iteraciÃ³n actual.
 	 */
 	public void cancelar() {
-		log.info("Cancelando generación de problema.");
+		log.info("Cancelando generaciÃ³n de problema.");
 		cancelar.compareAndSet(false, true);
 	}
 }

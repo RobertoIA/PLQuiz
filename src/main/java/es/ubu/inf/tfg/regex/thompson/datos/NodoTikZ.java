@@ -2,12 +2,12 @@ package es.ubu.inf.tfg.regex.thompson.datos;
 
 
 /**
- * Nodo implementa cada uno de los estados del aut髆ata finito no determinista
- * definido por una expresi髇 regular dada. Contiene referencias a su posici髇,
+ * Nodo implementa cada uno de los estados del aut贸mata finito no determinista
+ * definido por una expresi贸n regular dada. Contiene referencias a su posici贸n,
  * una serie de transiciones que no consumen entrada y una serie de transiciones
- * que consumen cada una un s韒bolo dado.
+ * que consumen cada una un s铆mbolo dado.
  * <p>
- * Implementa sus propios m閠odos <code>equals</code> y <code>compareTo</code>
+ * Implementa sus propios m茅todos <code>equals</code> y <code>compareTo</code>
  * para su uso dentro de sets ordenados.
  * 
  * @author Roberto Izquierdo Amo
@@ -27,11 +27,11 @@ public class NodoTikZ{
 	
 	
 	/**
-	 * Constructor. Define un nodo desconectado con la posici髇 dada y un estado
+	 * Constructor. Define un nodo desconectado con la posici贸n dada y un estado
 	 * final o no.
 	 * 
 	 * @param posicion
-	 *            Posici髇 del nodo.
+	 *            Posici贸n del nodo.
 	 * @param esFinal
 	 *            Si el nodo es final.
 	 */
