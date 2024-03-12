@@ -635,7 +635,7 @@ public class Automata {
 	}
 	
 	
-	private String tzDibuja(double x, double y, Automata tree, boolean omitFirst) {
+	private String tzDibuja(double x, double y, Automata tree, boolean omitFirst, double split_height) {
 		
 		String out = "";
 		
@@ -670,7 +670,7 @@ public class Automata {
 		} else if (tipo == "AST"){
 			
 			// ** Dibuja el hijo **
-	        out += tzDibuja(x+4*r,y+r,hijoI, false);
+	        out += tzDibuja(x+4*r,y+r,hijoI, false, split_height);
 	        
 	        // estado ini
 	        if (!omitFirst)
@@ -690,22 +690,22 @@ public class Automata {
 			
 		} else if (tipo == "SEL"){
 			
-			double auxY1 = hijoI.yNew;
+			double auxY1 = hijoI.yNew+hijoI.alto-2*r*split_height;
 			double auxX1 = hijoD.ancho-hijoI.ancho;
 			
 			auxX1 = (0 > auxX1) ? 0 : auxX1/2;
 			double deltaI = auxX1;
 			
-			double auxY2 = hijoD.yNew+hijoI.alto+2*r;
+			double auxY2 = hijoD.yNew+hijoI.alto+2*r*split_height;
 			double auxX2 = hijoI.ancho-hijoD.ancho;
 			
 			auxX2 = (0 > auxX2) ? 0 : auxX2/2;
 			double deltaD = auxX2;
 	        
 	        // ** Dibuja hijos **
-	        out += tzDibuja(x+3*r+deltaI,y+0,hijoI, false);
-	        out += tzDibuja(x+3*r+deltaD,y+hijoI.alto+2*r,hijoD, false);
-	        
+	        out += tzDibuja(x+3*r+deltaI,y+hijoI.alto-2*r*split_height,hijoI, false, split_height*0.5);
+	        out += tzDibuja(x+3*r+deltaD,y+hijoI.alto+2*r*split_height,hijoD, false, split_height*0.5);
+	        		
 	        // estado ini
 	        if (!omitFirst)
 	            out += tz_circle(x+r,y+yNew,startId);
@@ -728,10 +728,10 @@ public class Automata {
 		} else if (tipo == "CAT"){
 			double auxY1=yNew-hijoI.yNew;
 			double deltaI = (0 > auxY1) ? 0 : auxY1;
-	        out += tzDibuja(x+0,y+deltaI,hijoI,omitFirst);
+	        out += tzDibuja(x+0,y+deltaI,hijoI,omitFirst,split_height);
 	        double auxY2=yNew-hijoD.yNew;
 	        double deltaD = (0 > auxY2) ? 0 : auxY2;
-	        out += tzDibuja(x+ancho-hijoD.ancho,y+deltaD,hijoD,true);
+	        out += tzDibuja(x+ancho-hijoD.ancho,y+deltaD,hijoD,true,split_height);
 		} else {
 			return out;
 		}
@@ -740,11 +740,11 @@ public class Automata {
 		return out;
 	}
 	
-	private String tz_printAll(Automata tree) {		//TODO
+	private String tz_printAll(Automata tree) {		
 		
 		String out = "";
 		
-		String dibujo = tzDibuja(18,24,tree, false);
+		String dibujo = tzDibuja(18,24,tree, false, 2.25);
 		
 		double x = this.initialStateCoordinatesX;
 		double y = this.initialStateCoordinatesY;
