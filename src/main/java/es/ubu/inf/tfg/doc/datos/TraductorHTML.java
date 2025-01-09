@@ -88,12 +88,17 @@ public class TraductorHTML extends Traductor {
 		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.html"); //$NON-NLS-1$
 		String[] imagenes = new String[4];
 		List<BufferedImage> alternativas = problema.alternativas();
+		// CGO added this
+		BufferedImage solutionImage = alternativas.get(0);  // I need to get the solution before the shuffle
 		Collections.shuffle(alternativas);
-
+		
 		for (int i = 0; i < 4; i++)
 			imagenes[i] = "http:\\" + Math.abs(alternativas.get(i).hashCode()) + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
 
-		int index = alternativas.indexOf(problema.alternativas().get(0));
+		// CGO commented this
+		//int index = alternativas.indexOf(problema.alternativas().get(0)); // XXX after shuffling the solution was not the first one any more
+		// CGO added this
+		int index = alternativas.indexOf(solutionImage);
 		String solucion = "" + (char) ('a' + index); //$NON-NLS-1$
 
 		plantilla.set("expresion", problema.problema()); //$NON-NLS-1$
@@ -245,12 +250,17 @@ public class TraductorHTML extends Traductor {
 		
 		String[] imagenes = new String[4];
 		List<BufferedImage> alternativas = problema.alternativas();
+		// CGO added this
+		BufferedImage solutionImage = alternativas.get(0);
 		Collections.shuffle(alternativas);
 
 		for (int i = 0; i < 4; i++)
 			imagenes[i] = "http:\\" + Math.abs(alternativas.get(i).hashCode()) + ".jpg"; //$NON-NLS-1$ //$NON-NLS-2$
 
-		int index = alternativas.indexOf(problema.alternativas().get(0));
+		// CGO commented this
+		//int index = alternativas.indexOf(problema.alternativas().get(0)); // XXX after shuffling the solution was not the first one any more
+		// CGO added this
+		int index = alternativas.indexOf(solutionImage);
 		String solucion = "" + (char) ('a' + index); //$NON-NLS-1$
 
 		plantilla.set("expresion", problema.problema()); //$NON-NLS-1$
