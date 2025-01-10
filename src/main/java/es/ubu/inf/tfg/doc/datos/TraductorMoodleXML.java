@@ -725,7 +725,7 @@ public class TraductorMoodleXML extends Traductor {
 					} else if (length == 2) {
 						out.append(""+first+", "+last); //$NON-NLS-1$
 					} else {
-						out.append(""+first+"-"+last); //$NON-NLS-1$
+						out.append(""+first+"–"+last); //$NON-NLS-1$
 					}
 					last = first = (int) e;
 					length = 1;
@@ -737,7 +737,7 @@ public class TraductorMoodleXML extends Traductor {
 			} else if (length == 2) {
 				out.append(""+first+", "+last); //$NON-NLS-1$
 			} else {
-				out.append(""+first+"-"+last); //$NON-NLS-1$
+				out.append(""+first+"–"+last); //$NON-NLS-1$
 			}
 		}
 		return out.toString();
