@@ -96,6 +96,8 @@ public class TraductorMoodleXML extends Traductor {
 		Plantilla plantilla = new Plantilla("plantillaASUConstruccion.xml"); //$NON-NLS-1$
 		String[] imagenes = new String[4];
 		List<BufferedImage> alternativas = problema.alternativas();
+		// CGO added this
+		BufferedImage solutionImage = alternativas.get(0);  // I need to get the solution before the shuffle
 		Collections.shuffle(alternativas);
 		String[] alternativasBase64 = new String[4];
 
@@ -103,9 +105,13 @@ public class TraductorMoodleXML extends Traductor {
 			imagenes[i] = Math.abs(alternativas.get(i).hashCode()) + ".jpg"; //$NON-NLS-1$
 			alternativasBase64[i] = imageToBase64(alternativas.get(i));
 		}
+		
+		// CGO commented this
+		//int index = alternativas.indexOf(problema.alternativas().get(0)); // XXX after shuffling the solution was not the first one any more
+		// CGO added this
+		int index = alternativas.indexOf(solutionImage);
+		char solucion = (char) ('a' + index); //$NON-NLS-1$
 
-		char solucion = (char) ('a' + alternativas.indexOf(problema
-				.alternativas().get(0)));
 		Set<Character> opciones = new HashSet<>();
 		opciones.add('a');
 		opciones.add('b');
@@ -266,6 +272,8 @@ public class TraductorMoodleXML extends Traductor {
 
 		String[] imagenes = new String[4];
 		List<BufferedImage> alternativas = problema.alternativas();
+		// CGO added this
+		BufferedImage solutionImage = alternativas.get(0);  // I need to get the solution before the shuffle
 		Collections.shuffle(alternativas);
 		String[] alternativasBase64 = new String[4];
 
@@ -274,8 +282,11 @@ public class TraductorMoodleXML extends Traductor {
 			alternativasBase64[i] = imageToBase64(alternativas.get(i));
 		}
 
-		char solucion = (char) ('a' + alternativas.indexOf(problema
-				.alternativas().get(0)));
+		// CGO commented this
+		//char solucion = (char) ('a' + alternativas.indexOf(problema.alternativas().get(0))); // XXX after shuffling the solution was not the first one any more
+		// CGO added these two lines
+		int index = alternativas.indexOf(solutionImage);
+		char solucion = (char) ('a' + index);
 		Set<Character> opciones = new HashSet<>();
 		opciones.add('a');
 		opciones.add('b');

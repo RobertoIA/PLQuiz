@@ -457,12 +457,12 @@ public class AhoSethiUllman {
 	
 	
 	/**
-	 * Genera un set de alternativas para una expresión regular, incluyendo la
-	 * original y tres otras.
+	 * Genera una LISTA de alternativas para una expresión regular, incluyendo la
+	 * original EN PRIMERA POSICIÓN y otras tres más.
 	 * 
-	 * @return Set completo de alternativas.
+	 * @return LIST completo de alternativas. // antes era un SET
 	 */
-	public Set<ExpresionRegular> expresionesAlternativas() {
+	public List<ExpresionRegular> expresionesAlternativas() {
 		log.info("Generando imágenes alternativas");
 
 		int nSimbolos = simbolos().size();
@@ -471,15 +471,22 @@ public class AhoSethiUllman {
 			nSimbolos--;
 		Generador generador = new Generador(nSimbolos, usaVacio, true);
 
-		Set<ExpresionRegular> expresiones = new HashSet<>();
-		expresiones.add(expresion);
+		// CGO commented this
+		//Set<ExpresionRegular> expresiones = new HashSet<>();
+		// CGO added this line
+		List<ExpresionRegular> expresiones = new ArrayList<>();
+		expresiones.add(expresion); 
 		ExpresionRegular alternativa;
 		while (expresiones.size() < 4) {
 			alternativa = generador.mutacion(expresion);
-			log.debug("Generada expresión alternativa {}", alternativa);
-			expresiones.add(alternativa);
+			// CGO added the following 4 lines
+			// Comprobar que la alternativa no esté ya en el ArrayList antes de añadirla
+			if (!expresiones.contains(alternativa)) {
+				log.debug("Generada expresión alternativa {}", alternativa);
+				expresiones.add(alternativa);
+			}
 		}
-		
+
 		return expresiones;
 	}
 }
