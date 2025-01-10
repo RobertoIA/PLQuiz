@@ -33,6 +33,38 @@ public class TraductorMoodleXML extends Traductor {
 			.getLogger(TraductorMoodleXML.class);
 	private static final Random random = new Random(new Date().getTime());
 
+
+	// Método privado que mezcla las opciones de respuesta
+	private String shuffleChoices(String question) {
+		// Encuentra la segunda ocurrencia de ":"
+		int firstColonIndex = question.indexOf(":"); //$NON-NLS-1$ 
+		int secondColonIndex = question.indexOf(":", firstColonIndex + 1); //$NON-NLS-1$ 
+		int suffixStart = question.lastIndexOf("}"); //$NON-NLS-1$ 
+
+		if (firstColonIndex == -1 || secondColonIndex == -1 || suffixStart == -1 || secondColonIndex >= suffixStart) {
+			throw new IllegalArgumentException("El formato de la pregunta no es válido."); //$NON-NLS-1$ 
+		}
+
+		// Separa el prefijo, las opciones y el sufijo
+		String prefix = question.substring(0, secondColonIndex + 1); // Incluye el segundo ':'
+		String optionsPart = question.substring(secondColonIndex + 1, suffixStart);
+		String suffix = question.substring(suffixStart); // Incluye el '}'
+
+		// Divide las opciones por "~"
+		String[] options = optionsPart.split("~"); //$NON-NLS-1$ 
+
+		// Usa una lista para mezclar las opciones
+		List<String> optionsList = new ArrayList<>();
+		Collections.addAll(optionsList, options);
+
+		// Mezcla las opciones
+		Collections.shuffle(optionsList);
+
+		// Reconstruye la pregunta
+		String shuffledOptions = String.join("~", optionsList); //$NON-NLS-1$ 
+		return prefix + shuffledOptions + suffix;
+	}
+
 	/**
 	 * Genera un documento en formato Moodle XML a partir de una lista de
 	 * problemas ya traducidos.
@@ -483,7 +515,8 @@ public class TraductorMoodleXML extends Traductor {
 		}
 
 		opciones.append("}"); //$NON-NLS-1$
-		return opciones.toString();
+
+		return shuffleChoices(opciones.toString());
 	}
 
 	/**
@@ -541,7 +574,8 @@ public class TraductorMoodleXML extends Traductor {
 		opciones.append("~" + listToString(complementarios)); //$NON-NLS-1$ 
 
 		opciones.append("}"); //$NON-NLS-1$
-		return opciones.toString();
+
+		return shuffleChoices(opciones.toString());
 	}
 
 	/**
@@ -599,13 +633,14 @@ public class TraductorMoodleXML extends Traductor {
 		opciones.append("~" + listToRanges(complementarios)); //$NON-NLS-1$
 
 		opciones.append("}"); //$NON-NLS-1$
-		return opciones.toString();
+
+		return shuffleChoices(opciones.toString());
 	}
 
 	/**
 	 * Genera opciones para decidir si un nodo es anulable o no (Si/No),
-	 * recibiendo la opción correcta como parÃ¡metro booleano (<code>true</code>
-	 * para sÃ­, <code>false</code> para no).
+	 * recibiendo la opción correcta como parámetro booleano (<code>true</code>
+	 * para sí, <code>false</code> para no).
 	 * 
 	 * @param esAnulable
 	 *            Opción correcta.
@@ -622,7 +657,7 @@ public class TraductorMoodleXML extends Traductor {
 		opciones.append((esAnulable ? "No" : Messages.getString("TraductorMoodle.yes"))); //$NON-NLS-1$
 		opciones.append("}"); //$NON-NLS-1$
 
-		return opciones.toString();
+		return shuffleChoices(opciones.toString());
 	}
 
 	/**
